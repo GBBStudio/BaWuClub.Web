@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "活动-";
+}
+@model IEnumerable<BaWuClub.Web.Dal.ViewActivity>
+<link href="~/content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div class="container-left fleft">
+        <div id="hot-activity">
+            <ul class="bxslider">
+                @{
+                    var banners = ViewBag.HotActivityBanners as IEnumerable<BaWuClub.Web.Dal.ViewBanner>;
+                    if (banners != null){
+                        foreach (var banner in banners){
+                            <li><a href="@(banner.Url.Length>0?banner.Url:"#")"><img src="~/uploads/banner/@banner.Pic" /></a></li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <div class="activity-wrap">
+            <div class="activity-wrap-title"></div>
+            <ul class="activity-wrap-list">
+                @{
+                    foreach (var ViewActivity in Model)
+                    {
+                        <li>
+                            <div class="activity-cover fleft">
+                                <img src="~/Uploads/activity/@ViewActivity.Cover" alt="" />
+                            </div>
+                            <div class="activity-info fright">
+                                <h4><a href="/activity/show/@ViewActivity.Id">@ViewActivity.Title</a></h4>
+                                <p><span>地点：@ViewActivity.Name,@ViewActivity.Address</span></p>
+                                <p><span>时间：@ViewActivity.StartDate-@ViewActivity.EndDate</span></p>
+                                <p><span>费用：@ViewActivity.Cost</span></p>
+                                <p><span>主办方：@ViewActivity.Sponsor</span></p>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        <div class="activity-right-banner">
+            @{
+                if (ViewBag.BannerActivityLeft != null)
+                {
+                    var banner = ViewBag.BannerActivityLeft;
+                    <a href="@(banner.Url.Length>0?banner.Url:"#")"><img src="~/uploads/banner/@banner.Pic" /></a>
+                }
+            }
+        </div>
+        <div class="activity-right-history">
+            <div class="activity-history-title">
+                <span>历史活动</span>
+            </div>
+            <ul>
+                @{
+                    if (ViewBag.ActivityHistory != null) {
+                        var activities = ViewBag.ActivityHistory as IEnumerable<BaWuClub.Web.Dal.ViewActivity>;
+                        foreach (var item in activities) {
+                            var address = item.Address.Length > 24 ? item.Address.Substring(0, 23) : item.Address;
+                            <li>
+                                <div class="activity-history-item">
+                                    <div class="activity-history-item-title">
+                                        <a href="/activity/show/@item.Id">@item.Title</a>
+                                    </div>
+                                    <div class="activity-history-item-date">
+                                        时间:@item.StartDate-@item.EndDate
+                                    </div>
+                                    <div class="activity-history-item-add">
+                                        地点:@address
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <div class="activity-right-contact">
+            <div></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/content/bxslider/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".bxslider").bxSlider({
+            controls: false
+        });
+    })
+</script>

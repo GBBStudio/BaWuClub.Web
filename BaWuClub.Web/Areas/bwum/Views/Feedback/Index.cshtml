@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.Feedback>
+
+<div class="comm-btns">
+    <h2>意见反馈管理</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn2" href="#" data-url="/feedback/del">删除</a>
+    </div>
+</div>
+
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>用户</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (BaWuClub.Web.Dal.Feedback u in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="chk" value="@u.Id" /></td>
+                            <td>@u.Id</td>
+                            <td>@u.Name</td>
+                            <td><a href="#/feedback/show/@u.Id">查看</a><a onclick="ajaxdelete('/feedback/del/',@u.Id)">删除</a></td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

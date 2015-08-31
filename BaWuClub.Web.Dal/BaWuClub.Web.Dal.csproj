@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B14077D6-D3ED-48F8-B0F8-55D403102782}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BaWuClub.Web.Dal</RootNamespace>
+    <AssemblyName>BaWuClub.Web.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActivityOrder.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminAccount.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminType.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Answer.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnswerVote.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Area.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Article.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticleReview.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticleTag.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Banner.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BannerType.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClubConst.cs" />
+    <Compile Include="ClubModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClubModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClubModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClubModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClubModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Setting.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemArticle.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tag.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TagMap.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Topic.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TopicCategory.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TopicIndex.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TopicReview.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewActivity.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAnswer.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewArticle.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewArticleReview.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBanner.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewQuestion.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTopicCategory.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="ClubModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClubModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ClubModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClubModel.edmx</DependentUpon>
+      <LastGenOutput>ClubModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="ClubModel.edmx.diagram">
+      <DependentUpon>ClubModel.edmx</DependentUpon>
+    </None>
+    <None Include="ClubModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClubModel.edmx</DependentUpon>
+      <LastGenOutput>ClubModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

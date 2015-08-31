@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "问答列表-";
+}
+@model IEnumerable<BaWuClub.Web.Dal.ViewQuestion>
+<div class="container">
+    <div class="container-left fleft">
+        <div class="question-wrap">
+            <div class="question-wrap-title"></div>
+            <ul class="question-wrap-list">
+                @{
+                    foreach (var viewQuestion in Model)
+                    {
+                        <li>
+                            <div class="cover-wrap fleft">
+                                <a href="/member/u-@viewQuestion.UserId/show">
+                                    @{
+                                        var cover = "/content/images/no-img.jpg";
+                                        var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(viewQuestion.VarDate ?? DateTime.Now);
+                                        if (!string.IsNullOrEmpty(viewQuestion.Cover)){
+                                            cover = "/uploads/avatar/small/"+viewQuestion.Cover;
+                                        }
+                                    }
+                                    <img src="@cover" alt="头像" />
+                                </a>
+                            </div>
+                            <div class="question-detail">
+                                <p class="q-detail-top"><a href="/member/u-@viewQuestion.UserId/show">@viewQuestion.NickName</a><span>@time</span></p>
+                                <h3><a href="/ask/show/@viewQuestion.Id">@viewQuestion.Title</a></h3>
+                                <p class="q-detail-desc">@viewQuestion.Description</p>
+                                <p class="q-detail-tag" style="display:none">Tags:<a href="">技术</a></p>
+                            </div>
+                            <div class="ask-other">
+                                <p><span></span></p>
+                                <p><span></span></p>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        <div class="faqs-wrap module">
+            <div class="module-title">
+                <i class="icon-item"></i><a href="/download">最热门的问答</a>
+            </div>
+            <div class="module-list">
+                <ul>
+                    <li><a href="#">阿里当选W3C董事会成员 中国互联网</a></li>
+                    <li><a href="#">阿里当选W3C董事会成员 中国互联网</a></li>
+                    <li><a href="#">阿里当选W3C董事会成员 中国互联网</a></li>
+                    <li><a href="#">阿里当选W3C董事会成员 中国互联网</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

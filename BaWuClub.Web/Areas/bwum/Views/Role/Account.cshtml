@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.AdminAccount>
+<div class="comm-btns">
+    <h2>管理员账号管理</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="comm-btn1 btn-general" href="#/role/accountcreate">创建</a>
+        <a class="btn comm-btn2" href="#" data-url="/role/accountdel">删除</a>
+    </div>
+</div>
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td width="40px;"><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td width="40px;">Id</td>
+                <td>用户名</td>
+                <td>真实姓名</td>
+                <td>上次登录IP</td>
+                <td>上次登录时间</td>
+                <td>发布时间</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (BaWuClub.Web.Dal.AdminAccount u in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="chk" value="@u.Id" /></td>
+                        <td>@u.Id</td>
+                        <td>@u.UserName</td>
+                        <td>@u.RealName</td>
+                        <td>@u.LastLoginIP</td>
+                        <td>@u.LastLoginDate</td>
+                        <td>@u.VarDate</td>
+                        <td><a href="#/role/account/@u.Id">详细</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

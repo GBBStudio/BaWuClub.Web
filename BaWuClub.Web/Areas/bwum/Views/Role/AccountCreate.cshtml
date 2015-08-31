@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.AdminAccount
+<div class="comm-btns">
+    <h2>用户账号创建</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/role/">返回管理员账号列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    <form method="post" name="frame" action="/role/accountcreate">
+        <p>
+            <span>用户名称：</span>
+            <input name="username" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>输入密码：</span>
+            <input name="password" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>确认密码：</span>
+            <input name="password" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>账户类型：</span>
+            <select class="input-text"></select>
+        </p>
+        <p>
+            <span>真实姓名：</span>
+            <input name="realname" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>电话号码：</span>
+            <input name="phone" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>用户邮箱</span>
+            <input name="email" value="" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.SystemArticle
+
+<div class="comm-btns">
+    <h2>文章系统编辑</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/sarticle/index">返回列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/sarticle/create";
+        string _inputStr = string.Empty;
+        if (!string.IsNullOrEmpty(Model.Id.ToString()) && Model.Id > 0)
+        {
+            _actionStr = "/bwum/sarticle/edit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span style="display:block">标题：</span>
+            <input name="title" value="@Model.Title" type="text" class="input-text input-long" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span style="display:block">变量：</span>
+            <input name="variables" value="@Model.Variables" type="text" class="input-text input-long" />
+        </p>
+        <div style="width:85%">
+            <span>内容：</span>
+            <textarea name="context" class="input-text" id="container-editor" style="height:150px;width:500px">@Model.Text </textarea>
+        </div>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>
+<script type="text/javascript" src="~/content/ckeditor-full/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('container-editor');
+</script>

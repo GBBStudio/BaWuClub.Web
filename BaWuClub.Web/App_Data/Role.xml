@@ -1,0 +1,59 @@
+<root>
+	<operates>
+		<operate name="刷新"  value="0" url=""/>
+		<operate name="创建"  value="1" url="/create"/>
+		<operate name="删除"  value="2" url="/multdel"/>
+		<operate name="显示"  value="3" url=""/>
+		<operate name="不显示"  value="4" url=""/>
+		<operate name="审核通过"  value="5" url=""/>
+		<operate name="审核不通过"  value="6" url=""/>
+		<operate name="解禁"  value="7" url=""/>
+		<operate name="禁用"  value="8" url=""/>
+	</operates>
+	<menus>
+		<menu name="常规管理" value="1">
+			<submenu name="问答中心" value="1">
+				<item name="问题管理" url="#/question" operates="0,2" value="1"/>
+				<item name="答案管理" url="#/answer" operates="0,2" value="2"/>
+			</submenu>
+			<submenu name="投稿管理"  value="2">
+				<item name="投稿管理" url="#/contribute"  operates="0,2,5,6" value="3"/>
+				<item name="标签管理" url="#/tags"  operates="0,2" value="4"/>
+			</submenu>
+			<submenu name="广告管理" value="3">
+				<item name="广告管理" url="#/banner"  operates="0,1,2,3,4" value="5"/>
+				<item name="广告分类管理" url="#/bannertypeindex"  operates="0,1" value="6"/>
+			</submenu>
+			<submenu name="活动管理" value="4">
+				<item name="活动管理" url="#/activity"  operates="0,1,2" value="7"/>
+				<item name="地区管理" url="#/area"  operates="0,1,2" value="8"/>
+			</submenu>
+			<submenu name="用户账号管理" value="5">
+				<item name="用户管理" url="#/user"  operates="0,2,7,8" value="9"/>
+			</submenu>
+			<submenu name="举报、反馈中心" value="6">
+				<item name="举报" url="#/report"  operates="0,2" value="10"/>
+				<item name="反馈" url="#/feedback"  operates="0,2" value="11"/>
+			</submenu>
+		</menu>
+		<menu name="论坛管理" value="2">	
+			<submenu name="讨论区" value="1">
+				<item name="讨论区模块管理" url="#/discuss"  operates="0,2" value="12"/>
+				<item name="讨论区帖子" url="#/topics/discuss"  operates="0,2" value="13"/>
+			</submenu>
+			<submenu name="功能区" value="2">
+				<item name="功能区模块管理" url="#/discuss"  operates="0,2"  value="14"/>
+				<item name="讨论区帖子" url="#/topics/discuss" operates="0,2" value="15"/>
+			</submenu>
+			<submenu name="区域圈子" value="3">
+				<item name="区域圈子帖子" url="#/discuss/area" operates="0,2" value="16"/>
+			</submenu>	
+		</menu>
+		<menu name="其他管理" value="3">	
+			<submenu name="后台用户管理" value="1">
+				<item name="后台用户管理" url="#/discuss"  operates="0,2" value="17"/>
+				<item name="后台权限管理" url="#/topics/discuss"  operates="0,2" value="18"/>
+			</submenu>
+		</menu>
+	</menus>
+</root>

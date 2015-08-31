@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="cn-zh">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    @Styles.Render("~/Content/css/basestyle.css")
+    @Styles.Render("~/Content/css/fontstyle.css")
+    @Styles.Render("~/Content/css/style.css")
+    @Scripts.Render("~/Content/scripts/jquery.js")
+    @Scripts.Render("~/Content/scripts/layout.js")
+</head>
+<body>
+    <div id="top-wrap">
+        <div class="top-left">
+            <a href="" title="网站首页" class="top-logo top-selected iconfont">
+                <img src="~/Content/Images/logo-1.png" />
+            </a>
+            <a href="#/um/main" title="管理首页" class="iconfont icon-shouye"></a>
+        </div>
+        <div class="top-right">
+            <form>
+                <input class="search" type="text" />
+                <span class="search-btn"></span>
+            </form>
+            <a title="help" href="#/help" class="iconfont icon-bangzhu"></a>
+            <a href="#/userprofile">wesen</a>
+            <span title="setting" class="iconfont icon-shezhi" id="setting">
+                <div class="setting-wrap">
+                    <a href="#/setting">基本信息设置</a>
+                    <a href="#/setting/other">其他信息设置</a>
+                    <a href="#/role/">管理权限设置</a>
+                    <a href="#/level/">管理分类设置</a>
+                    <a href="#/sarticle/">系统文章管理</a>
+                    <a href="#/forum/">论坛模块管理</a>
+                </div>
+            </span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $("#setting").hover(function () {
+            $(".setting-wrap").show();
+        }, function () {
+            $(".setting-wrap").hide();
+        });
+    </script>
+    <div id="bottom-wrap">
+        <div id="nav-wrap">
+            <ul>
+                <li><h3>常规管理</h3></li>
+                <li>
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>问答中心</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/question"><i class="iconfont icon-bangzhu1"></i><span>问题管理</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/answer"><i class="iconfont icon-bangzhu1"></i><span>答案管理</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>投稿</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/contribute"><i class="iconfont icon-wenjian"></i><span>投稿管理</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/tag"><i class="iconfont icon-biaoqian"></i><span>标签管理</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>广告管理</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/banner"><i class="iconfont icon-tupian"></i><span>广告管理</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/banner/bannertypeindex"><i class="iconfont icon-tupian"></i><span>广告分类管理</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>活动管理</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/activity"><i class="iconfont icon-tupian"></i><span>活动管理</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/area"><i class="iconfont icon-tupian"></i><span>区域管理</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>用户账号中心</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/user"><i class="iconfont icon-shangjiaqun"></i><span>用户管理</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>举报、反馈中心</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/report"><i class="iconfont icon-heimingdan"></i><span>最新举报</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/feedback"><i class="iconfont icon-heimingdan"></i><span>最新反馈</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><h3>论坛管理</h3></li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>讨论区</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/discuss"><i class="iconfont icon-heimingdan"></i><span>讨论区模块分类</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/feedback"><i class="iconfont icon-heimingdan"></i><span>讨论区帖子</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>功能区</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/report"><i class="iconfont icon-heimingdan"></i><span>功能区模块</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/feedback"><i class="iconfont icon-heimingdan"></i><span>功能去帖子</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li onclick="setFrameDocument()">
+                    <span class="menu-s-title"><i class="iconfont icon-xiangshang">&nbsp;</i>区域圈子</span>
+                    <div class="menu-s-wrap">
+                        <ul>
+                            <li onclick="setFrameDocument()"><a href="#/report"><i class="iconfont icon-heimingdan"></i><span>圈子申请</span></a></li>
+                            <li onclick="setFrameDocument()"><a href="#/report"><i class="iconfont icon-heimingdan"></i><span>圈子帖子</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="content-wrap">
+            <iframe id="frame" src="/um/loading" name="frame">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>

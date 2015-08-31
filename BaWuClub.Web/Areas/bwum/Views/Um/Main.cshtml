@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Areas/bwum/Views/Shared/_layout.cshtml";
+}
+
+<div id="layout-wrap">
+    <div class="views-wrap">
+        <div id="chart-container" class="fleft"></div>
+        <div class="views-text">
+            <p><span>今日浏览量：</span>@ViewBag.TodayView</p>
+            <p><span class="border2">总浏览量：</span>@ViewBag.CountView</p>
+        </div>
+    </div>
+</div>
+<div style="color:#999;font-size:10px;position:absolute;bottom:60px;padding-left:50px;">
+  &copy; www.bawu.com Core: ASP.NET MVC 4.0  Coder:<a href="wesen@gbbweb.cn" target="_blank">WESEN</a>
+</div>
+<script type="text/javascript" src="~/Content/Scripts/highcharts.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#chart-container').highcharts({
+            title: {
+                text: 'BaWu电商网7日浏览量',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: www.xiakexing.cn',
+                x: -20
+            },
+            xAxis: {
+                categories: [@ViewBag.Categories]
+            },
+            yAxis: {
+                title: {
+                    text: '浏览的次数'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '次'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '浏览的次数',
+                data: [@ViewBag.Series]
+            }]
+        });
+    });
+</script>

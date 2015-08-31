@@ -1,0 +1,161 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Common.Role
+@{
+    var operateDic = ViewBag.OperatesDic as Dictionary<string, string>;
+}
+<style>
+    #input-wrap{padding-left:0px;}
+    .menu-level-wrap{width:45%;float:left;margin-right:2%;box-shadow:2px 2px 2px #999;padding:5px;border:1px solid #999;margin-bottom:10px;}
+    .level-wrap {width:70%;float:right}
+    .level-wrap  strong{display:block;font-size:14px;margin:5px 0;font-weight:normal}
+    .level-wrap h2{font-size:16px;}
+    .level-wrap input[type=checkbox]{margin-left:20px;}
+    .menu-o{border-bottom:1px solid #999;overflow:hidden}
+    .menu-s ul li{clear:both;overflow:hidden}
+    .m-item{width:45%;float:left;margin:10px 0;}
+</style>
+<script type="text/javascript">
+    $(function () {
+        $(".menu-o span").click(function () {
+            var _this = $(this);
+            if (_this.hasClass("yincang")) {
+                _this.addClass("zhankai");
+                _this.removeClass("yincang")
+                _this.parent().next().hide();
+                _this.text("展开");
+            } else {
+                _this.addClass("yincang");
+                _this.removeClass("zhankai")
+                _this.parent().next().show();
+                _this.text("隐藏");
+            }
+        });
+    })
+</script>
+<div class="comm-btns">
+    <h2>会员权限等级编辑</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/level/index">返回会员权限等级列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+@{
+    var actionStr = "/bwum/level/create";
+    if (ViewBag.AdminType != null)
+    {
+        actionStr = "/bwum/level/edit";        
+    }
+}
+
+    <form method="post" name="frame" action="@actionStr">
+        <div class="level-wrap">
+            @{
+                if (Model.InitializeSuccess)
+                {
+                    foreach (var m in Model.Menus as IEnumerable<BaWuClub.Web.Common.Menu>)
+                    {
+                        <div class="menu-level-wrap">
+                            <div class="menu-o">
+                                <h2 style="float:left;width:70%">@m.Name</h2>
+                                <span style="float:right;display:block;width:9%;line-height:21px;cursor:pointer" class="yincang">隐藏</span>
+                            </div>
+                            <div class="menu-s">
+                                <ul>
+                                    @{
+                        foreach (var subMenu in m.SubMenus)
+                        {
+                            <li>
+                                @{
+                            foreach (var item in subMenu.Items)
+                            {
+                                <div class="m-item">
+                                    @{
+                                        <strong>@item.Name</strong>
+                                if (!string.IsNullOrEmpty(item.Operates))
+                                {
+                                    var operates = item.Operates.Split(',');
+                                    foreach (var operate in operates)
+                                    {
+                                        <input name="operate" type="checkbox" value="@operate" data-item-value="@item.Value" data-sub-menu="@subMenu.Value" data-menu="@m.Value" />
+                                        <span>@operateDic[operate]</span>
+                                    }
+                                }
+                                    }
+                                </div>
+                            }
+                                }
+                            </li>
+                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3>文件初始化错误，请联系管理员</h3>
+                }
+            }
+        </div>
+        <div style="float:left;width:30%">
+            <p style="clear:both;padding:10px 0;">
+                <span>权限名称：</span>
+                @{
+                    if (ViewBag.AdminType != null)
+                    {
+                        var at = ViewBag.AdminType as BaWuClub.Web.Dal.AdminType;
+                        <input name="name" class="input-text input-small" type="text" value="@at.Name" />
+                        <input name="role" type="hidden" value="@at.Role" class="roles" />
+                        <input name="id" type="hidden"  value="@at.Id"/>
+                    }
+                    else
+                    {
+                        <input name="name" class="input-text input-small" type="text" value="" />
+                        <input name="role" type="hidden" value="" class="roles" />
+                    }
+                }
+            </p>
+            <p style="clear:both; padding-top:15px;">
+                <input class="btn btn-confirm" type="submit" value="提交" />
+            </p>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var data = $(".roles").val();
+        //alert(data);
+        if (data&&data.length > 0) {
+            loadroles(data);
+        }
+        $(".menu-s li input[type='checkbox']").click(function () {
+            var _value = "[";
+            $(".menu-s li input[type='checkbox']").each(function () {
+                var menu = "menu:";
+                var submenu = "submenu:";
+                var item = "item:";
+                var operate = "operate:";
+                if ($(this).prop("checked")) {
+                    _value += "{" + "menu:" + $(this).attr("data-menu") + ",submenu:" + $(this).attr("data-sub-menu") + "," + item + $(this).attr("data-item-value") + "," + operate + $(this).attr("value") + "},"
+                }
+            });
+            if (_value.length > 1)
+                _value = _value.substring(0, _value.length - 1);
+            $(".roles").val(_value + "]");
+        });
+    })
+
+    function loadroles(data) {
+        var json = eval(data);
+        for (var i = 0; i < json.length; i++) {
+            $(".menu-s li input[type='checkbox']").each(function () {
+                var _this = $(this);
+                if (_this.attr("data-item-value") == json[i]["item"]&&_this.attr("value")==json[i]["operate"]) {
+                    _this.attr("checked",true)
+                }
+            });
+        }
+    }
+</script>

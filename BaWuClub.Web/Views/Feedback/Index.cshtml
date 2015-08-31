@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "意见反馈-";
+}
+<div id="main" class="container">
+    <div class="feedback-box">
+        <div class="crumbs-wrap">
+            <a href="/">首页</a>&raquo;<span>意见反馈</span>
+        </div>
+        <div class="feedback-wrap">
+            @{
+                if (ViewBag.ResponseStr != null) {
+                    <div class="feedback-resp">@Html.Raw(ViewBag.ResponseStr) 返回<a href="/">主页</a>，继续<a href="/feedback">反馈</a>。</div>
+                }
+                else {
+            <form method="post" name="form" action="/feedback/sub">
+                @Html.Raw(ViewBag.HitStr)
+                <p>
+                    <b>名称:</b><input name="name" type="text" value="" class="input-text" />
+                </p>
+                <p>
+                    <b>反馈:</b>
+                    <textarea name="context" class="input-textarea"></textarea>
+                </p>
+                <p class="feedback-btn">
+                    <input type="submit" value="提交" class="btn-sub" />
+                </p>
+            </form>
+                }
+            }
+        </div>
+    </div>
+</div>

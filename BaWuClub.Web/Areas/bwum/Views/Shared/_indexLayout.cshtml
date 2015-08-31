@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/css/basestyle.css")
+    @Styles.Render("~/Content/css/fontstyle.css")
+    @Styles.Render("~/Content/css/style.css")
+    @Scripts.Render("~/Content/scripts/jquery.js")
+    @Scripts.Render("~/Content/scripts/layout.js")
+</head>
+<body>
+    <div id="container">
+        @RenderBody()
+    </div>
+</body>
+</html>

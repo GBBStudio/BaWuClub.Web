@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Css/site.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <div class="header-left fleft">
+                <a href="/info/about"><i class="icon-bwds"></i>了解八五电商俱乐部</a>
+                <a href="/member/contribute"><i class="icon-sub"></i>我要投稿</a>
+            </div>
+            <div class="login-wrap fright">
+                @{
+                    if (Request.IsAuthenticated && Request.Cookies["bwusers"] != null && Request.Cookies["bwusers"]["user"] != null && Request.Cookies["bwusers"]["id"] != null)
+                    {
+                        <a href="/member/">@Request.Cookies["bwusers"]["user"].ToString()</a>
+                        <a href="/account/loginout">退出</a>
+                    }
+                    else
+                    {
+                        System.Web.Security.FormsAuthentication.SignOut();
+                        <a href="/account/login">登录</a>
+                        <a href="/account/register">注册</a>
+                    }
+                }
+                <span><a class="icon-rss" href="/rss" target="_blank"></a></span>
+            </div>
+        </div>
+    </div>
+    <div id="navigation">
+        <div class="container">
+            <div class="logo-wrap fleft">
+                <a href="/Home"><img src="~/content/images/logo.png" alt="logo" /></a>
+            </div>
+            <div class="navigation-wrap fleft">
+                <ul>
+                    <li><a href="/Home">首页</a></li>
+                    <li style="display:none"><a href="/Forum">论坛</a></li>
+                    <li><a href="/Column">专栏</a></li>
+                    <li><a href="/Ask">问答</a></li>
+                    <li><a href="/Home">活动</a></li>
+                    <li><a href="/Online">在线学习</a></li>
+                    <li><a href="/Download">下载</a></li>
+                    <li><a href="/Forum">电商圈</a></li>
+                </ul>
+            </div>
+            <div class="search-wrap fright">
+                <input name="search" value="" type="text" placeholder="搜索" />
+                <a class="icon1-sousuo fright">
+                    <input type="submit" value="" name="search" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="member-wrap">
+        @{
+            Html.RenderPartial("~/views/shared/_PartialMember.cshtml");
+        }  
+        @RenderBody()
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div class="footer-site fleft">
+                    <h3>网站相关</h3>
+                    <ul>
+                        <li><a href="/info/about">关于我们</a></li>
+                        <li><a href="/info/contact">联系我们</a></li>
+                        <li><a href="/info/help">使用帮助</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links fleft">
+                    <h3>合作伙伴</h3>
+                    <ul>
+                        <li><a href="http://xiakexing.cn">南京侠客行</a></li>
+                        <li><a href="http://iwshang.com">天下网商</a></li>
+                    </ul>
+                </div>
+                <div class="footer-client fright">
+                    <h3>移动APP下载</h3>
+                    <ul>
+                        <li><a href="#" class="icon1-pingguo"><span>IOS</span></a></li>
+                        <li><a href="#" class="icon1-anzhuo"><span>Android</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-follow fright">
+                    <h3>关注我们</h3>
+                    <ul>
+                        <li><a href="#" title="点我关注我！" class="icon1-xinlangweibo"><span>南京侠客行</span></a></li>
+                        <li><a href="#" title="点我关注我！" class="icon-weixin"><span>南京侠客行</span></a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-copy">
+                &copy;2013-2015八五电商俱乐部
+            </div>
+        </div>
+    </div>
+</body>
+@Html.Partial("_ReferenceJs")
+</html>

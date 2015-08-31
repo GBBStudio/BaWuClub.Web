@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewArticle
+
+<div class="comm-btns">
+    <h2>投稿预览</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/contribute/index">返回投稿列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    <h2 style="font-size:18px;margin-bottom:30px;">@Model.Title</h2>
+    <div style="font-size:12px;color:#333;">
+        @Html.Raw(Model.Context)
+    </div>
+</div>
+
