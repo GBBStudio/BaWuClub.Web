@@ -34,9 +34,9 @@
         <EntityTypeShape EntityType="ClubDBModel.TopicIndex" Width="1.5" PointX="10.125" PointY="10.375" />
         <EntityTypeShape EntityType="ClubDBModel.TopicReview" Width="1.5" PointX="0.75" PointY="11.125" />
         <EntityTypeShape EntityType="ClubDBModel.Topic" Width="1.5" PointX="2.75" PointY="11.125" />
-        <EntityTypeShape EntityType="ClubDBModel.ViewTopicCategory" Width="1.5" PointX="11.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ClubDBModel.AdminAccount" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ClubDBModel.AdminType" Width="1.5" PointX="13.375" PointY="4" />
+        <EntityTypeShape EntityType="ClubDBModel.ViewTopicCategory" Width="1.5" PointX="12.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ClubDBModel.AdminAccount" Width="1.5" PointX="13.875" PointY="0.75" />
+        <EntityTypeShape EntityType="ClubDBModel.AdminType" Width="1.5" PointX="14.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,6 +28,5 @@ namespace BaWuClub.Web.Dal
         public string FatherDescription { get; set; }
         public string FatherName { get; set; }
         public int FatherId { get; set; }
-        public string Icon { get; set; }
     }
 }

@@ -11,7 +11,6 @@
     <a href="/member/u-@user.Id/answers">回答</a>
     <a href="/member/u-@user.Id/certification">认证</a>
     <a href="/member/u-@user.Id/shared">共享</a>
-    <a href="/member/u-@user.Id/discuss">论坛</a>
 </div>
 @{    
     if (User.Identity.IsAuthenticated&&Request.Cookies["bwusers"]["id"].ToString().Equals(user.Id.ToString())){
