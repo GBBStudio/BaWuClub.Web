@@ -333,6 +333,35 @@ namespace BaWuClub.Web.Controllers
         }
         #endregion
 
+        #region 论坛
+        public ActionResult Discuss(int? uid) {
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club, uid);
+                if (user == null)
+                    return Redirect("/error/notfound");
+                ViewBag.User = user;
+            }
+            ViewBag.User = user;
+            return View("~/views/member/discuss.cshtml");
+        }
+
+        #endregion
+
+        #region 信息中心
+        public ActionResult Message(int? uid) {
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club, uid);
+                if (user == null)
+                    return Redirect("/error/notfound");
+                ViewBag.User = user;
+            }
+            ViewBag.User = user;
+            return View("~/views/member/message.cshtml");
+        }
+        #endregion
+
         [ChildActionOnly]
         public ActionResult MemberAvatarWrap(int? uid,string action) {
             int useId = uid ?? 0;
