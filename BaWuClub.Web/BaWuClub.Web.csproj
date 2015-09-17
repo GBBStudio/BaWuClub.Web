@@ -711,6 +711,8 @@
     <Content Include="Content\Css\rss.css" />
     <Content Include="Content\Css\style.css" />
     <Content Include="Content\Css\wdialog.css" />
+    <Content Include="Content\Fonts\category.css" />
+    <Content Include="Content\Fonts\category.svg" />
     <Content Include="Content\Fonts\font.svg" />
     <Content Include="Content\Fonts\icon.svg" />
     <Content Include="Content\Fonts\iconfont.svg" />
@@ -933,6 +935,9 @@
     <Content Include="Areas\bwum\Views\Role\AccountCreate.cshtml" />
     <Content Include="Areas\bwum\Views\Level\Index.cshtml" />
     <Content Include="Areas\bwum\Views\Level\Create.cshtml" />
+    <Content Include="Content\Fonts\category.eot" />
+    <Content Include="Content\Fonts\category.ttf" />
+    <Content Include="Content\Fonts\category.woff" />
     <None Include="Properties\PublishProfiles\bawuclub.pubxml" />
     <Content Include="Views\Column\Index.cshtml" />
     <Content Include="Views\Column\Show.cshtml" />
@@ -948,6 +953,8 @@
     <Content Include="Views\Online\Index.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Member\Shared.cshtml" />
+    <Content Include="Views\Member\Discuss.cshtml" />
+    <Content Include="Views\Member\Message.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

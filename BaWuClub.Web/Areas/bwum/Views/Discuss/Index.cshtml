@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+    ViewBag.CssAppend = "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 
 @model IEnumerable<BaWuClub.Web.Dal.ViewTopicCategory>
@@ -15,6 +16,7 @@
 <div id="notic-wrap">
     @Html.Raw(ViewBag.statusStr)
 </div>
+
 <form name="form" id="form" method="post">
     <table>
         <thead>
@@ -23,6 +25,7 @@
                 <td>Id</td>
                 <td>名称</td>
                 <td>变量</td>
+                <td>图标</td>
                 <td>更多操作</td>
             </tr>
         </thead>
@@ -32,11 +35,17 @@
                 {
                     foreach (BaWuClub.Web.Dal.ViewTopicCategory a in Model)
                     {
+                        string iconStr = string.Empty;
+                        if (!string.IsNullOrEmpty(a.Icon))
+                        {
+                            iconStr="<i class=\"font-category "+a.Icon+"\"></i>";
+                        }
                         <tr>
                             <td><input type="checkbox" name="chk" value="@a.Id" /></td>
                             <td>@a.Id</td>
                             <td>@a.Name</td>
                             <td>@a.Variable</td>
+                            <td>@Html.Raw(iconStr)</td>
                             <td><a href="#/discuss/edit/@a.Id">编辑</a></td>
                         </tr>
                     }

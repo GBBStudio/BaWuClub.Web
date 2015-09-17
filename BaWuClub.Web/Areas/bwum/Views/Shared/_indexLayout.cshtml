@@ -9,6 +9,7 @@
     @Styles.Render("~/Content/css/style.css")
     @Scripts.Render("~/Content/scripts/jquery.js")
     @Scripts.Render("~/Content/scripts/layout.js")
+    @Html.Raw(ViewBag.CssAppend)
 </head>
 <body>
     <div id="container">

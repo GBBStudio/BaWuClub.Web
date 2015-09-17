@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+    ViewBag.CssAppend = "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 @model BaWuClub.Web.Dal.TopicCategory
 <div class="comm-btns">
@@ -7,6 +8,7 @@
     <a class="btn-back iconfont icon-chexiao" href="#/discuss/index">返回讨论区分类列表</a>
 </div>
 @Html.Raw(ViewBag.StatusStr)
+
 <div id="input-wrap">
     @{
         string _actionStr = "/bwum/discuss/create";
@@ -32,11 +34,126 @@
             <textarea name="description" class="input-text input-long" style="height:150px;">@Model.Description</textarea>
         </p>
         <p>
-            <span>图片：</span>
-            <input name="cover" type="hidden" value=""/>
+            <span>图标：</span>
+            @{
+                var icon = Model.Icon;
+                if (!string.IsNullOrEmpty(icon))
+                {
+                    <i class="font-category @icon"></i>
+                }
+                else { 
+                    <a href="#" class="select-icon">选择分类的图标</a>
+                }
+            }
+            <input name="icon" type="hidden" value="@icon" id="icon"/>
         </p>
         <p>
             <input class="btn btn-confirm" type="submit" value="提交" />
         </p>
     </form>
 </div>
+<div class="icons-wrap">
+    <div class="icons-title"><span style="float:left;">分类图标</span>
+    <a title="关闭" style="border:1px solid #666;border-radius:50%;display:block;width:18px;height:18px;text-align:center;line-height:18px;cursor:pointer;float:right;" onclick="closeiconwarp()">X</a></div>
+    <ul>
+        <li>
+            <a class="font-category icon-chuangyejiaoliu" data-icon="icon-chuangyejiaoliu"></a>
+        </li>
+        <li>
+            <a class="font-category icon-dianshangfuwushang" data-icon="icon-dianshangfuwushang"></a>
+        </li>
+        <li>
+            <a class="font-category icon-dianshanghuodong" data-icon="icon-dianshanghuodong"></a>
+        </li>
+        <li>
+            <a class="font-category icon-faburenwu" data-icon="icon-faburenwu"></a>
+        </li>
+        <li>
+            <a class="font-category icon-jianyifankui" data-icon="icon-jianyifankui"></a>
+        </li>
+        <li>
+            <a class="font-category icon-dianshangzatan" data-icon="icon-dianshangzatan"></a>
+        </li>
+        <li>
+            <a class="font-category icon-kefujiaoliu" data-icon="icon-kefujiaoliu"></a>
+        </li>
+        <li>
+            <a class="font-category icon-luntangonggao" data-icon="icon-luntangonggao"></a>
+        </li>
+        <li>
+            <a class="font-category icon-qiuzhizhaopin" data-icon="icon-qiuzhizhaopin"></a>
+        </li>
+        <li>
+            <a class="font-category icon-qiuzhuwenda" data-icon="icon-qiuzhuwenda"></a>
+        </li>
+        <li>
+            <a class="font-category icon-sheyingsheji" data-icon="icon-sheyingsheji"></a>
+        </li>
+        <li>
+            <a class="font-category icon-shichangtuiguang" data-icon="icon-shichangtuiguang"></a>
+        </li>
+        <li>
+            <a class="font-category icon-taobaotianmao" data-icon="icon-taobaotianmao"></a>
+        </li>
+        <li>
+            <a class="font-category icon-zhaotaobaoke" data-icon="icon-zhaotaobaoke"></a>
+        </li>
+        <li>
+            <a class="font-category icon-cangchupeisong" data-icon="icon-cangchupeisong"></a>
+        </li>
+    </ul>
+    <input type="button" value="确定" style="border:none;color:#fff;font-size:16px;padding:8px 35px;background:#ff6a00;cursor:pointer;border-radius:3px;" onclick="confirmselected()" />
+</div>
+<style>
+    .icons-wrap{position:absolute;width:400px;left:15%;z-index:100;background:#fff;padding:20px;border-radius:5px;border:1px solid #666;display:none;}
+    .icons-title {margin:10px 0;}
+    .icons-wrap ul{clear:both;margin-top:15px;}
+    .icons-wrap ul li {float:left;margin:10px 10px;}
+    .icons-wrap ul li a{cursor:pointer;font-size:32px;text-decoration:none;}
+    .icons-wrap ul li a.selected{color:#ff6a00}
+    .mask-wrap{background:#000;width:100%;height:100%;position:fixed;top:0;left:0;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;z-index:99;}
+</style>
+<script type="text/javascript">
+
+    $(function () {
+        $("a.select-icon").click(function () {
+            var styles=seticonwrapalign()
+            $("body").append("<div class=\"mask-wrap\"></div>")
+            $(".icons-wrap").attr("style",styles);
+        });
+
+        $(".icons-wrap ul li a").click(function () {
+            $(this).toggleClass("selected");
+            $(this).parent("li").siblings("li").children("a").removeClass("selected");
+        });
+
+        $(document).on("click", ".mask-wrap", function () {
+            //$(".icons-wrap").hide()
+            //$(this).remove();
+            closeiconwarp();
+        });
+    })
+
+    function confirmselected() {
+        $(".icons-wrap ul li").each(function () {
+            if ($(this).children("a").hasClass("selected")) {
+                var _class = $(this).children("a").attr("data-icon");
+                $("#icon").val(_class);
+                $(".select-icon").hide();
+                $("#icon").parent().append("<i class=\"font-category "+_class+"\"></i>")
+                closeiconwarp();
+            }
+        });
+    }
+
+    function seticonwrapalign() {
+        var width = ($("body").width() - 400)
+        var height = ($("body").height() - $(".icons-wrap").height())
+        return "left:" + (width / 2) + "px !important;top:" + (height / 2) + "px  !important;display:block;";
+    }
+
+    function closeiconwarp() {
+        $(".icons-wrap").hide()
+        $(".mask-wrap").remove();
+    }
+</script>

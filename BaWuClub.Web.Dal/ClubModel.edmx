@@ -235,6 +235,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="text" />
           <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="tinyint" />
           <Property Name="Variable" Type="nvarchar" MaxLength="50" />
           <Property Name="VarDate" Type="datetime" />
@@ -486,6 +487,7 @@
           <Property Name="FatherDescription" Type="text" />
           <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
           <Property Name="FatherId" Type="int" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="ClubDBModelStoreContainer">
           <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
@@ -642,7 +644,8 @@
     [ViewTopicCategory].[FatherCover] AS [FatherCover], 
     [ViewTopicCategory].[FatherDescription] AS [FatherDescription], 
     [ViewTopicCategory].[FatherName] AS [FatherName], 
-    [ViewTopicCategory].[FatherId] AS [FatherId]
+    [ViewTopicCategory].[FatherId] AS [FatherId], 
+    [ViewTopicCategory].[Icon] AS [Icon]
     FROM [dbo].[ViewTopicCategory] AS [ViewTopicCategory]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -1064,6 +1067,7 @@
           <Property Name="Type" Type="Byte" />
           <Property Name="Variable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VarDate" Type="DateTime" Precision="3" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TopicIndex">
           <Key>
@@ -1123,6 +1127,7 @@
           <Property Name="FatherDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FatherId" Type="Int32" Nullable="false" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AdminAccount">
           <Key>
@@ -1521,6 +1526,7 @@
           <EntitySetMapping Name="TopicCategories">
             <EntityTypeMapping TypeName="ClubDBModel.TopicCategory">
               <MappingFragment StoreEntitySet="TopicCategories">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="VarDate" ColumnName="VarDate" />
                 <ScalarProperty Name="Variable" ColumnName="Variable" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
@@ -1576,6 +1582,7 @@
           <EntitySetMapping Name="ViewTopicCategories">
             <EntityTypeMapping TypeName="ClubDBModel.ViewTopicCategory">
               <MappingFragment StoreEntitySet="ViewTopicCategory">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="FatherId" ColumnName="FatherId" />
                 <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="FatherDescription" ColumnName="FatherDescription" />
