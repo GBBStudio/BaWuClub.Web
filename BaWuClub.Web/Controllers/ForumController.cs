@@ -24,7 +24,15 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 categories = club.TopicCategories.Where(t=>t.Type==1).ToList<TopicCategory>();
             }
-            return categories; 
+            return categories;
         }
+
+        #region cliques page
+        public ActionResult Cliques() {
+            return View("~/views/forum/cliques.cshtml");
+        }
+
+        //
+        #endregion
     }
 }

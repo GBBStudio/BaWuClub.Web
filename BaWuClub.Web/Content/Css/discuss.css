@@ -1,0 +1,76 @@
+﻿/*discuss css*/
+.btn-org{background:#f8c137}
+.btn-blue{background:#70adff}
+.discuss-category {}
+.discuss-wrap{float:left;overflow:hidden;width:670px;}
+.discuss-title{font-size:14px;padding:10px 0;}
+.discuss-title i{background:url(/Content/Images/discuss.png);width:17px;height:15px;display:inline-block; margin-right:5px;margin-top:1px;}
+.discuss-title span{margin-right:28px}
+.discuss-category{overflow:hidden;margin:20px 0;}
+.discuss-category ul li{width:160px;float:left;margin:7px 0;padding-left: 6px;}
+.discuss-category ul li i{font-size:18px !important;margin-right:5px;color:#ff9000}
+.discuss-category ul li a{font-size:14px;}
+.function-wrap{width:310px;float:right;}
+.area-wrap{clear:both;overflow:hidden;margin:30px 0 20px 0;}
+.discuss-list-title{background:#f5f5f5;height:35px;line-height:35px;width:100%;}
+.discuss-list-title h3{font-weight:400;font-size:16px;margin:0px 18px;float:left;}
+.discuss-list-title a{float:right;font-size:12px;color:#007ada;margin-right:15px;}
+.discuss-list-topic{padding:10px 0;border-bottom:1px dotted #d2d2d2;width:670px;}
+.discuss-list-topic-avatar{float:left;width:40px;height:40px;overflow:hidden}
+.discuss-list-topic-avatar img{width:40px;}
+.discuss-list-topic-titles{margin-left:50px;}
+.topic-title a{color:#336699;font-size:14px;}
+.topic-info{margin:3px 0;}
+.topic-info,  .topic-info a{color:#a0a0a0;font-size:12px;}
+.topic-info span{margin-left:15px;}
+.topic-info span i{font-size:15px;margin-right:2px;}
+.area-title{position:relative;height:285px;margin-right:175px;float:left;}
+.area-title img{position:absolute;top:0;left:0;}
+.area-title h4{position:absolute;top:15px;left:0;color:#fff;background:#ff9000;font-weight:200;width:92px;padding-left:8px;height:40px;line-height:40px;}
+.area-title p{width:175px;height:50px;background:#ff9000;position:absolute;top:220px;text-align:center;color:#fff;font-size:14px;padding-top:15px;}
+.area-title p a{color:#fff;}
+.area-list-item{border:1px solid #e8e8e8;border-left:none;float:left;height:283px;width:274px;}
+.area-item-logo{float:left;margin-left:30px;margin-top:90px;margin-right:25px;}
+.area-item-info{margin-top:90px;}
+.area-item-info h3{font-size:24px;font-weight:400;}
+.area-item-info p{color:#918c8c;font-size:14px;line-height:30px;}
+.area-item-info a{color:#70aaf1;font-size:14px;}
+
+.tb-topic{background:url(../Images/icon-topic.jpg)no-repeat 0 0;display:inline-block;vertical-align:middle;margin-right:4px;}
+.tb-topic-topic{width:16px;height:16px;background-position:0 0}
+.tb-topic-task{width:16px;height:16px;background-position:-36px 0}
+.tb-topic-activity{width:16px;height:16px;background-position:-18px 0}
+.cli-activity{overflow:hidden;margin-top:50px;}
+.cli-activity .cli-title{border-bottom:1px solid #a0a0a0;}
+.cli-activity .cli-title .fleft a{color:#333;font-size:13px;padding:2px 15px;}
+.cli-activity .cli-title .fleft a:hover{background:#007ada;color:#fff;}
+.cli-banner{height:350px;background:#f2f2f2;box-shadow:#000 5px inset}
+.cli-ac-item-cover{float:left;width:150px;}
+.cli-ac-item-cover img{width:150px;height:80px;}
+.cli-activity ul  li{width:340px;float:left;margin-top:30px;}
+.cli-ac-item-info{float:left;margin-left:10px;}
+.cli-ac-item-info h3{font-weight:400;font-size:16px;line-height:32px;}
+.cli-ac-item-info p{font-size:12px;}
+.cli-c-banner{margin:50px 0;overflow:hidden;clear:both}
+.cli-task {}
+.cli-task ul{clear:both;}
+.cli-task ul li{clear:both;padding:20px 0;border-top:1px solid #a0a0a0;overflow:hidden}
+.cli-task-item-cover{width:80px;height:80px;float:left;margin-right:10px;}
+.cli-task-item-cover img{width:80px;}
+.cli-task-item-info h3{font-size:16px;font-weight:normal;line-height:30px;}
+.cli-task-item-info h3 a{color:#333;}
+.cli-task-item-info p{font-size:13px;color:#666;line-height:20px;}
+.cli-task-item-info p span{font-size:12px;color:#999;}
+.cli-title{margin:5px 0;overflow:hidden;line-height:30px;}
+.cli-title strong{font-size:17px;font-weight:normal;margin-right:25px;}
+.cli-title span{font-size:13px;}
+.cli-title a.fright{color:#007ada;font-size:13px;display:inline-block}
+.cli-btns{overflow:hidden;margin-top:50px;height:50px;line-height:50px;}
+.cli-btns a{padding:8px 36px;font-size:18px;cursor:pointer;color:#fff}
+.cli-btns a:first-child{margin-right:15px;}
+
+.cli-task-list{border:1px solid #a0a0a0;padding:15px 10px;margin:25px 0;}
+.cli-task-list li:first-child{border:none;}
+.cli-task-list li{border-top:1px dotted #a0a0a0;padding:20px 0;font-size:14px;}
+.cli-task-list li a{color:#333;}
+.cli-l-banner img{width:100%}

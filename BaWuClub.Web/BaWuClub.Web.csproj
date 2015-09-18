@@ -707,6 +707,7 @@
     <Content Include="Content\CKeditor\skins\moono\images\refresh.png" />
     <Content Include="Content\CKeditor\styles.js" />
     <Content Include="Content\Css\basestyle.css" />
+    <Content Include="Content\Css\discuss.css" />
     <Content Include="Content\Css\fontstyle.css" />
     <Content Include="Content\Css\rss.css" />
     <Content Include="Content\Css\style.css" />
@@ -955,6 +956,7 @@
     <Content Include="Views\Member\Shared.cshtml" />
     <Content Include="Views\Member\Discuss.cshtml" />
     <Content Include="Views\Member\Message.cshtml" />
+    <Content Include="Views\Forum\Cliques.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
