@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewQuestion
+<div class="container">
+    <div class="container-left fleft">
+        <div class="question-show">
+            <div class="question-title">
+                <h2>@Model.Title</h2>
+            </div>
+            <div class="question-desc">
+                @Model.Description
+            </div>
+            <div class="question-tags">
+
+            </div>
+        </div>
+        <div class="comment-wrap">
+            <div class="comment-title">
+                <span class="fleft"><strong>@Html.Raw(ViewBag.AnswerCount)个回答</strong></span>
+                <div class="comment-sort">
+                    @{
+                        var query = Request.QueryString["sort"];
+                        if (query != null && query.ToString().Equals("time")){
+                            <span>按时间排序</span>
+                            <a href="/ask/show/@Model.Id?sort=voit">按投票排序</a>
+                        }
+                        else{
+                            <span>按投票排序</span>
+                            <a href="/ask/show/@Model.Id?sort=time">按时间排序</a>
+                        }
+                    }
+                    <i class="icon"></i>
+                </div>
+            </div>
+            <div class="comment-list">
+                @{
+                    var answers = ViewBag.ViewAnswers as IEnumerable<BaWuClub.Web.Dal.ViewAnswer>;
+                if (answers != null) {
+                    foreach (var answer in answers) {
+                        var avatat = string.IsNullOrEmpty(answer.Cover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/" + @answer.Cover;
+                <div class="comment-item">
+                    <div class="comment-item-info">
+                        <a href="/member/u-@answer.UserId/show/" class="comment-item-info-name">@answer.NickName</a>
+                        <a href="/member/u-@answer.UserId/show/" class="comment-item-info-avatar">
+                            <img title="@answer.NickName" src="@avatat" />
+                        </a>
+                    </div>
+                    <div class="comment-item-content">
+                        @Html.Raw(answer.Answer)
+                    </div>
+                    <div class="comment-item-meta">
+                        <span class="fleft">发布与 @BaWuClub.Web.Common.HtmlCommon.GetAnswerTimeSpan(answer.AnswerVarDate)</span>
+                        <div class="comment-item-vote fleft" style="display:block">
+                            @{
+                            string pro = string.Empty;
+                            string con = string.Empty;
+                                if (User.Identity.IsAuthenticated&&ViewBag.CurrentUser!=null){
+                                    var user=ViewBag.CurrentUser as BaWuClub.Web.Dal.User;
+                                    if (ViewBag.AnswerVote != null) {
+                                        var votes = ViewBag.AnswerVote as IEnumerable<BaWuClub.Web.Dal.AnswerVote>;
+                                        var av = votes.Where(v => (v.UId == user.Id&&v.QId==answer.QId&&v.AId==answer.Id)).FirstOrDefault();
+                                        if (av != null && av.Vote == 1){                                            
+                                            pro = "pressed";
+                                        }
+                                        else  if (av != null && av.Vote == 0){
+                                            con = "pressed";
+                                        }
+                                    }
+                                }
+                            }
+                            <a data-href="/ask/vote?vt=up" title="支持" class="icon1-zanyang @pro" data-op="up" data-aid="@answer.Id" data-value="@answer.Agree" data-qid="@answer.QId"><span>@answer.Agree</span></a>
+                            <a data-href="/ask/vote?vt=down" title="反对" class="icon1-piping @con" data-op="down" data-aid="@answer.Id" data-value="@answer.Oppose" data-qid="@answer.QId"><span>@answer.Oppose</span></a>
+                        </div>
+                    </div>
+                </div>
+                    }
+                }
+                }
+            </div>
+            <div class="comment-editor">
+                <input type="text" id="editor" name="comment" />
+                <div class="btns-wrap">
+                    <input type="button" class="btn-sub" value="立即回答" onclick="return recomments(@Model.Id,1);" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        <div class="module">
+            <div class="question-user">
+                @{
+                    var cover= "/content/images/no-img.jpg";
+                    if (!string.IsNullOrEmpty(Model.Cover)) {
+                        cover = "/uploads/avatar/"+Model.Cover;
+                    }
+                    <img src="@cover" alt="" />
+                }
+                <div class="question-user-info">
+                    <a href="/member/show/@Model.UserId">@Model.NickName</a>
+                    <p class="user-intro">@Model.Intro</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-related module">
+            <div class="module-title">
+                <span>@Html.Raw(Model.NickName)的其他提问</span>
+            </div>
+            <div class="module-list">
+                <ul>
+                    @{
+                        var questions = ViewBag.OtherQuestions as IEnumerable<BaWuClub.Web.Dal.Question>;
+                        if (questions != null) {
+                            foreach (var question in questions) { 
+                                    <li><a href="/ask/show/@question.Id">@question.Title</a></li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="~/content/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/content/scripts/comments.js"></script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+    $(function(){
+        $(".comment-item").hover(function(){
+          //  $(this).children(".comment-item-meta").children(".comment-item-vote").toggle();
+        });
+    })
+</script>

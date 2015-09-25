@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "用户登录-";
+}
+<div id="main" class="container">
+    <div class="login-box">
+        <form method="post" name="">
+            @Html.Raw(ViewBag.Status)
+            <p>
+                <b>用户名:</b><input name="username" type="text" value="" class="input-text" /><span>没有用户名？</span><a href="/Account/Register">立即注册</a>
+            </p>
+            <p>
+                <b>密　码:</b><input name="password" type="password" value="" class="input-text" /><a href="/Account/Forget">忘记密码</a>
+            </p>
+            <p style="display:none">
+                <b>验证码:</b><input name="verifycode" type="text" value="" class="input-vcode" /><a href="#">换一张</a>
+            </p>
+            <p class="login-btn">
+                <input type="submit" value="登录" class="btn-sub" />
+                <span style="display:none">
+                    <input id="remember" type="checkbox" />
+                    <label for="remember">(请勿在公用电脑上勾选此项)</label>
+                </span>
+            </p>
+        </form>
+    </div>
+</div>

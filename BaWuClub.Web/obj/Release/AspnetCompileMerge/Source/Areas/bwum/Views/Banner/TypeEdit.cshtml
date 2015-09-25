@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.BannerType
+<div class="comm-btns">
+    <h2>广告分类创建</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/banner/bannertypeindex">返回广告分类列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/banner/bannertypecreate";
+        string _inputStr = string.Empty;
+        if (Model!=null && Model.Id > 0)
+        {
+            _actionStr = "/bwum/banner/bannertypeedit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>名称：</span>
+            <input name="name" value="@Model.Name" type="text" class="input-text input-middle" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span>尺寸：</span>
+            <input name="size" value="@Model.Size" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>变量名：</span>
+            <input name="variables" value="@Model.Variables" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>

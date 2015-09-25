@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ClubDBModelStoreContainer" CdmEntityContainer="ClubEntities">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="ClubDBModel.Answer">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QId" ColumnName="QId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Answer1" ColumnName="Answer" />
+          <ScalarProperty Name="Agree" ColumnName="Agree" />
+          <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleReviews">
+      <EntityTypeMapping TypeName="ClubDBModel.ArticleReview">
+        <MappingFragment StoreEntitySet="ArticleReviews">
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="PutDate" ColumnName="PutDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="ClubDBModel.Article">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PutDate" ColumnName="PutDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleTags">
+      <EntityTypeMapping TypeName="ClubDBModel.ArticleTag">
+        <MappingFragment StoreEntitySet="ArticleTags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="ClubDBModel.Setting">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="ClubDBModel.Tag">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TagName" ColumnName="TagName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ClubDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Membership" ColumnName="Membership" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="Actived" ColumnName="Actived" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="ActivedCode" ColumnName="ActivedCode" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Views">
+      <EntityTypeMapping TypeName="ClubDBModel.View">
+        <MappingFragment StoreEntitySet="Views">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Today" ColumnName="Today" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="ClubDBModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Flags" ColumnName="Flags" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewQuestions">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewQuestion">
+        <MappingFragment StoreEntitySet="ViewQuestion">
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Flags" ColumnName="Flags" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banners">
+      <EntityTypeMapping TypeName="ClubDBModel.Banner">
+        <MappingFragment StoreEntitySet="Banners">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Pic" ColumnName="Pic" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewArticles">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewArticle">
+        <MappingFragment StoreEntitySet="ViewArticle">
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="UserCover" ColumnName="UserCover" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PutDate" ColumnName="PutDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Areas">
+      <EntityTypeMapping TypeName="ClubDBModel.Area">
+        <MappingFragment StoreEntitySet="Areas">
+          <ScalarProperty Name="Node" ColumnName="Node" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="ClubDBModel.Feedback">
+        <MappingFragment StoreEntitySet="Feedbacks">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="ClubDBModel.Activity">
+        <MappingFragment StoreEntitySet="Activities">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Limited" ColumnName="Limited" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewActivities">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewActivity">
+        <MappingFragment StoreEntitySet="ViewActivity">
+          <ScalarProperty Name="Node" ColumnName="Node" />
+          <ScalarProperty Name="AId" ColumnName="AId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Limited" ColumnName="Limited" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewAnswers">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewAnswer">
+        <MappingFragment StoreEntitySet="ViewAnswer">
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="AnswerVarDate" ColumnName="AnswerVarDate" />
+          <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+          <ScalarProperty Name="Agree" ColumnName="Agree" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="QId" ColumnName="QId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivityOrders">
+      <EntityTypeMapping TypeName="ClubDBModel.ActivityOrder">
+        <MappingFragment StoreEntitySet="ActivityOrders">
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="QQ" ColumnName="QQ" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewArticleReviews">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewArticleReview">
+        <MappingFragment StoreEntitySet="ViewArticleReview">
+          <ScalarProperty Name="PutDate" ColumnName="PutDate" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SystemArticles">
+      <EntityTypeMapping TypeName="ClubDBModel.SystemArticle">
+        <MappingFragment StoreEntitySet="SystemArticles">
+          <ScalarProperty Name="Variables" ColumnName="Variables" />
+          <ScalarProperty Name="PutDate" ColumnName="PutDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnswerVotes">
+      <EntityTypeMapping TypeName="ClubDBModel.AnswerVote">
+        <MappingFragment StoreEntitySet="AnswerVotes">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="Vote" ColumnName="Vote" />
+          <ScalarProperty Name="AId" ColumnName="AId" />
+          <ScalarProperty Name="QId" ColumnName="QId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="ClubDBModel.Menu">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Blanket" ColumnName="Blanket" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BannerTypes">
+      <EntityTypeMapping TypeName="ClubDBModel.BannerType">
+        <MappingFragment StoreEntitySet="BannerTypes">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Variables" ColumnName="Variables" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewBanners">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewBanner">
+        <MappingFragment StoreEntitySet="ViewBanner">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Pic" ColumnName="Pic" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Variables" ColumnName="Variables" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TId" ColumnName="TId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagMaps">
+      <EntityTypeMapping TypeName="ClubDBModel.TagMap">
+        <MappingFragment StoreEntitySet="TagMaps">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="AId" ColumnName="AId" />
+          <ScalarProperty Name="TagNames" ColumnName="TagNames" />
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicCategories">
+      <EntityTypeMapping TypeName="ClubDBModel.TopicCategory">
+        <MappingFragment StoreEntitySet="TopicCategories">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Variable" ColumnName="Variable" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicIndexes">
+      <EntityTypeMapping TypeName="ClubDBModel.TopicIndex">
+        <MappingFragment StoreEntitySet="TopicIndexes">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicReviews">
+      <EntityTypeMapping TypeName="ClubDBModel.TopicReview">
+        <MappingFragment StoreEntitySet="TopicReviews">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+          <ScalarProperty Name="Support" ColumnName="Support" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Reviews" ColumnName="Reviews" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Topics">
+      <EntityTypeMapping TypeName="ClubDBModel.Topic">
+        <MappingFragment StoreEntitySet="Topics">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Good" ColumnName="Good" />
+          <ScalarProperty Name="Recommend" ColumnName="Recommend" />
+          <ScalarProperty Name="Stick" ColumnName="Stick" />
+          <ScalarProperty Name="TopicIndex" ColumnName="TopicIndex" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewTopicCategories">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewTopicCategory">
+        <MappingFragment StoreEntitySet="ViewTopicCategory">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="FatherDescription" ColumnName="FatherDescription" />
+          <ScalarProperty Name="FatherCover" ColumnName="FatherCover" />
+          <ScalarProperty Name="FatherType" ColumnName="FatherType" />
+          <ScalarProperty Name="FatherVariable" ColumnName="FatherVariable" />
+          <ScalarProperty Name="FatherVarDate" ColumnName="FatherVarDate" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Variable" ColumnName="Variable" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminAccounts">
+      <EntityTypeMapping TypeName="ClubDBModel.AdminAccount">
+        <MappingFragment StoreEntitySet="AdminAccounts">
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminTypes">
+      <EntityTypeMapping TypeName="ClubDBModel.AdminType">
+        <MappingFragment StoreEntitySet="AdminTypes">
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

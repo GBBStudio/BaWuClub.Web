@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/views/shared/_layoutmember.cshtml";
+    ViewBag.Title = "个人用户中心-";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+}
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<div class="member-title">
+    <a href="/member/u-@user.Id/Show" class="selected">资料</a>
+    <a href="/member/u-@user.Id/contributelist" >投稿</a>
+    <a href="/member/u-@user.Id/asks">问题</a>
+    <a href="/member/u-@user.Id/answers">回答</a>
+    <a href="/member/u-@user.Id/certification">认证</a>
+    <a href="/member/u-@user.Id/shared">共享</a>
+</div>
+@{    
+    if (User.Identity.IsAuthenticated&&Request.Cookies["bwusers"]["id"].ToString().Equals(user.Id.ToString())){
+    <div class="member-main">
+        <div class="member-info">
+            <div class="member-menu">
+                <a class="selected" data-dsk="member-base">基本资料</a>
+                <a data-dsk="member-cover-set">头像设置</a>
+                <a data-dsk="member-safety">安全设置</a>
+            </div>
+            <div class="member-main-wrap">
+                <label id="tips-wrap" style="color:red;"></label>
+                <div class="member-base">
+                    <form name="form-base" id="form-base" method="post" action="/member/mbase" onsubmit="return checkSubmit(this);">
+                        <div class="input-box">
+                            <p>
+                                <b>真实姓名：</b><input type="text" name="realname" class="input-text" value="@user.RealName"/>
+                            </p>
+                            <p>
+                                <b>联系电话：</b><input type="text" name="phone" class="input-text" value="@user.Phone"/>
+                            </p>
+                            <p>
+                                <b>公司名称：</b><input type="text" name="company" class="input-text" value="@user.Company"/>
+                            </p>
+                            <p>
+                                <b>家庭住址：</b><input type="text" name="address" class="input-text" value="@user.Address"/>
+                            </p>
+                            <p class="input-box-hl">
+                                <b>个人简介：</b><textarea name="intro" class="input-textarea">@user.Intro</textarea>
+                            </p>
+                            <p>
+                                <b>&nbsp;</b><input type="submit" value="提交" class="btn-sub" />
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="member-cover-set" style="display:none">
+                    <form name="form-cover" id="form-cover" method="post" action="/member/msetcover" onsubmit="return checkSubmit(this);">
+                             @{
+                                if (user.Id > 0) {
+                                    var cover = string.IsNullOrEmpty(user.Cover)? "/content/images/no-img.jpg": "/uploads/avatar/big/"+user.Cover;
+                            <div class="avatar-wrap">
+                                <img src="@cover" alt="" />
+                                <a href="#" class="avatar-del">删除</a>
+                                <input value="@user.Cover" type="hidden" name="cover" />
+                            </div>
+                            <div class="avatar-upload" style="display:none">
+                                <input type="file" name="avatar" id="avatar-upload" />
+                            </div>
+                        }else{
+                            <div class="avatar-wrap">
+                            </div>
+                            <div class="avatar-upload">
+                                <input type="file" name="avatar" id="avatar-upload" />
+                            </div>
+                        }        
+                            }          
+                        <p><input type="submit" class="btn-sub" value="提交" /></p>
+                    </form>
+                </div>
+                <div class="member-safety" style="display:none">
+                    <form name="form-safety" id="form-safety" method="post" action="/member/mchanagepwd" onsubmit="return checkSubmit(this);">
+                        <div class="input-box">
+                            <p>
+                                <b>旧密码：</b><input type="password" name="oldpwd" class="input-text" data-required="true" data-hint="旧密码必须填写" />
+                            </p>
+                            <p>
+                                <b>新密码：</b><input type="password" name="pwd" class="input-text" data-required="true" data-hint="请填写新密码" />
+                            </p>
+                            <p>
+                                <b>确认密码：</b><input type="password" name="pwd1" class="input-text" data-required="true" data-hint="请确认新密码" />
+                            </p>
+                            <p>
+                                <b>&nbsp;</b><input type="submit" value="提交" class="btn-sub" />
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    else { 
+    <div class="member-main">
+        <div class="member-info">
+            <div class="member-menu">
+                <a class="selected" data-dsk="member-base">基本资料</a>
+            </div>
+            <div class="member-main-wrap">
+                <div class="member-base">
+                     <div class="input-box">
+                            <p>
+                                <b>真实姓名：</b>@user.RealName
+                            </p>
+                            <p class="input-box-hl">
+                                <b>个人简介：</b>@user.Intro
+                            </p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+}      
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/scripts/member.js"></script>
+<script type="text/javascript" src="~/content/scripts/avatarupload.js"></script>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>

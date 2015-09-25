@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "用户注册-";
+}
+<div id="main" class="container">
+    <div class="login-box">
+        <form method="post" name="">
+            @Html.Raw(ViewBag.Status)
+            <p>
+                <b>用户名:</b><input name="username" type="text" value="" class="input-text" />
+            </p>
+            <p>
+                <b>E-mail:</b><input name="email" type="text" value="" class="input-text" />
+            </p>
+            <p>
+                <b>密　码:</b><input name="password" type="password" value="" class="input-text" />
+            </p>
+            <p>
+                <b>确认密码:</b><input name="password1" type="password" value="" class="input-text" />
+            </p>
+            <p class="login-btn">
+                <input type="submit" value="注册" class="btn-sub" />
+            </p>
+        </form>
+    </div>
+</div>

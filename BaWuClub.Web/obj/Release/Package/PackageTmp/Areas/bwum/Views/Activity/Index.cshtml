@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.ViewActivity>
+<div class="comm-btns">
+    <h2>活动管理(Activity)</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn2" href="#" data-url="/activity/multidel">删除</a>
+        <a class="comm-btn1 btn-general" href="#/activity/Create">创建</a>
+    </div>
+</div>
+
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>标题</td>
+                <td>费用</td>
+                <td>人数</td>
+                <td>时间</td>
+                <td>主办方</td>
+                <td>联系人</td>
+                <td>电话</td>
+                <td>城市</td>
+                <td>地址</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (BaWuClub.Web.Dal.ViewActivity a in Model)
+                    {
+                        var title = a.Title.Length > 100 ? a.Title.Substring(0, 99) : a.Title;
+                        var date = a.StartDate + "-" + a.EndDate;
+                        <tr>
+                            <td><input type="checkbox" name="chk" value="@a.Id" /></td>
+                            <td>@a.Id</td>
+                            <td>@title</td>
+                            <td>@a.Cost</td>
+                            <td>@a.Limited</td>
+                            <td>@date</td>
+                            <td>@a.Sponsor</td>
+                            <td>@a.Contact</td>
+                            <td>@a.Phone</td>
+                            <td>@a.Name</td>
+                            <td>@a.Address</td>
+                            <td><a href="#/activity/show/@a.Id">编辑</a><a onclick="ajaxdelete('/activity/del/',a.Id)">删除</a></td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

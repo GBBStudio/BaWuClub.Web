@@ -1,0 +1,18 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $(document).scroll(function () {
+            if ($(document).scrollTop() > 0) {
+                $(".scroll-wrap ul li").first().show();
+            } else {
+                $(".scroll-wrap ul li").first().hide();
+            }
+        });
+        $(".scroll-wrap ul li a").hover(function () {
+            var text = $(this).attr("data-text");
+            $(this).append("<span>" + text + "</span>");
+        }, function () {
+            $(this).empty();
+        });
+    })
+</script>
+<script type="text/javascript" src="/ViewsStatistics"></script>

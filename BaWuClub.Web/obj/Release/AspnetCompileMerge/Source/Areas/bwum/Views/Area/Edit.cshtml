@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Area
+<div class="comm-btns">
+    <h2>区域编辑</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/area/index">返回区域列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/area/create";
+        string _inputStr = string.Empty;
+        if (Model != null && Model.Id!=null&& Model.Id > 0)
+        {
+            _actionStr = "/bwum/area/edit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>名称：</span>
+            <input name="name" value="@Model.Name" type="text" class="input-text input-small" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span>级别：</span>
+            <select name="node" class="input-text input-small">
+                <option value="0">省、直辖市</option>
+                @{
+                    var provinces = ViewBag.Provinces as IEnumerable<BaWuClub.Web.Dal.Area>;
+                    foreach (var p in provinces) { 
+                        <option value="@p.Id">@p.Name</option>
+                    }
+                }
+            </select>
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>

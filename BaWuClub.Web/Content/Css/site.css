@@ -68,11 +68,16 @@ a.btn-join{background:#007ada;color:#fff;padding:8px 20px;}
 .icon1-re2:before { content: "\e620"; }
 .icon1-liulan:before { content: "\e622"; }
 .icon1-chakan:before { content: "\e621"; }
+.icon1-paixu:before { content: "\e623"; }
+.icon1-xiazai:before { content: "\e624"; }
+.icon1-yonghu:before { content: "\e627"; }
+.icon1-mima:before { content: "\e625"; }
+
 
 
 .fleft{float: left;}
 .fright{float:right;}
-.container{width:1020px;margin:0 auto}
+.container{width:1020px;margin:0 auto;overflow:hidden}
 .container-left{width:685px;}
 .btn-register{border-radius:2px;border:1px solid #ec725e;font-size:12px; color:#ec725e;padding:10px 25px;}
 .btn-sub {border:none;background:#007ada;font-size: 12px;padding:5px 10px;color:#fff;}

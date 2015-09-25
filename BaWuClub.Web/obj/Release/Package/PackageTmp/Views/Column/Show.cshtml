@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewArticle
+
+<div class="container">
+    <div class="container-left fleft">
+        <div class="question-show">
+            <div class="question-title">
+                <h2>@Model.Title</h2>
+            </div>
+            <div class="question-desc">
+                @Html.Raw(Model.Context)
+            </div>
+        </div>
+        <div class="comment-wrap">
+            <div class="comment-title">
+                <span class="fleft"><strong>@ViewBag.ReviewsCount 个评论</strong></span>
+            </div>
+            <div class="comment-list">
+                @{
+                    var reviews = ViewBag.Reviews as IEnumerable<BaWuClub.Web.Dal.ViewArticleReview>;
+                    if (reviews != null){
+                        foreach (var review in reviews)
+                        {
+                            var avatar = string.IsNullOrEmpty(review.Cover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/" + @review.Cover;
+                            <div class="comment-item">
+                                <div class="comment-item-info">
+                                    <a href="/member/u-@review.UserId/show/" class="comment-item-info-name">@review.NickName</a>
+                                    <a href="/member/u-@review.UserId/show/" class="comment-item-info-avatar">
+                                        <img title="@review.NickName" src="@avatar" />
+                                    </a>
+                                </div>
+                                <div class="comment-item-content">
+                                    @Html.Raw(review.ReviewText)
+                                </div>
+                                <div class="comment-item-meta">
+                                    <span>评论与 @BaWuClub.Web.Common.HtmlCommon.GetAnswerTimeSpan(review.PutDate)</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+            <div class="comment-editor">
+                <input type="text" id="editor" name="comment" />
+                <div class="btns-wrap">
+                    <input type="button" class="btn-sub" value="立即评论" onclick="return recomments(@Model.Id,0);" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        <div class="module">
+            <div class="question-user">
+                @{
+                    var cover =(string.IsNullOrEmpty(Model.Cover) ? "/content/images/no-img.jpg":"/uploads/avatar/"+Model.Cover);
+                    <img src="@cover" alt="" />
+                }
+                <div class="question-user-info">
+                    <a href="/member/show/@Model.UserId">@Model.NickName</a>
+                    <p class="user-intro">@Model.Intro</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-related module">
+            <div class="module-title">
+                <span>@Html.Raw(Model.NickName)的其他文章</span>
+            </div>
+            <div class="module-list">
+                <ul>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+</script>
+<script type="text/javascript" src="~/content/scripts/comments.js"></script>

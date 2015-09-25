@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewQuestion
+
+<div class="comm-btns">
+    <h2>问题预览</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/question/index">返回投稿列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    <h2 style="font-size:18px;margin-bottom:30px;">@Model.Title</h2>
+    <div style="margin:10px 0;">作者：@Model.NickName 时间：@Model.VarDate</div>
+    <div style="font-size:12px;color:#333;">
+        @Html.Raw(Model.Description)
+    </div>
+</div>
+

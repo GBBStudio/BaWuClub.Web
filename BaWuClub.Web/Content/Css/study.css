@@ -1,0 +1,22 @@
+﻿    .online-top-wrap{background:url(../images/online.jpg) no-repeat center top;width:100%;height:626px;}
+    .online-recommend-title,.online-class-title{border-bottom:4px solid #d6d6d6}
+    .online-recommend-title h3,.online-class-title h3{font-size:26px;font-weight:400;position:relative;height:50px}
+    .online-recommend-title h3 i{font-size:36px;}
+    .online-recommend-title h3 span,.online-class-title h3 span{border-bottom:4px solid #007ada;color:#007ada;position:absolute;bottom:-4px;padding:5px 10px}
+    .online-recommend-img img{width:382px;height:239px;}
+    .online-recommend-info{}
+    .online-recommend{padding-top:20px}
+    .online-recommend-info{padding:40px 0;overflow:hidden}
+    .online-recommend-data{margin-left:410px;}
+    .online-recommend-data h3{font-size:24px;font-weight:400;}
+    .online-recommend-data  span{font-size:13px;line-height:16px;}
+    .online-class-list{background:#F6F5F4;width:100%}
+    .online-class-list ul li{padding:20px;width:306px;height:320px;background:#fff;float:left;margin:20px 10px;cursor:pointer;overflow:hidden}
+    .online-class-img img{width:310px;height:210px;}
+    .online-wrap .container{width:1100px}
+    .online-class-info h3{font-size:18px;font-weight:400;line-height:30px}
+    .online-class-info h3 a{color:#333}
+    .online-class-list ul li:hover{border:1px solid #eaeaea;width:304px;height:318px;box-shadow:#eaeaea 3px 3px}
+    .online-class-list ul li:hover a{color:#259}
+    .online-class-info p{font-size:12px;}
+    .online-class-info p span{font-size:16px;padding:4px 0;color:#259}

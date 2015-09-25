@@ -708,8 +708,10 @@
     <Content Include="Content\CKeditor\styles.js" />
     <Content Include="Content\Css\basestyle.css" />
     <Content Include="Content\Css\discuss.css" />
+    <Content Include="Content\Css\download.css" />
     <Content Include="Content\Css\fontstyle.css" />
     <Content Include="Content\Css\rss.css" />
+    <Content Include="Content\Css\study.css" />
     <Content Include="Content\Css\style.css" />
     <Content Include="Content\Css\wdialog.css" />
     <Content Include="Content\Fonts\category.css" />
@@ -957,6 +959,15 @@
     <Content Include="Views\Member\Discuss.cshtml" />
     <Content Include="Views\Member\Message.cshtml" />
     <Content Include="Views\Forum\Cliques.cshtml" />
+    <Content Include="Views\Forum\SponsorActivity.cshtml" />
+    <Content Include="Views\Forum\SponsorTask.cshtml" />
+    <Content Include="Views\Forum\Topic.cshtml" />
+    <Content Include="Views\Forum\PostTopic.cshtml" />
+    <Content Include="Views\Forum\TopicTransfers.cshtml" />
+    <Content Include="Views\Forum\ActivityShow.cshtml" />
+    <Content Include="Views\Forum\TaskShow.cshtml" />
+    <Content Include="Views\Forum\List.cshtml" />
+    <Content Include="Views\Download\DownShow.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

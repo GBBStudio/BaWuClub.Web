@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.SystemArticle
+
+<div class="comm-btns">
+    <h2>使用帮助</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/um/main">返回管理首页</a>
+</div>
+<div>
+    <div style="font-size:12px;color:#333;">
+        @Html.Raw(Model.Text)
+    </div>
+</div>
+

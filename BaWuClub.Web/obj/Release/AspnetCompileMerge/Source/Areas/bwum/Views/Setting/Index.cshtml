@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model Dictionary<string, string>
+<div class="comm-btns">
+    <h2>网站信息设置</h2>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    <form method="post" name="frame" action="/setting/save">
+        <p>
+            <span>标题：</span>
+            <input name="Title" value="@Model["Title"]" type="text" class="input-text input-long" />
+        </p>
+        <p>
+            <span>关键字：</span>
+            <input name="Keywords" value="@Model["Keywords"]" type="text" class="input-text input-long" />
+        </p>
+        <p>
+            <span>描述：</span>
+            <textarea name="Description" class="input-text input-long" style="height:100px;">@Model["Description"]</textarea>
+        </p>
+        <p>
+            <span>电话：</span>
+            <input name="Phone" value="@Model["Phone"]" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>传真：</span>
+            <input name="Fax" value="@Model["Fax"]"  type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>邮箱：</span>
+            <input name="Email" value="@Model["Email"]" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>QQ</span>
+            <input name="QQ" value="@Model["QQ"]" type="text" class="input-text input-small" />
+        </p>
+        <p>
+            <span>版权：</span>
+            <input name="CopyRight" value="@Model["CopyRight"]" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>地址：</span>
+            <input name="Address" value="@Model["Address"]" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>

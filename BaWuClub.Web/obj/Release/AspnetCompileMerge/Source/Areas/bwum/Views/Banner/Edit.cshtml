@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Banner
+
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css"/>
+<div class="comm-btns">
+    <h2>广告添加</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/banner/index">返回广告列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/banner/create";
+        string _inputStr = string.Empty;
+        if (!string.IsNullOrEmpty(Model.Id.ToString())&&Model.Id>0) {
+            _actionStr = "/bwum/banner/edit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>标题：</span>
+            <input name="title" value="@Model.Title" type="text" class="input-text input-middle" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span>URL：</span>
+            <input name="url" value="@Model.Url" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>图片：</span>
+            @{
+                if (!string.IsNullOrEmpty(Model.Pic)) { 
+                    <div class="banner-wrap">
+                        <img src="/uploads/banner/@Model.Pic" alt="" height="100"/>
+                        <input value="@Model.Pic" type="hidden" name="pic" />
+                        <a href="#" class="pic-del">删除</a>
+                    </div>
+                    <div class="upload-wrap" style="display:none;">
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                }
+                else {
+                    <div class="banner-wrap"></div>
+                    <div class="upload-wrap" >
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                }
+            }            
+        </p>
+        <p>
+            <span>分类：</span>
+            <select name="type" class="input-text input-small">
+               @{
+                   if (ViewBag.BannerTypes != null) {
+                       var bannerTypes = ViewBag.BannerTypes as IEnumerable<BaWuClub.Web.Dal.BannerType>;
+                       foreach (var bannerType in bannerTypes) { 
+                           <option value="@bannerType.Id">@bannerType.Name</option>
+                       }
+                   }
+               }
+            </select>
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择头像',
+        swf: '/content/uploadify/uploadify.swf',
+        uploader: '/fileupload/uploadbanner',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1张图片！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于1M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".upload-wrap").hide();
+            $(".banner-wrap").html("<img src=\"/uploads/banner/" + obj.name + "\" height=\"100\"/><input value=\"" + obj.name + "\" type=\"hidden\" name=\"pic\"/><a href=\"#\" class=\"pic-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".pic-del", function () {
+        $(".upload-wrap").show();
+        $(".banner-wrap").empty();
+    })
+</script>

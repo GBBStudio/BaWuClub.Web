@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Feedback
+<div class="comm-btns">
+    <h2>反馈展示</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/feedback/index">返回反馈列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+        <p>
+            <span>姓名：</span>
+            @Model.Name
+        </p>
+        <p>
+            <span>内容：</span>
+            @Html.Raw(Model.Context)
+        </p>
+</div>

@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.ViewArticle>
+<div class="comm-btns">
+    <h2>投稿管理</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn2" href="#" data-url="/contribute/multidel">删除</a>
+        <a class="btn comm-btn0" href="#" data-url="/contribute/setdisable">审核不通过</a>
+        <a class="btn comm-btn1" href="#" data-url="/contribute/setenable" style="display:none">审核通过</a>
+    </div>
+</div>
+
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>标题</td>
+                <td>用户</td>
+                <td>浏览量</td>
+                <td>状态</td>
+                <td>发布时间</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+            if (Model != null) {
+                foreach (BaWuClub.Web.Dal.ViewArticle u in Model)
+                {
+                    var title = u.Title.Length > 100 ? u.Title.Substring(0, 99) : u.Title;
+                    <tr>
+                        <td><input type="checkbox" name="chk" value="@u.Id" /></td>
+                        <td>@u.Id</td>
+                        <td>@title</td>
+                        <td>@u.NickName</td>
+                        <td>@u.Views</td>
+                        <td>@Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(u.Status))</td>
+                        <td>@u.PutDate</td>
+                        <td><a href="#/contribute/show/@u.Id">预览审核</a><a href="#/contribute/edit/@u.Id" style="display:none;">编辑</a><a onclick="ajaxdelete('/contribute/del/',@u.Id)">删除</a></td>
+                    </tr>
+                }
+            }
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

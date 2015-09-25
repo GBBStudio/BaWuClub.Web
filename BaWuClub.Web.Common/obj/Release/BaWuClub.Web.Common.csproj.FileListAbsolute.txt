@@ -1,0 +1,10 @@
+C:\Users\meng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Release\BaWuClub.Web.Common.dll
+C:\Users\meng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Release\BaWuClub.Web.Common.pdb
+C:\Users\meng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.csprojResolveAssemblyReference.cache
+C:\Users\meng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.dll
+C:\Users\meng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.pdb
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Release\BaWuClub.Web.Common.dll
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Release\BaWuClub.Web.Common.pdb
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.csprojResolveAssemblyReference.cache
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.dll
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Release\BaWuClub.Web.Common.pdb

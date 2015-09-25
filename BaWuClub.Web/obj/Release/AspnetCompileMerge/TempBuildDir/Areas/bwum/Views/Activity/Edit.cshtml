@@ -1,0 +1,204 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Activity
+
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<link href="~/content/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/content/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="~/content/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/content/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="~/content/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<div class="comm-btns">
+    <h2>活动编辑</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/activity/index">返回活动列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/activity/create";
+        string _inputStr = string.Empty;
+        if (Model.Id > 0){
+            _actionStr = "/bwum/activity/edit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>标题：</span>
+            <input name="title" value="@Model.Title" type="text" class="input-text input-middle" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span>城市：</span>
+            <select name="province" class="input-text input-small" onchange="getcity(this.value)" id="province">
+                <option value="0">全国</option>
+                @{
+                    var areas = ViewBag.Province as IEnumerable<BaWuClub.Web.Dal.Area>;
+                    if (areas != null)
+                    {
+                        foreach (var area in areas)
+                        {
+                            <option value="@area.Id">@area.Name</option>
+                        }
+                    }
+                }
+            </select>
+            <select name="city" class="input-text input-small" id="city">
+                <option value="0">
+                    全国
+                </option>
+            </select>
+            <script type="text/javascript">
+                function getcity(value) {
+                    $(function () {
+                        $.get("/bwum/activity/getcity", { "province": value }, function (json) {
+                            var data = eval(json);
+                            if (data.status == "success") {
+                                $("#city").html(data.context);
+                            } else {
+                                $("#city").html("<option value=\"0\">全国</option>");
+                            }
+                        }, "Json");
+                    })
+                }
+            </script>
+        </p>
+        <p>
+            <span>地址：</span>
+            <input name="address" value="@Model.Address" type="text" class="input-text input-middle" />
+        </p>
+        <div>
+            <span>图片：</span>
+            @{
+                if (!string.IsNullOrEmpty(Model.Cover))
+                {
+                    <div class="banner-wrap" style="margin-left:65px;">
+                        <img src="/uploads/activity/@Model.Cover" alt="" height="100" />
+                        <input value="@Model.Cover" type="hidden" name="pic" />
+                        <a href="#" class="pic-del">删除</a>
+                    </div>
+                    <div class="upload-wrap" style="display:none;margin-left:65px;">
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                }
+                else
+                {
+                    <div class="banner-wrap" style="margin-left:65px;"></div>
+                    <div class="upload-wrap" style="margin-left:65px;">
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                }
+            }
+        </div>
+        <p>
+            <span>时间:</span>
+            <input name="start" value="@Model.StartDate" id="form_datetime" class="input-text input-small" />至
+            <input name="end" value="@Model.EndDate" id="form_datetime1" class="input-text input-small" />
+        </p>
+        <p>
+            <span>费用:</span>
+            <input name="cost" value="@Model.Cost" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>人数:</span>
+            <input name="limited" value="@Model.Limited" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>联系人：</span>
+            <input name="contact" value="@Model.Contact" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>电话：</span>
+            <input name="phone" value="@Model.Phone" type="text" class="input-text input-middle" />
+        </p>
+        <p>
+            <span>主办方：</span>
+            <input name="sponsor" value="@Model.Sponsor" type="text" class="input-text input-middle" />
+        </p>
+        <div style="width:600px;">
+            <span>内容：</span>
+            <textarea name="context" class="input-text" id="container-editor" style="height:150px;width:500px">@Model.Context </textarea>
+        </div>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="~/content/ckeditor/ckeditor.js"></script>
+@{
+    if (ViewBag.Area != null)
+    {
+        var area = ViewBag.Area as BaWuClub.Web.Dal.Area;
+        <script type="text/javascript">
+            window.onload = function () {
+                $("#province").val(@area.Node);
+                getcity(@area.Node)
+                $("#city").val(@area.Id);
+            }
+        </script>   
+    } 
+}
+<script type="text/javascript">
+    CKEDITOR.replace('container-editor');
+</script>
+<script type="text/javascript">
+    $('#form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+    $('#form_datetime1').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+</script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择活动图片',
+        swf: '/content/uploadify/uploadify.swf',
+        uploader: '/fileupload/uploadactivity',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1张图片！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于1M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".upload-wrap").hide();
+            $(".banner-wrap").html("<img src=\"/uploads/activity/" + obj.name + "\" height=\"100\"/><input value=\"" + obj.name + "\" type=\"hidden\" name=\"pic\"/><a href=\"#\" class=\"pic-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".pic-del", function () {
+        $(".upload-wrap").show();
+        $(".banner-wrap").empty();
+    })
+</script>

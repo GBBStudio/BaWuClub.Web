@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "问答-";
+}
+@model IEnumerable<BaWuClub.Web.Dal.ViewQuestion>
+<div class="container">
+    <div class="container-left fleft">
+        <div class="question-wrap">
+            <div class="question-wrap-title"></div>
+            <ul class="question-wrap-list">
+                @{
+                    foreach (var viewQuestion in Model)
+                    {
+                        <li>
+                            <div class="cover-wrap fleft">
+                                <a href="/member/u-@viewQuestion.UserId/show">
+                                    @{
+                                        var cover = "/content/images/no-img.jpg";
+                                        var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(viewQuestion.VarDate ?? DateTime.Now);
+                                        if (!string.IsNullOrEmpty(viewQuestion.Cover))   {
+                                            cover = "/uploads/avatar/small/" + viewQuestion.Cover;
+                                        }
+                                        var desc = BaWuClub.Web.Common.HtmlCommon.ClearHtml(viewQuestion.Description);
+                                        desc = desc.Length > 150 ? desc.Substring(0, 149) : desc;
+                                    }
+                                    <img src="@cover" alt="头像" />
+                                </a>
+                            </div>
+                            <div class="question-detail">
+                                <p class="q-detail-top"><a href="/member/u-@viewQuestion.UserId/show">@viewQuestion.NickName</a><span>@time</span></p>
+                                <h3><a href="/ask/show/@viewQuestion.Id">@viewQuestion.Title</a></h3>
+                                <p class="q-detail-desc">@desc</p>
+                                <p class="q-detail-tag" style="display:none;">Tags:<a href="">技术</a></p>
+                            </div>
+                            <div class="ask-other">
+                                <p><span></span></p>
+                                <p><span></span></p>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        <div class="faqs-wrap module">
+            <div class="module-title">
+                <i class="icon-item"></i><a href="/download">最新专栏文章</a>
+            </div>
+            <div class="module-list">
+                <ul>
+                    @{
+                        if (ViewBag.NewArticles != null) {
+                            var articles = ViewBag.NewArticles as IEnumerable<BaWuClub.Web.Dal.Article>;
+                            foreach (var item in articles) {                                 
+                                var title = item.Title.Length > 20 ? item.Title.Substring(0, 20) + "..." : item.Title;
+                                <li><a href="/column/show/@item.Id">@title</a></li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

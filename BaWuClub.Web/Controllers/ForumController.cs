@@ -11,6 +11,7 @@ namespace BaWuClub.Web.Controllers
     public class ForumController : BaseController
     {
         private ClubEntities club;
+        private int tId = 0;
 
         public ActionResult Index()
         {
@@ -27,12 +28,52 @@ namespace BaWuClub.Web.Controllers
             return categories;
         }
 
-        #region cliques page
         public ActionResult Cliques() {
             return View("~/views/forum/cliques.cshtml");
         }
 
-        //
-        #endregion
+        public ActionResult SponsorActivity() {
+            return View("~/views/forum/sponsoractivity.cshtml");
+        }
+
+        public ActionResult SponsorTask() {
+            return View("~/views/forum/sponsortask.cshtml");
+        }
+
+        public ActionResult Topic(int? id) {
+            tId=id??0;
+            BaWuClub.Web.Dal.Topic topic = new BaWuClub.Web.Dal.Topic();
+            using (club = new ClubEntities()) {
+                topic = club.Topics.Where(t => t.Id == tId).FirstOrDefault();
+                if (topic==null) {
+                    //return RedirectToAction("notfound","error");
+                }
+            }
+
+            return View("~/views/forum/topic.cshtml");
+        }
+        
+        [HttpGet]
+        public ActionResult PostTopic() {
+            return View("~/views/forum/posttopic.cshtml");
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PostTopic(string title, int category, string context) {
+            return View("~/views/forum/TopicTransfers.cshtml");
+        }
+
+        public ActionResult TaskShow(int? id) {
+            return View("~/views/forum/taskshow.cshtml");
+        }
+
+        public ActionResult ActivityShow() {
+            return View("~/views/forum/activityshow.cshtml");
+        }
+
+        public ActionResult List() {
+            return View("~/views/forum/list.cshtml");
+        }
     }
 }

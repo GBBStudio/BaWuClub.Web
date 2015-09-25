@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/views/shared/_layoutmember.cshtml";
+    ViewBag.Title = "个人用户中心-";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+}
+@model IEnumerable<BaWuClub.Web.Dal.Question>
+<div class="member-title">
+    <a href="/member/u-@user.Id/Show">资料</a>
+    <a href="/member/u-@user.Id/contributelist">投稿</a>
+    <a href="/member/u-@user.Id/asks" class="selected">问题</a>
+    <a href="/member/u-@user.Id/answers">回答</a>
+    <a href="/member/u-@user.Id/certification">认证</a>
+    <a href="/member/u-@user.Id/shared">共享</a>
+</div>
+    <div class="member-main">
+        <div class="member-main-wrap">
+            <p>
+                <a href="/member/u-@user.Id/ask">我要提问</a>
+                <span>全部提问(<a href="/member/u-@user.Id/asks/">@ViewBag.AskAllCount</a>)</span>
+            </p>
+            <div class="contribute-list">
+                <ul>
+                    @{
+                        foreach (var a in Model){
+                            <li>
+                                <a href="/ask/show/@a.Id">@BaWuClub.Web.Common.HtmlCommon.ClearHtml(a.Title)</a>
+                                <span>@a.VarDate</span>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/scripts/member.js"></script>

@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewActivity
+<div class="container">
+    <div class="container-left fleft">
+        <div class="activity-show">
+            <div class="activity-title">
+                <img src="~/Uploads/activity/@Model.Cover" class="fleft" />
+                <div class="activity-detail fright">
+                    <h4><a href="">@Model.Title</a></h4>
+                    @{
+                        var start = ((DateTime)Model.StartDate).ToString("yyyy-MM-dd hh:mm");
+                        var end = ((DateTime)Model.EndDate).ToString("yyyy-MM-dd hh:mm");
+                    }
+                    <p>时　间：@start 至 @end</p>
+                    <p>地　点：@Model.Name,@Model.Address</p>
+                    <p>联系人：@Model.Contact</p>
+                    <p>主办方：@Model.Sponsor</p>
+                    <div class="activity-join-btn"><a href="/activity/join/@Model.Id" class="btn-join">立即参加</a></div>
+                </div>
+            </div>
+            <div class="activity-context">
+                @Html.Raw(Model.Context)
+                <div class="activity-join-btn" style="margin-top:50px;"><a href="/activity/join/@Model.Id" class="btn-join">立即参加</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+
+    </div>
+</div>

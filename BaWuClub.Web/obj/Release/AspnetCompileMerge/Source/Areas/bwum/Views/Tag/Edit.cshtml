@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Tag
+<div class="comm-btns">
+    <h2>标签添加</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/tag/index">返回标签列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    @{
+        string _actionStr = string.Empty;
+        string _inputStr = string.Empty;
+        if (Model.Id > 0) {
+            _actionStr = "/bwum/tag/modify";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>标签：</span>
+            <input name="tagname" value="@Model.TagName" type="text" class="input-text input-small" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>

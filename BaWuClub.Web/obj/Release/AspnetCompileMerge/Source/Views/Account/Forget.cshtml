@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "忘记密码-";
+}
+<div id="main" class="container">
+    <div class="login-box">
+        @{
+            var done = ViewBag.SendCompleted;
+            if (done != null && done)
+            {
+                <p>邮件已发送至您注册的邮箱中，请注意查收邮件!</p>
+            }
+            else
+            {
+                <form method="post" name="" action="/account/sendemail">
+                    @Html.Raw(ViewBag.Status)
+                    <p>
+                        <b>用户名:</b><input name="username" type="text" value="" class="input-text" /><span>输入用户名</span>
+                    </p>
+                    <p>
+                        <b>E-mail:</b><input name="email" type="text" value="" class="input-text" /><span>输入邮箱地址</span>
+                    </p>
+                    <p class="login-btn">
+                        <input type="submit" value="提交" class="btn-sub" />
+                    </p>
+                </form>
+            }
+        }
+    </div>
+</div>

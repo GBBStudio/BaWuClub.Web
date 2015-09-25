@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+<div class="comm-btns">
+    <h2>其他设置</h2>    
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div id="input-wrap">
+    <p>
+       <span>缓存：</span>
+       <a class="btn btn-confirm" href="#/setting/clearcache">清除</a>
+    </p>
+</div>

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_layout.cshtml";
+}
+@model BaWuClub.Web.Dal.User
+
+<div id="container">
+    <div class="comm-btns">
+        <h2>用户账号详细</h2>
+        <a class="btn-back iconfont icon-chexiao" href="#/user/index">返回用户列表</a>
+    </div>
+    <div class="show-wrap">
+        <p><span>用户名：</span>@Model.NickName</p>
+        <p><span>真实姓名：</span>@Model.RealName</p>
+        <p><span>电话：</span>@Model.Phone</p>
+        <p><span>地址：</span>@Model.Address</p>
+        <p><span>邮箱：</span>@Model.Email</p>
+        <p><span>注册时间：</span>@Model.RegDate</p>
+        <p><span>最后登录时间：</span>@Model.LastLoginDate</p>
+    </div>
+</div>

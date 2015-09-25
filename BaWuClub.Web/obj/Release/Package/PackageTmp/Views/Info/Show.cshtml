@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+<div id="main" class="container">
+    <div class="feedback-box">
+        <div class="crumbs-wrap">
+            <a href="/">首页</a>&raquo;<span>@ViewBag.Title</span>
+        </div>
+        <div class="info-wrap">
+            @Html.Raw(ViewBag.Text)
+        </div>
+    </div>
+</div>

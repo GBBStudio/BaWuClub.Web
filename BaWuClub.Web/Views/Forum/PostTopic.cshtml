@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "电商圈-";
+    ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+}
+
+<div class="forum-wrap">
+    <div class="container">
+        <div class="container-left forum-block fleft">
+            <div class="crumbs-wrap">
+                <a href="/">首页</a>&raquo;<a href="/forum/">电商圈</a>&raquo;<span>我要发帖</span>
+            </div>
+            <div class="post-topic">
+                <div class="input-box">
+                    <form name="form" method="post">
+                        <p>
+                            <b>标题:</b>
+                            <input name="title" type="text" class="input-text" />
+                        </p>
+                        <p>
+                            <b>分类:</b>
+                            <select name="category" class="input-text">
+                                <option value="1"></option>
+                            </select>
+                        </p>
+                        <p>
+                            <b>内容:</b>
+                            <textarea name="context" class="input-text"></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" name="tj" value="好了，发布" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-right fright">
+            <div class="forum-r-item forum-block">
+                <div class="forum-r-title">
+                    <i></i><span>近期活动</span>
+                </div>
+                <ul>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                </ul>
+            </div>
+
+            <div class="forum-r-item forum-block">
+                <div class="forum-r-title">
+                    <i></i><span>热门活动</span>
+                </div>
+                <ul>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                </ul>
+            </div>
+            <div class="forum-r-banner">
+                <a href="#"><img src="~/Content/Images/b-1.jpg" /></a>
+            </div>
+        </div>
+    </div>
+</div>

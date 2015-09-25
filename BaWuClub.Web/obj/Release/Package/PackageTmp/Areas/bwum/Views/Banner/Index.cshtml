@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.Banner>
+<div class="comm-btns">
+    <h2>广告管理(Banner)</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn2" href="#" data-url="/banner/multidel">删除</a>
+        <a class="comm-btn1 btn-general" href="#/banner/Create">创建</a>
+        <a class="btn comm-btn2" href="#" data-url="/banner/setdisable">不显示</a>
+        <a class="btn comm-btn1" href="#" data-url="/banner/setenable">显示</a>
+    </div>
+</div>
+
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>标题</td>
+                <td>Url</td>
+                <td>状态</td>
+                <td>发布时间</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (BaWuClub.Web.Dal.Banner b in Model)
+                    {
+                        var title = b.Title.Length > 100 ? b.Title.Substring(0, 99) : b.Title;
+                        <tr>
+                            <td><input type="checkbox" name="chk" value="@b.Id" /></td>
+                            <td>@b.Id</td>
+                            <td>@title</td>
+                            <td>@b.Url</td>
+                            <td>@Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(b.Status))</td>
+                            <td>@b.VarDate</td>
+                            <td><a href="#/banner/show/@b.Id">编辑</a><a onclick="ajaxdelete('/banner/del/',@b.Id)">删除</a></td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

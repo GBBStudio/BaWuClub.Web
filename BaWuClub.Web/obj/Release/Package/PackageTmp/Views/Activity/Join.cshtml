@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+@model BaWuClub.Web.Dal.ViewActivity
+<div class="container">
+    <div class="container-left fleft">
+        <div class="crumbs-wrap">
+            <a href="/">首页</a>&raquo;<span>活动报名</span>
+        </div>
+        <div class="join-wrap">
+            <h3>@Model.Title (报名)</h3>
+            <form name="form" method="post" action="/activity/jointo" id="form">
+                <p>
+                    <span>姓名:</span>
+                    <input type="text" class="input-text input-middle" value="" name="name" placeholder="请填写真实姓名（必填）" data-required="true"/>
+                </p>
+                <p>
+                    <span>公司:</span>
+                    <input type="text" class="input-text input-middle" value="" name="company" placeholder="请填写公司名称、网站名、店铺名（必填）" data-required="true" />
+                </p>
+                <p>
+                    <span>职务:</span>
+                    <input type="text" class="input-text input-middle" value="" name="zf" placeholder="请填写职位（必填）" data-required="true" />
+                </p>
+                <p>
+                    <span>手机:</span>
+                    <input type="text" class="input-text input-middle" value="" name="phone" placeholder="请填写手机，接收会议信息（必填）" data-required="true" />
+                </p>
+                <p>
+                    <span>邮箱:</span>
+                    <input type="text" class="input-text input-middle" value="" name="email" placeholder="请填写邮箱，接收会议信息（必填）" data-required="true" />
+                </p>
+                <p>
+                    <span>网址:</span>
+                    <input type="text" class="input-text input-middle" value="" name="site" placeholder="请填写网址、店铺地址" data-required="true" />
+                </p>
+                <p>
+                    <span>QQ:</span>
+                    <input type="text" class="input-text input-middle" value="" name="qq" placeholder="请填写QQ号" data-required="true" />
+                </p>
+                <p>
+                    <span>公司或个人介绍:</span>
+                    <textarea name="info" class="input-textarea input-long" placeholder="填写此项可更快的通过审核"></textarea>
+                </p>
+                <p>
+                    <input name="joinid" type="hidden" value="@Model.Id" />
+                    <input type="button" name="sub" value="确认参加" class="btn-sub" onclick="checkjoin();" />
+                </p>
+            </form>
+            <p></p>
+        </div>
+    </div>
+    <div class="container-right fright">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function checkjoin() {
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.dataset.required == "true") {
+                if (input.value.length == 0) {
+                    alert(input.getAttribute("placeholder"));
+                    return false;
+                }
+            }
+        }
+        join();
+    }
+    function join() {
+        $.post($("#form").attr("action"), $("#form").serializeArray(), function (json) {
+            var data = eval(json);
+            if (data.status = "success") {
+                alert("报名成功！");
+                setTimeout($("#form")[0].reset(),5000)
+                
+            }
+        },"JSON");
+    }
+</script>
