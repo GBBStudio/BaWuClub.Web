@@ -98,7 +98,7 @@ a.btn-join{background:#007ada;color:#fff;padding:8px 20px;}
 .navigation-wrap ul li a:hover{background: #fff;color:#007ada}
 .navigation-wrap ul li a.nav-selected{background: #fff;color:#007ada}
 .search-wrap{width:240px;float:right;background:rgba(0, 116, 208, 1);height:35px;line-height:35px;margin-top:21px;border-radius:5px;border:1px solid #259}
-.search-wrap input[type=text]{border:none;color:#fff;height:30px;line-height:35px;width:180px;padding:0px 10px;background:rgba(0, 116, 208, 1);float:left;}
+.search-wrap input[type=text]{border:none;color:#fff;height:35px;line-height:35px;width:180px;padding:0px 10px;background:rgba(0, 116, 208, 1);float:left;}
 .search-wrap input[type=submit]{border:none;}
 .search-wrap a{font-size:20px;margin-right:8px;color:#fff;}
 #main{margin-top:10px;overflow: hidden;}
@@ -198,8 +198,8 @@ a.btn-join{background:#007ada;color:#fff;padding:8px 20px;}
 .member-main-wrap  .input-box .input-text{width:500px;}
 .member-main-wrap  .input-box b{width:auto;}
 .member-main-wrap  .input-box p{margin-top:0;}
-.member-main-wrap ul li{padding:15px 0;border-bottom:1px dotted #ccc;color:#666;font-size:14px;clear:both;}
-.member-main-wrap ul li>a{color:#007ADA;float:left;display:inline-block;width:600px;}
+.member-main-wrap ul li,.member-menu-right-list ul li{padding:15px 0;border-bottom:1px dotted #ccc;color:#666;font-size:14px;clear:both;}
+.member-main-wrap ul li>a,.member-menu-right-list  ul li>a{color:#007ADA;float:left;display:inline-block;width:600px;}
 .avatar-wrap{position:relative;width:150px;}
 .avatar-wrap>img{width:150px;height:150px;}
 .avatar-wrap>a{position:absolute;right:0;bottom:5px;background:red;font-size:12px;padding:3px 5px;color:#fff;}
@@ -291,3 +291,14 @@ a.comment-item-info-name:visited{color:#111;}
 .input-middle{width:400px;}
 .input-long{width:600px;}
 .error-status{color:red !important;}
+
+.dsk-upload-bwrap{clear:both;padding-top:30px;overflow:hidden;}
+.dsk-upload-bwrap b{display:block;}
+.dsk-upload-bwrap #upload{float:left;}
+.dsk-upload-wrap{float:left;}
+.file-del{background:#007ada;color:#fff;font-size:14px;display:inline-block;width:50px;height:28px;line-height:28px;margin-left:15px;text-align:center;}
+
+.explain-wrap{background:#f7f7f7;border:1px dotted #cecece;padding:10px;margin-top:50px;}
+.explain-wrap h3{font-size:13px;font-weight:normal;}
+
+.member-menu-right{margin-top:30px;padding-left:15px;}

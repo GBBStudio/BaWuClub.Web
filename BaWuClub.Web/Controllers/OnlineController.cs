@@ -16,5 +16,8 @@ namespace BaWuClub.Web.Controllers
             return View();
         }
 
+        public ActionResult Course() {
+            return View("~/views/online/course.cshtml");
+        }
     }
 }

@@ -12,45 +12,65 @@
                 <a href="/">首页</a>&raquo;<a href="/forum/cliques">拉帮结派</a>&raquo;<span>发起活动</span>
             </div>
             <div class="input-box">
-                <form name="form" method="post">
+                <form name="form" method="post" action="/forum/activitypost" onsubmit="return checkSubmit(this)">
                     <p>
-                        <b>标题:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>标题:</b>
+                        <input class="input-text input-middle" name="title" type="text" data-hint="标题不能为空" data-required="true" placeholder="发起活动的标题" />
                     </p>
                     <p>
-                        <b>城市:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>城市:</b>
+                        <select class="input-text" name="city">
+                            <option value="2">南京</option>
+                            <option value="1">海门</option>
+                        </select>
                     </p>
                     <p>
-                        <b>地址:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>地址:</b>
+                        <input id="form_datetime" class="input-text input-middle" name="address" type="text" data-hint="请输入活动的地址" data-required="true" placeholder="活动的地址" />
+                    </p>
+                    <div class="dsk-upload-bwrap">
+                        <b>图片:</b>
+                        <div class="dsk-upload-wrap">
+                            <input type="file" id="upload" />
+                        </div>
+                        <div class="dsk-upload-show"></div>
+                    </div>
+                    <p>
+                        <b>时间:</b>
+                        <input id="startdatetime" class="input-text" name="start" type="text" data-hint="选择开始的时间" data-required="true" placeholder="开始时间" />
+                        <span>至</span>
+                        <input id="enddatetime" class="input-text" name="end" type="text" data-hint="选择结束的时间" data-required="true" placeholder="结束时间" />
                     </p>
                     <p>
-                        <b>图片:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>费用:</b>
+                        <input class="input-text" name="cost" type="text" data-hint="参与活动所需的费用" data-required="true" placeholder="参与活动的费用" />
                     </p>
                     <p>
-                        <b>时间:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>人数:</b>
+                        <input class="input-text" name="" type="text" data-hint="人数" data-required="true" placeholder="限制的人数" />
                     </p>
                     <p>
-                        <b>费用:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>联系人:</b>
+                        <input class="input-text" name="contact" type="text" data-hint="联系人不能为空" data-required="true" placeholder="活动联系人" />
                     </p>
                     <p>
-                        <b>人数:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>电话:</b>
+                        <input class="input-text" name="phone" type="text" data-hint="请输入联系人的电话" data-required="true" placeholder="活动联系人电话" />
                     </p>
                     <p>
-                        <b>联系人:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>主办方:</b>
+                        <input class="input-text input-middle" name="sponsor" type="text" data-hint="活动的承办方" data-required="true" placeholder="活动承办方" />
+                    </p>
+                    <p class="textarea-wrap">
+                        <b>活动详情:</b>
+                        <input name="context" class="input-textarea input-long" placeholder="活动详情" id="editor"/>
                     </p>
                     <p>
-                        <b>电话:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
-                    </p>
-                    <p>
-                        <b>主办方:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
-                    </p>
-                    <p>
-                        <b>内容:</b>
-                        <textarea name="content" class="input-text"></textarea>
-                    </p>
-                    <p>
-                       
+                        <input type="submit" name="sub" value="发布活动" class="btn-sub" />
                     </p>
                 </form>
+            </div>
+            <div class="sponsor-activity-explain">
             </div>
         </div>
         <div class="container-right fright">
@@ -81,3 +101,74 @@
         </div>
     </div>
 </div>
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<link href="~/content/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/content/Ckeditor-Base/ckeditor.js"></script>
+<script type="text/javascript" src="~/content/Scripts/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+</script>
+<script type="text/javascript">
+    function checkSubmit(e) {
+        var inputs = e.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.dataset.required == "true") {
+                if (input.value.length == 0) {
+                    alert(input.dataset.hint)
+                    return false;
+                }
+            }
+        }
+
+        $.post($(e).attr("action"), $(e).serialize(), function (result) {
+            var data = eval(result);
+            if (data.state == "success")
+                window.location.href = data.url;
+        }, "json");
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    $('#startdatetime').datetimepicker();
+    $('#enddatetime').datetimepicker();
+</script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择活动图片',
+        swf: '/content/uploadify/uploadify.swf',
+        uploader: '/fileupload/uploadpics',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        formData: { "type": "topicactivity" },
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1张图片！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于1M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".dsk-upload-wrap").hide();
+            $(".dsk-upload-show").html("<img src=\"" + obj.url + "\" height=\"100\"/><input value=\"" + obj.name + "\" type=\"hidden\" name=\"pic\"/><a href=\"#\" class=\"file-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".file-del", function () {
+        $(".dsk-upload-wrap").show();
+        $(".dsk-upload-show").empty();
+    })
+</script>

@@ -46,5 +46,10 @@ input[type=button].down-login-btns:active{width:198px;height:40px;background-pos
 .down-login-input input{height:30px;line-height:30px;padding-left:25px;width:173px;}
 .down-login-other{font-size:13px;margin:10px auto;text-align:right;width:198px;}
 .down-login-other a{padding:0px 5px;color:#999}
-
+a.sort-selected{color:#259;font-weight:bold;}
 .icon-pdf{background:url(../Images/icon-pdf.png) no-repeat;width:40px;height:52px;display:block;}
+.icon-word{background:url(../Images/icon-word.png) no-repeat;width:40px;height:52px;display:block;}
+.icon-excel{background:url(../Images/icon-excel.png) no-repeat;width:40px;height:52px;display:block;}
+.icon-ppt{background:url(../Images/icon-ppt.png) no-repeat;width:40px;height:52px;display:block;}
+.download-wrap p.textarea-wrap{height:auto;}
+.download-block-u{background:#fff;margin-top:13px;padding-top:0 !important;}

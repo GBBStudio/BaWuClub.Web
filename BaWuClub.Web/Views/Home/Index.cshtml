@@ -71,7 +71,7 @@
                                         <a href="/member/u-@view.UserCover/show/">
                                             @{
                                                 var cover = "/content/images/no-img.jpg";
-                                                var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.PutDate ?? DateTime.Now);
+                                                var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.VarDate ?? DateTime.Now);
                                                 if (!string.IsNullOrEmpty(view.Cover)){
                                                     cover = "/uploads/avatar/small/" + view.Cover;
                                                 }

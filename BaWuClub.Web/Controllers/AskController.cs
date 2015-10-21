@@ -28,7 +28,7 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()){
                 rowsCount=club.ViewQuestions.Count();
                 vquestion = club.ViewQuestions.OrderByDescending(q=>q.VarDate).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
-                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.PutDate).Take(7).ToList<Article>();
+                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
             }
             ViewBag.PageStr = GetPageStr(ClubConst.WebQuestionPageSize, 1, rowsCount, ClubConst.WebQuestionPageShow, "/ask/list/", false);
             return View(vquestion);
@@ -41,7 +41,7 @@ namespace BaWuClub.Web.Controllers
             int page = id ?? 1;
             using (club = new ClubEntities()){
                 rowsCount = club.ViewQuestions.Count();
-                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.PutDate).Take(7).ToList<Article>();
+                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
                 vquestion = club.ViewQuestions.OrderByDescending(q=>q.VarDate).Skip((page-1)*ClubConst.WebPageSize).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
             }
             ViewBag.PageStr = GetPageStr(ClubConst.WebQuestionPageSize,page,rowsCount,ClubConst.WebQuestionPageShow,"/ask/list/",false);

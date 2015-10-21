@@ -16,18 +16,18 @@ namespace BaWuClub.Web.Dal
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Cover { get; set; }
         public string Context { get; set; }
         public string Tags { get; set; }
         public int Views { get; set; }
         public int UserId { get; set; }
-        public Nullable<System.DateTime> PutDate { get; set; }
         public byte Status { get; set; }
         public string NickName { get; set; }
         public string RealName { get; set; }
         public string Intro { get; set; }
-        public string UserCover { get; set; }
         public string Company { get; set; }
         public int UId { get; set; }
+        public string UserCover { get; set; }
+        public string Cover { get; set; }
+        public Nullable<System.DateTime> VarDate { get; set; }
     }
 }

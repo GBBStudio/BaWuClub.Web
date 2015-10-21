@@ -19,5 +19,10 @@ namespace BaWuClub.Web.Controllers
         public ActionResult NotFound(){
             return View("~/views/error/404.cshtml");
         }
+
+        public ActionResult Exception(string url) {
+            ViewBag.url = url;
+            return View();
+        }
     }
 }

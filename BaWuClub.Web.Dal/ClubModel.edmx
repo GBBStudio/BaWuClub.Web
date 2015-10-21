@@ -122,7 +122,7 @@
           <Property Name="Views" Type="int" Nullable="false" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="PutDate" Type="datetime" />
+          <Property Name="VarDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ArticleTags">
           <Key>
@@ -153,6 +153,23 @@
           <Property Name="Size" Type="nvarchar" MaxLength="200" />
           <Property Name="Variables" Type="nvarchar" MaxLength="50" />
           <Property Name="VarDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Url" Type="nvarchar" MaxLength="250" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TagsId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Downs" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Feedbacks">
           <Key>
@@ -227,6 +244,22 @@
           <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="TopicActivities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="City" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Sponsor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Context" Type="text" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="TopicCategories">
           <Key>
             <PropertyRef Name="Id" />
@@ -237,6 +270,7 @@
           <Property Name="Cover" Type="nvarchar" MaxLength="50" />
           <Property Name="Icon" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="tinyint" />
+          <Property Name="Status" Type="tinyint" />
           <Property Name="Variable" Type="nvarchar" MaxLength="50" />
           <Property Name="VarDate" Type="datetime" />
         </EntityType>
@@ -245,8 +279,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TopicId" Type="int" />
-          <Property Name="Category" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Support" Type="int" Nullable="false" />
+          <Property Name="Oppose" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
           <Property Name="VarDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TopicReviews">
@@ -259,25 +301,22 @@
           <Property Name="UserId" Type="int" />
           <Property Name="Support" Type="int" />
           <Property Name="Oppose" Type="int" />
+          <Property Name="PId" Type="int" />
           <Property Name="VarDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Topics">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Context" Type="text" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="Category" Type="int" />
-          <Property Name="Views" Type="int" />
-          <Property Name="TopicIndex" Type="int" />
-          <Property Name="Stick" Type="tinyint" />
-          <Property Name="Recommend" Type="tinyint" />
-          <Property Name="Good" Type="tinyint" />
-          <Property Name="Tags" Type="nvarchar" MaxLength="50" />
-          <Property Name="TagIds" Type="nvarchar" MaxLength="50" />
-          <Property Name="VarDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TopicTasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Context" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -385,19 +424,19 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
           <Property Name="Context" Type="text" />
           <Property Name="Tags" Type="nvarchar" MaxLength="500" />
           <Property Name="Views" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="PutDate" Type="datetime" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RealName" Type="nvarchar" MaxLength="50" />
           <Property Name="Intro" Type="text" />
-          <Property Name="UserCover" Type="nvarchar" MaxLength="50" />
           <Property Name="Company" Type="nvarchar" MaxLength="200" />
           <Property Name="UId" Type="int" Nullable="false" />
+          <Property Name="UserCover" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+          <Property Name="VarDate" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewArticleReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -446,6 +485,38 @@
           <Property Name="VarDate" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewDocument”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Tags" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Downs" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Url" Type="nvarchar" MaxLength="250" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TagsId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Downs" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
+          <Property Name="UId" Type="int" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewQuestion”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="ViewQuestion">
           <Key>
@@ -465,6 +536,82 @@
           <Property Name="Cover" Type="nvarchar" MaxLength="50" />
           <Property Name="Intro" Type="text" />
           <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopic”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Support" Type="int" Nullable="false" />
+          <Property Name="Oppose" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
+          <Property Name="UId" Type="int" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+          <Property Name="Context" Type="text" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicActivity”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopicActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Support" Type="int" Nullable="false" />
+          <Property Name="Oppose" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
+          <Property Name="City" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Sponsor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Context" Type="text" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewTopicCategory”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -489,6 +636,128 @@
           <Property Name="FatherId" Type="int" Nullable="false" />
           <Property Name="Icon" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicIndex”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopicIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Support" Type="int" Nullable="false" />
+          <Property Name="Oppose" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopicReview">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Reviews" Type="text" />
+          <Property Name="TopicId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Support" Type="int" />
+          <Property Name="Oppose" Type="int" />
+          <Property Name="PId" Type="int" />
+          <Property Name="VarDate" Type="datetime" />
+          <Property Name="UId" Type="int" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicTask”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopicTask">
+          <Key>
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="Context" />
+          </Key>
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Support" Type="int" Nullable="false" />
+          <Property Name="Oppose" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+          <Property Name="Context" Type="text" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Topic_Activity">
+          <End Role="TopicIndexes" Type="Self.TopicIndexes" Multiplicity="1" />
+          <End Role="TopicActivities" Type="Self.TopicActivities" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndexes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TopicActivities">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topic_Task">
+          <End Role="TopicIndexes" Type="Self.TopicIndexes" Multiplicity="1" />
+          <End Role="TopicTasks" Type="Self.TopicTasks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndexes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TopicTasks">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topics_Index">
+          <End Role="TopicIndexes" Type="Self.TopicIndexes" Multiplicity="1" />
+          <End Role="Topics" Type="Self.Topics" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndexes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Topics">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ClubDBModelStoreContainer">
           <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityOrders" EntityType="Self.ActivityOrders" Schema="dbo" store:Type="Tables" />
@@ -502,16 +771,19 @@
           <EntitySet Name="ArticleTags" EntityType="Self.ArticleTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BannerTypes" EntityType="Self.BannerTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemArticles" EntityType="Self.SystemArticles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TagMaps" EntityType="Self.TagMaps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TopicActivities" EntityType="Self.TopicActivities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TopicCategories" EntityType="Self.TopicCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TopicIndexes" EntityType="Self.TopicIndexes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TopicReviews" EntityType="Self.TopicReviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TopicTasks" EntityType="Self.TopicTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Views" EntityType="Self.Views" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menus" EntityType="Self.Menus" store:Type="Tables" store:Schema="dbo">
@@ -569,19 +841,19 @@
             <DefiningQuery>SELECT 
     [ViewArticle].[Id] AS [Id], 
     [ViewArticle].[Title] AS [Title], 
-    [ViewArticle].[Cover] AS [Cover], 
     [ViewArticle].[Context] AS [Context], 
     [ViewArticle].[Tags] AS [Tags], 
     [ViewArticle].[Views] AS [Views], 
     [ViewArticle].[UserId] AS [UserId], 
-    [ViewArticle].[PutDate] AS [PutDate], 
     [ViewArticle].[Status] AS [Status], 
     [ViewArticle].[NickName] AS [NickName], 
     [ViewArticle].[RealName] AS [RealName], 
     [ViewArticle].[Intro] AS [Intro], 
-    [ViewArticle].[UserCover] AS [UserCover], 
     [ViewArticle].[Company] AS [Company], 
-    [ViewArticle].[UId] AS [UId]
+    [ViewArticle].[UId] AS [UId], 
+    [ViewArticle].[UserCover] AS [UserCover], 
+    [ViewArticle].[Cover] AS [Cover], 
+    [ViewArticle].[VarDate] AS [VarDate]
     FROM [dbo].[ViewArticle] AS [ViewArticle]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewArticleReview" EntityType="Self.ViewArticleReview" store:Type="Views" store:Schema="dbo">
@@ -614,6 +886,25 @@
     [ViewBanner].[VarDate] AS [VarDate]
     FROM [dbo].[ViewBanner] AS [ViewBanner]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViewDocument" EntityType="Self.ViewDocument" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewDocument].[Id] AS [Id], 
+    [ViewDocument].[Title] AS [Title], 
+    [ViewDocument].[Description] AS [Description], 
+    [ViewDocument].[Url] AS [Url], 
+    [ViewDocument].[UserId] AS [UserId], 
+    [ViewDocument].[Tags] AS [Tags], 
+    [ViewDocument].[TagsId] AS [TagsId], 
+    [ViewDocument].[Type] AS [Type], 
+    [ViewDocument].[Views] AS [Views], 
+    [ViewDocument].[Downs] AS [Downs], 
+    [ViewDocument].[Status] AS [Status], 
+    [ViewDocument].[VarDate] AS [VarDate], 
+    [ViewDocument].[UId] AS [UId], 
+    [ViewDocument].[NickName] AS [NickName], 
+    [ViewDocument].[Cover] AS [Cover]
+    FROM [dbo].[ViewDocument] AS [ViewDocument]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ViewQuestion" EntityType="Self.ViewQuestion" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewQuestion].[Id] AS [Id], 
@@ -628,6 +919,53 @@
     [ViewQuestion].[Intro] AS [Intro], 
     [ViewQuestion].[RealName] AS [RealName]
     FROM [dbo].[ViewQuestion] AS [ViewQuestion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTopic" EntityType="Self.ViewTopic" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopic].[Id] AS [Id], 
+    [ViewTopic].[Title] AS [Title], 
+    [ViewTopic].[UserId] AS [UserId], 
+    [ViewTopic].[Type] AS [Type], 
+    [ViewTopic].[Category] AS [Category], 
+    [ViewTopic].[Views] AS [Views], 
+    [ViewTopic].[Support] AS [Support], 
+    [ViewTopic].[Oppose] AS [Oppose], 
+    [ViewTopic].[Status] AS [Status], 
+    [ViewTopic].[Area] AS [Area], 
+    [ViewTopic].[Likes] AS [Likes], 
+    [ViewTopic].[VarDate] AS [VarDate], 
+    [ViewTopic].[UId] AS [UId], 
+    [ViewTopic].[NickName] AS [NickName], 
+    [ViewTopic].[Cover] AS [Cover], 
+    [ViewTopic].[Context] AS [Context]
+    FROM [dbo].[ViewTopic] AS [ViewTopic]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTopicActivity" EntityType="Self.ViewTopicActivity" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopicActivity].[Id] AS [Id], 
+    [ViewTopicActivity].[Title] AS [Title], 
+    [ViewTopicActivity].[UserId] AS [UserId], 
+    [ViewTopicActivity].[Type] AS [Type], 
+    [ViewTopicActivity].[Category] AS [Category], 
+    [ViewTopicActivity].[Views] AS [Views], 
+    [ViewTopicActivity].[Support] AS [Support], 
+    [ViewTopicActivity].[Oppose] AS [Oppose], 
+    [ViewTopicActivity].[Status] AS [Status], 
+    [ViewTopicActivity].[Area] AS [Area], 
+    [ViewTopicActivity].[Likes] AS [Likes], 
+    [ViewTopicActivity].[VarDate] AS [VarDate], 
+    [ViewTopicActivity].[City] AS [City], 
+    [ViewTopicActivity].[Address] AS [Address], 
+    [ViewTopicActivity].[Cover] AS [Cover], 
+    [ViewTopicActivity].[Cost] AS [Cost], 
+    [ViewTopicActivity].[Contact] AS [Contact], 
+    [ViewTopicActivity].[Phone] AS [Phone], 
+    [ViewTopicActivity].[Sponsor] AS [Sponsor], 
+    [ViewTopicActivity].[Context] AS [Context], 
+    [ViewTopicActivity].[StartDate] AS [StartDate], 
+    [ViewTopicActivity].[EndDate] AS [EndDate], 
+    [ViewTopicActivity].[NickName] AS [NickName]
+    FROM [dbo].[ViewTopicActivity] AS [ViewTopicActivity]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewTopicCategory" EntityType="Self.ViewTopicCategory" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -648,6 +986,70 @@
     [ViewTopicCategory].[Icon] AS [Icon]
     FROM [dbo].[ViewTopicCategory] AS [ViewTopicCategory]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViewTopicIndex" EntityType="Self.ViewTopicIndex" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopicIndex].[Id] AS [Id], 
+    [ViewTopicIndex].[Title] AS [Title], 
+    [ViewTopicIndex].[UserId] AS [UserId], 
+    [ViewTopicIndex].[Type] AS [Type], 
+    [ViewTopicIndex].[Category] AS [Category], 
+    [ViewTopicIndex].[Views] AS [Views], 
+    [ViewTopicIndex].[Support] AS [Support], 
+    [ViewTopicIndex].[Oppose] AS [Oppose], 
+    [ViewTopicIndex].[Status] AS [Status], 
+    [ViewTopicIndex].[Area] AS [Area], 
+    [ViewTopicIndex].[Likes] AS [Likes], 
+    [ViewTopicIndex].[VarDate] AS [VarDate], 
+    [ViewTopicIndex].[NickName] AS [NickName], 
+    [ViewTopicIndex].[Cover] AS [Cover]
+    FROM [dbo].[ViewTopicIndex] AS [ViewTopicIndex]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTopicReview" EntityType="Self.ViewTopicReview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopicReview].[Id] AS [Id], 
+    [ViewTopicReview].[Reviews] AS [Reviews], 
+    [ViewTopicReview].[TopicId] AS [TopicId], 
+    [ViewTopicReview].[UserId] AS [UserId], 
+    [ViewTopicReview].[Support] AS [Support], 
+    [ViewTopicReview].[Oppose] AS [Oppose], 
+    [ViewTopicReview].[PId] AS [PId], 
+    [ViewTopicReview].[VarDate] AS [VarDate], 
+    [ViewTopicReview].[UId] AS [UId], 
+    [ViewTopicReview].[NickName] AS [NickName], 
+    [ViewTopicReview].[Cover] AS [Cover]
+    FROM [dbo].[ViewTopicReview] AS [ViewTopicReview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTopicTask" EntityType="Self.ViewTopicTask" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopicTask].[NickName] AS [NickName], 
+    [ViewTopicTask].[Id] AS [Id], 
+    [ViewTopicTask].[Title] AS [Title], 
+    [ViewTopicTask].[UserId] AS [UserId], 
+    [ViewTopicTask].[Type] AS [Type], 
+    [ViewTopicTask].[Category] AS [Category], 
+    [ViewTopicTask].[Views] AS [Views], 
+    [ViewTopicTask].[Support] AS [Support], 
+    [ViewTopicTask].[Oppose] AS [Oppose], 
+    [ViewTopicTask].[Status] AS [Status], 
+    [ViewTopicTask].[Area] AS [Area], 
+    [ViewTopicTask].[Likes] AS [Likes], 
+    [ViewTopicTask].[VarDate] AS [VarDate], 
+    [ViewTopicTask].[Cover] AS [Cover], 
+    [ViewTopicTask].[Context] AS [Context]
+    FROM [dbo].[ViewTopicTask] AS [ViewTopicTask]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Topic_Activity" Association="Self.FK_Topic_Activity">
+            <End Role="TopicIndexes" EntitySet="TopicIndexes" />
+            <End Role="TopicActivities" EntitySet="TopicActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topic_Task" Association="Self.FK_Topic_Task">
+            <End Role="TopicIndexes" EntitySet="TopicIndexes" />
+            <End Role="TopicTasks" EntitySet="TopicTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topics_Index" Association="Self.FK_Topics_Index">
+            <End Role="TopicIndexes" EntitySet="TopicIndexes" />
+            <End Role="Topics" EntitySet="Topics" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -690,8 +1092,8 @@
           <Property Name="Views" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Byte" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="PutDate" Type="DateTime" Precision="3" />
           <Property Name="TagIds" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VarDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ArticleTag">
           <Key>
@@ -763,7 +1165,6 @@
           <EntitySet Name="Questions" EntityType="ClubDBModel.Question" />
           <EntitySet Name="ViewQuestions" EntityType="ClubDBModel.ViewQuestion" />
           <EntitySet Name="Banners" EntityType="ClubDBModel.Banner" />
-          <EntitySet Name="ViewArticles" EntityType="ClubDBModel.ViewArticle" />
           <EntitySet Name="Areas" EntityType="ClubDBModel.Area" />
           <EntitySet Name="Feedbacks" EntityType="ClubDBModel.Feedback" />
           <EntitySet Name="Activities" EntityType="ClubDBModel.Activity" />
@@ -778,12 +1179,34 @@
           <EntitySet Name="ViewBanners" EntityType="ClubDBModel.ViewBanner" />
           <EntitySet Name="TagMaps" EntityType="ClubDBModel.TagMap" />
           <EntitySet Name="TopicCategories" EntityType="ClubDBModel.TopicCategory" />
-          <EntitySet Name="TopicIndexes" EntityType="ClubDBModel.TopicIndex" />
           <EntitySet Name="TopicReviews" EntityType="ClubDBModel.TopicReview" />
-          <EntitySet Name="Topics" EntityType="ClubDBModel.Topic" />
           <EntitySet Name="ViewTopicCategories" EntityType="ClubDBModel.ViewTopicCategory" />
           <EntitySet Name="AdminAccounts" EntityType="ClubDBModel.AdminAccount" />
           <EntitySet Name="AdminTypes" EntityType="ClubDBModel.AdminType" />
+          <EntitySet Name="TopicIndexes" EntityType="ClubDBModel.TopicIndex" />
+          <EntitySet Name="Topics" EntityType="ClubDBModel.Topic" />
+          <AssociationSet Name="FK_Topics_Index" Association="ClubDBModel.FK_Topics_Index">
+            <End Role="TopicIndex" EntitySet="TopicIndexes" />
+            <End Role="Topic" EntitySet="Topics" />
+          </AssociationSet>
+          <EntitySet Name="TopicActivities" EntityType="ClubDBModel.TopicActivity" />
+          <AssociationSet Name="FK_Topic_Activity" Association="ClubDBModel.FK_Topic_Activity">
+            <End Role="TopicIndex" EntitySet="TopicIndexes" />
+            <End Role="TopicActivity" EntitySet="TopicActivities" />
+          </AssociationSet>
+          <EntitySet Name="TopicTasks" EntityType="ClubDBModel.TopicTask" />
+          <AssociationSet Name="FK_Topic_Task" Association="ClubDBModel.FK_Topic_Task">
+            <End Role="TopicIndex" EntitySet="TopicIndexes" />
+            <End Role="TopicTask" EntitySet="TopicTasks" />
+          </AssociationSet>
+          <EntitySet Name="ViewTopicActivities" EntityType="ClubDBModel.ViewTopicActivity" />
+          <EntitySet Name="ViewTopicTasks" EntityType="ClubDBModel.ViewTopicTask" />
+          <EntitySet Name="ViewTopicIndexes" EntityType="ClubDBModel.ViewTopicIndex" />
+          <EntitySet Name="ViewTopics" EntityType="ClubDBModel.ViewTopic" />
+          <EntitySet Name="ViewTopicReviews" EntityType="ClubDBModel.ViewTopicReview" />
+          <EntitySet Name="Documents" EntityType="ClubDBModel.Document" />
+          <EntitySet Name="ViewArticles" EntityType="ClubDBModel.ViewArticle" />
+          <EntitySet Name="ViewDocuments" EntityType="ClubDBModel.ViewDocument" />
         </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -827,32 +1250,6 @@
           <Property Name="Url" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Byte" Nullable="false" />
           <Property Name="VarDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewArticle">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Views" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="NickName" />
-            <PropertyRef Name="UId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Views" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="PutDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
-          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UserCover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Area">
           <Key>
@@ -1068,15 +1465,7 @@
           <Property Name="Variable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VarDate" Type="DateTime" Precision="3" />
           <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TopicIndex">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TopicId" Type="Int32" />
-          <Property Name="Category" Type="Int32" />
-          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Byte" />
         </EntityType>
         <EntityType Name="TopicReview">
           <Key>
@@ -1089,24 +1478,7 @@
           <Property Name="Support" Type="Int32" />
           <Property Name="Oppose" Type="Int32" />
           <Property Name="VarDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Topic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="Category" Type="Int32" />
-          <Property Name="Views" Type="Int32" />
-          <Property Name="TopicIndex" Type="Int32" />
-          <Property Name="Stick" Type="Byte" />
-          <Property Name="Recommend" Type="Byte" />
-          <Property Name="Good" Type="Byte" />
-          <Property Name="Tags" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TagIds" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VarDate" Type="DateTime" Precision="3" />
+          <Property Name="PId" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewTopicCategory">
           <Key>
@@ -1155,6 +1527,320 @@
           <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VarDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="TopicIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Support" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Topic" Relationship="ClubDBModel.FK_Topics_Index" FromRole="TopicIndex" ToRole="Topic" />
+          <NavigationProperty Name="TopicActivity" Relationship="ClubDBModel.FK_Topic_Activity" FromRole="TopicIndex" ToRole="TopicActivity" />
+          <NavigationProperty Name="TopicTask" Relationship="ClubDBModel.FK_Topic_Task" FromRole="TopicIndex" ToRole="TopicTask" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TopicIndex" Relationship="ClubDBModel.FK_Topics_Index" FromRole="Topic" ToRole="TopicIndex" />
+        </EntityType>
+        <Association Name="FK_Topics_Index">
+          <End Type="ClubDBModel.TopicIndex" Role="TopicIndex" Multiplicity="1" />
+          <End Type="ClubDBModel.Topic" Role="Topic" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Topic">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TopicActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Sponsor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TopicIndex" Relationship="ClubDBModel.FK_Topic_Activity" FromRole="TopicActivity" ToRole="TopicIndex" />
+        </EntityType>
+        <Association Name="FK_Topic_Activity">
+          <End Type="ClubDBModel.TopicIndex" Role="TopicIndex" Multiplicity="1" />
+          <End Type="ClubDBModel.TopicActivity" Role="TopicActivity" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TopicActivity">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TopicTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Context" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TopicIndex" Relationship="ClubDBModel.FK_Topic_Task" FromRole="TopicTask" ToRole="TopicIndex" />
+        </EntityType>
+        <Association Name="FK_Topic_Task">
+          <End Type="ClubDBModel.TopicIndex" Role="TopicIndex" Multiplicity="1" />
+          <End Type="ClubDBModel.TopicTask" Role="TopicTask" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TopicIndex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TopicTask">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ViewTopicActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Support" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Sponsor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewTopicTask">
+          <Key>
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="Context" />
+          </Key>
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Support" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ViewTopicIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Support" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Support" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Area" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Support" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ViewTopicReview">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Reviews" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TopicId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Support" Type="Int32" />
+          <Property Name="Oppose" Type="Int32" />
+          <Property Name="PId" Type="Int32" />
+          <Property Name="VarDate" Type="DateTime" Precision="3" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Tags" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TagsId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Downs" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewArticle">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="UId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="UserCover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VarDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Tags" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Views" />
+            <PropertyRef Name="Downs" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Tags" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TagsId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Downs" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1191,6 +1877,7 @@
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="ClubDBModel.Article">
               <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
                 <ScalarProperty Name="TagIds" ColumnName="TagIds" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1200,7 +1887,6 @@
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="PutDate" ColumnName="PutDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1305,27 +1991,6 @@
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Pic" ColumnName="Pic" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewArticles">
-            <EntityTypeMapping TypeName="ClubDBModel.ViewArticle">
-              <MappingFragment StoreEntitySet="ViewArticle">
-                <ScalarProperty Name="UId" ColumnName="UId" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="UserCover" ColumnName="UserCover" />
-                <ScalarProperty Name="Intro" ColumnName="Intro" />
-                <ScalarProperty Name="RealName" ColumnName="RealName" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PutDate" ColumnName="PutDate" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="Tags" ColumnName="Tags" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Cover" ColumnName="Cover" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1526,6 +2191,7 @@
           <EntitySetMapping Name="TopicCategories">
             <EntityTypeMapping TypeName="ClubDBModel.TopicCategory">
               <MappingFragment StoreEntitySet="TopicCategories">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="VarDate" ColumnName="VarDate" />
                 <ScalarProperty Name="Variable" ColumnName="Variable" />
@@ -1537,44 +2203,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TopicIndexes">
-            <EntityTypeMapping TypeName="ClubDBModel.TopicIndex">
-              <MappingFragment StoreEntitySet="TopicIndexes">
-                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TopicReviews">
             <EntityTypeMapping TypeName="ClubDBModel.TopicReview">
               <MappingFragment StoreEntitySet="TopicReviews">
+                <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="VarDate" ColumnName="VarDate" />
                 <ScalarProperty Name="Oppose" ColumnName="Oppose" />
                 <ScalarProperty Name="Support" ColumnName="Support" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TopicId" ColumnName="TopicId" />
                 <ScalarProperty Name="Reviews" ColumnName="Reviews" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Topics">
-            <EntityTypeMapping TypeName="ClubDBModel.Topic">
-              <MappingFragment StoreEntitySet="Topics">
-                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
-                <ScalarProperty Name="TagIds" ColumnName="TagIds" />
-                <ScalarProperty Name="Tags" ColumnName="Tags" />
-                <ScalarProperty Name="Good" ColumnName="Good" />
-                <ScalarProperty Name="Recommend" ColumnName="Recommend" />
-                <ScalarProperty Name="Stick" ColumnName="Stick" />
-                <ScalarProperty Name="TopicIndex" ColumnName="TopicIndex" />
-                <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1624,6 +2262,226 @@
                 <ScalarProperty Name="VarDate" ColumnName="VarDate" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopicIndexes">
+            <EntityTypeMapping TypeName="ClubDBModel.TopicIndex">
+              <MappingFragment StoreEntitySet="TopicIndexes">
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="ClubDBModel.Topic">
+              <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopicActivities">
+            <EntityTypeMapping TypeName="ClubDBModel.TopicActivity">
+              <MappingFragment StoreEntitySet="TopicActivities">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopicTasks">
+            <EntityTypeMapping TypeName="ClubDBModel.TopicTask">
+              <MappingFragment StoreEntitySet="TopicTasks">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopicActivities">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopicActivity">
+              <MappingFragment StoreEntitySet="ViewTopicActivity">
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopicTasks">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopicTask">
+              <MappingFragment StoreEntitySet="ViewTopicTask">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopicIndexes">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopicIndex">
+              <MappingFragment StoreEntitySet="ViewTopicIndex">
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopics">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopic">
+              <MappingFragment StoreEntitySet="ViewTopic">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopicReviews">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopicReview">
+              <MappingFragment StoreEntitySet="ViewTopicReview">
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Support" ColumnName="Support" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="Reviews" ColumnName="Reviews" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="ClubDBModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Downs" ColumnName="Downs" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TagsId" ColumnName="TagsId" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewArticles">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewArticle">
+              <MappingFragment StoreEntitySet="ViewArticle">
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="UserCover" ColumnName="UserCover" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewDocuments">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewDocument">
+              <MappingFragment StoreEntitySet="ViewDocument">
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Downs" ColumnName="Downs" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TagsId" ColumnName="TagsId" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

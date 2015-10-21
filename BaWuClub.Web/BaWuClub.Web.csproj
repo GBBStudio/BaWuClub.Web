@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -155,6 +156,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AskController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DirectController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\ColumnController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
@@ -720,16 +722,39 @@
     <Content Include="Content\Fonts\icon.svg" />
     <Content Include="Content\Fonts\iconfont.svg" />
     <Content Include="Content\Fonts\info.txt" />
+    <Content Include="Content\Images\01-.png" />
+    <Content Include="Content\Images\area-1.jpg" />
+    <Content Include="Content\Images\area-logo.png" />
+    <Content Include="Content\Images\b-1.jpg" />
+    <Content Include="Content\Images\b-2.jpg" />
+    <Content Include="Content\Images\banner-lbjp.png" />
+    <Content Include="Content\Images\bg-downlaod.png" />
+    <Content Include="Content\Images\btn-ac.png" />
+    <Content Include="Content\Images\close.png" />
+    <Content Include="Content\Images\course.jpg" />
+    <Content Include="Content\Images\discuss.png" />
+    <Content Include="Content\Images\icon-excel.png" />
+    <Content Include="Content\Images\icon-pdf.png" />
+    <Content Include="Content\Images\icon-ppt.png" />
+    <Content Include="Content\Images\icon-topic.jpg" />
+    <Content Include="Content\Images\icon-word.png" />
+    <Content Include="Content\Images\league-bg.jpg" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo-1.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\no-img.jpg" />
+    <Content Include="Content\Images\online.jpg" />
+    <Content Include="Content\Images\player.png" />
+    <Content Include="Content\Images\rw.jpg" />
+    <Content Include="Content\Images\t-1.JPG" />
+    <Content Include="Content\Images\_logo.png" />
     <Content Include="Content\Scripts\avatarupload.js" />
     <Content Include="Content\Scripts\comments.js" />
     <Content Include="Content\Scripts\highcharts.js" />
     <Content Include="Content\Scripts\jquery.js" />
     <Content Include="Content\Scripts\layout.js" />
     <Content Include="Content\Scripts\member.js" />
+    <Content Include="Content\Scripts\reviews.js" />
     <Content Include="Content\Scripts\w-layout.js" />
     <Content Include="Content\Uploadify\jquery.uploadify.min.js" />
     <Content Include="Content\Uploadify\uploadify-cancel.png" />
@@ -859,10 +884,7 @@
     <Content Include="Areas\bwum\Views\Tag\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Member\Asks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Member\Answers.cshtml" />
+    <Content Include="Views\Member\AskAndAnswer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\CKeditor\plugins\scayt\LICENSE.md" />
@@ -963,11 +985,14 @@
     <Content Include="Views\Forum\SponsorTask.cshtml" />
     <Content Include="Views\Forum\Topic.cshtml" />
     <Content Include="Views\Forum\PostTopic.cshtml" />
-    <Content Include="Views\Forum\TopicTransfers.cshtml" />
-    <Content Include="Views\Forum\ActivityShow.cshtml" />
-    <Content Include="Views\Forum\TaskShow.cshtml" />
+    <Content Include="Views\Forum\Activity.cshtml" />
+    <Content Include="Views\Forum\Task.cshtml" />
     <Content Include="Views\Forum\List.cshtml" />
     <Content Include="Views\Download\DownShow.cshtml" />
+    <Content Include="Views\Online\Course.cshtml" />
+    <Content Include="Views\Download\UploadDocs.cshtml" />
+    <Content Include="Views\Error\Exception.cshtml" />
+    <Content Include="Views\Direct\Transfers.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

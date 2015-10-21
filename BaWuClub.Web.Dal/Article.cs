@@ -22,7 +22,7 @@ namespace BaWuClub.Web.Dal
         public int Views { get; set; }
         public byte Status { get; set; }
         public int UserId { get; set; }
-        public Nullable<System.DateTime> PutDate { get; set; }
         public string TagIds { get; set; }
+        public Nullable<System.DateTime> VarDate { get; set; }
     }
 }

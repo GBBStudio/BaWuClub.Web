@@ -1,7 +1,193 @@
 ﻿@{
     Layout = "~/views/shared/_layout.cshtml";
     ViewBag.Title = "电商圈-";
+    ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
-<div style="text-align:center;font-family:'Segoe UI';font-size:70px;color:#999;margin:250px 0;">
-    Coming Soon
+<div id="main" class="container">
+    <div class="discuss-wrap">
+        <div class="discuss-title">
+            <i></i><span>主题：18135</span><span>昨日：2291</span><span>今日：283</span>
+        </div>
+        <div class="discuss-category">
+            <ul>
+                @{
+                    var categories=ViewBag.Categories as IEnumerable<BaWuClub.Web.Dal.TopicCategory>;
+                       if(categories!=null){
+                           foreach (var category in categories) {
+                             <li>
+                                <i class="font-category @category.Icon"></i><a>@category.Name (2)</a>
+                            </li>
+                           }
+                        }
+                }
+            </ul>
+        </div>
+        <div class="discuss-list-wrap">
+            <div class="discuss-list-title">
+                <h3>最新热帖</h3><a href="/forum/posttopic">我要发帖</a>
+            </div>
+            <div class="discuss-list">
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/topic"><i class="tb-topic tb-topic-topic"></i>蔡崇信亲自出马 阿里体育在下一盘什么棋</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/activityshow/1"><i class="tb-topic tb-topic-activity"></i>想刷单，有可以帮我的么？</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/topic/1"><i class="tb-topic tb-topic-topic"></i>论双11打造爆款，木木老师给你揭秘如何打造爆款的秘密，另神秘嘉宾参加哦</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/activityshow"><i class="tb-topic tb-topic-activity"></i>本周有小二的来分享干活，有谁来参加，赶快来报名吧。。。。。？</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/taskshow"><i class="tb-topic tb-topic-task"></i>想刷单，有可以帮我的么？</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/taskshow"><i class="tb-topic tb-topic-task"></i>顾家家居价格优势怎么来的？</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/topic"><i class="tb-topic tb-topic-topic"></i>第六届浙交会要来了 今年主题跨境电商与服务</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discuss-list-topic">
+                    <div class="discuss-list-topic-avatar">
+                        <a href="#"><img src="~/Content/Images/no-img.jpg" alt="" /></a>
+                    </div>
+                    <div class="discuss-list-topic-titles">
+                        <div class="topic-title"><a href="/forum/taskshow"><i class="tb-topic tb-topic-task"></i>第六届浙交会要来了 今年主题跨境电商与服务</a></div>
+                        <div class="topic-info">
+                            <a href="#">布袋和尚</a>
+                            <span class="discuss-list-topic-date">9小时前</span>
+                            <span><i class="icon1-liulan"></i>280</span>
+                            <span><i class="icon1-xiai" style="font-size:12px;"></i>2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="function-wrap">
+        <div class="function-rw">
+            <a href="/forum/cliques"><img src="~/Content/Images/rw.jpg" /></a>
+        </div>
+        <div class="function-rw">
+            <a href="#"><img src="~/Content/Images/b-1.jpg" /></a>
+        </div>
+    </div>
+    <div class="area-wrap">
+        <div class="area-title">
+            <img src="~/Content/Images/area-1.jpg" alt="" />
+            <h4>区域板块</h4>
+            <p>申请入住<br /><a href="#">等你来组织></a></p>
+        </div>
+        <div class="area-list">
+            <div class="area-list-item">
+                <div class="area-item-logo">
+                    <img src="~/Content/Images/area-logo.png" alt="区域图标" />
+                </div>
+                <div class="area-item-info">
+                    <h3>南京圈</h3>
+                    <p>区域论坛介绍</p>
+                    <a href="#">点击进入</a>
+                </div>
+            </div>
+            <div class="area-list-item">
+                <div class="area-item-logo">
+                    <img src="~/Content/Images/area-logo.png" alt="区域图标" />
+                </div>
+                <div class="area-item-info">
+                    <h3>海门圈</h3>
+                    <p>区域论坛介绍</p>
+                    <a href="#">点击进入</a>
+                </div>
+            </div>
+            <div class="area-list-item">
+                <div class="area-item-logo">
+                    <img src="~/Content/Images/area-logo.png" alt="区域图标" />
+                </div>
+                <div class="area-item-info">
+                    <h3>杭州圈</h3>
+                    <p>区域论坛介绍</p>
+                    <a href="#">点击进入</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

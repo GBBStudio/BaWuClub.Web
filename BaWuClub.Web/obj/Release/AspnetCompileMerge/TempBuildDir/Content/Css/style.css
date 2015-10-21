@@ -28,6 +28,8 @@
 
 /*左边菜单的样式*/
 #nav-wrap{width:210px;position:fixed;top:50px;bottom:0;overflow-x:hidden;background:#293038;}
+#nav-wrap>ul>li{margin-bottom:1px;cursor:pointer}
+#nav-wrap>ul>li h3{font-size:15px;color:#999;font-weight:200;padding:5px 0}
 #nav-wrap a{color:#fff;text-decoration:none;}
 .menu-s-title {height:40px;font-size:12px;display:inline-block;line-height:40px;width:100%;color:#fff;text-align:left;background:#37424f;}
 .menu-s-title i{display:inline-block;font-size:12px;width:50px;text-align:center;color:#AEB9C2}
@@ -85,7 +87,7 @@ input{font-family:'Microsoft YaHei UI'}
 
 #input-wrap{font-size:12px;padding-left:50px;}
 #input-wrap p{margin:15px 0;}
-#input-wrap p span{display:inline-block;width:55px;}
+#input-wrap p span{display:inline-block;width:85px;}
 #input-wrap input[type=submit]{margin-left:30px}
 
 #notic-wrap {font-size:12px;color:red;}

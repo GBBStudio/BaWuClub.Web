@@ -148,6 +148,12 @@ namespace BaWuClub.Web.Common
             PagingHelper ph = new PagingHelper(pageSize, currentPage, count);
             return ph.GetPageString();
         }
+
+        public static string GetPageStrPro(string url, int pageSize, int currentPage, int count, int pageshow)
+        {
+            PagingHelper ph = new PagingHelper(pageSize, currentPage, count,pageshow);
+            return ph.GetPageStringPro(url,false);
+        }
         #endregion
     }
 

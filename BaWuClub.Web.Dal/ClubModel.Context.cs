@@ -36,7 +36,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<ViewQuestion> ViewQuestions { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
-        public virtual DbSet<ViewArticle> ViewArticles { get; set; }
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
@@ -51,11 +50,21 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<ViewBanner> ViewBanners { get; set; }
         public virtual DbSet<TagMap> TagMaps { get; set; }
         public virtual DbSet<TopicCategory> TopicCategories { get; set; }
-        public virtual DbSet<TopicIndex> TopicIndexes { get; set; }
         public virtual DbSet<TopicReview> TopicReviews { get; set; }
-        public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<ViewTopicCategory> ViewTopicCategories { get; set; }
         public virtual DbSet<AdminAccount> AdminAccounts { get; set; }
         public virtual DbSet<AdminType> AdminTypes { get; set; }
+        public virtual DbSet<TopicIndex> TopicIndexes { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<TopicActivity> TopicActivities { get; set; }
+        public virtual DbSet<TopicTask> TopicTasks { get; set; }
+        public virtual DbSet<ViewTopicActivity> ViewTopicActivities { get; set; }
+        public virtual DbSet<ViewTopicTask> ViewTopicTasks { get; set; }
+        public virtual DbSet<ViewTopicIndex> ViewTopicIndexes { get; set; }
+        public virtual DbSet<ViewTopic> ViewTopics { get; set; }
+        public virtual DbSet<ViewTopicReview> ViewTopicReviews { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<ViewArticle> ViewArticles { get; set; }
+        public virtual DbSet<ViewDocument> ViewDocuments { get; set; }
     }
 }

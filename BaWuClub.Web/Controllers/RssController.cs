@@ -21,12 +21,12 @@ namespace BaWuClub.Web.Controllers
             List<RssItem> list = new List<RssItem>();
             List<Article> articles = new List<Article>();
             using (club = new ClubEntities()) {
-                articles = club.Articles.OrderByDescending(a=>a.PutDate).Where(a=>a.Status==1).Take(10).ToList<Article>();
+                articles = club.Articles.OrderByDescending(a=>a.VarDate).Where(a=>a.Status==1).Take(10).ToList<Article>();
             }
             if (articles != null) {
                 foreach (var a in articles) {
                     var desc=Common.HtmlCommon.ClearHtml(a.Context);
-                    list.Add(new RssItem() {Title=a.Title,Description=(desc.Length>200?desc.Substring(0,199):desc),PutDate=a.PutDate });
+                    list.Add(new RssItem() { Title = a.Title, Description = (desc.Length > 200 ? desc.Substring(0, 199) : desc), VarDate = a.VarDate });
                 }
             }
             return new RssResult(list);
@@ -37,7 +37,7 @@ namespace BaWuClub.Web.Controllers
         public int Id { get; set; }
         public string Title { set; get; }
         public string Description { get; set; }
-        public DateTime? PutDate { get; set; }
+        public DateTime? VarDate { get; set; }
     }
 
     public class RssResult : ActionResult {
@@ -69,7 +69,7 @@ namespace BaWuClub.Web.Controllers
                     new XElement("title",a.Title),
                     new XElement("description",a.Description),
                     new XElement("link","http://www.bawu.com/column/show"+a.Id),
-                    new XElement("pubdate",a.PutDate)
+                    new XElement("pubdate",a.VarDate)
                 });
                 channel.Add(item);
             }

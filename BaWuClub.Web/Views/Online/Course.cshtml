@@ -1,0 +1,115 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "在线学习-";
+    ViewBag.CssAppend = "<link href=\"/content/css/study.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+}
+<div class="online-wrap">
+    <div class="course-info-wrap">
+        <div class="container">
+            <div class="course-info-wrap">
+                <div class="course-info-avatar fleft">
+                    <a href="#">
+                        <img src="~/Content/Images/course.jpg" alt="" />
+                    </a>
+                    <div class="course-info-play">
+                        <img src="~/Content/Images/player.png" alt="" />
+                    </div>
+                </div>
+                <div class="course-info-text fright">
+                    <h3>一天学会店铺装修之首页后台设置下</h3>
+                    <p>新手店铺装修入门级必看，一天学会店铺装修之首页设置下，清晰明了的认识装修后台操作及首页如何布局，页头、页尾都一一解读。</p>
+                    <div class="course-info-each">
+                        <div class="course-info-each-item">
+                            <span>学习人数</span><br />
+                            156811
+                        </div>
+                        <div class="course-info-each-item">
+                            <span>评论</span><br />
+                            12
+                        </div>
+                        <div class="course-info-each-item">
+                            <span>讲师</span><br />
+                            木木老师
+                        </div>
+                    </div>
+                    <div class="course-info-btns fright">
+                        <a onclick="return dialogvideo()">开始学习</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="cource-outline">
+            <div class="cource-outline-title">
+                视频大纲
+            </div>
+            <div class="cource-outline-text">
+               这里是课程的简介
+            </div>
+        </div>
+        <div class="comment-wrap">
+            <div class="comment-title">
+                <span class="fleft"><strong>个回答</strong></span>
+                <div class="comment-sort">
+                    <i class="icon"></i>
+                </div>
+            </div>
+            <div class="comment-list">
+
+            </div>
+            <div class="comment-editor">
+                <input type="text" id="editor" name="comment" />
+                <div class="btns-wrap">
+                    <input type="button" class="btn-sub" value="立即评论" onclick="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="video-wrap" style="display:none;">
+    <div class="video-mask"></div>
+    <div class="video-close"></div>
+    <div class="video-player">
+        <iframe height=498 width=810 src="http://player.youku.com/embed/XMTI3MTAwNTg4MA==" frameborder=0 allowfullscreen></iframe>
+    </div>
+</div>
+<script type="text/javascript" src="~/content/ckeditor-base/ckeditor.js"></script>
+<script type="text/javascript" src="~/content/scripts/comments.js"></script>
+<script type="text/javascript">
+    $(".course-info-play").click(function () {
+        dialogvideo();
+    });
+    $(".video-close").click(function () {
+        closevideo();
+    });
+
+    function closevideo() {
+        $(".video-wrap").hide();
+        window.onscroll = function () {
+            document.body.scrollTop = document.body.scrollTop
+        }
+    }
+
+    function dialogvideo() {
+        var _height = window.screen.height - 498;
+        var _width = window.screen.width - 810;
+        //alert(_height);
+        $(".video-wrap").toggle();
+        $(".video-player").css({ "left": _width / 2, "top": _height / 2 })
+        $(".video-close").css({ "top": (_height / 2) - 100, "right": (_width / 2) - 100 });
+        window.onscroll = function () {
+            document.body.scrollTop = 0
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+    $(function () {
+        $(".comment-item").hover(function () {
+            //  $(this).children(".comment-item-meta").children(".comment-item-vote").toggle();
+        });
+    })
+</script>

@@ -28,13 +28,18 @@ namespace BaWuClub.Web
                 namespaces: new[] { "BaWuClub.Web.Controllers" }
             );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+        routes.MapRoute(
+                name: "Topics",
+                url: "Forum/Topics/{name}",
+                defaults: new { controller = "Forum", action = "Topics", name = UrlParameter.Optional },
                 namespaces: new[] { "BaWuClub.Web.Controllers" }
             );
-
+        routes.MapRoute(
+            name: "Default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            namespaces: new[] { "BaWuClub.Web.Controllers" }
+        );
 
         }
     }

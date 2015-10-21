@@ -13,23 +13,34 @@
             </div>
             <div class="post-topic">
                 <div class="input-box">
+                    <span class="error-status">@ViewBag.hitStr</span>
                     <form name="form" method="post">
                         <p>
                             <b>标题:</b>
-                            <input name="title" type="text" class="input-text" />
+                            <input name="title" type="text" class="input-text input-middle" placeholder="帖子的标题"/>
                         </p>
                         <p>
                             <b>分类:</b>
                             <select name="category" class="input-text">
-                                <option value="1"></option>
+                                <option value="0">选择帖子的分类</option>
+                                @{
+                                    var categoryList = ViewBag.categoryList;
+                                    if (categoryList != null)
+                                    {
+                                        foreach (var category in (categoryList as IEnumerable<BaWuClub.Web.Dal.TopicCategory>))
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
+                                    }
+                                }
                             </select>
                         </p>
-                        <p>
-                            <b>内容:</b>
-                            <textarea name="context" class="input-text"></textarea>
+                        <p class="textarea-wrap">
+                            <b>发帖内容:</b>
+                            <textarea name="context" class="input-text" id="editor"></textarea>
                         </p>
                         <p>
-                            <input type="submit" name="tj" value="好了，发布" />
+                            <input type="submit" name="tj"  class="btn-sub" value="好了，发布" />
                         </p>
                     </form>
                 </div>
@@ -63,3 +74,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="~/content/Ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+</script>

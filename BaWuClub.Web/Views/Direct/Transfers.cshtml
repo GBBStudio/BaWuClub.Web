@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "电商圈-";
+    ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+}
+
+<div class="forum-wrap">
+    <div class="container form-block" style="padding:100px 0;font-size:15px;">
+        <div style="text-align:center;">操作成功！页面将在<span id="timecount">3</span>秒后跳转至 @ViewBag.directPage</div>
+    </div>
+</div>
+<script type="text/javascript">
+    var url='@ViewBag.url';
+    var e = document.getElementById("timecount");
+    setInterval(countdown,1000);
+    function countdown() {
+        var v = e.innerText;
+        if (parseInt(v) ==1)
+            window.location.href = url;
+        e.innerHTML =v- 1;
+    }
+</script>

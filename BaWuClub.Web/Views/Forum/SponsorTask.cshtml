@@ -12,22 +12,16 @@
                 <a href="/">首页</a>&raquo;<a href="/forum/cliques">拉帮结派</a>&raquo;<span>发起任务</span>
             </div>
             <div class="input-box">
-                <form name="form" method="post">
+                <form name="form" method="post" action="/forum/posttask">
                     <p>
-                        <b>标题:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
+                        <b>标题:</b><input class="input-text input-middle" placeholder="发布任务的标题" name="title" type="text" data-hint="" data-required="true" />
+                    </p>
+                    <p class="textarea-wrap">
+                        <b>任务的详细描述:</b>
+                        <textarea name="context" class="input-text" id="editor"></textarea>
                     </p>
                     <p>
-                        <b>人数:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
-                    </p>
-                    <p>
-                        <b>主办方:</b><input class="input-text" name="" type="text" data-hint="" data-required="true" />
-                    </p>
-                    <p>
-                        <b>内容:</b>
-                        <textarea name="content" class="input-text"></textarea>
-                    </p>
-                    <p>
-
+                        <input type="submit" name="sub" value="发布任务" class="btn-sub" onclick="" />
                     </p>
                 </form>
             </div>
@@ -60,3 +54,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="~/content/Ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    var editor = CKEDITOR.replace('editor');
+</script>

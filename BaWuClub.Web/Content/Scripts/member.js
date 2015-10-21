@@ -15,11 +15,17 @@
     });
 
     $(document).on("click", ".page-wrap a", function () {
-        $(".contribute-list ul").html("<img src=\"/content/images/loading.gif\" alt=\"\"/>");
+        $(".member-list-wrap ul").html("<img src=\"/content/images/loading.gif\" alt=\"\"/>");
         $.get($(this).attr("data-href"), function (data) {
             var json = eval(data);
             $(".page-wrap").html(json.pagestr);
-            $(".contribute-list ul").html(json.context);
+            console.log(1);
+            var items = eval(json.context);
+            var str = "";
+            for (var i = 0; i < items.length; i++) {
+                    str+= "<li><a href='" + json["url"] + items[i]["Id"] + "'>" + items[i]["Title"] + "</a><span>" + items[i]["VarDate"] + "</span></li>";
+                $(".member-list-wrap ul").html(str);
+            }
         }, "json");
     });
 })

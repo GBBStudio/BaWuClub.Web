@@ -21,5 +21,6 @@ namespace BaWuClub.Web.Dal
         public Nullable<int> Support { get; set; }
         public Nullable<int> Oppose { get; set; }
         public Nullable<System.DateTime> VarDate { get; set; }
+        public Nullable<int> PId { get; set; }
     }
 }

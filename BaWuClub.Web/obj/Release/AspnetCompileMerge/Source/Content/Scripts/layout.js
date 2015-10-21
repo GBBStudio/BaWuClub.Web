@@ -10,6 +10,7 @@ $(function () {
             }
             else {
                 _this.next("div").addClass("show").animate("slow")
+                _this.parent("li").siblings().children("div.menu-s-wrap").removeClass("show")
                 _this.children("i").removeClass("icon-xiangshang")
                 _this.children("i").addClass("icon-xiangxia")
             }

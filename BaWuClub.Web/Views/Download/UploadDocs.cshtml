@@ -1,0 +1,122 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "下载中心-";
+    ViewBag.CssAppend = "<link href=\"/content/css/download.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    ViewBag.CssAppend += "<link href=\"/content/uploadify/uploadify.css\" rel=\"stylesheet\" type=\"text/css\" />";
+}
+<div class="download-wrap">
+    <div class="container">
+        <div class="container-left download-block-u fleft">
+            <div class="crumbs-wrap">
+                <a href="/">首页</a>&raquo;<a href="/">下载</a>&raquo;<span>上传</span>
+            </div>
+            <div class="upload-doc-wrap input-box">
+                <form name="form" method="post" action="/download/uploads" id="form" onsubmit="checkSubmit(this); return false;">
+                    <p>
+                        <b>文档名称:</b>
+                        <input type="text" class="input-text input-middle" value="" name="title" data-hint="请输入文档名称" placeholder="请文档名称（必填）" data-required="true" />
+                    </p>
+                    <p>
+                        <b>选择标签:</b>
+                        <input type="text" class="input-text input-middle" value="" name="tags" data-hint="请输入标签" placeholder="请输入标签（必填）" data-required="true" />
+                    </p>
+                    <div class="dsk-upload-bwrap">
+                        <b>文件上传:</b>
+                        <div class="dsk-upload-wrap">
+                            <input type="file" id="upload" name="file" />
+                        </div>
+                        <div class="dsk-upload-show"></div>
+                    </div>
+                    <p class="textarea-wrap">
+                        <b>内容描述:</b>
+                        <textarea name="context" class="input-textarea" data-hint="请输入文档描述" placeholder="填写此项可更快的通过审核"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit" name="sub" value="立即上传" class="btn-sub" />
+                    </p>
+                    <div class="explain-wrap">
+                        <h3>关于上传文档的说明:</h3>
+                        <p></p>
+                    </div>
+                </form>
+                <p></p>
+            </div>
+        </div>
+        <div class="container-right fright">
+            <div class="down-ranks download-block">
+                <div class="down-ranks-title">
+                    <i class="iconfont icon1-xiazai"></i>下载排行
+                </div>
+                <div class="down-ranks-list">
+                    <ol>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    function checkSubmit(e) {
+        var inputs = e.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.dataset.required == "true") {
+                if (input.value.length == 0) {
+                    alert(input.dataset.hint)
+                    return false;
+                }
+            }
+        }
+        e.submit();
+    }
+</script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择文件',
+        swf: '/content/uploadify/uploadify.swf',
+        fileTypeExts:'*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.pdf',
+        uploader: '/fileupload/uploadfiles',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        formData: { "type": "files" },
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1个文件！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于20M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".dsk-upload-wrap").hide();
+            $(".dsk-upload-show").html("<span>"+obj.url+"</span><input value=\"" + obj.name + "\" type=\"hidden\" name=\"file\"/><a href=\"#\" class=\"file-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".file-del", function () {
+        $(".dsk-upload-wrap").show();
+        $(".dsk-upload-show").empty();
+    })
+</script>

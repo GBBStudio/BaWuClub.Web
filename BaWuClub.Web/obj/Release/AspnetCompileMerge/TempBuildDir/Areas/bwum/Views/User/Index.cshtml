@@ -5,42 +5,61 @@
 <div class="comm-btns">
     <h2>用户账号管理</h2>
     <div class="comm-btns-wrap">
-        <a class="comm-btn0 iconfont icon-shuaxin" href="#"></a>
-        <!--<a class="btn comm-btn1" href="#user/add">创建</a>-->
-        <a class="btn comm-btn2" href="#" data-show="user/Del">删除</a>
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn1" href="#" data-url="/user/setenable">解禁</a>
+        <a class="btn comm-btn0" href="#" data-url="/user/setdisable">禁用</a>
+        <a class="btn comm-btn2" href="#" data-url="/user/multidel">删除</a>
     </div>
     </div>
-@Html.Raw(ViewBag.statusStr)
-<table>
-    <thead>
-        <tr>
-            <td><input type="checkbox" id="chk-all"/></td><td>Id</td><td>用户名</td><td>邮箱</td><td>真实姓名</td><td>电话</td><td>最后一次登录时间</td><td>注册时间</td><td>状态</td><td>更多操作</td>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (BaWuClub.Web.Dal.User u in Model) { 
-                <tr>
-                    <td><input type="checkbox" name="chk" value="@u.Id"/></td>
-                    <td>@u.Id</td>
-                    <td>@u.NickName</td>
-                    <td>@u.Email</td>
-                    <td>@u.RealName</td>
-                    <td>@u.Phone</td>
-                    <td>@u.LastLoginDate</td>
-                    <td>@u.RegDate</td>
-                    <td>
-                        @Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(u.status))
-                    <td><a href="#/user/show/@u.Id">详细</a><a href="#/user/del/@u.Id">删除</a></td>
-                </tr>
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>用户名</td>
+                <td>邮箱</td>
+                <td>真实姓名</td>
+                <td>电话</td>
+                <td>积分</td>
+                <td>会员身份</td>
+                <td>最后一次登录时间</td>
+                <td>注册时间</td>
+                <td>状态</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (BaWuClub.Web.Dal.User u in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="chk" value="@u.Id" /></td>
+                        <td>@u.Id</td>
+                        <td>@u.NickName</td>
+                        <td>@u.Email</td>
+                        <td>@u.RealName</td>
+                        <td>@u.Phone</td>
+                        <td>@u.Points</td>
+                        <td>@u.Membership</td>
+                        <td>@u.LastLoginDate</td>
+                        <td>@u.RegDate</td>
+                        <td>
+                            @Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(u.Status))
+                        <td><a href="#/user/show/@u.Id">详细</a></td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="10">
-                @Html.Raw(ViewBag.PageHtmlStr)
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

@@ -2,10 +2,15 @@
     Layout = "~/views/shared/_layout.cshtml";
     ViewBag.Title = "电商圈-拉帮结派";
     ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 <div class="cli-banner">
-
+    <ul>
+        <li>
+            <a href="#">
+                <img src="~/Content/Images/banner-lbjp.png" />
+            </a>
+        </li>
+    </ul>
 </div>
 
 <div class="container">
@@ -14,54 +19,33 @@
             <div class="cli-title">
                 <div class="fleft">
                     <strong>活动</strong>
-                    <a href="#">热门</a>
-                    <a href="#">同城</a>
                     <a href="#">进行中</a>
                     <a href="#">已过期</a>
                 </div>
-                <a href="#" title="查看更多" class="fright">更多</a>
+                <a href="/forum/topiclist?type=activity" title="查看更多" class="fright">更多</a>
             </div>
             <ul>
-                <li>
-                    <div class="cli-ac-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-ac-item-info">
-                        <h3>双十一背后的数字</h3>
-                        <p>时间:2015年11月20日</p>
-                        <p>地址:南京国际服务外包大厦</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-ac-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-ac-item-info">
-                        <h3>双十一背后的数字</h3>
-                        <p>时间:2015年11月20日</p>
-                        <p>地址:南京国际服务外包大厦</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-ac-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-ac-item-info">
-                        <h3>双十一背后的数字</h3>
-                        <p>时间:2015年11月20日</p>
-                        <p>地址:南京国际服务外包大厦</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-ac-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-ac-item-info">
-                        <h3>双十一背后的数字</h3>
-                        <p>时间:2015年11月20日</p>
-                        <p>地址:南京国际服务外包大厦</p>
-                    </div>
-                </li>
+                @{
+                    var topics = ViewBag.topics as IEnumerable<BaWuClub.Web.Dal.TopicIndex>;
+                    if (topics != null)
+                    {
+                        foreach (var topic in topics)
+                        {
+                            var cover =( string.IsNullOrEmpty(topic.TopicActivity.Cover) ? "/Content/Images/no-img.jpg" : topic.TopicActivity.Cover);
+                            var address=(string.IsNullOrEmpty(topic.TopicActivity.Address)?"":(topic.TopicActivity.Address.Length>14?topic.TopicActivity.Address.Substring(0,13):topic.TopicActivity.Address));
+                            <li>
+                                <div class="cli-ac-item-cover">
+                                    <a href="/forum/activity/@topic.Id"><img src="@cover" /></a>
+                                </div>
+                                <div class="cli-ac-item-info">
+                                    <h3><a href="/forum/activity/@topic.Id">@topic.Title</a></h3>
+                                    <p>时间:@(((DateTime)topic.TopicActivity.StartDate).ToString("yyyy年MM月dd日"))</p>
+                                    <p>地址:@address</p>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
             </ul>
         </div>
         <div class="cli-c-banner">
@@ -71,61 +55,34 @@
             <div class="cli-title">
                 <div class="fleft">
                     <strong>任务</strong>
-                    <span>目前点商圈共有210个任务</span>
+                    <span>目前点商圈共有 @ViewBag.taskCount 个任务</span>
                 </div>
-                <a href="#" title="查看更多" class="fright">更多</a>
+                <a href="/forum/topiclist?type=task" title="查看更多" class="fright">更多</a>
             </div>
             <ul>
-                <li>
-                    <div class="cli-task-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-task-item-info">
-                        <h3><a href="#">店铺被引入垃圾流量，该怎么处理？</a></h3>
-                        <p>店铺被引入垃圾流量，拍下不付款，直接拉低了转化率，这样该怎么办？</p>
-                        <p><span>2015-11-20</span></p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-task-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-task-item-info">
-                        <h3><a href="#">店铺被引入垃圾流量，该怎么处理？</a></h3>
-                        <p>店铺被引入垃圾流量，拍下不付款，直接拉低了转化率，这样该怎么办？</p>
-                        <p><span>2015-11-20</span></p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-task-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-task-item-info">
-                        <h3><a href="#">店铺被引入垃圾流量，该怎么处理？</a></h3>
-                        <p>店铺被引入垃圾流量，拍下不付款，直接拉低了转化率，这样该怎么办？</p>
-                        <p><span>2015-11-20</span></p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-task-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-task-item-info">
-                        <h3><a href="#">店铺被引入垃圾流量，该怎么处理？</a></h3>
-                        <p>店铺被引入垃圾流量，拍下不付款，直接拉低了转化率，这样该怎么办？</p>
-                        <p><span>2015-11-20</span></p>
-                    </div>
-                </li>
-                <li>
-                    <div class="cli-task-item-cover">
-                        <a href="#"><img src="~/Content/Images/no-img.jpg" /></a>
-                    </div>
-                    <div class="cli-task-item-info">
-                        <h3><a href="#">店铺被引入垃圾流量，该怎么处理？</a></h3>
-                        <p>店铺被引入垃圾流量，拍下不付款，直接拉低了转化率，这样该怎么办？</p>
-                        <p><span>2015-11-20</span></p>
-                    </div>
-                </li>
+                @{
+                    var tasks = ViewBag.tasks as IEnumerable<BaWuClub.Web.Dal.ViewTopicTask>;
+                    if (tasks != null)
+                    {
+                        foreach (var task in tasks)
+                        {
+
+                            var cover = (string.IsNullOrEmpty(task.Cover) ? "/Content/Images/no-img.jpg" : "/uploads/avatar/small/"+task.Cover);
+                            var context = BaWuClub.Web.Common.HtmlCommon.ClearHtml(task.Context);
+                            context = (string.IsNullOrEmpty(context) ? "" : (context.Length > 40 ? context.Substring(0, 39) : context));
+                            <li>
+                                <div class="cli-task-item-cover">
+                                    <a href="/member/u-@task.UserId/show"><img src="@cover" /></a>
+                                </div>
+                                <div class="cli-task-item-info">
+                                    <h3><a href="/forum/task/@task.Id">@task.Title</a></h3>
+                                    <p>@context</p>
+                                    <p><span>@task.VarDate.ToString("yyyy年MM月dd日")</span></p>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
             </ul>
         </div>
     </div>
@@ -136,13 +93,17 @@
         </div>
         <div class="cli-task-list">
             <div class="cli-title">
-                <strong>待解决任务</strong>
+                <strong>已解决任务</strong>
             </div>
             <ul>
-                <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
+                @{
+                    var tasksed = ViewBag.tasked as IEnumerable<BaWuClub.Web.Dal.ViewTopicTask>;
+                    if (tasksed != null) {
+                        foreach(var task in tasksed){
+                            <li><a href="/forum/task/@task.Id">@task.Title</a></li>
+                        }
+                    }
+                }
             </ul>
         </div>
         <div class="forum-r-banner">

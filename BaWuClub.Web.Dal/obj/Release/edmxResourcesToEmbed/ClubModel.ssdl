@@ -34,6 +34,32 @@
     <Property Name="ActivityId" Type="int" Nullable="false" />
     <Property Name="Info" Type="text" />
   </EntityType>
+  <EntityType Name="AdminAccounts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+    <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastLoginIP" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AdminTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="text" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Answers">
     <Key>
       <PropertyRef Name="Id" />
@@ -196,6 +222,58 @@
     <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
   </EntityType>
+  <EntityType Name="TopicCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+    <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Variable" Type="nvarchar" MaxLength="50" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TopicIndexes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TopicId" Type="int" />
+    <Property Name="Category" Type="int" />
+    <Property Name="VarDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TopicReviews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reviews" Type="text" />
+    <Property Name="TopicId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Support" Type="int" />
+    <Property Name="Oppose" Type="int" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Topics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Context" Type="text" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Category" Type="int" />
+    <Property Name="Views" Type="int" />
+    <Property Name="TopicIndex" Type="int" />
+    <Property Name="Stick" Type="tinyint" />
+    <Property Name="Recommend" Type="tinyint" />
+    <Property Name="Good" Type="tinyint" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="50" />
+    <Property Name="TagIds" Type="nvarchar" MaxLength="50" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="Id" />
@@ -213,7 +291,7 @@
     <Property Name="Credit" Type="int" Nullable="false" />
     <Property Name="Actived" Type="tinyint" Nullable="false" />
     <Property Name="Role" Type="tinyint" Nullable="false" />
-    <Property Name="status" Type="tinyint" Nullable="false" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
     <Property Name="ActivedCode" Type="nvarchar" MaxLength="50" />
     <Property Name="Membership" Type="tinyint" />
     <Property Name="Points" Type="int" />
@@ -383,9 +461,34 @@
     <Property Name="Intro" Type="text" />
     <Property Name="RealName" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicCategory”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="ViewTopicCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="FatherId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Variable" Type="nvarchar" MaxLength="50" />
+    <Property Name="VarDate" Type="datetime" />
+    <Property Name="FatherVarDate" Type="datetime" />
+    <Property Name="FatherVariable" Type="nvarchar" MaxLength="50" />
+    <Property Name="FatherType" Type="tinyint" />
+    <Property Name="FatherCover" Type="nvarchar" MaxLength="50" />
+    <Property Name="FatherDescription" Type="text" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+    <Property Name="FatherId" Type="int" Nullable="false" />
+    <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityContainer Name="ClubDBModelStoreContainer">
     <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ActivityOrders" EntityType="Self.ActivityOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdminAccounts" EntityType="Self.AdminAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdminTypes" EntityType="Self.AdminTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AnswerVotes" EntityType="Self.AnswerVotes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
@@ -400,6 +503,10 @@
     <EntitySet Name="SystemArticles" EntityType="Self.SystemArticles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TagMaps" EntityType="Self.TagMaps" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TopicCategories" EntityType="Self.TopicCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TopicIndexes" EntityType="Self.TopicIndexes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TopicReviews" EntityType="Self.TopicReviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Views" EntityType="Self.Views" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menus" EntityType="Self.Menus" store:Type="Tables" store:Schema="dbo">
@@ -516,6 +623,25 @@
     [ViewQuestion].[Intro] AS [Intro], 
     [ViewQuestion].[RealName] AS [RealName]
     FROM [dbo].[ViewQuestion] AS [ViewQuestion]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTopicCategory" EntityType="Self.ViewTopicCategory" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTopicCategory].[Id] AS [Id], 
+    [ViewTopicCategory].[Name] AS [Name], 
+    [ViewTopicCategory].[Description] AS [Description], 
+    [ViewTopicCategory].[Cover] AS [Cover], 
+    [ViewTopicCategory].[Type] AS [Type], 
+    [ViewTopicCategory].[Variable] AS [Variable], 
+    [ViewTopicCategory].[VarDate] AS [VarDate], 
+    [ViewTopicCategory].[FatherVarDate] AS [FatherVarDate], 
+    [ViewTopicCategory].[FatherVariable] AS [FatherVariable], 
+    [ViewTopicCategory].[FatherType] AS [FatherType], 
+    [ViewTopicCategory].[FatherCover] AS [FatherCover], 
+    [ViewTopicCategory].[FatherDescription] AS [FatherDescription], 
+    [ViewTopicCategory].[FatherName] AS [FatherName], 
+    [ViewTopicCategory].[FatherId] AS [FatherId], 
+    [ViewTopicCategory].[Icon] AS [Icon]
+    FROM [dbo].[ViewTopicCategory] AS [ViewTopicCategory]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

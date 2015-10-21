@@ -15,17 +15,8 @@ namespace BaWuClub.Web.Dal
     public partial class Topic
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public string Context { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> Category { get; set; }
-        public Nullable<int> Views { get; set; }
-        public Nullable<int> TopicIndex { get; set; }
-        public Nullable<byte> Stick { get; set; }
-        public Nullable<byte> Recommend { get; set; }
-        public Nullable<byte> Good { get; set; }
-        public string Tags { get; set; }
-        public string TagIds { get; set; }
-        public Nullable<System.DateTime> VarDate { get; set; }
+    
+        public virtual TopicIndex TopicIndex { get; set; }
     }
 }

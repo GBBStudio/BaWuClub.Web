@@ -100,6 +100,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClubModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Document.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Feedback.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
@@ -125,6 +128,9 @@
     <Compile Include="Topic.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TopicActivity.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TopicCategory.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +138,9 @@
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TopicReview.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TopicTask.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
@@ -155,10 +164,28 @@
     <Compile Include="ViewBanner.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewDocument.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewQuestion.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewTopic.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTopicActivity.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewTopicCategory.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTopicIndex.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTopicReview.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTopicTask.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -4,19 +4,68 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.Entity;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Text;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace BaWuClub.Web.Controllers
 {
     public class MemberController : BaseController
     {
-        //
-        // GET: /Member/
+        #region
         private ClubEntities club;
         private BaWuClub.Web.Dal.User user;
         private Status status = Status.error;
+        private string hintStr = string.Empty;
+        private string pageString = string.Empty;
+        StringBuilder str = new StringBuilder();
+        #endregion
+
+        #region get
+        public ActionResult Show(int? uid)
+        {
+            int id = uid ?? 0;
+            using (club = new ClubEntities())
+            {
+                user = club.Users.Where(u => u.Id == id).FirstOrDefault();
+            }
+            if (user == null)
+                return Redirect("/error/notfound");
+            ViewBag.User = user;
+            return View("~/views/member/index.cshtml");
+        }
+
+        [Authorize]
+        public ActionResult Contribute()
+        {
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club);
+            }
+            ViewBag.User = user;
+            return View();
+        }
+
+        public ActionResult ContributeList(int? id, int? uid)
+        {
+            List<Article> list = new List<Article>();
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club, uid);
+                if (user == null)
+                    return Redirect("/error/notfound");
+                ViewBag.User = user;
+                ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
+                ViewBag.ContributeCheckedCount = club.Articles.Where(a => (a.Status > 0 && a.UserId == user.Id)).Count();
+                list = club.Articles.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Article>();
+                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=column&page=");
+            }
+            ViewBag.User = user;
+            return View(list);
+        }
 
         [Authorize]
         public ActionResult Index(int? uid){
@@ -26,219 +75,7 @@ namespace BaWuClub.Web.Controllers
             ViewBag.User = user;
             return View();
         }
-                
-        #region 投稿
-        [Authorize]
-        public ActionResult Contribute() {
-            using (club = new ClubEntities()) {
-                user = GetUser(club);
-            }
-            ViewBag.User = user;
-            return View();  
-        }
 
-        [HttpPost]
-        [Authorize]
-        [ValidateInput(false)]
-        public JsonResult Contribute(string title,string tags,string editor){
-            string hinStr=string.Empty;
-            string url = string.Empty;
-            if (string.IsNullOrEmpty(title)||string.IsNullOrEmpty(editor)) { 
-               hinStr= "投稿的标题和内容均不能为空，请填写标题后再提交！";
-            }else{
-                using (club = new ClubEntities()) {
-                    Article article = new Article() {
-                        Title=Common.HtmlCommon.ClearHtml(title),
-                        Context = Common.HtmlCommon.ClearJavascript(editor),
-                        Tags = Common.HtmlCommon.ClearHtml(tags),
-                        UserId=Convert.ToInt32(Request.Cookies["bwusers"]["id"].ToString()),
-                        PutDate=DateTime.Now
-                    };
-                    club.Articles.Add(article);
-                    if(club.SaveChanges()>=0){
-                        hinStr="投稿成功，请等待审核！";
-                        status=Status.success;
-                        url = "/member/u-" + article.UserId + "/contributelist";
-                    }else{
-                        hinStr="系统异常，请尝试稍后投稿！";        
-                    }
-                }
-            }
-            return Json(new{state=status.ToString(),context=hinStr,url=url});
-        }
-
-        public ActionResult ContributeList(int? id,int? uid){
-            List<Article> list = new List<Article>();
-            using (club = new ClubEntities()){
-                user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
-                ViewBag.User = user;
-                ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
-                ViewBag.ContributeCheckedCount = club.Articles.Where(a => (a.Status > 0 && a.UserId == user.Id)).Count();
-                list = club.Articles.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Article>();
-                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize,1, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getcontributelist/");
-            }
-            ViewBag.User = user;
-            return View(list);
-        }
-
-        [HttpGet]
-        public JsonResult GetContributeList(int? id,int? uid){
-            StringBuilder str = new StringBuilder();
-            string pageString = string.Empty;
-            int current = id ?? 1;
-            using (club = new ClubEntities()) {
-                user = GetUser(club, uid);
-                ViewBag.User = user;
-                ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
-                var articles = club.Articles.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Skip((current - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<Article>();
-                pageString = new PagingHelper(ClubConst.MemberPageSize, current, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getcontributelist/");
-                foreach (var article in articles)
-                    str.Append("<li><a href=\"\">" + article.Title + "</a><span>" + article.PutDate + "</span></li>");
-            }
-            return Json(new { context = str.ToString(), pagestr = pageString }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult GetContributeApproveList(int? id,int? uid){
-            StringBuilder str = new StringBuilder();
-            string pageString = string.Empty;
-            int current = id ?? 1;
-            using (club = new ClubEntities()){
-                int checkedCount = 0;
-                user = GetUser(club,uid);
-                ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
-                checkedCount = club.Articles.Where(a => (a.UserId == user.Id && a.Status >0)).Count();
-                var articles = club.Articles.Where(a => a.UserId == user.Id && a.Status > 0).OrderBy(a => a.Id).Skip((current - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<Article>();
-                pageString = new PagingHelper(ClubConst.MemberPageSize, current, checkedCount, ClubConst.MemberPageShow).GetPageStringPro("/member/getcontributeapprovelist/");
-                foreach (var article in articles)
-                    str.Append("<li><a href=\"\">" + article.Title + "</a><span>" + article.PutDate + "</span></li>");
-            }
-            return Json(new { context = str.ToString(), pagestr = pageString }, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
-
-        #region 提问
-        [HttpGet]
-        public ActionResult Asks(int? uid){
-            List<Question> list = new List<Question>();
-            using (club = new ClubEntities()){
-                user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
-                ViewBag.User = user;
-                ViewBag.AskAllCount = club.Questions.Where(a => a.UserId == user.Id).Count();
-                list = club.Questions.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Question>();
-                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.AskAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getasks/");
-            }
-            return View(list);
-        }
-
-        [HttpGet]
-        public JsonResult GetAsks(int? id,int? uid){
-            StringBuilder str = new StringBuilder();
-            string pageString = string.Empty;
-            int current = id ?? 1;
-            using (club = new ClubEntities()){
-                user = GetUser(club,uid);
-                ViewBag.AskAllCount = club.Questions.Where(a => a.UserId == user.Id).Count();
-                var questions = club.Questions.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Skip((current - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<Question>();
-                pageString = new PagingHelper(ClubConst.MemberPageSize, current, ViewBag.AskAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getasks/");
-                foreach (var ask in questions)
-                    str.Append("<li><a href=\"/ask/show/"+ask.Id+"\">" + HtmlCommon.ClearHtml(ask.Title) + "</a><span>" + ask.VarDate + "</span></li>");
-            }
-            return Json(new { context = str.ToString(), pagestr = pageString }, JsonRequestBehavior.AllowGet);
-        }
-
-        [Authorize]
-        public ActionResult Ask(int? uid){
-            using (club = new ClubEntities()) {
-                user = GetUser(club,uid);
-            }
-            ViewBag.User = user;
-            if (user == null)
-                Redirect("/error/notfound");
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateInput(false)]
-        public JsonResult Ask(string title, string description, string tags) {
-            string hinStr = string.Empty;
-            Status status = Status.error;
-            if (string.IsNullOrEmpty(title)){
-                    hinStr = "请输入你要提出的问题!";
-                }
-                else{
-                    using (club = new ClubEntities()){
-                        user = GetUser(club);
-                        Question ask = new Question(){
-                            UserId=user.Id,
-                            Title = Common.HtmlCommon.ClearHtml(title),
-                            Description = Common.HtmlCommon.ClearHtml(description),
-                            Flags = Common.HtmlCommon.ClearHtml(tags),
-                            VarDate=DateTime.Now
-                        };
-                        club.Questions.Add(ask);
-                        if (club.SaveChanges() > 0) { 
-                            status = Status.success;
-                        }   
-                    }
-                }
-            return Json(new { state = status.ToString(), context = hinStr.Length>0?hinStr:HtmlCommon.GetHitStr(status) ,url="/member/u-"+user.Id+"/asks"});
-        }
-
-        #endregion
-
-        #region 回答
-        public ActionResult Answers(int? uid){
-            List<Answer> list = new List<Answer>();
-            using (club = new ClubEntities()){
-                user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
-                ViewBag.User = user;
-                ViewBag.AnswerAllCount = club.Answers.Where(a => a.UserId == user.Id).Count();
-                list = club.Answers.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Answer>();
-                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.AnswerAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getanswers/");
-            }
-            ViewBag.User = user;
-            return View(list);
-        }
-
-        public JsonResult GetAnswers(int? id,int? uid) {
-            StringBuilder str = new StringBuilder();
-            string pageString = string.Empty;
-            int current = id ?? 1;
-            using (club = new ClubEntities()){
-                user = GetUser(club,uid);
-                ViewBag.AnswerAllCount = club.Answers.Where(a => a.UserId == user.Id).Count();
-                var answsers = club.Answers.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Skip((current - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<Answer>();
-                pageString = new PagingHelper(ClubConst.MemberPageSize, current, ViewBag.AnswerAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getanswers/");
-                foreach (var answser in answsers)
-                    str.Append("<li><a href=\"/ask/show/" + answser.QId+ "\">" +HtmlCommon.ClearHtml(answser.Answer1) + "</a><span>" + answser.VarDate + "</span></li>");
-            }
-            return Json(new { context = str.ToString(), pagestr = pageString }, JsonRequestBehavior.AllowGet);            
-        }
-        #endregion
-
-        #region 共享
-        public ActionResult Shared(int? uid) {
-            using (club = new ClubEntities())
-            {
-                user = GetUser(club, uid);
-                var shared = club.SystemArticles.Where(s => s.Variables == "sys-info-shared"&&s.Status==1).FirstOrDefault();
-                if (shared != null)
-                    ViewBag.SharedDesc = shared.Text;
-            }
-            ViewBag.User = user;
-            return View();
-        }
-        #endregion
-
-        #region 会员认证
         public ActionResult Certification(int? uid)
         {
             using (club = new ClubEntities())
@@ -254,87 +91,42 @@ namespace BaWuClub.Web.Controllers
             ViewBag.User = user;
             return View();
         }
-        #endregion
 
-        #region 基本资料
-        [Authorize]
-        [HttpPost]
-        public JsonResult MBase(string realName, string phone, string address, string company, string intro) {
-            string context = string.Empty;
-            using (club = new ClubEntities()){
-                user = GetUser(club);
-                user.RealName = HtmlCommon.ClearHtml(realName);
-                user.Phone = HtmlCommon.ClearHtml(phone);
-                user.Address = HtmlCommon.ClearHtml(address);
-                user.Company = HtmlCommon.ClearHtml(company);
-                user.Intro = HtmlCommon.ClearHtml(intro);
-                if (club.SaveChanges()>=0)
-                    status = Status.success;
+        [HttpGet]
+        public ActionResult AskAndAnswer(int? uid)
+        {
+            List<Question> list = new List<Question>();
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club, uid);
+                if (user == null)
+                    return Redirect("/error/notfound");
+                ViewBag.User = user;
+                ViewBag.AskAllCount = club.Questions.Where(a => a.UserId == user.Id).Count();
+                list = club.Questions.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Question>();
+                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.AskAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=ask&page=");
             }
-            return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "基本资料更新.") });
+            return View(list);
         }
 
-        [Authorize]
-        [HttpPost]
-        public JsonResult MChanagePwd(string oldpwd, string pwd, string pwd1){
-            string txt = string.Empty;
-            string _url=string.Empty;
-            using (club = new ClubEntities()) {
-                user = GetUser(club);
-                if (FormsAuthentication.HashPasswordForStoringInConfigFile(oldpwd, "MD5") != user.Password){
-                    txt = "原密码不正确！";
-                }
-                else {
-                    if (pwd != pwd1){
-                        txt = "两次密码输入不一样！";
-                    }
-                    else {
-                        user.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(pwd, "MD5");
-                        if (club.SaveChanges() < 0){
-                            txt = "系统异常，请稍后重试!";
-                        }
-                        else{
-                            _url = "/account/loginout";
-                            status = Status.success;
-                        }
-                    }
-                }
+        public ActionResult Shared(int? uid)
+        {
+            List<Document> list = new List<Document>();
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club, uid);
+                var shared = club.SystemArticles.Where(s => s.Variables == "sys-info-shared" && s.Status == 1).FirstOrDefault();
+                ViewBag.docsCount = club.Documents.Where(d => d.UserId == uid).Count();
+                list = club.Documents.Where(d => d.UserId == uid).Take(ClubConst.MemberPageSize).ToList<Document>();
+                ViewBag.SharedDesc =shared != null? shared.Text:"";
+                ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.docsCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=shared&page=");
             }
-            return Json(new {state=status,context=txt,url=_url});
-        }
-
-        [Authorize]
-        [HttpPost]
-        public JsonResult MSetCover(string cover) {
-            string context = string.Empty;
-            if (!string.IsNullOrEmpty(cover)) {
-                using (club = new ClubEntities()){
-                    user = GetUser(club);
-                    user.Cover = HtmlCommon.ClearHtml(cover);
-                    if (club.SaveChanges()>=0)
-                        status = Status.success;
-                }
-            }
-            return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "头像设置."),src=cover });
-        }
-
-        #endregion
-
-        #region 用户账号展示
-        public ActionResult Show(int? uid) {
-            int id = uid ?? 0;
-            using(club=new ClubEntities()){
-                user = club.Users.Where(u => u.Id == id).FirstOrDefault();
-            }
-            if (user == null)
-                return Redirect("/error/notfound");
             ViewBag.User = user;
-            return View("~/views/member/index.cshtml");
+            return View(list);
         }
-        #endregion
 
-        #region 论坛
-        public ActionResult Discuss(int? uid) {
+        public ActionResult Discuss(int? uid)
+        {
             using (club = new ClubEntities())
             {
                 user = GetUser(club, uid);
@@ -346,10 +138,8 @@ namespace BaWuClub.Web.Controllers
             return View("~/views/member/discuss.cshtml");
         }
 
-        #endregion
-
-        #region 信息中心
-        public ActionResult Message(int? uid) {
+        public ActionResult Message(int? uid)
+        {
             using (club = new ClubEntities())
             {
                 user = GetUser(club, uid);
@@ -362,6 +152,173 @@ namespace BaWuClub.Web.Controllers
         }
         #endregion
 
+        #region post
+
+        [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
+        public JsonResult Contribute(string title,string tags,string editor){
+            string url = string.Empty;
+            if (string.IsNullOrEmpty(title)||string.IsNullOrEmpty(editor)) {
+                hintStr = "投稿的标题和内容均不能为空，请填写标题后再提交！";
+            }else{
+                using (club = new ClubEntities()) {
+                    Article article = new Article() {
+                        Title=Common.HtmlCommon.ClearHtml(title),
+                        Context = Common.HtmlCommon.ClearJavascript(editor),
+                        Tags = Common.HtmlCommon.ClearHtml(tags),
+                        UserId=Convert.ToInt32(Request.Cookies["bwusers"]["id"].ToString()),
+                        VarDate=DateTime.Now
+                    };
+                    club.Articles.Add(article);
+                    if(club.SaveChanges()>=0){
+                        hintStr = "投稿成功，请等待审核！";
+                        status=Status.success;
+                        url = "/member/u-" + article.UserId + "/contributelist";
+                    }else{
+                        hintStr = "系统异常，请尝试稍后投稿！";        
+                    }
+                }
+            }
+            return Json(new{state=status.ToString(),context=hintStr,url=url});
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult Ask(string title, string description, string tags)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                hintStr = "请输入你要提出的问题!";
+            }
+            else
+            {
+                using (club = new ClubEntities())
+                {
+                    user = GetUser(club);
+                    Question ask = new Question()
+                    {
+                        UserId = user.Id,
+                        Title = Common.HtmlCommon.ClearHtml(title),
+                        Description = Common.HtmlCommon.ClearHtml(description),
+                        Flags = Common.HtmlCommon.ClearHtml(tags),
+                        VarDate = DateTime.Now
+                    };
+                    club.Questions.Add(ask);
+                    if (club.SaveChanges() > 0)
+                    {
+                        status = Status.success;
+                    }
+                }
+            }
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/asks" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult MChanagePwd(string oldpwd, string pwd, string pwd1){
+            string _url=string.Empty;
+            using (club = new ClubEntities()) {
+                user = GetUser(club);
+                if (FormsAuthentication.HashPasswordForStoringInConfigFile(oldpwd, "MD5") != user.Password){
+                    hintStr = "原密码不正确！";
+                }
+                else {
+                    if (pwd != pwd1){
+                        hintStr = "两次密码输入不一样！";
+                    }
+                    else {
+                        user.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(pwd, "MD5");
+                        if (club.SaveChanges() < 0){
+                            hintStr = "系统异常，请稍后重试!";
+                        }
+                        else{
+                            _url = "/account/loginout";
+                            status = Status.success;
+                        }
+                    }
+                }
+            }
+            return Json(new { state = status, context = hintStr, url = _url });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult MSetCover(string cover) {
+            if (!string.IsNullOrEmpty(cover)) {
+                using (club = new ClubEntities()){
+                    user = GetUser(club);
+                    user.Cover = HtmlCommon.ClearHtml(cover);
+                    if (club.SaveChanges()>=0)
+                        status = Status.success;
+                }
+            }
+            return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "头像设置."),src=cover });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult MBase(string realName, string phone, string address, string company, string intro)
+        {
+            using (club = new ClubEntities())
+            {
+                user = GetUser(club);
+                user.RealName = HtmlCommon.ClearHtml(realName);
+                user.Phone = HtmlCommon.ClearHtml(phone);
+                user.Address = HtmlCommon.ClearHtml(address);
+                user.Company = HtmlCommon.ClearHtml(company);
+                user.Intro = HtmlCommon.ClearHtml(intro);
+                if (club.SaveChanges() >= 0)
+                    status = Status.success;
+            }
+            return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "基本资料更新.") });
+        }
+
+        #endregion
+
+        #region getlist
+        public JsonResult GetList(string tstr,int? uid,int? page,string st) {
+            string json = string.Empty;
+            int tId = uid ?? 0;
+            int currentId = page ?? 1;
+            using (club = new ClubEntities()) {
+                switch (tstr) { 
+                    case "ask":
+                        var alist = GetList<Question>(club.Questions, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-"+tId+"/getlist?tstr=ask&page=");
+                        json = Newtonsoft.Json.JsonConvert.SerializeObject(alist);
+                        break;
+                    case "column":
+                        Expression<Func<Article,bool>> Aexpression=null;
+                        if (!string.IsNullOrEmpty(st) && st == "1")
+                            Aexpression = a => a.Status == 1 && a.UserId == tId;
+                        var clist = GetList<Article>(club.Articles, currentId, (Aexpression != null ? Aexpression : (a => a.UserId == tId)), a => a.Id, out pageString, "/member/u-" + tId + "/getlist?tstr=column&page=");
+                        json = Newtonsoft.Json.JsonConvert.SerializeObject(clist);
+                        break;
+                    case "shared":
+                        Expression<Func<Document, bool>> Sexpression = null;
+                        if (!string.IsNullOrEmpty(st) && st == "1")
+                            Sexpression = s=> s.Status == 1 && s.UserId == tId;
+                        var slist = GetList<Document>(club.Documents, currentId, (Sexpression != null ? Sexpression : (s => s.UserId == tId)), s => s.Id, out pageString, "/member/u-" + tId + "/getlist?tstr=shared&page=");
+                        json = Newtonsoft.Json.JsonConvert.SerializeObject(slist);
+                        break;
+                }
+            }
+            string url = "/" + tstr + "/show/";
+            ViewBag.pageStr = pageString;
+            return Json(new { status = status.ToString(), pagestr = pageString, url = url,context = json}, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<T> GetList<T>(DbSet<T> ds, int page, Expression<Func<T, bool>> express, Expression<Func<T,int>> orderByExpress,out string pageStr,string url) where T : class
+        {
+            var list = ds.Where(express).OrderBy(orderByExpress).Skip((page - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<T>();
+            pageStr = new PagingHelper(ClubConst.MemberPageSize, page, ds.Where(express).Count(), ClubConst.MemberPageShow).GetPageStringPro(url);
+            return list;
+        }
+        
+        #endregion
+
+        #region private
         [ChildActionOnly]
         public ActionResult MemberAvatarWrap(int? uid,string action) {
             int useId = uid ?? 0;
@@ -377,7 +334,7 @@ namespace BaWuClub.Web.Controllers
             return PartialView("~/Views/Shared/_PartialMember.cshtml");
         }
         
-        public User GetUser(ClubEntities c, int? uid) {
+        private User GetUser(ClubEntities c, int? uid) {
             int userId = uid ?? 0;
             user = c.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
@@ -394,5 +351,6 @@ namespace BaWuClub.Web.Controllers
             }
             return user;
         }
+        #endregion
     }
 }

@@ -13,11 +13,12 @@ namespace BaWuClub.Web.Controllers
     {
         //
         // GET: /FileUpload/
+        private Status status = Status.error;
 
         [HttpPost]
         public JsonResult Index()
         {
-            return Json(new {status="error",content="无法访问",file="" },JsonRequestBehavior.AllowGet);
+            return Json(new { status = status.ToString(), content = "无法访问", file = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -56,34 +57,56 @@ namespace BaWuClub.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult UploadBanner(HttpPostedFileBase filedata) {
-            string dirStr = Server.MapPath(ClubConst.BannerDir);
-            string fileName = DateTime.Now.ToString("yyyyddMMmmss");
-            if (filedata != null && filedata.ContentLength > 0){
-                FileInfo file = new FileInfo(filedata.FileName);
-                fileName += file.Extension;
-                DirectoryInfo dir = new DirectoryInfo(dirStr);
-                if (!dir.Exists)
-                    dir.Create();
-                filedata.SaveAs(dirStr + fileName);
+        [Authorize]
+        public JsonResult uploadfiles(HttpPostedFileBase filedata, string type)
+        {
+            string content = "未指定文件分类类型！";
+            string fileName = string.Empty;
+            string url=string.Empty;
+            if (!string.IsNullOrEmpty(type)) {
+                string dirStr= GetDir(type);
+                string path = Server.MapPath(dirStr);
+                fileName = type + "_" + DateTime.Now.ToString("yyyyddMMmmss");
+                content = "未上传文件！";
+                if (filedata != null && filedata.ContentLength > 0)
+                {
+                    FileInfo file = new FileInfo(filedata.FileName);
+                    fileName += file.Extension;
+                    DirectoryInfo dir = new DirectoryInfo(path);
+                    if (!dir.Exists) {
+                        dir.Create();
+                    }
+                    filedata.SaveAs(path + fileName);
+                    content = "文件上传成功！";
+                    status = Status.success;
+                    url=dirStr+fileName;
+                }
             }
-            return Json(new { name = fileName });
+            return Json(new { status = status.ToString(), content = content, name = fileName,url=url });
         }
 
-        [HttpPost]
-        public JsonResult UploadActivity(HttpPostedFileBase filedata) {
-            string dirStr = Server.MapPath(ClubConst.ActivityDir);
-            string fileName ="activity_"+ DateTime.Now.ToString("yyyyddMMmmss");
-            if (filedata != null && filedata.ContentLength > 0)
-            {
-                FileInfo file = new FileInfo(filedata.FileName);
-                fileName += file.Extension;
-                DirectoryInfo dir = new DirectoryInfo(dirStr);
-                if (!dir.Exists)
-                    dir.Create();
-                filedata.SaveAs(dirStr + fileName);
+        private string GetDir(string type) {
+            string dir=ClubConst.UploadTmp;
+            switch (type) { 
+                case "banner":
+                    dir=ClubConst.BannerDir;
+                    break;
+                case "activity":
+                    dir = ClubConst.ActivityDir;
+                    break;
+                case "avatar":
+                    dir=ClubConst.AvatarDir;
+                    break;
+                case "topicactivity":
+                    dir = ClubConst.TopicAactivity;
+                        break;
+                case "files":
+                    dir = ClubConst.FilesDir;
+                        break;
+                default:
+                    break;
             }
-            return Json(new { name = fileName });
+            return dir;
         }
     }
 }

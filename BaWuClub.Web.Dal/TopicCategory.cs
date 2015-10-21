@@ -22,5 +22,6 @@ namespace BaWuClub.Web.Dal
         public string Variable { get; set; }
         public Nullable<System.DateTime> VarDate { get; set; }
         public string Icon { get; set; }
+        public Nullable<byte> Status { get; set; }
     }
 }

@@ -11,6 +11,7 @@
     <meta name="description" content="@ViewBag.Description@dic["Description"]"/>
     <link href="~/Content/Css/site.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="~/Content/Scripts/jquery.js"></script>
+    @Html.Raw(ViewBag.CssAppend)
 </head>
 <body>
     <div id="header">
@@ -41,14 +42,14 @@
             </div>
             <div class="navigation-wrap fleft">
                 <ul>
-                    <li><a href="/Home">首页</a></li>
+                    <li><a href="/home">首页</a></li>
                     <li style="display:none;"><a href="/Forum">论坛</a></li>
-                    <li><a href="/Column">专栏</a></li>
-                    <li><a href="/Ask">问答</a></li>
-                    <li><a href="/Activity">活动</a></li>
-                    <li><a href="/Online">在线学习</a></li>
-                    <li><a href="/Download">下载</a></li>
-                    <li><a href="/Forum">电商圈</a></li>
+                    <li><a href="/column">专栏</a></li>
+                    <li><a href="/ask">问答</a></li>
+                    <li><a href="/activity">活动</a></li>
+                    <li><a href="/online">在线学习</a></li>
+                    <li><a href="/download">下载</a></li>
+                    <li><a href="/forum">电商圈</a></li>
                 </ul>
             </div>
             <div class="search-wrap">

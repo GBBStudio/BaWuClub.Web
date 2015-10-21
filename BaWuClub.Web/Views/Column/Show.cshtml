@@ -54,7 +54,7 @@
         <div class="module">
             <div class="question-user">
                 @{
-                    var cover =(string.IsNullOrEmpty(Model.Cover) ? "/content/images/no-img.jpg":"/uploads/avatar/"+Model.Cover);
+                    var cover = (string.IsNullOrEmpty(Model.UserCover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/" + Model.UserCover);
                     <img src="@cover" alt="" />
                 }
                 <div class="question-user-info">

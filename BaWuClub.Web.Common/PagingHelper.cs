@@ -22,6 +22,7 @@ namespace BaWuClub.Web.Common
             this.pagecurrent = pagecurrent > 0 ? pagecurrent : pagecurrent + 1;
             this.rowscount = rowscount;
         }
+
         /// <summary>
         /// 总页数
         /// </summary>
@@ -61,7 +62,6 @@ namespace BaWuClub.Web.Common
             set { rowscount = value; }
             get { return rowscount; }
         }
-
         /// <summary>
         /// 获取分页的html代码(简单不含数据的)
         /// </summary>
