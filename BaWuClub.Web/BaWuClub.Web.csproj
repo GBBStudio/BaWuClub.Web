@@ -131,6 +131,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CommonMethod.cs" />
+    <Compile Include="App_Start\LoadXml.cs" />
     <Compile Include="Areas\bwum\bwumAreaRegistration.cs" />
     <Compile Include="Areas\bwum\Controllers\ActivityController.cs" />
     <Compile Include="Areas\bwum\Controllers\AnswerController.cs" />
@@ -139,12 +141,14 @@
     <Compile Include="Areas\bwum\Controllers\CheckController.cs" />
     <Compile Include="Areas\bwum\Controllers\ContributeController.cs" />
     <Compile Include="Areas\bwum\Controllers\DiscussController.cs" />
+    <Compile Include="Areas\bwum\Controllers\DownController.cs" />
     <Compile Include="Areas\bwum\Controllers\ErrorController.cs" />
     <Compile Include="Areas\bwum\Controllers\FeedbackController.cs" />
     <Compile Include="Areas\bwum\Controllers\ForumController.cs" />
     <Compile Include="Areas\bwum\Controllers\HelpController.cs" />
     <Compile Include="Areas\bwum\Controllers\LevelController.cs" />
     <Compile Include="Areas\bwum\Controllers\MenuController.cs" />
+    <Compile Include="Areas\bwum\Controllers\OnlineController.cs" />
     <Compile Include="Areas\bwum\Controllers\QuestionController.cs" />
     <Compile Include="Areas\bwum\Controllers\RoleController.cs" />
     <Compile Include="Areas\bwum\Controllers\SArticleController.cs" />
@@ -182,6 +186,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\Role.xml" />
+    <Content Include="App_Data\TextConfig.xml" />
     <Content Include="Content\Bxslider\images\bx_loader.gif" />
     <Content Include="Content\Bxslider\images\controls.png" />
     <Content Include="Content\Bxslider\jquery.bxslider.css" />
@@ -712,9 +717,11 @@
     <Content Include="Content\Css\discuss.css" />
     <Content Include="Content\Css\download.css" />
     <Content Include="Content\Css\fontstyle.css" />
+    <Content Include="Content\Css\jquery.datetimepicker.css" />
     <Content Include="Content\Css\rss.css" />
     <Content Include="Content\Css\study.css" />
     <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Css\video-js.css" />
     <Content Include="Content\Css\wdialog.css" />
     <Content Include="Content\Fonts\category.css" />
     <Content Include="Content\Fonts\category.svg" />
@@ -751,11 +758,14 @@
     <Content Include="Content\Scripts\avatarupload.js" />
     <Content Include="Content\Scripts\comments.js" />
     <Content Include="Content\Scripts\highcharts.js" />
+    <Content Include="Content\Scripts\jquery.datetimepicker.js" />
     <Content Include="Content\Scripts\jquery.js" />
     <Content Include="Content\Scripts\layout.js" />
     <Content Include="Content\Scripts\member.js" />
     <Content Include="Content\Scripts\reviews.js" />
+    <Content Include="Content\Scripts\video.js" />
     <Content Include="Content\Scripts\w-layout.js" />
+    <Content Include="Content\Swf\flowplayer-3.2.1.swf" />
     <Content Include="Content\Uploadify\jquery.uploadify.min.js" />
     <Content Include="Content\Uploadify\uploadify-cancel.png" />
     <Content Include="Content\Uploadify\uploadify.css" />
@@ -786,11 +796,6 @@
     <Content Include="Uploads\banner\201524074608.jpg" />
     <Content Include="Uploads\banner\201524074625.jpg" />
     <Content Include="Uploads\banner\201524074943.jpg" />
-    <Content Include="Uploads\pics\2015180638f_5.jpg" />
-    <Content Include="Uploads\pics\2015220642banner2.png" />
-    <Content Include="Uploads\pics\2015220642buttons.png" />
-    <Content Include="Uploads\pics\Activty\a-1.jpg" />
-    <Content Include="Uploads\pics\Banner\b-1.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -802,6 +807,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\editor\" />
+    <Folder Include="Uploads\files\" />
+    <Folder Include="Uploads\pics\Activty\" />
+    <Folder Include="Uploads\pics\Banner\" />
+    <Folder Include="Uploads\tmps\" />
+    <Folder Include="Uploads\topics\activity\" />
+    <Folder Include="Uploads\video\Cover\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -963,6 +974,11 @@
     <Content Include="Content\Fonts\category.eot" />
     <Content Include="Content\Fonts\category.ttf" />
     <Content Include="Content\Fonts\category.woff" />
+    <Content Include="Areas\bwum\Views\Online\Index.cshtml" />
+    <Content Include="Areas\bwum\Views\Online\Edit.cshtml" />
+    <Content Include="Areas\bwum\Views\Online\Show.cshtml" />
+    <Content Include="Areas\bwum\Views\Down\Index.cshtml" />
+    <Content Include="Areas\bwum\Views\Down\Show.cshtml" />
     <None Include="Properties\PublishProfiles\bawuclub.pubxml" />
     <Content Include="Views\Column\Index.cshtml" />
     <Content Include="Views\Column\Show.cshtml" />
@@ -988,11 +1004,13 @@
     <Content Include="Views\Forum\Activity.cshtml" />
     <Content Include="Views\Forum\Task.cshtml" />
     <Content Include="Views\Forum\List.cshtml" />
-    <Content Include="Views\Download\DownShow.cshtml" />
+    <Content Include="Views\Download\Show.cshtml" />
     <Content Include="Views\Online\Course.cshtml" />
     <Content Include="Views\Download\UploadDocs.cshtml" />
     <Content Include="Views\Error\Exception.cshtml" />
     <Content Include="Views\Direct\Transfers.cshtml" />
+    <Content Include="Views\Error\Underdevelopment.cshtml" />
+    <Content Include="Views\Shared\_PartialMemberUnLogin.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

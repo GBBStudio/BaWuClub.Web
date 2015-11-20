@@ -18,23 +18,7 @@
 .discuss-category ul li a{font-size:14px;color:#333;}
 .function-wrap{width:310px;float:right;}
 .area-wrap{clear:both;overflow:hidden;margin:30px 0 20px 0;margin-top:15px;}
-.discuss-list-title{height:44px;line-height:44px;width:100%;font-size:14px;border-bottom:1px solid #ddd;padding:0;background:#fafafa}
-.discuss-list-title a{display:inline-block;width:80px;height:44px;text-align:center;line-height:44px;margin-right:1px;color:#333;}
-.discuss-list-title a:hover ,.discuss-list-title a.selected{background:#007ada;color:#fff;}
-.discuss-list-title span{float:right;font-size:14px;color:#fff;cursor:pointer;background:#007ada;padding:0 20px}
-.discuss-list-title span:active{background:#0175BE;}
-.discuss-list-topic{padding:10px 0;border-bottom:1px dotted #d2d2d2;width:670px;}
-.discuss-list-topic-avatar{float:left;width:40px;height:40px;overflow:hidden}
-.discuss-list-topic-avatar img{width:40px;}
-.discuss-list-topic-titles{margin-left:50px;}
-.discuss-list-type{margin-top:15px;padding:15px;}
-.discuss-list-type h3 a{font-size:17px;font-weight:400;color:#333}
-.discuss-list-type p{font-size:13px;}
-.topic-title a{color:#336699;font-size:14px;}
-.topic-info{margin:3px 0;}
-.topic-info,  .topic-info a{color:#a0a0a0;font-size:12px;}
-.topic-info span{margin-left:15px;}
-.topic-info span i{font-size:15px;margin-right:2px;}
+
 .area-title{position:relative;height:285px;margin-right:177px;float:left;}
 .area-title img{position:absolute;top:0;left:0;}
 .area-title h4{position:absolute;top:15px;left:0;color:#fff;background:#ff9000;font-weight:200;width:92px;padding-left:8px;height:40px;line-height:40px;}
@@ -47,22 +31,21 @@
 .area-item-info p{color:#918c8c;font-size:14px;line-height:30px;}
 .area-item-info a{color:#70aaf1;font-size:14px;}
 
-.tb-topic{background:url(../Images/icon-topic.jpg)no-repeat 0 0;display:inline-block;vertical-align:middle;margin-right:4px;}
-.tb-topic-topic{width:16px;height:16px;background-position:0 0}
-.tb-topic-task{width:16px;height:16px;background-position:-36px 0}
-.tb-topic-activity{width:16px;height:16px;background-position:-18px 0}
+
 .cli-activity{overflow:hidden;margin-top:50px;}
 .cli-activity .cli-title{border-bottom:1px solid #a0a0a0;}
 .cli-activity .cli-title .fleft a{color:#333;font-size:13px;padding:2px 15px;}
 .cli-activity .cli-title .fleft a:hover{background:#007ada;color:#fff;}
-.cli-banner{height:350px;background:#f2f2f2;box-shadow:#000 5px inset}
-.cli-banner ul{width:1100px;margin:0 auto}
+.cli-banner{height:350px;box-shadow:#000 5px inset}
+.cli-banner ul{width:100%}
 .cli-ac-item-cover{float:left;width:150px;}
 .cli-ac-item-cover img{width:150px;height:80px;}
 .cli-activity ul  li{width:340px;float:left;margin-top:30px;}
 .cli-ac-item-info{float:left;margin-left:10px;}
 .cli-ac-item-info h3{font-weight:400;font-size:16px;line-height:32px;}
 .cli-ac-item-info p{font-size:12px;}
+.cli-ac-item-info a{color:#259;}
+.cli-ac-item-info a:visited{color:#259}
 .cli-c-banner{margin:50px 0;overflow:hidden;clear:both}
 .cli-task {}
 .cli-task ul{clear:both;}
@@ -134,6 +117,10 @@ p.textarea-wrap{height:auto}
 
 .discuss-list-pager{font-size:15px;margin:25px 0;}
 .discuss-list-pager span{margin-right:15px}
-.discuss-list-pager a{display:inline-block;width:24px;height:24px;border-radius:50%;line-height:24px;text-align:center;font-size:15px;background:#007ada;color:#fff;margin-left:3px;}
-.discuss-list-pager a:visited{color:#fff;margin-left:3px;}
+.discuss-list-pager a{display:inline-block;width:24px;height:24px;border-radius:50%;line-height:24px;text-align:center;font-size:15px;border:1px solid #333 ;color:#333;margin-left:3px;}
+.discuss-list-pager a.current{color:#fff;border:1px solid #4DACF0}
 
+.cli-banner ul li{position:relative;}
+.cli-banner-item-bg {-webkit-filter: blur(10px); -moz-filter: blur(10px);-ms-filter: blur(10px);filter: blur(10px);width:100%;height:350px;position:absolute;top:0;left:0;z-index:1;}
+.cli-banner-item-wrap{position:absolute;z-index:2;top:0;width:100%;height:350px;text-align:center}
+.cli-banner-item a img{width:1100px;height:350px;margin:0 auto;}

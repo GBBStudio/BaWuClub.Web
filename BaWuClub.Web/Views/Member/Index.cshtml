@@ -4,15 +4,6 @@
     BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
 }
 <link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
-<div class="member-title">
-    <a href="/member/u-@user.Id/Show" class="selected">资料</a>
-    <a href="/member/u-@user.Id/contributelist" >投稿</a>
-    <a href="/member/u-@user.Id/askandanswer">问答</a>
-    <a href="/member/u-@user.Id/certification">认证</a>
-    <a href="/member/u-@user.Id/shared">共享</a>
-    <a href="/member/u-@user.Id/discuss">论坛</a>
-    <a href="/member/u-@user.Id/message">私信</a>
-</div>
 @{    
     if (User.Identity.IsAuthenticated&&Request.Cookies["bwusers"]["id"].ToString().Equals(user.Id.ToString())){
     <div class="member-main">

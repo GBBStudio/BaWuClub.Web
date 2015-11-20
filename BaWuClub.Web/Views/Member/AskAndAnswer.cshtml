@@ -4,38 +4,27 @@
     BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
 }
 @model IEnumerable<BaWuClub.Web.Dal.Question>
-<div class="member-title">
-    <a href="/member/u-@user.Id/Show">资料</a>
-    <a href="/member/u-@user.Id/contributelist">投稿</a>
-    <a href="/member/u-@user.Id/askandanswer" class="selected">问答</a>
-    <a href="/member/u-@user.Id/certification">认证</a>
-    <a href="/member/u-@user.Id/shared">共享</a>
-    <a href="/member/u-@user.Id/discuss">论坛</a>
-    <a href="/member/u-@user.Id/message">私信</a>
-</div>
+         
     <div class="member-main">
         <div class="member-menu">
-            <a class="selected" href="#ask">我提出问题</a>
-            <a href="#answer">参与的回答</a>
+            <a class="selected" onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1')">我提出问题</a>
+            <a onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=column&page=1')">参与的回答</a>
         </div>
-        <div class="member-menu-right fleft">
+        <div class="member-main-wrap fleft">
             <div class="member-menu-right-list member-list-wrap">
                 <ul>
-                    @{
-                        foreach (var a in Model)
-                        {
-                            <li>
-                                <a href="/ask/show/@a.Id">@BaWuClub.Web.Common.HtmlCommon.ClearHtml(a.Title)</a>
-                                <span>@a.VarDate</span>
-                            </li>
-                        }
-                    }
+
                 </ul>
             </div>
             <div class="page-wrap">
-                @Html.Raw(ViewBag.PageStr)
             </div>
         </div>
     </div>
 <script type="text/javascript" src="~/content/scripts/jquery.js"></script>
 <script type="text/javascript" src="~/content/scripts/member.js"></script>
+<script type="text/javascript">
+    baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1');
+    function baseload(url) {
+        loadonpage(url);
+    }
+</script>

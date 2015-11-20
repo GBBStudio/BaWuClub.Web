@@ -1,10 +1,12 @@
-﻿function recomments(value, t) {
-    var url = t > 0 ? "/ask/answerquestions" : "/column/reviews";
+﻿function recomments(value, url) {
+   // var url = t > 0 ? "/ask/answerquestions" : "/column/reviews";
     var content = editor.document.getBody().getText();
-    if (content.length == 0) {
+    console.log(content);
+    if (content.Length == 0||content==null) {
         alert("内容不能为空！");
+        console.log("alert");
     }
-    else{
+    else {
         $.post(url, { "id": value, "commentStr": editor.document.getBody().getHtml() }, function (json) {
             var data = eval(json);
             if (data.status == "success") {

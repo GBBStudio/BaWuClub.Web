@@ -26,8 +26,8 @@ namespace BaWuClub.Web.Dal
         public int Downs { get; set; }
         public int Status { get; set; }
         public System.DateTime VarDate { get; set; }
-        public int UId { get; set; }
         public string NickName { get; set; }
+        public int UId { get; set; }
         public string Cover { get; set; }
     }
 }

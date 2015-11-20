@@ -151,6 +151,12 @@
     <EntitySet Name="ViewTopicReviews" EntityType="ClubDBModel.ViewTopicReview" />
     <EntitySet Name="Documents" EntityType="ClubDBModel.Document" />
     <EntitySet Name="ViewArticles" EntityType="ClubDBModel.ViewArticle" />
+    <EntitySet Name="Videos" EntityType="ClubDBModel.Video" />
+    <EntitySet Name="VideoReviews" EntityType="ClubDBModel.VideoReview" />
+    <EntitySet Name="ViewVideoReviews" EntityType="ClubDBModel.ViewVideoReview" />
+    <EntitySet Name="ViewDocuments" EntityType="ClubDBModel.ViewDocument" />
+    <EntitySet Name="Messages" EntityType="ClubDBModel.Message" />
+    <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
   </EntityContainer>
   <EntityType Name="Question">
     <Key>
@@ -754,5 +760,106 @@
     <Property Name="UserCover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="VarDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Video">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="LocalUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Teacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Views" Type="Int32" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" />
+    <Property Name="Sort" Type="Int32" />
+    <Property Name="Mode" Type="Byte" />
+    <Property Name="VarDate" Type="DateTime" Precision="3" />
+    <Property Name="AdminId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="VideoReview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="VideoId" Type="Int32" Nullable="false" />
+    <Property Name="Review" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VarDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ViewVideoReview">
+    <Key>
+      <PropertyRef Name="UId" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="VideoId" />
+      <PropertyRef Name="Review" />
+      <PropertyRef Name="NickName" />
+    </Key>
+    <Property Name="UId" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="VideoId" Type="Int32" Nullable="false" />
+    <Property Name="Review" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VarDate" Type="DateTime" Precision="3" />
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ViewDocument">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="Tags" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Views" />
+      <PropertyRef Name="Downs" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="VarDate" />
+      <PropertyRef Name="NickName" />
+      <PropertyRef Name="UId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Tags" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TagsId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Byte" Nullable="false" />
+    <Property Name="Views" Type="Int32" Nullable="false" />
+    <Property Name="Downs" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UId" Type="Int32" Nullable="false" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FromId" Type="Int32" Nullable="false" />
+    <Property Name="ToId" Type="Int32" Nullable="false" />
+    <Property Name="Message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Vardate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TopicInvolved">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="TopicId" Type="Int32" Nullable="false" />
+    <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Vardate" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

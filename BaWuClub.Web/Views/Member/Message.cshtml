@@ -3,18 +3,32 @@
     ViewBag.Title = "个人用户中心-信息中心";
     BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
 }
-@model IEnumerable<BaWuClub.Web.Dal.Article>
-<div class="member-title">
-    <a href="/member/u-@user.Id/Show">资料</a>
-    <a href="/member/u-@user.Id/contributelist">投稿</a>
-    <a href="/member/u-@user.Id/askandanswer">问答</a>
-    <a href="/member/u-@user.Id/certification">认证</a>
-    <a href="/member/u-@user.Id/shared">共享</a>
-    <a href="/member/u-@user.Id/discuss">论坛</a>
-    <a href="/member/u-@user.Id/message" class="selected">私信</a>
-</div>
+@model IEnumerable<BaWuClub.Web.Dal.Message>
 <div class="member-main">
     <div class="member-contributions">
+        <div class="member-main-wrap">
+            <p>
+                <span>全部信息(<a href="/member/u-@user.Id/message/">@ViewBag.msgCount</a>)</span>
+                <span>未读信息(<a data-href="/member/u-@user.Id/tstr=message&page=1&st=1" id="approve">@ViewBag.unReadMsgCount</a>)</span>
+            </p>
+            <div class="member-list-wrap">
+                <ul>
+                    @{
+                        if (Model != null) {
+                            foreach (var item in Model) { 
+                                <li>
+                                    <a class="@(item.Status==0?"unread":"")" onclick="setread(this,@item.Id)">@item.Message1</a><span>@item.Vardate</span><span onclick="delmsg(this,@item.Id)">删除</span>
+                                    <p style="display:none">@item.Message1</p>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="~/content/scripts/jquery.js"></script>

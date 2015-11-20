@@ -70,7 +70,7 @@ namespace BaWuClub.Web.Controllers
                 review.IP = Request.UserHostAddress;
                 club.ArticleReviews.Add(review);
                 if (club.SaveChanges() >= 0) {
-                    status = Status.success; status = Status.success;
+                    status = Status.success; 
                     str.Append("<div class=\"comment-item\">");
                     str.Append("<div class=\"comment-item-info\">");
                     str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-name\">" + user.NickName + "</a>");

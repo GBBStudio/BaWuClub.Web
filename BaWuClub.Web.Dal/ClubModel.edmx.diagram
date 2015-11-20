@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="067e75d473174b74a7e17213899af31a" Name="Diagram1">
-        <EntityTypeShape EntityType="ClubDBModel.Answer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ClubDBModel.ArticleReview" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ClubDBModel.Article" Width="1.5" PointX="2.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ClubDBModel.ArticleTag" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -35,11 +34,11 @@
         <EntityTypeShape EntityType="ClubDBModel.AdminAccount" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="ClubDBModel.AdminType" Width="1.5" PointX="13.375" PointY="4" />
         <EntityTypeShape EntityType="ClubDBModel.TopicIndex" Width="1.5" PointX="6.875" PointY="12.75" />
-        <EntityTypeShape EntityType="ClubDBModel.Topic" Width="1.5" PointX="8.5" PointY="11.25" />
+        <EntityTypeShape EntityType="ClubDBModel.Topic" Width="1.5" PointX="8.5" PointY="16.25" />
         <AssociationConnector Association="ClubDBModel.FK_Topics_Index" />
-        <EntityTypeShape EntityType="ClubDBModel.TopicActivity" Width="1.5" PointX="10.125" PointY="11.5" />
+        <EntityTypeShape EntityType="ClubDBModel.TopicActivity" Width="1.5" PointX="8.5" PointY="11.25" />
         <AssociationConnector Association="ClubDBModel.FK_Topic_Activity" />
-        <EntityTypeShape EntityType="ClubDBModel.TopicTask" Width="1.5" PointX="9.625" PointY="18" />
+        <EntityTypeShape EntityType="ClubDBModel.TopicTask" Width="1.5" PointX="8.5" PointY="14.5" />
         <AssociationConnector Association="ClubDBModel.FK_Topic_Task" />
         <EntityTypeShape EntityType="ClubDBModel.ViewTopicActivity" Width="1.5" PointX="11.75" PointY="7.625" />
         <EntityTypeShape EntityType="ClubDBModel.ViewTopicTask" Width="1.5" PointX="13.375" PointY="5.875" />
@@ -48,7 +47,12 @@
         <EntityTypeShape EntityType="ClubDBModel.ViewTopicReview" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="ClubDBModel.Document" Width="1.5" PointX="10.125" PointY="8.125" />
         <EntityTypeShape EntityType="ClubDBModel.ViewArticle" Width="1.5" PointX="2.75" PointY="15.375" />
-        <EntityTypeShape EntityType="ClubDBModel.ViewDocument" Width="1.5" PointX="12.375" PointY="13.75" />
+        <EntityTypeShape EntityType="ClubDBModel.Video" Width="1.5" PointX="14.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ClubDBModel.VideoReview" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ClubDBModel.ViewVideoReview" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ClubDBModel.ViewDocument" Width="1.5" PointX="13.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ClubDBModel.Message" Width="1.5" PointX="15.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ClubDBModel.TopicInvolved" Width="1.5" PointX="15.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

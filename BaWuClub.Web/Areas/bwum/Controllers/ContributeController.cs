@@ -14,7 +14,6 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         #region 定义变量
         private ClubEntities club;
         private Status status = Status.error;
-        //private ViewArticle vArticle;
         private Article article;
         string hitStr=string.Empty;
         int vId=0;
@@ -37,26 +36,18 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         #region 投稿列表的删除
         public JsonResult Del(int? id) { 
             vId = id ?? 0;
+            hitStr = "系统异常，操作失败！";
             using (club = new ClubEntities()) {
                 article = club.Articles.Where(v=> v.Id == vId).FirstOrDefault();
-                if (article == null) {
-                    hitStr = "删除失败！";
-                }
-                else
-                {
+                if (article != null){
                     club.Articles.Remove(article);
-                    if (club.SaveChanges() >= 0)
-                    {
+                    if (club.SaveChanges() >= 0){
                         hitStr = "删除成功！";
                         status = Status.success;
                     }
-                    else
-                    {
-                        hitStr = "删除失败！";
-                    }
-                }       
+                }    
             }
-            return Json(new { status = status.ToString(), content = HtmlCommon.GetHitStr("删除成功！", status) });
+            return Json(new { status = status.ToString(), content = HtmlCommon.GetHitStr(hitStr, status) });
         }
 
         public JsonResult MultiDel(string[] chk) { 
@@ -103,25 +94,8 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                 using (club = new ClubEntities()) {
                     article = club.Articles.Where(t => t.Id == vId).FirstOrDefault();
                     if (article != null) {
-                        foreach (string t in tagAarry)
-                        {
-                            if (t.Length > 0) {
-                                tag = club.Tags.Where(ta => ta.TagName == t).FirstOrDefault();
-                                if (tag != null)
-                                {
-                                    str.Append(tag.Id + ",");
-                                }
-                                else
-                                {
-                                    tag = new Tag() { TagName = t };
-                                    club.Tags.Add(tag);
-                                    club.SaveChanges();
-                                    str.Append(tag.Id + ",");
-                                }
-                            }
-                        }
                         article.Tags = tags;
-                        article.TagIds = str.Length > 0 ? str.ToString().Substring(0, str.Length - 1) : str.ToString();
+                        article.TagIds =SetTags(club, tags);
                         if (article.Status == 1)
                             article.Status = 0;
                         else
@@ -179,6 +153,29 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         #endregion
 
         #region 修改状态的公用的私有方法
+        private string SetTags(ClubEntities club,string tags){
+            StringBuilder str = new StringBuilder();
+            Tag tag;
+            if (tags != null) {
+                string[] tagArray = tags.Split(',');
+                foreach (string t in tagArray) {
+                    if (!string.IsNullOrEmpty(t)){
+                        tag = club.Tags.Where(ta => ta.TagName == t).FirstOrDefault();
+                        if (tag != null){
+                            str.Append(tag.Id + ",");
+                        }
+                        else{
+                            tag = new Tag() { TagName = t };
+                            club.Tags.Add(tag);
+                            club.SaveChanges();
+                            str.Append(tag.Id + ",");
+                        }
+                    }
+                }
+            }
+            str = str.Length > 0 ? str.Remove(str.Length - 1, 1) : str;
+            return str.ToString();
+        }
         private bool SetStatus(string[] chks,int sId) {
             using (club = new ClubEntities()) {
                  Article article= new Article();

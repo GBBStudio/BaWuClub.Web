@@ -24,5 +24,9 @@ namespace BaWuClub.Web.Controllers
             ViewBag.url = url;
             return View();
         }
+
+        public ActionResult Underdevelopment() {
+            return View();
+        }
     }
 }

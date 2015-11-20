@@ -74,7 +74,8 @@
         width: 120,
         buttonText: '选择头像',
         swf: '/content/uploadify/uploadify.swf',
-        uploader: '/fileupload/uploadbanner',
+        uploader: '/fileupload/uploadfiles',
+        formData: { "type": "banner" },
         overrideEvents: ['onSelectError', 'onDialogClose'],
         onSelectError: function (file, errorCode, errorMsg) {
             switch (errorCode) {

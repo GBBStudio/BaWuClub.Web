@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "下载中心-";
+    ViewBag.CssAppend = "<link href=\"/content/css/download.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+}
+@model BaWuClub.Web.Dal.ViewDocument
+<div class="download-wrap">
+    <div class="container">
+        <div class="container-left download-block fleft">
+            <div class="crumbs-wrap">
+                <a href="/">首页</a>&raquo;<span>@ViewBag.Title</span>
+            </div>
+            <div class="detail-down-wrap">
+                <div class="detail-down-info">
+                    <h3>@Model.Title</h3>
+                    <div class="detail-tags"></div>
+                    <div class="detail-info-text">上传时间:<span>@Model.VarDate</span>下载量:@Model.Downs<span></span>阅读量:@Model.Views<span></span>分享:<span></span></div>
+                    <div class="detail-info-desc">
+                        @Model.Description
+                    </div>
+                    <div class="detail-down-btn">
+                        <a href="#" class="btn-sub">点击下载</a>
+                    </div>
+                    <div class="detail-down-copyright">
+                        备注:提供资料仅为学习分享,请勿用于商业用途
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-right fright">
+            <div class="down-ranks download-block">
+                <div class="down-ranks-title">
+                    <i class="iconfont icon1-xiazai"></i>下载排行
+                </div>
+                <div class="down-ranks-list">
+                    <ol>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

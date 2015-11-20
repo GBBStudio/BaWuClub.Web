@@ -65,6 +65,11 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<ViewTopicReview> ViewTopicReviews { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<ViewArticle> ViewArticles { get; set; }
+        public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<VideoReview> VideoReviews { get; set; }
+        public virtual DbSet<ViewVideoReview> ViewVideoReviews { get; set; }
         public virtual DbSet<ViewDocument> ViewDocuments { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<TopicInvolved> TopicInvolveds { get; set; }
     }
 }

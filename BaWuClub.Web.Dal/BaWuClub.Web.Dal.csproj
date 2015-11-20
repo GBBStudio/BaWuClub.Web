@@ -109,6 +109,9 @@
     <Compile Include="Menu.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
@@ -137,6 +140,9 @@
     <Compile Include="TopicIndex.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TopicInvolved.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TopicReview.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +150,12 @@
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Video.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VideoReview.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="View.cs">
@@ -186,6 +198,9 @@
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewTopicTask.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVideoReview.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

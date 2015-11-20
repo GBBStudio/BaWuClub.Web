@@ -16,3 +16,13 @@
         }, "JSON");
     }
 }
+
+function takeid(id,tid,s) {
+    var params = { "id": id, "tid":tid, "s": s };
+    $.post("/forum/take", params, function (data) {
+        if(data.status=="warning"){
+            window.location.href=data.url;
+        }
+        //alert(data);
+    });
+}

@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+@model BaWuClub.Web.Dal.Video
+
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<div class="comm-btns">
+    <h2>在线学习视频编辑</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/online/index">返回在线学习视频列表</a>
+</div>
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<div id="input-wrap">
+    @{
+        string _actionStr = "/bwum/online/create";
+        string _inputStr = string.Empty;
+        if (!string.IsNullOrEmpty(Model.Id.ToString()) && Model.Id > 0)
+        {
+            _actionStr = "/bwum/online/edit";
+            _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
+        }
+    }
+    <form method="post" name="frame" action="@_actionStr">
+        <p>
+            <span>标题：</span>
+            <input name="title" value="@Model.Title" type="text" class="input-text input-long" />
+            @Html.Raw(_inputStr)
+        </p>
+        <p>
+            <span>封面:</span>
+            <div class="cover-upload-wrap">
+                <input name="video-cover" id="upload-cover" type="file" value="" />
+            </div>
+            <div class="cover-wrap">
+
+            </div>
+        </p>
+        <p>
+            <span>讲师:</span><input name="teacher" value="" type="text" class="input-text input-small"/>
+        </p>
+        <p>
+            <span>模式：</span>
+            <input type="radio" value="0" name="mode" id="m1" checked="checked" onclick="modeshow(this)"/><label for="m1">在线模式</label>
+            <input type="radio" value="1" name="mode" id="m2" onclick="modeshow(this)" /><label for="m2">本地模式</label>
+            <div class="m-online-wrap">
+               <span>URL:</span> <input name="url"  type="text" class="input-text input-long"/>
+            </div>
+            <div class="m-local-wrap" style="display:none;">
+                <span>上传:</span>
+                <div class="video-upload-wrap">
+                    <input type="file" id="upload" value="" name="video" />
+                </div>
+                <div class="video-wrap">
+
+                </div>
+            </div>
+            <script type="text/javascript">
+                function modeshow(e) {
+                    var value = e.value;
+                    if (value == 0) {
+                        $(".m-local-wrap").hide();
+                        $(".m-online-wrap").show();
+                    } else {
+                        $(".m-local-wrap").show();
+                        $(".m-online-wrap").hide();
+                    }
+                }
+            </script>
+        </p>
+        <p class="textarea-wrap">
+            <span>简介:</span>
+            <textarea name="desc" class="input-text input-long" rows="5"></textarea>
+        </p>
+        <p>
+            <input class="btn btn-confirm" type="submit" value="提交" />
+        </p>
+    </form>
+</div>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    $("#upload-cover").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择封面',
+        swf: '/content/uploadify/uploadify.swf',
+        uploader: '/fileupload/uploadfiles',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        formData: { "type": "videocover" },
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1张图片！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于1M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".cover-upload-wrap").hide();
+            $(".cover-wrap").html("<img src=\"/uploads/video/cover/" + obj.name + "\" height=\"100\"/><input value=\"" + obj.name + "\" type=\"hidden\" name=\"cover\"/><a href=\"#\" class=\"cover-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".cover-del", function () {
+        $(".cover-upload-wrap").show();
+        $(".cover-wrap").empty();
+    })
+</script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择视频',
+        swf: '/content/uploadify/uploadify.swf',
+        fileTypeExts: '*.mp4;*.flv',
+        uploader: '/fileupload/uploadfiles',
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        formData: { "type": "video" },
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1个视频！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于30M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".video-upload-wrap").hide();
+            $(".video-wrap").html("<i data-href=\"\">" + obj.name + "</i><input value=\"" + obj.name + "\" type=\"hidden\" name=\"localurl\"/><a href=\"#\" class=\"video-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".video-del", function () {
+        $(".video-upload-wrap").show();
+        $(".video-wrap").empty();
+    })
+</script>

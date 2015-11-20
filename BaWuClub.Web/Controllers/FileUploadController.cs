@@ -57,8 +57,8 @@ namespace BaWuClub.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        public JsonResult uploadfiles(HttpPostedFileBase filedata, string type)
+     //   [Authorize]
+        public JsonResult UploadFiles(HttpPostedFileBase filedata, string type)
         {
             string content = "未指定文件分类类型！";
             string fileName = string.Empty;
@@ -102,6 +102,12 @@ namespace BaWuClub.Web.Controllers
                         break;
                 case "files":
                     dir = ClubConst.FilesDir;
+                        break;
+                case "video":
+                        dir = ClubConst.VideoDir;
+                        break;
+                case "videocover":
+                        dir = ClubConst.VideoCoverDir;
                         break;
                 default:
                     break;

@@ -51,7 +51,8 @@ namespace BaWuClub.Web.Controllers
                     System.Web.Security.FormsAuthentication.SetAuthCookie(user.NickName, true);
                     HttpCookie cookie = new HttpCookie("bwusers");
                     cookie.Values["id"] = _user.Id.ToString();
-                    cookie.Values["user"] = _user.NickName.ToString();
+                    cookie.Values["user"] = HttpUtility.UrlEncode(_user.NickName.ToString());
+                    cookie.Values["avatar"] = _user.Cover;
                     Response.Cookies.Add(cookie);
                     return RedirectUrl(returnurl);
                 }
@@ -163,7 +164,16 @@ namespace BaWuClub.Web.Controllers
 
         #region 私有方法
         private bool UserReg(string username,string password,string email,ClubEntities c) {
-            User u=new User {NickName=HtmlCommon.ClearHtml(username),Password=System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password,"md5"),Email=HtmlCommon.ClearHtml(email),RegDate=DateTime.Now,Status=1,Membership=0,Points=0};
+            User u=new User {
+                NickName=HtmlCommon.ClearHtml(username),
+                Password=System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password,"md5"),
+                Email=HtmlCommon.ClearHtml(email),
+                RegDate=DateTime.Now,
+                Status=1,
+                Membership=0,
+                Points=0,
+                Cover=""
+            };
             c.Users.Add(u);
             if(c.SaveChanges()<0)
                 return false;

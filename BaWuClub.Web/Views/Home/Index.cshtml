@@ -7,7 +7,7 @@
         <div id="banner-wrap">
             <ul class="bxslider">
                 @{
-                    var banners = ViewBag.Banners as IEnumerable<BaWuClub.Web.Dal.ViewBanner>;
+                    var banners = ViewBag.banners as IEnumerable<BaWuClub.Web.Dal.ViewBanner>;
                     if (banners != null) {
                         foreach (var banner in banners) { 
                             <li><a href="@(banner.Url.Length>0?banner.Url:"#")"><img src="~/uploads/banner/@banner.Pic" /></a></li>
@@ -20,79 +20,114 @@
             <div class="menu-tab">
                 <span data-menu="asks-list" data-url="/asks" class="current">最新提问</span>
                 <span data-menu="contribute-list" data-url="/column">最新专栏文章</span>
+                <span data-menu="discuss-list" data-url="/topic">最新帖子</span>
             </div>
             <div class="gather-wrap">
-                <ul class="asks-list">
-                    @{
-                        var viewQuestions = ViewBag.Questions as IEnumerable<BaWuClub.Web.Dal.ViewQuestion>;
-                        if (viewQuestions != null) {
-                            foreach (var viewQuestion in viewQuestions)
+                <div class="asks-list">
+                    <ul>
+                        @{
+                            var viewQuestions = ViewBag.questions as IEnumerable<BaWuClub.Web.Dal.ViewQuestion>;
+                            if (viewQuestions != null)
                             {
-                                var name = viewQuestion.RealName.Length > 0 ? viewQuestion.RealName : viewQuestion.NickName;
-                        <li>
-                            <div class="cover-wrap fleft">
-                                <a href="/member/u-@viewQuestion.UserId/show/">
-                                    @{
-                                        var cover = "/content/images/no-img.jpg";
-                                        var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(viewQuestion.VarDate ?? DateTime.Now);
-                                        if (!string.IsNullOrEmpty(viewQuestion.Cover)){
-                                            cover = "/uploads/avatar/small/" + viewQuestion.Cover;
-                                        }
-                                        var desc = BaWuClub.Web.Common.HtmlCommon.ClearHtml(viewQuestion.Description);
-                                        desc = desc.Length > 150 ? desc.Substring(0, 149) : desc;
+                                foreach (var viewQuestion in viewQuestions)
+                                {
+                                    var name = viewQuestion.RealName.Length > 0 ? viewQuestion.RealName : viewQuestion.NickName;
+                                    <li>
+                                        <div class="cover-wrap fleft">
+                                            <a href="/member/u-@viewQuestion.UserId/show/">
+                                                @{
+                                    var cover = "/content/images/no-img.jpg";
+                                    var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(viewQuestion.VarDate ?? DateTime.Now);
+                                    if (!string.IsNullOrEmpty(viewQuestion.Cover))
+                                    {
+                                        cover = "/uploads/avatar/small/" + viewQuestion.Cover;
                                     }
-                                    <img src="@cover" alt="头像" />
-                                </a>
-
-                            </div>
-                            <div class="question-detail">
-                                <p class="q-detail-top"><a href="/member/u-@viewQuestion.UserId/show/">@name</a><span>@time</span></p>
-                                <h3><a href="/ask/show/@viewQuestion.Id">@viewQuestion.Title</a></h3>
-                                <p class="q-detail-desc">@desc</p>
-                            </div>
-                            <div class="ask-other">
-                                <p><span></span></p>
-                                <p><span></span></p>
-                            </div>
-                        </li>
-                            }
-                        }
-                    }
-                </ul>
-                <ul class="contribute-list" style="display:none;">
-                    @{
-                        var viewArticles = ViewBag.Contributes as IEnumerable<BaWuClub.Web.Dal.ViewArticle>;
-                        if (viewArticles != null)
-                        {
-                            foreach (var view in viewArticles)
-                            {
-                                <li>
-                                    <div class="cover-wrap fleft">
-                                        <a href="/member/u-@view.UserCover/show/">
-                                            @{
-                                                var cover = "/content/images/no-img.jpg";
-                                                var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.VarDate ?? DateTime.Now);
-                                                if (!string.IsNullOrEmpty(view.Cover)){
-                                                    cover = "/uploads/avatar/small/" + view.Cover;
+                                    var desc = BaWuClub.Web.Common.HtmlCommon.ClearHtml(viewQuestion.Description);
+                                    desc = desc.Length > 150 ? desc.Substring(0, 149) : desc;
                                                 }
-                                            }
-                                            <img src="@cover" alt="头像" />
-                                        </a>
+                                                <img src="@cover" alt="头像" />
+                                            </a>
+
+                                        </div>
+                                        <div class="question-detail">
+                                            <p class="q-detail-top"><a href="/member/u-@viewQuestion.UserId/show/">@name</a><span>@time</span></p>
+                                            <h3><a href="/ask/show/@viewQuestion.Id">@viewQuestion.Title</a></h3>
+                                            <p class="q-detail-desc">@desc</p>
+                                        </div>
+                                        <div class="ask-other">
+                                            <p><span></span></p>
+                                            <p><span></span></p>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="contribute-list" style="display:none;">
+                    <ul>
+                        @{
+                            var viewArticles = ViewBag.contributes as IEnumerable<BaWuClub.Web.Dal.ViewArticle>;
+                            if (viewArticles != null)
+                            {
+                                foreach (var view in viewArticles)
+                                {
+                                    <li>
+                                        <div class="cover-wrap fleft">
+                                            <a href="/member/u-@view.UserCover/show/">
+                                                @{
+                                    var cover = "/content/images/no-img.jpg";
+                                    var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.VarDate ?? DateTime.Now);
+                                    if (!string.IsNullOrEmpty(view.Cover))
+                                    {
+                                        cover = "/uploads/avatar/small/" + view.Cover;
+                                    }
+                                                }
+                                                <img src="@cover" alt="头像" />
+                                            </a>
+                                        </div>
+                                        <div class="question-detail">
+                                            <p class="q-detail-top"><a href="/member/u-@view.UserId/show">@view.RealName</a><span>@time</span></p>
+                                            <h3><a href="/column/show/@view.Id">@view.Title</a></h3>
+                                        </div>
+                                        <div class="ask-other">
+                                            <p><span></span></p>
+                                            <p><span></span></p>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="discuss-list" style="display:none;">
+                    @{
+                        var topics = ViewBag.topics as IEnumerable<BaWuClub.Web.Dal.ViewTopicIndex>;
+                        if (topics != null)
+                        {
+                            foreach (var t in topics)
+                            {
+                                var src = (string.IsNullOrEmpty(t.Cover) ? "../images/no-img.jpg" : "/uploads/avatar/small/" + t.Cover);
+                                <div class="discuss-list-topic">
+                                    <div class="discuss-list-topic-avatar">
+                                        <a href="/member/u-@t.UserId/show"><img src="@src" alt="@t.NickName" title="@t.NickName" /></a>
                                     </div>
-                                    <div class="question-detail">
-                                        <p class="q-detail-top"><a href="/member/u-@view.UserId/show">@view.RealName</a><span>@time</span></p>
-                                        <h3><a href="/column/show/@view.Id">@view.Title</a></h3>
+                                    <div class="discuss-list-topic-titles">
+                                        <div class="topic-title">
+                                            <a href="/forum/@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())/@t.Id"><i class="tb-topic tb-topic-@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())"></i>@t.Title</a>
+                                        </div>
+                                        <div class="topic-info">
+                                            <a href="#">@t.NickName</a>
+                                            <span class="discuss-list-topic-date"> @BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(t.VarDate)</span>
+                                            <span><i class="icon1-liulan"></i>@t.Views</span>
+                                            <span><i class="icon1-xiai" style="font-size:12px;"></i>@t.Likes</span>
+                                        </div>
                                     </div>
-                                    <div class="ask-other">
-                                        <p><span></span></p>
-                                        <p><span></span></p>
-                                    </div>
-                                </li>
+                                </div>
                             }
                         }
                     }
-                </ul>
-                <a href="/ask/" class="more">查看更多</a>
+                </div>
             </div>
         </div>
     </div>
@@ -102,8 +137,6 @@
                 <i class="icon-item"></i><a href="/download">资料下载</a>
             </div>
             <div class="module-list">
-                <a href="#">淘宝运营</a><a href="#">数据魔方</a><a href="#">淘宝指数</a><a href="#">淘宝客</a><a href="#">O2O</a>
-                <a href="#">活动营销</a><a href="#">手机淘宝</a><a href="#">直通车</a>	<a href="#">钻展</a>
             </div>
         </div>
         <div class="login-wrap-m" style="display:none;">
@@ -122,7 +155,7 @@
             <div class="module-list">
                 <ul>
                     @{
-                        var hots = ViewBag.HotQuestions as IEnumerable<BaWuClub.Web.Dal.ViewQuestion>;
+                        var hots = ViewBag.hotQuestions as IEnumerable<BaWuClub.Web.Dal.ViewQuestion>;
                         if (hots != null) {
                             foreach (var item in hots) {
                                 var title = item.Title.Length > 20 ? item.Title.Substring(0, 20) + "..." : item.Title;
@@ -140,7 +173,7 @@
             <div class="module-list module-list-border">
                 <ul>
                     @{
-                        var activities = ViewBag.HotActivity as IEnumerable<BaWuClub.Web.Dal.ViewActivity>;
+                        var activities = ViewBag.hotActivity as IEnumerable<BaWuClub.Web.Dal.ViewActivity>;
                         if (activities != null) {
                             foreach (var activity in activities) {
                                 var startDate = (DateTime)activity.StartDate;
@@ -173,7 +206,7 @@
                 $(this).addClass("current");
                 var wrap = $(this).attr("data-menu");
                 var url = $(this).attr("data-url");
-                $("." + wrap).siblings("ul").hide();
+                $("." + wrap).siblings("div").hide();
                 $("." + wrap).show();
                 $(".more").attr("href",$(this).attr("data-url"));
             });

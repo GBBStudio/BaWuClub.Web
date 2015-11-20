@@ -27,6 +27,13 @@
                         </div>
                         <div class="dsk-upload-show"></div>
                     </div>
+                    <p class="dsk-upload-type">
+                        <b>文档类型:</b>
+                        <input name="type" type="radio" value="0" checked="checked" id="word"/><label class="icon1-word" for="word"></label>
+                        <input name="type" type="radio" value="1" id="excel"/><label class="icon1-excel" for="excel"></label>
+                        <input name="type" type="radio" value="2" id="ppt"/><label class="icon1-ppt" for="ppt"></label>
+                        <input name="type" type="radio" value="3" id="pdf"/><label class="icon1-pdf" for="pdf"></label>
+                    </p>
                     <p class="textarea-wrap">
                         <b>内容描述:</b>
                         <textarea name="context" class="input-textarea" data-hint="请输入文档描述" placeholder="填写此项可更快的通过审核"></textarea>
@@ -35,8 +42,7 @@
                         <input type="submit" name="sub" value="立即上传" class="btn-sub" />
                     </p>
                     <div class="explain-wrap">
-                        <h3>关于上传文档的说明:</h3>
-                        <p></p>
+                        <div>@Html.Raw(ViewBag.SharedDesc)</div>
                     </div>
                 </form>
                 <p></p>

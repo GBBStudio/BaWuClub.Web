@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+<link type="text/css" rel="stylesheet"  href="~/Content/Css/video-js.css"/>
+@model BaWuClub.Web.Dal.Video
+@{
+    var str = Model.Status == 1 ? "取消通过" : "审核通过";
+}
+<div class="comm-btns">
+    <h2>视频预览审核</h2>
+    <a class="btn-back iconfont icon-chexiao" href="#/online/index">返回列表</a>
+</div>
+@Html.Raw(ViewBag.StatusStr)
+<div class="show-wrapper">
+    <form method="post" name="frame" action="/bwum/online/SetCheck">
+        <p>
+            <span><b>标题:</b></span>@Model.Title
+            <input name="id" value="@Model.Id" type="hidden" />
+        </p>
+        <p class="show-img">
+            <span><b>封面:</b></span>
+            @{
+                var t = Model.Cover;
+                if (string.IsNullOrEmpty(t)) {
+                    Response.Write("封面未上传！");
+                }
+                else {
+                    <img src="~/uploads/video/cover/@t" />
+                }
+            }
+        </p>
+        <p>
+            <span><b>视频:</b></span>
+            <a id="play">播放</a>
+        </p>
+        <script type="text/javascript">
+            $(function () {
+                $("#play").click(function () {
+                    $(".video-wrap").show();
+                });
+            })
+        </script>
+        <p>
+            <span><b>讲师:</b></span>@Model.Teacher
+        </p>
+        <p>
+            <span><b>览次:</b></span>@Model.Views 次
+        </p>
+        <p>
+            <span><b>排序:</b></span>@Model.Sort
+        </p>       
+         <p>
+            <span><b>描述:</b></span>@Model.Description
+        </p>
+        <div class="comm-btns-wrap">
+            <input type="submit" value="@str" class="btn comm-btn2" />
+            <a class="btn comm-btn1" href="#/online/index">取消</a>
+        </div>
+    </form>
+
+</div>
+<div class="video-wrap" style="width:100%;height:100%;position:fixed;background:#000000;opacity:0.8;display:none;">
+    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup="{}">
+        @{
+            if (((int)Model.Mode) > 0 && Model.LocalUrl != null)
+            {
+                <source src="~/Uploads/video/@Model.LocalUrl" type='video/mp4' />
+            }
+        }
+        <track kind="captions" src="../shared/example-captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+        <track kind="subtitles" src="../shared/example-captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+</div>
+<script type="text/javascript" src="~/Content/Scripts/video.js"> </script>
+<script type="text/javascript" src="~/Content/Scripts/videojs-ie8.min.js"> </script>

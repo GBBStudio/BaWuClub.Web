@@ -189,6 +189,18 @@
     <Property Name="Blanket" Type="tinyint" />
     <Property Name="Status" Type="tinyint" />
   </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromId" Type="int" Nullable="false" />
+    <Property Name="ToId" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="Ip" Type="nvarchar" MaxLength="100" />
+    <Property Name="Vardate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Questions">
     <Key>
       <PropertyRef Name="Id" />
@@ -286,6 +298,16 @@
     <Property Name="Likes" Type="int" Nullable="false" />
     <Property Name="VarDate" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="TopicInvolveds">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="Ip" Type="nvarchar" MaxLength="100" />
+    <Property Name="Vardate" Type="datetime" />
+  </EntityType>
   <EntityType Name="TopicReviews">
     <Key>
       <PropertyRef Name="Id" />
@@ -337,6 +359,36 @@
     <Property Name="RegDate" Type="datetime" />
     <Property Name="LastLoginDate" Type="datetime" />
     <Property Name="LastLoginIP" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="VideoReviews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="VideoId" Type="int" Nullable="false" />
+    <Property Name="Review" Type="text" Nullable="false" />
+    <Property Name="IP" Type="nvarchar" MaxLength="50" />
+    <Property Name="VarDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Videos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="300" />
+    <Property Name="LocalUrl" Type="nvarchar" MaxLength="200" />
+    <Property Name="Teacher" Type="nvarchar" MaxLength="50" />
+    <Property Name="Views" Type="int" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="Status" Type="tinyint" />
+    <Property Name="Sort" Type="int" />
+    <Property Name="Mode" Type="tinyint" />
+    <Property Name="AdminId" Type="int" />
+    <Property Name="VarDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Views">
     <Key>
@@ -478,6 +530,38 @@
     <Property Name="Url" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
     <Property Name="VarDate" Type="datetime" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewDocument”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="ViewDocument">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="Tags" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Views" />
+      <PropertyRef Name="Downs" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="VarDate" />
+      <PropertyRef Name="NickName" />
+      <PropertyRef Name="UId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="TagsId" Type="nvarchar" MaxLength="200" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="Views" Type="int" Nullable="false" />
+    <Property Name="Downs" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="VarDate" Type="datetime" Nullable="false" />
+    <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UId" Type="int" Nullable="false" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewQuestion”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -685,6 +769,27 @@
     <Property Name="Cover" Type="nvarchar" MaxLength="50" />
     <Property Name="Context" Type="text" Nullable="false" />
   </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewVideoReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="ViewVideoReview">
+    <Key>
+      <PropertyRef Name="UId" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="VideoId" />
+      <PropertyRef Name="Review" />
+      <PropertyRef Name="NickName" />
+    </Key>
+    <Property Name="UId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="VideoId" Type="int" Nullable="false" />
+    <Property Name="Review" Type="text" Nullable="false" />
+    <Property Name="IP" Type="nvarchar" MaxLength="50" />
+    <Property Name="VarDate" Type="datetime" />
+    <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <Association Name="FK_Topic_Activity">
     <End Role="TopicIndexes" Type="Self.TopicIndexes" Multiplicity="1" />
     <End Role="TopicActivities" Type="Self.TopicActivities" Multiplicity="0..1" />
@@ -736,6 +841,7 @@
     <EntitySet Name="BannerTypes" EntityType="Self.BannerTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SystemArticles" EntityType="Self.SystemArticles" Schema="dbo" store:Type="Tables" />
@@ -744,10 +850,13 @@
     <EntitySet Name="TopicActivities" EntityType="Self.TopicActivities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TopicCategories" EntityType="Self.TopicCategories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TopicIndexes" EntityType="Self.TopicIndexes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TopicInvolveds" EntityType="Self.TopicInvolveds" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TopicReviews" EntityType="Self.TopicReviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TopicTasks" EntityType="Self.TopicTasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VideoReviews" EntityType="Self.VideoReviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Views" EntityType="Self.Views" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menus" EntityType="Self.Menus" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -848,6 +957,25 @@
     [ViewBanner].[Status] AS [Status], 
     [ViewBanner].[VarDate] AS [VarDate]
     FROM [dbo].[ViewBanner] AS [ViewBanner]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewDocument" EntityType="Self.ViewDocument" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewDocument].[Id] AS [Id], 
+    [ViewDocument].[Title] AS [Title], 
+    [ViewDocument].[Description] AS [Description], 
+    [ViewDocument].[Url] AS [Url], 
+    [ViewDocument].[UserId] AS [UserId], 
+    [ViewDocument].[Tags] AS [Tags], 
+    [ViewDocument].[TagsId] AS [TagsId], 
+    [ViewDocument].[Type] AS [Type], 
+    [ViewDocument].[Views] AS [Views], 
+    [ViewDocument].[Downs] AS [Downs], 
+    [ViewDocument].[Status] AS [Status], 
+    [ViewDocument].[VarDate] AS [VarDate], 
+    [ViewDocument].[NickName] AS [NickName], 
+    [ViewDocument].[UId] AS [UId], 
+    [ViewDocument].[Cover] AS [Cover]
+    FROM [dbo].[ViewDocument] AS [ViewDocument]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewQuestion" EntityType="Self.ViewQuestion" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -981,6 +1109,19 @@
     [ViewTopicTask].[Cover] AS [Cover], 
     [ViewTopicTask].[Context] AS [Context]
     FROM [dbo].[ViewTopicTask] AS [ViewTopicTask]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewVideoReview" EntityType="Self.ViewVideoReview" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewVideoReview].[UId] AS [UId], 
+    [ViewVideoReview].[Id] AS [Id], 
+    [ViewVideoReview].[UserId] AS [UserId], 
+    [ViewVideoReview].[VideoId] AS [VideoId], 
+    [ViewVideoReview].[Review] AS [Review], 
+    [ViewVideoReview].[IP] AS [IP], 
+    [ViewVideoReview].[VarDate] AS [VarDate], 
+    [ViewVideoReview].[NickName] AS [NickName], 
+    [ViewVideoReview].[Cover] AS [Cover]
+    FROM [dbo].[ViewVideoReview] AS [ViewVideoReview]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_Topic_Activity" Association="Self.FK_Topic_Activity">
       <End Role="TopicIndexes" EntitySet="TopicIndexes" />

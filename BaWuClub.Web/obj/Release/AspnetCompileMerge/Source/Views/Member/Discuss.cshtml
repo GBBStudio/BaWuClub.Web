@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/views/shared/_layoutmember.cshtml";
+    ViewBag.Title = "个人用户中心-论坛";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+}
+@model IEnumerable<BaWuClub.Web.Dal.Article>
+<div class="member-title">
+    <a href="/member/u-@user.Id/Show">资料</a>
+    <a href="/member/u-@user.Id/contributelist">投稿</a>
+    <a href="/member/u-@user.Id/asks">问题</a>
+    <a href="/member/u-@user.Id/answers">回答</a>
+    <a href="/member/u-@user.Id/certification">认证</a>
+    <a href="/member/u-@user.Id/shared">共享</a>
+    <a href="/member/u-@user.Id/discuss" class="selected">论坛</a>
+    <a href="/member/u-@user.Id/message">私信</a>
+</div>
+<div class="member-main">
+    <div class="member-menu">
+        <a class="selected" href="#topic"> 帖子</a>
+        <a href="#activity"> 活动</a>
+        <a href="#task"> 任务</a>
+        <a href="#group"> 组织</a>
+    </div>
+    <div class="member-main-wrap"></div>
+</div>
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/scripts/member.js"></script>

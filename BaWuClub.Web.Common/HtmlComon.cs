@@ -170,4 +170,12 @@ namespace BaWuClub.Web.Common
         error,
         warning
     }
+
+    public enum DocType
+    {
+        word,
+        exl,
+        ppt,
+        pdf
+    }
 }

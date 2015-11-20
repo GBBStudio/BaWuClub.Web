@@ -10,7 +10,7 @@
         <div class="discuss-wrap">
             <div class="discuss-top form-block">
                 <div class="discuss-title">
-                    <i></i><span>主题：18135</span><span>昨日：2291</span><span>今日：283</span>
+                    <i></i><span>主题：@ViewBag.count</span><span>昨日：@ViewBag.yesterdayCount</span><span>今日：@ViewBag.todayCount</span>
                 </div>
                 <div class="discuss-category">
                     <ul>
@@ -61,14 +61,6 @@
                         <a href="/forum/topiclist?type=task">任务</a>
                         <span onclick="location.href = '/forum/posttopic'">我要发帖</span>
                     </div>
-                    if (Model != null && ViewBag.category == null)
-                    {
-                        <script type="text/javascript">
-                            window.onload = function () {
-                                $(".discuss-list-title>a").eq(@(Model.FirstOrDefault().Type+1)).addClass("selected");
-                            }
-                        </script>
-                    }
                 }
                 
                 <div class="discuss-list">
@@ -87,7 +79,7 @@
                                         </div>
                                         <div class="topic-info">
                                             <a href="#">@t.NickName</a>
-                                            <span class="discuss-list-topic-date">9小时前</span>
+                                            <span class="discuss-list-topic-date">@BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(t.VarDate)</span>
                                             <span><i class="icon1-liulan"></i>@t.Views</span>
                                             <span><i class="icon1-xiai" style="font-size:12px;"></i>@t.Likes</span>
                                         </div>
@@ -114,7 +106,7 @@
             <div class="area-title">
                 <img src="~/Content/Images/area-1.jpg" alt="" />
                 <h4>区域板块</h4>
-                <p>申请入住<br /><a href="#">等你来组织></a></p>
+                <p>申请入住<br /><a href="/error/underdevelopment">等你来组织></a></p>
             </div>
             <div class="area-list">
                 <div class="area-list-item">
@@ -124,7 +116,7 @@
                     <div class="area-item-info">
                         <h3>南京圈</h3>
                         <p>区域论坛介绍</p>
-                        <a href="#">点击进入</a>
+                        <a href="/error/underdevelopment">点击进入</a>
                     </div>
                 </div>
                 <div class="area-list-item">
@@ -134,7 +126,7 @@
                     <div class="area-item-info">
                         <h3>海门圈</h3>
                         <p>区域论坛介绍</p>
-                        <a href="#">点击进入</a>
+                        <a href="/error/underdevelopment">点击进入</a>
                     </div>
                 </div>
                 <div class="area-list-item">
@@ -144,7 +136,7 @@
                     <div class="area-item-info">
                         <h3>杭州圈</h3>
                         <p>区域论坛介绍</p>
-                        <a href="#">点击进入</a>
+                        <a href="/error/underdevelopment">点击进入</a>
                     </div>
                 </div>
             </div>

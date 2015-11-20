@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
+}
+
+@model IEnumerable<BaWuClub.Web.Dal.Video>
+<div class="comm-btns">
+    <h2>在线学习视频管理</h2>
+    <div class="comm-btns-wrap">
+        <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
+        <a class="btn comm-btn1" href="/bwum/online/create">创建</a>
+        <a class="btn comm-btn2" href="#" data-url="/bwum/online/multidel">删除</a>
+        <a class="btn comm-btn0" href="#" data-url="/bwum/online/setdisable">审核不通过</a>
+        <a class="btn comm-btn1" href="#" data-url="/bwum/online/setenable" style="">审核通过</a>
+    </div>
+</div>
+
+<div id="notic-wrap">
+    @Html.Raw(ViewBag.statusStr)
+</div>
+<form name="form" id="form" method="post">
+    <table>
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="chk-all" onclick="cheakall(this)" /></td>
+                <td>Id</td>
+                <td>标题</td>
+                <td>老师</td>
+                <td>浏览量</td>
+                <td>状态</td>
+                <td>发布时间</td>
+                <td>更多操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (BaWuClub.Web.Dal.Video video in Model)
+                    {
+                        var title = video.Title.Length > 100 ? video.Title.Substring(0, 99) : video.Title;
+                        <tr>
+                            <td><input type="checkbox" name="chk" value="@video.Id" /></td>
+                            <td>@video.Id</td>
+                            <td>@title</td>
+                            <td>@video.Teacher</td>
+                            <td>@video.Views</td>
+                            <td>@Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr((int)video.Status))</td>
+                            <td>@video.VarDate</td>
+                            <td><a href="#/online/show/@video.Id">预览审核</a><a href="#/online/edit/@video.Id" style="display:none;">编辑</a><a onclick="ajaxdelete('/online/del/',@video.Id)">删除</a></td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    @Html.Raw(ViewBag.PageHtmlStr)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

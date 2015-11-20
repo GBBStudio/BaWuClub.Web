@@ -7,6 +7,7 @@ using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Transactions;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace BaWuClub.Web.Controllers
 {
@@ -16,6 +17,7 @@ namespace BaWuClub.Web.Controllers
         private ClubEntities club;
         private int tId = 0;
         private string postTransfersUrl = "~/views/direct/transfers.cshtml";
+        private IQueryable<ViewTopicIndex> queryable;
         #endregion
 
         #region Get
@@ -24,8 +26,10 @@ namespace BaWuClub.Web.Controllers
             ViewBag.Categories=GetDiscussCategory();
             List<ViewTopicIndex> viewTopicsIndex = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
-                viewTopicsIndex = club.ViewTopicIndexes.Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
-                int count = club.ViewTopicIndexes.Where(t => t.Area == 0).Count();
+                queryable = GetQueryable(club);
+                GetCount(queryable);
+                viewTopicsIndex = queryable.Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
+                int count = queryable.Where(t => t.Area == 0).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/p/", 13, 1, count, ClubConst.TopicPageShow);
             }
             return View(viewTopicsIndex);
@@ -38,8 +42,10 @@ namespace BaWuClub.Web.Controllers
             ViewBag.Categories = categories;
             List<ViewTopicIndex> viewTopicsIndex = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
-                viewTopicsIndex = club.ViewTopicIndexes.OrderByDescending(t=>t.VarDate).Skip(ClubConst.TopicPageSize*(tId-1)).Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
-                int count = club.ViewTopicIndexes.Where(t => t.Area == 0).Count();
+                queryable = GetQueryable(club);
+                GetCount(queryable);
+                viewTopicsIndex = queryable.OrderByDescending(t => t.VarDate).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
+                int count = queryable.Where(t => t.Area == 0).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/p/", 13, tId, count, ClubConst.TopicPageShow);
             }
             return View("~/views/forum/index.cshtml", viewTopicsIndex);
@@ -71,11 +77,13 @@ namespace BaWuClub.Web.Controllers
             ViewBag.category = category;
             List<ViewTopicIndex> topics = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
+                queryable= GetQueryable(club);
+                GetCount(queryable);
                 if(!string.IsNullOrEmpty(sort)&&sort=="time")
-                    topics = club.ViewTopicIndexes.OrderByDescending(t=>t.VarDate).Skip(ClubConst.TopicPageSize *( tId-1)).Take(ClubConst.TopicPageSize).Where(t => t.Category == category.Id).ToList<ViewTopicIndex>();
+                    topics = queryable.OrderByDescending(t => t.VarDate).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Category == category.Id).ToList<ViewTopicIndex>();
                 else
-                    topics = club.ViewTopicIndexes.OrderByDescending(t => t.Id).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Category == category.Id).ToList<ViewTopicIndex>();
-                int count=club.ViewTopicIndexes.Where(t=>t.Category==category.Id).Count();
+                    topics = queryable.OrderByDescending(t => t.Id).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Category == category.Id).ToList<ViewTopicIndex>();
+                int count = queryable.Where(t => t.Category == category.Id).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/topics/" + name + "?sort="+sort+"&page=", ClubConst.TopicPageSize, tId, count,ClubConst.TopicPageShow);
             }
             return View("~/views/forum/index.cshtml",topics);
@@ -98,17 +106,54 @@ namespace BaWuClub.Web.Controllers
             ViewBag.Categories = categories;
             List<ViewTopicIndex> topics = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
-                topics = club.ViewTopicIndexes.OrderBy(t => t.VarDate).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Type == ((int)tt)).ToList<ViewTopicIndex>();
-                int count = club.ViewTopicIndexes.Where(t => t.Type == ((int)tt)).Count();
+                queryable= GetQueryable(club);
+                GetCount(queryable);
+                topics = queryable.OrderBy(t => t.VarDate).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Type == ((int)tt)).ToList<ViewTopicIndex>();
+                int count = queryable.Where(t => t.Type == ((int)tt)).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/topiclist?type=" + tt.ToString() + "&page=", ClubConst.TopicPageSize, tId, count,ClubConst.TopicPageShow);
             }
             return View("~/views/forum/index.cshtml", topics);
+        }
+        
+        //[Authorize]
+        [HttpPost]
+        public JsonResult Take(int id,int tId,string s) {
+            Status status = Status.error;
+            string context = string.Empty;
+            BaWuClub.Web.Dal.User user = GetUser();
+            BaWuClub.Web.Dal.User toUser = new User();
+            if (user == null) {
+                return Json(new { status=Status.warning.ToString(),context=context,url="/Account/login"});
+            }
+            using (club = new ClubEntities()) {
+                TopicInvolved topicInvolved=new TopicInvolved(){TopicId=id,UserId=user.Id,Ip=Request.UserHostAddress,Vardate=DateTime.Now};
+                TopicIndex topic=club.TopicIndexes.Where(t=>t.Id==id).FirstOrDefault();
+                if(topic!=null){
+                    toUser = club.Users.Where(u => u.Id == tId).FirstOrDefault();
+                    club.TopicInvolveds.Add(topicInvolved);
+                    if (club.SaveChanges() > 0) {
+                        if (s == "activity") {
+                            SendFormatMsg(user.Id, toUser.Id,"0", user.NickName, topic.Title, Request.UserHostAddress);
+                            SendFormatMsg(toUser.Id, user.Id,"2", toUser.NickName, topic.Title, Request.UserHostAddress);
+                        }
+                        else {
+                            SendFormatMsg(user.Id, toUser.Id, "1", user.NickName, topic.Title, Request.UserHostAddress);
+                            SendFormatMsg(toUser.Id, user.Id, "3", toUser.NickName, topic.Title, Request.UserHostAddress);
+                        }
+                        status = Status.success;
+                        context = JsonConvert.SerializeObject(toUser);
+                    }
+                }
+                else { 
+                    context = "操作异常，请稍后重试！";
+                }
+            }
+            return Json(new {status=status,context=context });
         }
 
         #endregion
 
         #region show
-
         public ActionResult Topic(int? id)
         {
             tId = id ?? 0;
@@ -197,6 +242,7 @@ namespace BaWuClub.Web.Controllers
                     Title = HtmlCommon.ClearHtml(title),
                     UserId = user.Id,
                     Type = (int)TopicType.Task,
+                    Status=(int)State.Enable,
                     VarDate = DateTime.Now
                 };
                 TopicTask task = new TopicTask()
@@ -238,7 +284,7 @@ namespace BaWuClub.Web.Controllers
             {
                 BaWuClub.Web.Dal.User user = GetUser();
                 CheckUser(user);
-                TopicIndex topicIndex = new TopicIndex() { Title = HtmlCommon.ClearHtml(title), Category = category, UserId = user.Id, VarDate = DateTime.Now };
+                TopicIndex topicIndex = new TopicIndex() { Title = HtmlCommon.ClearHtml(title),  Status=(int)State.Enable,Category = category, UserId = user.Id, VarDate = DateTime.Now };
                 BaWuClub.Web.Dal.Topic topic = new Topic() { Context = context };
                 topicIndex.Topic = topic;
                 using (club = new ClubEntities())
@@ -263,6 +309,7 @@ namespace BaWuClub.Web.Controllers
                 Title = HtmlCommon.ClearHtml(title),
                 VarDate = DateTime.Now,
                 Type = (Int32)TopicType.Activity,//
+                Status=(int)State.Enable,
                 UserId = user.Id
             };
             TopicActivity topicActivity = new TopicActivity()
@@ -318,6 +365,25 @@ namespace BaWuClub.Web.Controllers
         #endregion
 
         #region private
+        private void SendFormatMsg(int fId,int tId,string formatName,string formatParam1,string formatparam2,string ip) {
+            string url=Server.MapPath(ClubConst.TextFormatDataUrl);
+            string formatStr = App_Start.CommonMethod.GetMsgFormat(formatName, url);
+            string t=string.Format(formatStr,formatParam1,formatparam2);
+            App_Start.CommonMethod.SendMessge(fId,tId,t,ip);
+        }
+
+        private IQueryable<ViewTopicIndex> GetQueryable(ClubEntities club) {
+            return club.ViewTopicIndexes.Where(vt => vt.Status == (int)State.Enable);
+        }
+
+        private void GetCount(IQueryable<ViewTopicIndex>queryable) {
+            DateTime today = DateTime.Now.Date;
+            DateTime yesterday = DateTime.Now.AddDays(-1).Date;
+            ViewBag.count = queryable.Count();
+            ViewBag.todayCount = queryable.Where(t => t.VarDate >= today).Count();
+            ViewBag.yesterdayCount = queryable.Where(t => t.VarDate < today && t.VarDate > yesterday).Count();
+        }
+        
         private void SetViews(ClubEntities club,int id) {
             Views(club,id);
             GetRviews(club,id);

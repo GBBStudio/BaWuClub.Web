@@ -9,7 +9,9 @@ namespace BaWuClub.Web.Dal
     {
         public const int AdminPageSize=30;
         public const int AdminPageShow = 1;
-        public const int WebPageSize = 15;
+        //public const int WebPageSize = 15;
+        //public const int WebPageShow = 8;
+        public const int WebPageSize = 5;
         public const int WebPageShow = 8;
 
         public const int WebQuestionPageShow = 8;
@@ -33,15 +35,29 @@ namespace BaWuClub.Web.Dal
         public readonly static string EditorDirectory = "/uploads/editor/";
         public readonly static string BannerDir = "/uploads/banner/";
         public readonly static string ActivityDir = "/uploads/activity/";
-
+        public readonly static string VideoDir = "/uploads/video/";
+        public readonly static string VideoCoverDir = "/uploads/video/Cover/";
         public readonly static string UploadTmp = "/uploads/tmps/";
-
         public readonly static string TopicAactivity = "/uploads/topics/activity/";
+
+        public readonly static string TextFormatDataUrl = "~/app_data/textconfig.xml";
+    }
+
+    public enum State { 
+        Disable=0,
+        Enable=1
     }
 
     public enum TopicType { 
         Topic=0,
         Activity=1,
         Task=2
+    }
+
+    public enum VideoStatus {
+        Disable=0,
+        Enable=1,
+        Top=2,
+        Recommend=3
     }
 }
