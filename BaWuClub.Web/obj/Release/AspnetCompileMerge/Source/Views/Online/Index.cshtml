@@ -6,110 +6,84 @@
 }
 <div class="online-wrap">
     <div class="online-top-wrap">
+        <div class="online-top-video">
+            @{
+                var topVideo = ViewBag.videoTop as BaWuClub.Web.Dal.Video;
+                if (topVideo != null)
+                {
+                    <div class="online-top-img">
+                        <a href="/online/course/@topVideo.Id">
+                            <img src="~/uploads/video/cover/@topVideo.Cover" />
+                        </a>
+                    </div>
+                    <div class="online-top-text">
+                        <div class="online-top-title"></div>
+                        <p>@topVideo.Description</p>
+                        <a href="/online/course/@topVideo.Id" class="online-top-btn">立即学习>></a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    @{
+        var videoRecommend = ViewBag.videoRecommend as BaWuClub.Web.Dal.Video;
+    }
+    @{
+        if (videoRecommend != null)
+        {
+            <div class="online-recommend container">
+                <div class="online-recommend-title">
+                    <h3><i></i><span>课程推荐</span></h3>
+                </div>
+                <div class="online-recommend-info">
+                    <div class="online-recommend-img fleft">
+                        <a href="#">
+                            <img src="~/uploads/video/cover/@videoRecommend.Cover" />
+                        </a>
+                    </div>
+                    <div class="online-recommend-data">
+                        <h3>@videoRecommend.Title</h3>
+                        <span>@videoRecommend.Description</span>
+                       <!-- <p><span>时间:</span></p>-->
+                        <p><span>老师:@videoRecommend.Teacher</span></p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 
-    </div>
-    <div class="online-recommend container">
-        <div class="online-recommend-title">
-            <h3><i></i><span>下期视频预告</span></h3>
-        </div>
-        <div class="online-recommend-info">
-            <div class="online-recommend-img fleft">
-                <a href="#">
-                    <img src="~/Content/Images/01-.png" />
-                </a>
-            </div>
-            <div class="online-recommend-data">
-                <h3>节日大促与店铺的”关系“</h3>
-                <span>讲师：刘晏  主要内容： 1、大促在哪儿（节日大促有哪些？官方大促、团购平台、店铺活动的关系，需要注意什么） 2、运营，做什么（如何准备？时间节点的控制？只上官方活动就够了吗？） 3、活动怎么玩（活动报上了怎么办？活动没报上又怎么玩？） 讲...</span>
-                <p><span>时间:</span></p>
-                <p><span>老师:</span></p>
-            </div>
-        </div>
-    </div>
     <div class="online-class-list">
         <div class="container">
             <div class="online-class-title">
                 <h3><i></i><span>全部视频</span></h3>
             </div>
             <ul>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="online-class-img">
-                        <a href="/online/course">
-                            <img src="~/Content/Images/t-1.jpg" />
-                        </a>
-                    </div>
-                    <div class="online-class-info">
-                        <h3><a href="/online/course">搜索流量解析与优化</a></h3>
-                        <p><span>木木老师</span></p>
-                        <p>天下网商研究院高级分析师； 万堂书院讲师、女装卖家、资深运营； 江苏商盟理事，万堂书院车友会理事； 实战经验丰富，爆款专家。</p>
-                    </div>
-                </li>
+                @{
+                    var videos = ViewBag.videoList;
+                    if (videos != null)
+                    {
+                        foreach (var video in videos as IEnumerable<BaWuClub.Web.Dal.Video>)
+                        {
+                            var cover = (string.IsNullOrEmpty(video.Cover) ? "~/Content/Images/no-img.jpg" : "/uploads/video/cover/"+video.Cover);
+                            <li>
+                                <div class="online-class-img">
+                                    <a href="/online/course/@video.Id">
+                                        <img src="@cover" />
+                                    </a>
+                                </div>
+                                <div class="online-class-info">
+                                    <h3><a href="/online/course/@video.Id">@video.Title</a></h3>
+                                    <p><span>@video.Teacher</span></p>
+                                    <p>@video.Description</p>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
+
             </ul>
             <div class="page-wrap">
-                <span class="page-text">共6页.当前是1页</span>
-                <a data-href="/member/u-13/getanswers/1" class="current">1</a>
-                <a data-href="/member/u-13/getanswers/2" class="">2</a>
-                <a data-href="/member/u-13/getanswers/3" class="">3</a>
+              @Html.Raw(ViewBag.pageStr)
             </div>
         </div>
     </div>

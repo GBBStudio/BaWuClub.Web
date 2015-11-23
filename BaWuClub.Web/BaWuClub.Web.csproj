@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FeedBackController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -1011,6 +1012,10 @@
     <Content Include="Views\Direct\Transfers.cshtml" />
     <Content Include="Views\Error\Underdevelopment.cshtml" />
     <Content Include="Views\Shared\_PartialMemberUnLogin.cshtml" />
+    <Content Include="Views\Shared\_PartialRightListActivity.cshtml" />
+    <Content Include="Views\Shared\_PartialRightListTask.cshtml" />
+    <Content Include="Views\Shared\_PartialRightListTopic.cshtml" />
+    <Content Include="Views\Group\City.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

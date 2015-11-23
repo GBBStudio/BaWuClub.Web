@@ -2,17 +2,27 @@
     Layout = "~/views/shared/_layout.cshtml";
     ViewBag.Title = "电商圈-拉帮结派";
     ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    ViewBag.CssAppend += "<link href=\"/content/bxslider/jquery.bxslider.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 <div class="cli-banner">
-    <ul>
-        <li>
-            <div style="background:url(/Content/Images/banner-lbjp.png) no-repeat center center;background-size:100% 100%" class="cli-banner-item-bg"></div>
-            <div class="cli-banner-item-wrap">
-                <a href="#">
-                    <img src="~/Content/Images/banner-lbjp.png" />
-                </a>
-            </div>
-        </li>
+    <ul class="bxslider">
+        @{
+            var banners = ViewBag.banners;
+            if (banners != null)
+            {
+                foreach (var banner in banners as IEnumerable<BaWuClub.Web.Dal.ViewBanner>)
+                {
+                    <li>
+                        <div style="background:url(/Uploads/banner/@banner.Pic) no-repeat center center;background-size:100% 100%" class="cli-banner-item-bg"></div>
+                        <div class="cli-banner-item-wrap">
+                            <a href="#">
+                                <img src="~/Uploads/banner/@banner.Pic" />
+                            </a>
+                        </div>
+                    </li>
+                }
+            }
+        }
     </ul>
 </div>
 
@@ -114,3 +124,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="~/content/bxslider/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".bxslider").bxSlider({
+             controls:false
+        });
+    })
+</script>

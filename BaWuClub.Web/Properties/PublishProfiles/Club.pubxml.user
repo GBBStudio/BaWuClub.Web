@@ -10,10 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/Role.xml">
-      <publishTime>08/31/2015 11:02:33</publishTime>
+      <publishTime>11/19/2015 15:13:32</publishTime>
+    </File>
+    <File Include="App_Data/TextConfig.xml">
+      <publishTime>11/19/2015 16:05:02</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Activity/Edit.cshtml">
-      <publishTime>07/16/2015 13:17:38</publishTime>
+      <publishTime>11/20/2015 16:12:47</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Activity/Index.cshtml">
       <publishTime>07/16/2015 13:37:18</publishTime>
@@ -37,10 +40,10 @@
       <publishTime>08/24/2015 13:29:24</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Banner/Edit.cshtml">
-      <publishTime>08/26/2015 10:31:18</publishTime>
+      <publishTime>11/20/2015 16:13:04</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Banner/Index.cshtml">
-      <publishTime>08/19/2015 16:45:56</publishTime>
+      <publishTime>11/20/2015 17:12:18</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Banner/TypeEdit.cshtml">
       <publishTime>09/17/2015 13:28:41</publishTime>
@@ -52,10 +55,10 @@
       <publishTime>07/10/2015 18:17:46</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Contribute/Index.cshtml">
-      <publishTime>08/24/2015 13:13:29</publishTime>
+      <publishTime>11/03/2015 17:16:16</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Contribute/Show.cshtml">
-      <publishTime>08/07/2015 09:28:28</publishTime>
+      <publishTime>11/03/2015 16:45:20</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Contribute/_Show.cshtml">
       <publishTime>07/31/2015 15:11:23</publishTime>
@@ -65,6 +68,12 @@
     </File>
     <File Include="Areas/bwum/Views/Discuss/Index.cshtml">
       <publishTime>09/17/2015 13:28:41</publishTime>
+    </File>
+    <File Include="Areas/bwum/Views/Down/Index.cshtml">
+      <publishTime>11/10/2015 14:22:33</publishTime>
+    </File>
+    <File Include="Areas/bwum/Views/Down/Show.cshtml">
+      <publishTime>11/17/2015 14:05:40</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Error/NotFound.cshtml">
       <publishTime>07/10/2015 14:18:25</publishTime>
@@ -92,6 +101,15 @@
     </File>
     <File Include="Areas/bwum/Views/Menu/Index.cshtml">
       <publishTime>07/29/2015 15:09:49</publishTime>
+    </File>
+    <File Include="Areas/bwum/Views/Online/Edit.cshtml">
+      <publishTime>11/09/2015 16:37:23</publishTime>
+    </File>
+    <File Include="Areas/bwum/Views/Online/Index.cshtml">
+      <publishTime>11/10/2015 13:44:20</publishTime>
+    </File>
+    <File Include="Areas/bwum/Views/Online/Show.cshtml">
+      <publishTime>11/05/2015 16:01:09</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Question/Index.cshtml">
       <publishTime>08/19/2015 16:46:12</publishTime>
@@ -133,7 +151,7 @@
       <publishTime>07/10/2015 15:48:57</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Um/Index.cshtml">
-      <publishTime>08/20/2015 10:06:00</publishTime>
+      <publishTime>11/17/2015 14:01:09</publishTime>
     </File>
     <File Include="Areas/bwum/Views/Um/loading.cshtml">
       <publishTime>08/03/2015 13:12:49</publishTime>
@@ -163,10 +181,10 @@
       <publishTime>06/04/2015 13:41:43</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/28/2015 15:39:26</publishTime>
+      <publishTime>11/23/2015 16:20:58</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/28/2015 15:39:26</publishTime>
+      <publishTime>11/23/2015 16:20:58</publishTime>
     </File>
     <File Include="bin/App_Web_04ij44sk.dll">
       <publishTime>07/27/2015 14:55:54</publishTime>
@@ -463,13 +481,13 @@
       <publishTime>07/27/2015 14:56:50</publishTime>
     </File>
     <File Include="bin/BaWuClub.Web.Common.dll">
-      <publishTime>09/28/2015 15:38:45</publishTime>
+      <publishTime>11/23/2015 16:20:52</publishTime>
     </File>
     <File Include="bin/BaWuClub.Web.Dal.dll">
-      <publishTime>09/28/2015 15:38:45</publishTime>
+      <publishTime>11/23/2015 16:20:52</publishTime>
     </File>
     <File Include="bin/BaWuClub.Web.dll">
-      <publishTime>09/28/2015 15:38:46</publishTime>
+      <publishTime>11/23/2015 16:20:54</publishTime>
     </File>
     <File Include="bin/contact.cshtml.91b6d4c2.compiled">
       <publishTime>07/27/2015 14:56:50</publishTime>
@@ -2335,25 +2353,31 @@
       <publishTime>09/07/2015 10:12:39</publishTime>
     </File>
     <File Include="Content/Css/discuss.css">
-      <publishTime>09/28/2015 15:35:00</publishTime>
+      <publishTime>11/23/2015 16:20:26</publishTime>
     </File>
     <File Include="Content/Css/download.css">
-      <publishTime>09/28/2015 15:35:40</publishTime>
+      <publishTime>11/11/2015 14:04:57</publishTime>
     </File>
     <File Include="Content/Css/fontstyle.css">
-      <publishTime>09/24/2015 13:17:28</publishTime>
+      <publishTime>11/11/2015 13:46:58</publishTime>
+    </File>
+    <File Include="Content/Css/jquery.datetimepicker.css">
+      <publishTime>02/26/2014 22:14:56</publishTime>
     </File>
     <File Include="Content/Css/rss.css">
       <publishTime>07/28/2015 14:41:02</publishTime>
     </File>
     <File Include="Content/Css/site.css">
-      <publishTime>09/24/2015 13:38:30</publishTime>
+      <publishTime>11/20/2015 16:23:54</publishTime>
     </File>
     <File Include="Content/Css/study.css">
-      <publishTime>09/28/2015 14:27:13</publishTime>
+      <publishTime>11/17/2015 17:02:17</publishTime>
     </File>
     <File Include="Content/Css/style.css">
-      <publishTime>08/19/2015 17:19:14</publishTime>
+      <publishTime>11/20/2015 16:23:56</publishTime>
+    </File>
+    <File Include="Content/Css/video-js.css">
+      <publishTime>11/09/2015 14:20:28</publishTime>
     </File>
     <File Include="Content/Css/wdialog.css">
       <publishTime>05/28/2015 15:54:56</publishTime>
@@ -2395,16 +2419,16 @@
       <publishTime>05/28/2015 10:11:22</publishTime>
     </File>
     <File Include="Content/Fonts/iconfont.eot">
-      <publishTime>09/24/2015 13:37:32</publishTime>
+      <publishTime>10/22/2015 10:01:44</publishTime>
     </File>
     <File Include="Content/Fonts/iconfont.svg">
-      <publishTime>09/24/2015 13:37:32</publishTime>
+      <publishTime>10/22/2015 10:01:44</publishTime>
     </File>
     <File Include="Content/Fonts/iconfont.ttf">
-      <publishTime>09/24/2015 13:37:32</publishTime>
+      <publishTime>10/22/2015 10:01:44</publishTime>
     </File>
     <File Include="Content/Fonts/iconfont.woff">
-      <publishTime>09/24/2015 13:37:32</publishTime>
+      <publishTime>10/22/2015 10:01:44</publishTime>
     </File>
     <File Include="Content/Fonts/icont.eot">
       <publishTime>05/28/2015 10:11:22</publishTime>
@@ -2428,7 +2452,7 @@
       <publishTime>09/18/2015 13:29:58</publishTime>
     </File>
     <File Include="Content/Images/banner-lbjp.png">
-      <publishTime>09/28/2015 14:50:31</publishTime>
+      <publishTime>11/20/2015 16:49:43</publishTime>
     </File>
     <File Include="Content/Images/bg-downlaod.png">
       <publishTime>09/23/2015 17:14:37</publishTime>
@@ -2494,22 +2518,34 @@
       <publishTime>07/27/2015 17:25:29</publishTime>
     </File>
     <File Include="Content/Scripts/comments.js">
-      <publishTime>07/24/2015 13:35:10</publishTime>
+      <publishTime>11/23/2015 13:51:04</publishTime>
     </File>
     <File Include="Content/Scripts/highcharts.js">
       <publishTime>04/13/2015 14:54:50</publishTime>
+    </File>
+    <File Include="Content/Scripts/jquery.datetimepicker.js">
+      <publishTime>02/26/2014 22:14:56</publishTime>
     </File>
     <File Include="Content/Scripts/jquery.js">
       <publishTime>06/06/2014 00:15:36</publishTime>
     </File>
     <File Include="Content/Scripts/layout.js">
-      <publishTime>08/18/2015 17:04:48</publishTime>
+      <publishTime>11/17/2015 13:59:40</publishTime>
     </File>
     <File Include="Content/Scripts/member.js">
-      <publishTime>07/28/2015 16:42:26</publishTime>
+      <publishTime>11/20/2015 14:53:01</publishTime>
+    </File>
+    <File Include="Content/Scripts/reviews.js">
+      <publishTime>11/23/2015 13:45:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/video.js">
+      <publishTime>11/06/2015 16:01:19</publishTime>
     </File>
     <File Include="Content/Scripts/w-layout.js">
       <publishTime>07/06/2015 17:43:32</publishTime>
+    </File>
+    <File Include="Content/Swf/flowplayer-3.2.1.swf">
+      <publishTime>11/06/2015 16:02:24</publishTime>
     </File>
     <File Include="Content/Uploadify/jquery.uploadify.min.js">
       <publishTime>07/05/2013 09:25:02</publishTime>
@@ -2518,7 +2554,7 @@
       <publishTime>07/08/2012 01:42:06</publishTime>
     </File>
     <File Include="Content/Uploadify/uploadify.css">
-      <publishTime>06/23/2015 15:57:30</publishTime>
+      <publishTime>10/19/2015 10:02:15</publishTime>
     </File>
     <File Include="Content/Uploadify/uploadify.swf">
       <publishTime>06/21/2013 13:04:52</publishTime>
@@ -2530,7 +2566,7 @@
       <publishTime>06/05/2015 10:57:37</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/28/2015 15:39:24</publishTime>
+      <publishTime>11/23/2015 16:20:57</publishTime>
     </File>
     <File Include="Uploads/activity/activity_201514070023.jpg">
       <publishTime>07/14/2015 16:00:23</publishTime>
@@ -2680,64 +2716,82 @@
       <publishTime>07/30/2015 17:54:51</publishTime>
     </File>
     <File Include="Views/Ask/Show.cshtml">
-      <publishTime>09/28/2015 10:40:23</publishTime>
+      <publishTime>11/23/2015 13:52:53</publishTime>
     </File>
     <File Include="Views/Column/Index.cshtml">
-      <publishTime>07/30/2015 17:54:37</publishTime>
+      <publishTime>11/03/2015 17:19:11</publishTime>
     </File>
     <File Include="Views/Column/List.cshtml">
       <publishTime>07/03/2015 10:41:59</publishTime>
     </File>
     <File Include="Views/Column/Show.cshtml">
-      <publishTime>08/19/2015 15:54:16</publishTime>
+      <publishTime>11/23/2015 13:52:22</publishTime>
+    </File>
+    <File Include="Views/Direct/Transfers.cshtml">
+      <publishTime>11/17/2015 17:10:50</publishTime>
     </File>
     <File Include="Views/Download/DownShow.cshtml">
       <publishTime>09/28/2015 14:27:45</publishTime>
     </File>
     <File Include="Views/Download/Index.cshtml">
-      <publishTime>09/28/2015 15:39:15</publishTime>
+      <publishTime>11/17/2015 15:33:33</publishTime>
+    </File>
+    <File Include="Views/Download/Show.cshtml">
+      <publishTime>11/20/2015 16:44:59</publishTime>
     </File>
     <File Include="Views/Download/UploadDocs.cshtml">
-      <publishTime>09/28/2015 15:36:23</publishTime>
+      <publishTime>11/20/2015 16:16:48</publishTime>
     </File>
     <File Include="Views/Error/404.cshtml">
       <publishTime>07/29/2015 17:17:27</publishTime>
     </File>
+    <File Include="Views/Error/Exception.cshtml">
+      <publishTime>11/17/2015 17:13:23</publishTime>
+    </File>
+    <File Include="Views/Error/Underdevelopment.cshtml">
+      <publishTime>11/17/2015 17:11:37</publishTime>
+    </File>
     <File Include="Views/Feedback/Index.cshtml">
       <publishTime>07/29/2015 17:17:06</publishTime>
+    </File>
+    <File Include="Views/Forum/Activity.cshtml">
+      <publishTime>11/23/2015 15:35:56</publishTime>
     </File>
     <File Include="Views/Forum/ActivityShow.cshtml">
       <publishTime>09/23/2015 14:10:13</publishTime>
     </File>
     <File Include="Views/Forum/Cliques.cshtml">
-      <publishTime>09/28/2015 14:52:24</publishTime>
+      <publishTime>11/23/2015 15:33:51</publishTime>
     </File>
     <File Include="Views/Forum/Index.cshtml">
-      <publishTime>09/28/2015 15:22:12</publishTime>
+      <publishTime>11/17/2015 17:40:47</publishTime>
     </File>
     <File Include="Views/Forum/List.cshtml">
       <publishTime>09/23/2015 15:35:35</publishTime>
     </File>
     <File Include="Views/Forum/PostTopic.cshtml">
-      <publishTime>09/22/2015 13:14:34</publishTime>
+      <publishTime>11/23/2015 15:43:39</publishTime>
     </File>
     <File Include="Views/Forum/SponsorActivity.cshtml">
-      <publishTime>09/28/2015 15:13:54</publishTime>
+      <publishTime>11/23/2015 15:42:03</publishTime>
     </File>
     <File Include="Views/Forum/SponsorTask.cshtml">
-      <publishTime>09/28/2015 15:19:13</publishTime>
+      <publishTime>11/23/2015 15:41:57</publishTime>
+    </File>
+    <File Include="Views/Forum/Task.cshtml">
+      <publishTime>11/23/2015 15:34:35</publishTime>
     </File>
     <File Include="Views/Forum/TaskShow.cshtml">
       <publishTime>09/22/2015 17:54:50</publishTime>
     </File>
     <File Include="Views/Forum/Topic.cshtml">
-      <publishTime>09/22/2015 16:02:14</publishTime>
+      <publishTime>11/23/2015 15:34:48</publishTime>
     </File>
     <File Include="Views/Forum/TopicTransfers.cshtml">
       <publishTime>09/22/2015 11:13:23</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/12/2015 14:00:50</publishTime>
+      <publishTime>11/20/2015 17:31:38</publishTime>
     </File>
     <File Include="Views/Info/About.cshtml">
       <publishTime>07/29/2015 17:16:42</publishTime>
@@ -2749,55 +2803,70 @@
       <publishTime>07/29/2015 17:16:53</publishTime>
     </File>
     <File Include="Views/Info/Show.cshtml">
-      <publishTime>09/23/2015 13:23:01</publishTime>
+      <publishTime>10/29/2015 11:25:29</publishTime>
     </File>
     <File Include="Views/Member/Answers.cshtml">
       <publishTime>09/25/2015 10:59:37</publishTime>
     </File>
     <File Include="Views/Member/Ask.cshtml">
-      <publishTime>09/17/2015 13:28:41</publishTime>
+      <publishTime>11/20/2015 15:48:56</publishTime>
+    </File>
+    <File Include="Views/Member/AskAndAnswer.cshtml">
+      <publishTime>11/20/2015 15:48:53</publishTime>
     </File>
     <File Include="Views/Member/Asks.cshtml">
       <publishTime>09/17/2015 13:28:41</publishTime>
     </File>
     <File Include="Views/Member/Certification.cshtml">
-      <publishTime>09/17/2015 13:28:41</publishTime>
+      <publishTime>11/20/2015 15:48:37</publishTime>
     </File>
     <File Include="Views/Member/Contribute.cshtml">
-      <publishTime>09/17/2015 13:28:41</publishTime>
+      <publishTime>11/20/2015 15:49:37</publishTime>
     </File>
     <File Include="Views/Member/ContributeList.cshtml">
-      <publishTime>09/17/2015 13:28:41</publishTime>
+      <publishTime>11/20/2015 15:48:07</publishTime>
     </File>
     <File Include="Views/Member/Discuss.cshtml">
-      <publishTime>09/25/2015 18:02:39</publishTime>
+      <publishTime>11/20/2015 15:47:52</publishTime>
     </File>
     <File Include="Views/Member/Index.cshtml">
-      <publishTime>09/25/2015 11:12:52</publishTime>
+      <publishTime>11/20/2015 15:46:59</publishTime>
     </File>
     <File Include="Views/Member/Message.cshtml">
-      <publishTime>09/25/2015 11:13:26</publishTime>
+      <publishTime>11/20/2015 15:56:46</publishTime>
     </File>
     <File Include="Views/Member/Shared.cshtml">
-      <publishTime>09/17/2015 13:28:42</publishTime>
+      <publishTime>11/20/2015 15:49:19</publishTime>
     </File>
     <File Include="Views/Online/Course.cshtml">
-      <publishTime>09/28/2015 14:27:16</publishTime>
+      <publishTime>11/17/2015 17:18:19</publishTime>
     </File>
     <File Include="Views/Online/Index.cshtml">
-      <publishTime>09/28/2015 14:18:40</publishTime>
+      <publishTime>11/19/2015 10:56:04</publishTime>
     </File>
     <File Include="Views/Search/Index.cshtml">
       <publishTime>07/30/2015 17:42:56</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/28/2015 13:22:20</publishTime>
+      <publishTime>11/20/2015 16:20:24</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMember.cshtml">
-      <publishTime>09/28/2015 13:22:00</publishTime>
+      <publishTime>11/23/2015 14:54:30</publishTime>
     </File>
     <File Include="Views/Shared/_PartialMember.cshtml">
-      <publishTime>08/14/2015 13:31:54</publishTime>
+      <publishTime>11/20/2015 15:49:57</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialMemberUnLogin.cshtml">
+      <publishTime>11/20/2015 16:00:35</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialRightListActivity.cshtml">
+      <publishTime>11/23/2015 15:33:26</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialRightListTask.cshtml">
+      <publishTime>11/23/2015 15:18:31</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialRightListTopic.cshtml">
+      <publishTime>11/23/2015 15:18:52</publishTime>
     </File>
     <File Include="Views/Shared/_ReferenceJs.cshtml">
       <publishTime>09/28/2015 13:22:07</publishTime>
@@ -2806,7 +2875,7 @@
       <publishTime>06/11/2015 16:15:05</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/30/2015 17:55:14</publishTime>
+      <publishTime>11/23/2015 16:20:55</publishTime>
     </File>
   </ItemGroup>
 </Project>

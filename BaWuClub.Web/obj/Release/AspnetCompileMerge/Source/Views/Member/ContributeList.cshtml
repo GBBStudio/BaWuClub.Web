@@ -4,31 +4,30 @@
     BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
 }
 @model IEnumerable<BaWuClub.Web.Dal.Article>
-<div class="member-title">
+<!--<div class="member-title">
     <a href="/member/u-@user.Id/Show">资料</a>
     <a href="/member/u-@user.Id/contributelist" class="selected">投稿</a>
-    <a href="/member/u-@user.Id/asks">问题</a>
-    <a href="/member/u-@user.Id/answers">回答</a>
+    <a href="/member/u-@user.Id/askandanswer">问答</a>
     <a href="/member/u-@user.Id/certification">认证</a>
     <a href="/member/u-@user.Id/shared">共享</a>
     <a href="/member/u-@user.Id/discuss">论坛</a>
     <a href="/member/u-@user.Id/message">私信</a>
-</div>
+</div>-->
 <div class="member-main">
     <div class="member-contributions">
         <div class="member-main-wrap">
             <p>
                 <a href="/member/u-@ViewBag.User.Id/contribute">写投稿</a>
                 <span>全部投稿(<a href="/member/u-@user.Id/contributelist/">@ViewBag.ContributeAllCount</a>)</span>
-                <span>已审核(<a data-href="/member/u-@user.Id/getcontributeapprovelist/1" id="approve">@ViewBag.ContributeCheckedCount</a>)</span>
+                <span>已审核(<a data-href="/member/u-@user.Id/getlist?tstr=column&st=1&page=1" id="approve">@ViewBag.ContributeCheckedCount</a>)</span>
             </p>
-            <div class="contribute-list">
+            <div class="member-list-wrap">
                 <ul>
                     @{
                         foreach (var a in Model){
                             <li>
                                 <a href="/column/show/@a.Id">@a.Title</a>
-                                <span>@a.PutDate</span>
+                                <span>@a.VarDate</span>
                             </li>
                         }
                     }

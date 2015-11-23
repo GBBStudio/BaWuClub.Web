@@ -308,8 +308,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Ip" Type="nvarchar" MaxLength="100" />
           <Property Name="Vardate" Type="datetime" />
         </EntityType>
@@ -721,6 +721,23 @@
           <Property Name="Cover" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicInvolved”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewTopicInvolved">
+          <Key>
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="TopicId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="TId" />
+          </Key>
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UId" Type="int" Nullable="false" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewTopicReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="ViewTopicReview">
           <Key>
@@ -1081,6 +1098,16 @@
     [ViewTopicIndex].[Cover] AS [Cover]
     FROM [dbo].[ViewTopicIndex] AS [ViewTopicIndex]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViewTopicInvolved" EntityType="Self.ViewTopicInvolved" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopicInvolved].[NickName] AS [NickName], 
+    [ViewTopicInvolved].[UId] AS [UId], 
+    [ViewTopicInvolved].[Cover] AS [Cover], 
+    [ViewTopicInvolved].[TopicId] AS [TopicId], 
+    [ViewTopicInvolved].[UserId] AS [UserId], 
+    [ViewTopicInvolved].[TId] AS [TId]
+    FROM [dbo].[ViewTopicInvolved] AS [ViewTopicInvolved]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ViewTopicReview" EntityType="Self.ViewTopicReview" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewTopicReview].[Id] AS [Id], 
@@ -1302,6 +1329,7 @@
           <EntitySet Name="ViewDocuments" EntityType="ClubDBModel.ViewDocument" />
           <EntitySet Name="Messages" EntityType="ClubDBModel.Message" />
           <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
+          <EntitySet Name="ViewTopicInvolveds" EntityType="ClubDBModel.ViewTopicInvolved" />
         </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -2006,6 +2034,21 @@
           <Property Name="TopicId" Type="Int32" Nullable="false" />
           <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Vardate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewTopicInvolved">
+          <Key>
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="TopicId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="TId" />
+          </Key>
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2720,6 +2763,18 @@
                 <ScalarProperty Name="TopicId" ColumnName="TopicId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTopicInvolveds">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewTopicInvolved">
+              <MappingFragment StoreEntitySet="ViewTopicInvolved">
+                <ScalarProperty Name="TId" ColumnName="TId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

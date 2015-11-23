@@ -2,6 +2,7 @@
 .online-recommend-title,.online-class-title{border-bottom:4px solid #d6d6d6}
 .online-recommend-title h3,.online-class-title h3{font-size:26px;font-weight:400;position:relative;height:50px}
 .online-recommend-title h3 i{font-size:36px;}
+.online-class-title{margin-top:50px;}
 .online-recommend-title h3 span,.online-class-title h3 span{border-bottom:4px solid #007ada;color:#007ada;position:absolute;bottom:-4px;padding:5px 10px}
 .online-recommend-img img{width:382px;height:239px;}
 .online-recommend-info{}
@@ -37,7 +38,15 @@
 .cource-outline-text{padding:30px;background:#f2f2f2}
 .course-info-play{position:absolute;left:0px;top:0;width:490px;height:360px;text-align:center;cursor:pointer}
 .course-info-play img{margin-top:135px}
-.video-wrap{position:absolute;width:100%;height:100%;top:0}
-.video-mask{position:fixed;width:100%;height:100%;background:#000;z-index:2;opacity:0.5;overflow:hidden;left:0;top:0}
-.video-player{position:absolute;z-index:3;}
+
+.online-top-video{width:1100px;margin:0 auto;height:626px;position:relative;}
+.online-top-img{position:absolute;bottom:110px;left:100px;}
+.online-top-img img{width:475px;background:#fff;padding:5px;}
+.online-top-text{width:340px;right:95px;top:200px;position:absolute;color:#fff;font-size:15px;line-height:30px;}
+.online-top-title {background:url(../images/jptj.png) no-repeat center top;width:330px;height:50px;margin:0 auto;margin-bottom:20px;}
+.online-top-btn{display:block;width:300px;height:40px;line-height:40px;font-size:24px;color:#4e6b4c;background:#c4d9bf;border-radius:24px;text-align:center;margin-top:30px;}
+.video-wrap{position:fixed;width:100%;height:100%;top:0}
+.video-mask{position:fixed;width:100%;height:100%;background:#000;z-index:2;opacity:0.8;overflow:hidden;left:0;top:0}
+.video-player{position:absolute;z-index:3;clear:both}
 .video-close{background:url(../Images/close.png);width:30px;height:31px;position:absolute;z-index:3;cursor:pointer;}
+video{height:auto !important;position:static}

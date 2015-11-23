@@ -157,6 +157,7 @@
     <EntitySet Name="ViewDocuments" EntityType="ClubDBModel.ViewDocument" />
     <EntitySet Name="Messages" EntityType="ClubDBModel.Message" />
     <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
+    <EntitySet Name="ViewTopicInvolveds" EntityType="ClubDBModel.ViewTopicInvolved" />
   </EntityContainer>
   <EntityType Name="Question">
     <Key>
@@ -861,5 +862,20 @@
     <Property Name="TopicId" Type="Int32" Nullable="false" />
     <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Vardate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ViewTopicInvolved">
+    <Key>
+      <PropertyRef Name="NickName" />
+      <PropertyRef Name="UId" />
+      <PropertyRef Name="TopicId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="TId" />
+    </Key>
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UId" Type="Int32" Nullable="false" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TopicId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="TId" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

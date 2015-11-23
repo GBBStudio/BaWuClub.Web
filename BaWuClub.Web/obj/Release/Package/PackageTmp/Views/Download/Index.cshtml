@@ -2,15 +2,19 @@
     Layout = "~/views/shared/_layout.cshtml";
     ViewBag.Title = "下载中心-";
     ViewBag.CssAppend = "<link href=\"/content/css/download.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+}
+@model IEnumerable<BaWuClub.Web.Dal.ViewDocument>
+@{
+    var page = ViewBag.page==null ? "" : "id=" + ViewBag.page;
+    var keyword = ViewBag.keyword != null ? "keyword=" + ViewBag.keyword : "";
 }
 <div class="download-wrap">
     <div class="doc-search-wrap">
         <div class="doc-search">
-            <input name="search" type="text" class="" placeholder="搜索您需要的文档吧" /><a href="#" class="iconfont icon1-sousuo"></a>
+            <input name="search" id="search" type="text" class="" placeholder="搜索您需要的文档吧" /><a href="#" class="iconfont icon1-sousuo" onclick="search(); function search () { window.location.href='/download/search?keyword='+document.getElementById('search').value}"></a>
         </div>
         <div class="doc-hot-search">
-            <span>热门搜索:</span><a href="#">推广</a><a href="#">运营</a><a href="#">设计</a><a href="#">测试</a>
+            <span>热门搜索:</span><a href="/download/search?keyword=推广">推广</a><a href="/download/search?keyword=运营">运营</a><a href="/download/search?keyword=设计"></a>
         </div>
     </div>
     <div class="container">
@@ -18,187 +22,62 @@
             <div class="download-title">
                 <div class="download-info">
                     <h3>资料文档下载</h3>
-                    <p><span>今日新增:124</span><span>全部下载:53056</span></p>
+                    <p>
+                        @{
+                            if (ViewBag.keyword != null) { 
+                                <span>共检索到 @ViewBag.searchCount 条关于 "@ViewBag.keyword"的信息</span>
+                            }
+                            else {                                
+                                <span>今日新增:@ViewBag.todayDocCount</span><span>全部下载:@ViewBag.docCount</span>
+                            }
+                        }
+                    </p>
                 </div>
             </div>
             <div class="download-sort">
                 <div class="fleft">全部文档</div>
                 <div class="sort-btns fright">
-                    <a href="#"><i class="iconfont icon1-paixu"></i>推荐</a>
-                    <a href="#"><i class="iconfont icon1-paixu"></i>下载量</a>
-                    <a href="#"><i class="iconfont icon1-paixu"></i>浏览量</a>
-                    <a href="#"><i class="iconfont icon1-paixu"></i>上传日期</a>
+                    <a href="?sort=recommend&@page@keyword" class="recommend"><i class="iconfont icon1-paixu"></i>推荐</a>
+                    <a href="?sort=downs&@page@keyword" class="downs"><i class="iconfont icon1-paixu"></i>下载量</a>
+                    <a href="?sort=views&@page@keyword" class="views"><i class="iconfont icon1-paixu"></i>浏览量</a>
+                    <a href="?sort=time&@page@keyword" class="time"><i class="iconfont icon1-paixu"></i>上传日期</a>
                 </div>
             </div>
             <div class="download-list">
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-pdf"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
+                @{
+                   if(Model!=null){
+                    foreach(var item in Model){
+                        <div class="download-file-item">
+                            <div class="file-type fleft">
+                                <span class="icon-pdf"></span>
+                            </div>
+                            <div class="file-content">
+                                <div class="file-title">
+                                    <a href="/download/item/@item.Id">@item.Title</a>
+                                </div>
+                                <div class="file-desc">
+                                    @BaWuClub.Web.Common.HtmlCommon.ClearHtml(item.Description)
+                                </div>
+                                <div class="file-info">
+                                    <a href="/member/u-@item.UId/show">wesen</a>
+                                    <span>上传时间 @item.VarDate</span>
+                                    <i class="iconfont icon-biaoqian"></i>
+                                    @{
+                                        if (item.Tags != null) {
+                                            foreach (string tag in item.Tags.Split(',')) { 
+                                                <a href="">@tag</a>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-ppt"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-word"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-excel"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-word"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-pdf"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-ppt"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-pdf"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-file-item">
-                    <div class="file-type fleft">
-                        <span class="icon-pdf"></span>
-                    </div>
-                    <div class="file-content">
-                        <div class="file-title">
-                            <a href="#">pearson分布混响背景下osgo和osso检测器设计</a>
-                        </div>
-                        <div class="file-desc">
-                            器设计pearson分布混响背景下osgo和osso检测器设计pearson分布混响背景下osgo和osso检测器设计
-                        </div>
-                        <div class="file-info">
-                            <a href="#">wesen</a>
-                            <span>上传时间2015-04-19</span>
-                            <i></i><a href="">运营</a><a href="">客服</a>
-                        </div>
-                    </div>
-                </div>
+                    }
+                   }
+                }
             </div>
             <div class="page-wrap">
-                <span class="page-text">共6页.当前是1页</span>
-                <a data-href="/member/u-13/getanswers/1" class="current">1</a>
-                <a data-href="/member/u-13/getanswers/2" class="">2</a>
-                <a data-href="/member/u-13/getanswers/3" class="">3</a>
+                @Html.Raw(ViewBag.pageStr)
             </div>
         </div>
         <div class="container-right fright">
@@ -206,18 +85,42 @@
                 <p>
                     <a href="/download/uploaddocs" class="up-btns btns-bg"></a>
                 </p>
-                <p>已有123,456份文档</p>
+                <p>已有 @ViewBag.docCount 份文档</p>
             </div>
             <div class="down-login download-block">
-                <div class="down-login-title">八五电商登录账号</div>
-                <div class="down-login-form">
-                    <div class="down-login-input"><label class="iconfont icon1-yonghu" for="down-login-user"></label><input id="down-login-user" name="user" type="text" placeholder="用户名" class=""/></div>
-                    <div class="down-login-input"><label class="iconfont icon1-mima" for="down-login-password"></label><input id="down-login-password" name="password" type="text" placeholder="密码" class="" /></div>
-                    <div class="down-login-other"><a href="#">忘记密码</a>|<a href="#">立即注册</a></div>
-                    <div class="down-login-btn">
-                        <input name="btn" type="button" class="btns-bg down-login-btns" />
+                @{
+                    if (User.Identity.IsAuthenticated) {
+                        if (Request.Cookies["bwusers"] != null) { 
+                            
+                        }                       
+                    <div style="display:block;">
+                        <div class="user-info">
+                            <div class="user-info-avatar fleft">
+                                <a href="/member/">
+                                    <img src="~/Uploads/avatar/small/@Request.Cookies["bwusers"]["avatar"]" alt="" />
+                                </a>
+                            </div>
+                            <div class="user-info-name">
+                                <a href="member">@Request.Cookies["bwusers"]["user"]<i></i></a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    }
+                    else
+                    {
+                        <div class="down-login-title">八五电商登录账号</div>
+                        <div class="down-login-form">
+                            <form action="/account/login?returnurl=/download" method="post" name="form">
+                                <div class="down-login-input"><label class="iconfont icon1-yonghu" for="down-login-user"></label><input id="down-login-user" name="user" type="text" placeholder="用户名" class="" /></div>
+                                <div class="down-login-input"><label class="iconfont icon1-mima" for="down-login-password"></label><input id="down-login-password" name="password" type="text" placeholder="密码" class="" /></div>
+                                <div class="down-login-other"><a href="/account/forget">忘记密码</a>|<a href="/account/register">立即注册</a></div>
+                                <div class="down-login-btn">
+                                    <input name="btn" type="button" class="btns-bg down-login-btns" onclick="document.form.submit()" />
+                                </div>
+                            </form>
+                        </div>
+                    }
+}
             </div>
             <div class="down-ranks download-block">
                 <div class="down-ranks-title">
@@ -225,16 +128,6 @@
                 </div>
                 <div class="down-ranks-list">
                     <ol>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
-                        <li><p><a href="#">搜索流量解析与优化</a><span>下载:12345</span></p></li>
                     </ol>
                 </div>
             </div>
@@ -243,16 +136,28 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $(".sort-btns a").each(function () {
-            var _this = $(this);
-            _this.click(function () {
-                if (_this.hasClass("sort-selected"))
-                    _this.removeClass("sort-selected");
-                else
-                    _this.addClass("sort-selected");
-                _this.siblings().removeClass("sort-selected");
-            });
-        });
-        
+        window.onscroll = function () {
+           // console.log(document.body.scrollTop);
+            var top = document.body.scrollTop;
+            if (top >= 114) {
+               // $(".doc-search-wrap").addClass("scroll-done");
+               // setTimeout($(".doc-search-wrap").show,500)
+            } else {
+                //$(".doc-search-wrap").removeClass("scroll-done");
+            }
+        }
     })
+    setsortselected();
+    function setsortselected() {
+        var cs = GetQueryString("sort");
+        $("." + cs).addClass("sort-selected");
+      //  var query = location.search.replace("?", "");
+       // alert(query);
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
 </script>

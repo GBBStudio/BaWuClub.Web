@@ -2,7 +2,7 @@
     Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
 }
 
-@model IEnumerable<BaWuClub.Web.Dal.Banner>
+@model IEnumerable<BaWuClub.Web.Dal.ViewBanner>
 <div class="comm-btns">
     <h2>广告管理(Banner)</h2>
     <div class="comm-btns-wrap">
@@ -25,6 +25,7 @@
                 <td>Id</td>
                 <td>标题</td>
                 <td>Url</td>
+                <td>分类</td>
                 <td>状态</td>
                 <td>发布时间</td>
                 <td>更多操作</td>
@@ -34,7 +35,7 @@
             @{
                 if (Model != null)
                 {
-                    foreach (BaWuClub.Web.Dal.Banner b in Model)
+                    foreach(BaWuClub.Web.Dal.ViewBanner b in Model)
                     {
                         var title = b.Title.Length > 100 ? b.Title.Substring(0, 99) : b.Title;
                         <tr>
@@ -42,6 +43,7 @@
                             <td>@b.Id</td>
                             <td>@title</td>
                             <td>@b.Url</td>
+                            <td>@b.Name</td>
                             <td>@Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(b.Status))</td>
                             <td>@b.VarDate</td>
                             <td><a href="#/banner/show/@b.Id">编辑</a><a onclick="ajaxdelete('/banner/del/',@b.Id)">删除</a></td>

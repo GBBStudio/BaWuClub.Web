@@ -86,13 +86,23 @@ input{font-family:'Microsoft YaHei UI'}
 .input-text{ border-top:1px solid #cecece; border-right:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; border-left:1px solid #cecece; border-radius:3px; box-shadow: 0px 1px 3px rgba(20, 20, 20, 0.1) inset; font-size:14px; color:#666; background:#fff; height:32px; padding:0 4px; line-height:32px; }
 
 #input-wrap{font-size:12px;padding-left:50px;}
-#input-wrap p{margin:15px 0;}
-#input-wrap p span{display:inline-block;width:85px;}
+#input-wrap p{margin:15px 0;clear:both;}
+#input-wrap p span{display:inline-block;width:85px;float:left;line-height:30px}
 #input-wrap input[type=submit]{margin-left:30px}
-
+.textarea-wrap textarea{height:auto}
 #notic-wrap {font-size:12px;color:red;}
-
-
+.m-local-wrap,.m-online-wrap{margin-bottom:20px}
+.m-local-wrap span,.m-online-wrap span{display:inline-block;width:85px;height:30px;line-height:30px;float:left}
+.cover-upload-wrap{float:left}
+.video-upload-wrap{float:left;}
+.cover-wrap{padding:10px 0;}
+.cover-wrap img{ box-shadow: 0px 1px 3px #333;padding:3px;}
+.cover-wrap a,.video-wrap a{background:red;color:#fff;padding:2px 5px;margin:0 5px;}
 
 .show-wrap {font-size:14px;}
 .show-wrap p span{width:120px;display:inline-block;text-align:right}
+
+.show-wrapper{font-size:15px;}
+.show-wrapper p{margin:15px 0;}
+.show-wrapper p span{width:120px;display:inline-block;text-align:right}
+.show-wrapper .show-img img{width:200px; box-shadow: 0px 1px 3px #333;padding:3px;}

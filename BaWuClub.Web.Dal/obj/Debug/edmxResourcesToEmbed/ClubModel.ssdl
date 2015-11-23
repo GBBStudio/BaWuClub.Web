@@ -303,8 +303,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Ip" Type="nvarchar" MaxLength="100" />
     <Property Name="Vardate" Type="datetime" />
   </EntityType>
@@ -716,6 +716,23 @@
     <Property Name="Cover" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--生成过程中发现错误:
+警告 6002: 表/视图“ClubDB.dbo.ViewTopicInvolved”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="ViewTopicInvolved">
+    <Key>
+      <PropertyRef Name="NickName" />
+      <PropertyRef Name="UId" />
+      <PropertyRef Name="TopicId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="TId" />
+    </Key>
+    <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UId" Type="int" Nullable="false" />
+    <Property Name="Cover" Type="nvarchar" MaxLength="50" />
+    <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="TId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewTopicReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="ViewTopicReview">
     <Key>
@@ -1075,6 +1092,16 @@
     [ViewTopicIndex].[NickName] AS [NickName], 
     [ViewTopicIndex].[Cover] AS [Cover]
     FROM [dbo].[ViewTopicIndex] AS [ViewTopicIndex]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTopicInvolved" EntityType="Self.ViewTopicInvolved" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTopicInvolved].[NickName] AS [NickName], 
+    [ViewTopicInvolved].[UId] AS [UId], 
+    [ViewTopicInvolved].[Cover] AS [Cover], 
+    [ViewTopicInvolved].[TopicId] AS [TopicId], 
+    [ViewTopicInvolved].[UserId] AS [UserId], 
+    [ViewTopicInvolved].[TId] AS [TId]
+    FROM [dbo].[ViewTopicInvolved] AS [ViewTopicInvolved]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewTopicReview" EntityType="Self.ViewTopicReview" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

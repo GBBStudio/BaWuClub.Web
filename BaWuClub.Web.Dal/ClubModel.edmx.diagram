@@ -53,6 +53,7 @@
         <EntityTypeShape EntityType="ClubDBModel.ViewDocument" Width="1.5" PointX="13.375" PointY="15.75" />
         <EntityTypeShape EntityType="ClubDBModel.Message" Width="1.5" PointX="15.375" PointY="15.75" />
         <EntityTypeShape EntityType="ClubDBModel.TopicInvolved" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ClubDBModel.ViewTopicInvolved" Width="1.5" PointX="16.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,16 @@
+﻿@model  IEnumerable<BaWuClub.Web.Dal.TopicIndex>
+
+<div class="forum-r-item forum-block">
+    <div class="forum-r-title">
+        <i></i><span>近期任务</span>
+    </div>
+    <ul>
+        @{
+            if (Model != null) {
+                foreach (var item in Model) { 
+                    <li><a href="/forum/task/@item.Id">@item.Title</a></li>
+                }
+            }
+        }
+    </ul>
+</div>

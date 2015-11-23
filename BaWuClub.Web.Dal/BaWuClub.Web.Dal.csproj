@@ -194,6 +194,9 @@
     <Compile Include="ViewTopicIndex.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewTopicInvolved.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewTopicReview.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>

@@ -3,34 +3,30 @@
     BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
     ViewBag.Title =user.NickName+ "的个人用户中心-共享-";
 }
-@model IEnumerable<BaWuClub.Web.Dal.Article>
-<div class="member-title">
-    <a href="/member/u-@user.Id/Show">资料</a>
-    <a href="/member/u-@user.Id/contributelist">投稿</a>
-    <a href="/member/u-@user.Id/asks">问题</a>
-    <a href="/member/u-@user.Id/answers">回答</a>
-    <a href="/member/u-@user.Id/certification">认证</a>
-    <a href="/member/u-@user.Id/shared" class="selected">共享</a>
-    <a href="/member/u-@user.Id/discuss">论坛</a>
-    <a href="/member/u-@user.Id/message" >私信</a>
-</div>
+@model IEnumerable<BaWuClub.Web.Dal.Document>
 <div class="member-main">
     <div class="member-contributions">
         <div class="member-main-wrap">
             <p>
-                <a href="/member/u-@ViewBag.User.Id/shared">即可共享</a>
-                <span>全部共享(<a href="/member/u-@user.Id/shared/"></a>)</span>
-                <span>已审核(<a data-href="/member/u-@user.Id/shared/1" id="approve"></a>)</span>
+                <a href="/download/uploaddocs">即可共享</a>
+                <span>全部共享(<a href="/member/u-@user.Id/shared/">@ViewBag.docsCount</a>)</span>
+                <span>已审核(<a data-href="/member/u-@user.Id/tstr=shared&page=1&st=1" id="approve">@ViewBag.docsCheckedCount</a>)</span>
             </p>
-            <div class="shared-list">
+            <div class="member-list-wrap">
                 <ul>
-
+                    @{
+                        if (Model != null) {
+                            foreach (var item in Model) { 
+                                <li><a href="/download/item/@item.Id">@item.Title</a><span>@item.VarDate</span></li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
             <div class="page-wrap">
                 @Html.Raw(ViewBag.PageStr)
             </div>
-            <div class="member-explain-desc">
+            <div class="member-explain-desc explain-wrap">
                 @Html.Raw(ViewBag.SharedDesc)
             </div>
         </div>

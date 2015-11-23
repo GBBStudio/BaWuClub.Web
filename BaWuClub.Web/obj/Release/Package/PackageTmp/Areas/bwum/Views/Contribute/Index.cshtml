@@ -43,7 +43,7 @@
                         <td>@u.NickName</td>
                         <td>@u.Views</td>
                         <td>@Html.Raw(BaWuClub.Web.Common.HtmlCommon.GetStatusCodeToStr(u.Status))</td>
-                        <td>@u.PutDate</td>
+                        <td>@u.VarDate</td>
                         <td><a href="#/contribute/show/@u.Id">预览审核</a><a href="#/contribute/edit/@u.Id" style="display:none;">编辑</a><a onclick="ajaxdelete('/contribute/del/',@u.Id)">删除</a></td>
                     </tr>
                 }

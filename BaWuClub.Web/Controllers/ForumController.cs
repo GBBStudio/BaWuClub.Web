@@ -8,16 +8,20 @@ using BaWuClub.Web.Common;
 using System.Transactions;
 using System.Text;
 using Newtonsoft.Json;
+using System.Reflection;
+using System.Linq.Expressions;
 
 namespace BaWuClub.Web.Controllers
 {
     public class ForumController : BaseController
     {
-        #region define
+        #region Define
         private ClubEntities club;
         private int tId = 0;
         private string postTransfersUrl = "~/views/direct/transfers.cshtml";
         private IQueryable<ViewTopicIndex> queryable;
+        private delegate void GetRightListEventHandler(ClubEntities c);
+        private event GetRightListEventHandler GetRight;
         #endregion
 
         #region Get
@@ -54,6 +58,7 @@ namespace BaWuClub.Web.Controllers
         public ActionResult Cliques() {
             List<TopicIndex> topics = new List<TopicIndex>();
             using (club = new ClubEntities()) {
+                ViewBag.banners = club.ViewBanners.Where(b => b.Status == (int)State.Enable && b.Variables == "sys-bt-cliques-top").ToList<ViewBanner>();
                 ViewBag.topics = club.TopicIndexes.Include("TopicActivity").Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity)).ToList<TopicIndex>();
                 ViewBag.activityings = club.TopicIndexes.Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity) && t.TopicActivity.EndDate > DateTime.Now).ToList<TopicIndex>();
                 ViewBag.activityeds = club.TopicIndexes.Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity) && t.TopicActivity.EndDate < DateTime.Now).ToList<TopicIndex>();
@@ -113,44 +118,7 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/topiclist?type=" + tt.ToString() + "&page=", ClubConst.TopicPageSize, tId, count,ClubConst.TopicPageShow);
             }
             return View("~/views/forum/index.cshtml", topics);
-        }
-        
-        //[Authorize]
-        [HttpPost]
-        public JsonResult Take(int id,int tId,string s) {
-            Status status = Status.error;
-            string context = string.Empty;
-            BaWuClub.Web.Dal.User user = GetUser();
-            BaWuClub.Web.Dal.User toUser = new User();
-            if (user == null) {
-                return Json(new { status=Status.warning.ToString(),context=context,url="/Account/login"});
-            }
-            using (club = new ClubEntities()) {
-                TopicInvolved topicInvolved=new TopicInvolved(){TopicId=id,UserId=user.Id,Ip=Request.UserHostAddress,Vardate=DateTime.Now};
-                TopicIndex topic=club.TopicIndexes.Where(t=>t.Id==id).FirstOrDefault();
-                if(topic!=null){
-                    toUser = club.Users.Where(u => u.Id == tId).FirstOrDefault();
-                    club.TopicInvolveds.Add(topicInvolved);
-                    if (club.SaveChanges() > 0) {
-                        if (s == "activity") {
-                            SendFormatMsg(user.Id, toUser.Id,"0", user.NickName, topic.Title, Request.UserHostAddress);
-                            SendFormatMsg(toUser.Id, user.Id,"2", toUser.NickName, topic.Title, Request.UserHostAddress);
-                        }
-                        else {
-                            SendFormatMsg(user.Id, toUser.Id, "1", user.NickName, topic.Title, Request.UserHostAddress);
-                            SendFormatMsg(toUser.Id, user.Id, "3", toUser.NickName, topic.Title, Request.UserHostAddress);
-                        }
-                        status = Status.success;
-                        context = JsonConvert.SerializeObject(toUser);
-                    }
-                }
-                else { 
-                    context = "操作异常，请稍后重试！";
-                }
-            }
-            return Json(new {status=status,context=context });
-        }
-
+        }   
         #endregion
 
         #region show
@@ -161,6 +129,9 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities())
             {
                 topic = club.ViewTopics.Where(t => t.Id == tId).FirstOrDefault();
+                GetRightListManage();
+                GetRight -= GetRightListTopic;
+                GetRight(club);
                 if (topic == null){
                     return RedirectToAction("notfound", "error");
                 }
@@ -173,9 +144,15 @@ namespace BaWuClub.Web.Controllers
         {
             tId = id ?? 0;
             ViewTopicTask topic = new ViewTopicTask();
+            BaWuClub.Web.Dal.User user = GetUser();
             using (club = new ClubEntities())
             {
                 topic = club.ViewTopicTasks.Where(t => t.Id == tId).FirstOrDefault();
+                GetRightListManage();
+                GetRight -= GetRightListTask;
+                GetRight(club);
+                GetInvolvedList(club);
+                ViewBag.isJoined = IsCanJoin(user, club, tId);
                 if (topic == null)
                 {
                     return RedirectToAction("notfound", "error");
@@ -189,9 +166,14 @@ namespace BaWuClub.Web.Controllers
         {
             tId = id ?? 0;
             ViewTopicActivity topic = new ViewTopicActivity();
-            using (club = new ClubEntities())
-            {
+            BaWuClub.Web.Dal.User user = GetUser();
+            using (club = new ClubEntities()){
                 topic = club.ViewTopicActivities.Where(t => t.Id == tId).FirstOrDefault();
+                GetInvolvedList(club);
+                GetRightListManage();
+                GetRight -= GetRightListActivity;
+                GetRight(club);
+                ViewBag.isJoined = IsCanJoin(user, club, tId);
                 if (topic == null)
                 {
                     return RedirectToAction("notfound", "error");
@@ -200,20 +182,70 @@ namespace BaWuClub.Web.Controllers
             }
             return View("~/views/forum/activity.cshtml", topic);
         }
+
         #endregion
 
         #region Post
+        
+        [HttpPost]
+        public JsonResult Take(int id,int tId,string s) {
+            Status status = Status.error;
+            string context = string.Empty;
+            BaWuClub.Web.Dal.User user = GetUser();
+            BaWuClub.Web.Dal.User toUser = new User();
+            if (user == null||!User.Identity.IsAuthenticated) {
+                return Json(new { status=Status.warning.ToString(),context=context,url="/Account/login?returnurl="});
+            }
+            using (club = new ClubEntities()) {
+                TopicInvolved topicInvolved=new TopicInvolved(){TopicId=id,UserId=user.Id,Ip=Request.UserHostAddress,Vardate=DateTime.Now};
+                TopicIndex topic=club.TopicIndexes.Where(t=>t.Id==id).FirstOrDefault();
+                if (club.TopicInvolveds.Where(t => t.TopicId == topicInvolved.TopicId && t.UserId == topicInvolved.UserId).Count() > 0) {
+                    context = "您已经参加过了哦！";
+                }else{
+                    if(topic!=null){
+                        toUser = club.Users.Where(u => u.Id == tId).FirstOrDefault();
+                        club.TopicInvolveds.Add(topicInvolved);
+                        if (club.SaveChanges() > 0) {
+                            if (s == "activity") {
+                                SendFormatMsg(user.Id, toUser.Id,"0", user.NickName, topic.Title, Request.UserHostAddress);
+                                SendFormatMsg(toUser.Id, user.Id,"2", toUser.NickName, topic.Title, Request.UserHostAddress);
+                            }
+                            else {
+                                SendFormatMsg(user.Id, toUser.Id, "1", user.NickName, topic.Title, Request.UserHostAddress);
+                                SendFormatMsg(toUser.Id, user.Id, "3", toUser.NickName, topic.Title, Request.UserHostAddress);
+                            }
+                            status = Status.success;
+                            context = JsonConvert.SerializeObject(toUser);
+                        }
+                    }
+                    else { 
+                        context = "操作异常，请稍后重试！";
+                    }
+                }
+            }
+            return Json(new {status=status.ToString(),context=context });
+        }
 
         [Authorize]
         [HttpGet]
         public ActionResult SponsorActivity()
         {
+            using (club = new ClubEntities()) {
+                GetRightListManage();
+                GetRight -= GetRightListActivity;
+                GetRight(club);
+            }
             return View("~/views/forum/sponsoractivity.cshtml");
         }
 
         [Authorize]
         public ActionResult SponsorTask()
-        {
+        {            
+            using (club = new ClubEntities()) {
+                GetRightListManage();
+                GetRight -= GetRightListTask;
+                GetRight(club);
+            }
             return View("~/views/forum/sponsortask.cshtml");
         }
 
@@ -221,6 +253,11 @@ namespace BaWuClub.Web.Controllers
         [Authorize]
         public ActionResult PostTopic()
         {
+            using (club = new ClubEntities()) {
+                GetRightListManage();
+                GetRight -= GetRightListTopic;
+                GetRight(club);
+            }
             ViewBag.categoryList = GetDiscussCategory();
             return View("~/views/forum/posttopic.cshtml");
         }
@@ -230,8 +267,7 @@ namespace BaWuClub.Web.Controllers
         [ValidateInput(false)]
         public ActionResult PostTask(string title, string context)
         {
-            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(context))
-            {
+            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(context)){
                 ViewBag.tips = "标题与内容均不能为空！";
             }
             else
@@ -354,8 +390,8 @@ namespace BaWuClub.Web.Controllers
                     str.Append("<div class=\"reviews-content\"><div class=\"reviews-info\"><a href=\"/member/u-" + user.Id + "/show\">" + user.NickName + "</a><span>" + ((DateTime)review.VarDate).ToString("yyyy年mm月dd日") + "</span></div>");
                     str.Append("<div class=\"reviews-text\">" + review.Reviews + "</div>");
                     str.Append("<div class=\"reviews-btns\">");
-                    str.Append("<a href=\"#\">回复</a>");
-                    str.Append("<a href=\"#\">赞</a></div></div>");
+                    str.Append("<a href=\"#\" style=\"display:none\">回复</a>");
+                    str.Append("<a href=\"#\"  style=\"display:none\">赞</a></div></div>");
                     str.Append("</li>");
                     status = Status.success;               
                 }
@@ -365,6 +401,46 @@ namespace BaWuClub.Web.Controllers
         #endregion
 
         #region private
+
+        private void GetRightListManage() {
+            GetRight+= GetRightListActivity;
+            GetRight += GetRightListTask;
+            GetRight += GetRightListTopic;
+        }
+
+        private List<T> GetRightList<T>(IQueryable<T> queryable,Expression<Func<T,int>> expression,Expression<Func<T,bool>> whereExpression) {
+            List<T> list = new List<T>();
+            if(whereExpression!=null)
+                list = queryable.Where(whereExpression).OrderBy(expression).Take(6).ToList<T>();
+            else
+                list=queryable.OrderBy(expression).Take(6).ToList<T>();
+            return list;
+        }
+
+        private void GetRightListTask(ClubEntities c) {
+            ViewBag.taskRightList = GetRightList<TopicIndex>(c.TopicIndexes, t => t.Id,t=>t.Type==(int)TopicType.Task);
+        }
+
+        private void GetRightListTopic(ClubEntities c) { 
+            ViewBag.topicRightList = GetRightList<TopicIndex>(c.TopicIndexes, t => t.Id,t=>t.Type==(int)TopicType.Topic);
+        }
+
+         private void GetRightListActivity(ClubEntities c) { 
+            ViewBag.activityRightList = GetRightList<TopicIndex>(c.TopicIndexes, t => t.Id,t=>t.Type==(int)TopicType.Activity);
+        }
+
+        private void GetInvolvedList(ClubEntities c){
+            ViewBag.involveds = c.ViewTopicInvolveds.Where(t => t.TopicId == tId).ToList<ViewTopicInvolved>();
+        }
+
+        private bool IsCanJoin(User user,ClubEntities c,int tId) {
+            if (user==null||!User.Identity.IsAuthenticated)
+                return false;
+            if ( c.TopicInvolveds.Where(t => t.UserId == user.Id && t.TopicId == tId).Count() > 0)
+                return true;
+            return false;
+        }
+
         private void SendFormatMsg(int fId,int tId,string formatName,string formatParam1,string formatparam2,string ip) {
             string url=Server.MapPath(ClubConst.TextFormatDataUrl);
             string formatStr = App_Start.CommonMethod.GetMsgFormat(formatName, url);
@@ -416,6 +492,7 @@ namespace BaWuClub.Web.Controllers
             }
             return categories;
         }
+        
         #endregion
     }
 }

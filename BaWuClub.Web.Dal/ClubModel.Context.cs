@@ -71,5 +71,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<ViewDocument> ViewDocuments { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<TopicInvolved> TopicInvolveds { get; set; }
+        public virtual DbSet<ViewTopicInvolved> ViewTopicInvolveds { get; set; }
     }
 }

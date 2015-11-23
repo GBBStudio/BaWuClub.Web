@@ -17,7 +17,7 @@
                 @{
                     if (Request.IsAuthenticated && Request.Cookies["bwusers"] != null && Request.Cookies["bwusers"]["user"] != null && Request.Cookies["bwusers"]["id"] != null)
                     {
-                        <a href="/member/">@Request.Cookies["bwusers"]["user"].ToString()</a>
+                        <a href="/member/">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
                         <a href="/account/loginout">退出</a>
                     }
                     else
@@ -57,7 +57,13 @@
     </div>
     <div class="container" id="member-wrap">
         @{
-            Html.RenderPartial("~/views/shared/_PartialMember.cshtml");
+            if (User.Identity.IsAuthenticated && Request.Cookies["bwusers"] != null)
+            {
+                Html.RenderPartial("~/views/shared/_PartialMember.cshtml");
+            }
+            else {
+                Html.RenderPartial("~/views/shared/_PartialMemberUnLogin.cshtml");
+            }
         }  
         @RenderBody()
     </div>

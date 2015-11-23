@@ -23,7 +23,7 @@
             <div class="login-wrap fright">
                 @{
                     if (Request.IsAuthenticated && Request.Cookies["bwusers"]!=null && Request.Cookies["bwusers"]["user"] != null && Request.Cookies["bwusers"]["id"] != null) { 
-                        <a href="/member/">@Request.Cookies["bwusers"]["user"].ToString()</a>
+                        <a href="/member/">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
                         <a href="/account/loginout">退出</a>                 
                     }else{
                         System.Web.Security.FormsAuthentication.SignOut();

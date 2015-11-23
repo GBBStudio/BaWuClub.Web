@@ -711,5 +711,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ViewTopicInvolveds">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewTopicInvolved">
+        <MappingFragment StoreEntitySet="ViewTopicInvolved">
+          <ScalarProperty Name="TId" ColumnName="TId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

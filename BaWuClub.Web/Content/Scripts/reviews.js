@@ -22,6 +22,8 @@ function takeid(id,tid,s) {
     $.post("/forum/take", params, function (data) {
         if(data.status=="warning"){
             window.location.href=data.url;
+        } else if (data.status == "error") {
+            alert(data.context);
         }
         //alert(data);
     });

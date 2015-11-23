@@ -31,6 +31,10 @@ $(function () {
                         setstatus(data.context);
                         resetform();
                         setTimeout(reload, 1000);
+                    } else {
+                        setstatus(data.context);
+                        resetform();
+                        setTimeout(reload, 1000);
                     }
                 }, "json");
             }
@@ -103,7 +107,8 @@ function setFrameDocument() {
     var _hash = window.location.hash.replace("#", "");
     var _frame = document.getElementById("frame");
     var _parameters = window.location.search;
-    if (_hash.length > 0) {
+   
+    if (_hash.length >1) {
         loadPage(_frame, _hash, _parameters);
     }
 }

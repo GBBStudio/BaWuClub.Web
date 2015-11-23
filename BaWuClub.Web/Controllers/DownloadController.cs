@@ -78,10 +78,28 @@ namespace BaWuClub.Web.Controllers
             ViewDocument viewDoc = new ViewDocument();
             using (club = new ClubEntities()) {
                 viewDoc = club.ViewDocuments.Where(v => v.Id == id).FirstOrDefault();
+               var doc=club.Documents.Where(v => v.Id == id).FirstOrDefault();
+                if(doc!=null){
+                    doc.Views += 1;
+                    club.SaveChanges();
+                }
             }
             if (viewDoc == null)
                 return RedirectToAction("notfound","error");
             return View("~/views/download/show.cshtml",viewDoc);
+        }
+
+        public ActionResult DownloadFiles(int id) {
+            string files = string.Empty;
+            using (club = new ClubEntities()) {
+               var doc=club.Documents.Where(v => v.Id == id).FirstOrDefault();
+                if(doc!=null){
+                    doc.Downs += 1;
+                    files = doc.Url;
+                    club.SaveChanges();
+                }
+            }
+            return Redirect( "/uploads/files/"+files);
         }
         #endregion
 
@@ -147,6 +165,7 @@ namespace BaWuClub.Web.Controllers
             }
             return expression;
         }
+
         #endregion
     }
 }

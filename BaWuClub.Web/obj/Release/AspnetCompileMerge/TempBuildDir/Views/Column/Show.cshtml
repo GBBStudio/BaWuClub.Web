@@ -45,7 +45,7 @@
             <div class="comment-editor">
                 <input type="text" id="editor" name="comment" />
                 <div class="btns-wrap">
-                    <input type="button" class="btn-sub" value="立即评论" onclick="return recomments(@Model.Id,0);" />
+                    <input type="button" class="btn-sub" value="立即评论" onclick="return recomments(@Model.Id,'/column/reviews');" />
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="module">
             <div class="question-user">
                 @{
-                    var cover =(string.IsNullOrEmpty(Model.Cover) ? "/content/images/no-img.jpg":"/uploads/avatar/"+Model.Cover);
+                    var cover = (string.IsNullOrEmpty(Model.UserCover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/" + Model.UserCover);
                     <img src="@cover" alt="" />
                 }
                 <div class="question-user-info">

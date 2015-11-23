@@ -171,7 +171,8 @@
         width: 120,
         buttonText: '选择活动图片',
         swf: '/content/uploadify/uploadify.swf',
-        uploader: '/fileupload/uploadactivity',
+        uploader: '/fileupload/uploadfiles',
+        formData: { "type": "activity" },
         overrideEvents: ['onSelectError', 'onDialogClose'],
         onSelectError: function (file, errorCode, errorMsg) {
             switch (errorCode) {

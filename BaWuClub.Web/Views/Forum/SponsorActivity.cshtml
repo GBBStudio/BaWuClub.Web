@@ -74,27 +74,10 @@
             </div>
         </div>
         <div class="container-right fright">
-            <div class="forum-r-item forum-block">
-                <div class="forum-r-title">
-                    <i></i><span>近期活动</span>
-                </div>
-                <ul>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                </ul>
-            </div>
-
-            <div class="forum-r-item forum-block">
-                <div class="forum-r-title">
-                    <i></i><span>热门活动</span>
-                </div>
-                <ul>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                    <li><a href="#">店铺被引入垃圾流量，该怎么处理？</a></li>
-                </ul>
-            </div>
+            @{
+                RenderPartialExtensions.RenderPartial(Html, "~/views/shared/_PartialRightListTopic.cshtml", ViewBag.topicRightList);
+                RenderPartialExtensions.RenderPartial(Html, "~/views/shared/_PartialRightListTask.cshtml", ViewBag.taskRightList);
+            }
             <div class="forum-r-banner">
                 <a href="#"><img src="~/Content/Images/b-1.jpg" /></a>
             </div>
