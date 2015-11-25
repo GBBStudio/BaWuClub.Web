@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace BaWuClub.Web.Controllers
 {
-    public class MemberController : BaseController
+    public class MemberController : MemberBaseController
     {
         #region
         private ClubEntities club;
@@ -28,67 +28,50 @@ namespace BaWuClub.Web.Controllers
         public ActionResult Show(int? uid)
         {
             int id = uid ?? 0;
-            using (club = new ClubEntities())
-            {
-                user = club.Users.Where(u => u.Id == id).FirstOrDefault();
+            using (club = new ClubEntities()){
+                user=GetUser(club,uid);
             }
             if (user == null)
                 return Redirect("/error/notfound");
-            ViewBag.User = user;
+            ViewBag.user = user;
             return View("~/views/member/index.cshtml");
         }
 
         [Authorize]
-        public ActionResult Contribute()
-        {
-            using (club = new ClubEntities())
-            {
-                user = GetUser(club);
+        public ActionResult Contribute(int? uid){
+            using (club = new ClubEntities()) {
+                user = GetUser(club, uid);
             }
-            ViewBag.User = user;
+            ViewBag.user = user;
             return View();
         }
 
-        public ActionResult ContributeList(int? id, int? uid)
-        {
+        public ActionResult ContributeList(int? uid){
             List<Article> list = new List<Article>();
-            using (club = new ClubEntities())
-            {
+            using (club = new ClubEntities()){
                 user = GetUser(club, uid);
                 if (user == null)
                     return Redirect("/error/notfound");
-                ViewBag.User = user;
                 ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
                 ViewBag.ContributeCheckedCount = club.Articles.Where(a => (a.Status > 0 && a.UserId == user.Id)).Count();
                 list = club.Articles.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Article>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=column&page=");
             }
-            ViewBag.User = user;
+            ViewBag.user = user;
             return View(list);
-        }
-
-        [Authorize]
-        public ActionResult Index(int? uid){
-            using (club = new ClubEntities()) {
-                user = GetUser(club);
-            }
-            ViewBag.User = user;
-            return View();
         }
 
         public ActionResult Certification(int? uid)
         {
-            using (club = new ClubEntities())
-            {
+            using (club = new ClubEntities()){
                 user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
                 var certificationDesc = club.SystemArticles.Where(s => s.Variables == "sys-info-certification" && s.Status == 1).FirstOrDefault();
                 if (certificationDesc != null)
                     ViewBag.CertificationDesc = certificationDesc.Text;
-                ViewBag.User = user;
             }
-            ViewBag.User = user;
+            if (user == null)
+                return Redirect("/error/notfound");
+            ViewBag.user = user;
             return View();
         }
 
@@ -96,16 +79,15 @@ namespace BaWuClub.Web.Controllers
         public ActionResult AskAndAnswer(int? uid)
         {
             List<Question> list = new List<Question>();
-            using (club = new ClubEntities())
-            {
+            using (club = new ClubEntities()){
                 user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
-                ViewBag.User = user;
                 ViewBag.AskAllCount = club.Questions.Where(a => a.UserId == user.Id).Count();
                 list = club.Questions.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Question>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.AskAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=ask&page=");
             }
+            if (user == null)
+                return Redirect("/error/notfound");
+            ViewBag.user = user;
             return View(list);
         }
 
@@ -121,77 +103,33 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.SharedDesc =shared != null? shared.Text:"";
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.docsCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=shared&page=");
             }
-            ViewBag.User = user;
+            ViewBag.user = user;
             return View(list);
         }
 
-        public ActionResult Discuss(int? uid)
-        {
-            using (club = new ClubEntities())
-            {
+        public ActionResult Discuss(int? uid){
+            using (club = new ClubEntities()){
                 user = GetUser(club, uid);
-                if (user == null)
-                    return Redirect("/error/notfound");
-                ViewBag.User = user;
             }
-            ViewBag.User = user;
+            if (user == null)
+                return Redirect("/error/notfound");
+            ViewBag.user = user;
             return View("~/views/member/discuss.cshtml");
         }
+
         [Authorize]
         public ActionResult Message(int? uid)
         {
+            user = (User)ViewBag.userAuthorize;
             List<Message> list = new List<Message>();
-            user = GetUser();
-            ViewBag.User = user;
             using (club = new ClubEntities()) {
                 ViewBag.msgCount = club.Messages.Where(d => d.ToId== uid).Count();
                 ViewBag.unReadMsgCount = club.Messages.Where(d => d.ToId == uid && d.Status == 0).Count();
                 list = club.Messages.Where(m => m.ToId == user.Id).Take(ClubConst.MemberPageSize).ToList<Message>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.msgCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=message&page=");
             }
+            ViewBag.user = user;
             return View("~/views/member/message.cshtml",list);
-        }
-
-        public JsonResult SetMsgRead(int id) {
-            string context = string.Empty;
-            string url = "";
-            BaWuClub.Web.Dal.User user = GetUser();
-            if (user == null) {
-                status = Status.warning;
-                context = "账号未登录！";
-                url="/account/login";;
-            }
-            else {
-                using (club = new ClubEntities()) {
-                    var msg = club.Messages.Where(m => m.Id == id).FirstOrDefault();
-                    msg.Status = 1;
-                    if (club.SaveChanges() >= 0) {
-                        status = Status.success;
-                    }
-                }
-            }
-            return Json(new { status=status.ToString(),context=context,url=url},JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult SetMsgDel(int id) {
-            string context = string.Empty;
-            string url = "";
-            BaWuClub.Web.Dal.User user = GetUser();
-            if (user == null) {
-                status = Status.warning;
-                context = "账号未登录！";
-                url="/account/login";;
-            }
-            else {
-                using (club = new ClubEntities()) {
-                    var msg = club.Messages.Where(m => m.Id == id).FirstOrDefault();
-                    club.Messages.Remove(msg);
-                    if (club.SaveChanges() >= 0) {
-                        status = Status.success;
-                    }
-                }
-            }
-            return Json(new { status=status.ToString(),context=context,url=url},JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -229,8 +167,8 @@ namespace BaWuClub.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult Ask(string title, string description, string tags)
-        {
+        public JsonResult Ask(string title, string description, string tags) {
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             if (string.IsNullOrEmpty(title))
             {
                 hintStr = "请输入你要提出的问题!";
@@ -239,7 +177,6 @@ namespace BaWuClub.Web.Controllers
             {
                 using (club = new ClubEntities())
                 {
-                    user = GetUser(club);
                     Question ask = new Question()
                     {
                         UserId = user.Id,
@@ -261,9 +198,9 @@ namespace BaWuClub.Web.Controllers
         [Authorize]
         [HttpPost]
         public JsonResult MChanagePwd(string oldpwd, string pwd, string pwd1){
-            string _url=string.Empty;
+            string _url = string.Empty;
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             using (club = new ClubEntities()) {
-                user = GetUser(club);
                 if (FormsAuthentication.HashPasswordForStoringInConfigFile(oldpwd, "MD5") != user.Password){
                     hintStr = "原密码不正确！";
                 }
@@ -289,9 +226,9 @@ namespace BaWuClub.Web.Controllers
         [Authorize]
         [HttpPost]
         public JsonResult MSetCover(string cover) {
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             if (!string.IsNullOrEmpty(cover)) {
                 using (club = new ClubEntities()){
-                    user = GetUser(club);
                     user.Cover = HtmlCommon.ClearHtml(cover);
                     if (club.SaveChanges()>=0)
                         status = Status.success;
@@ -302,11 +239,9 @@ namespace BaWuClub.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public JsonResult MBase(string realName, string phone, string address, string company, string intro)
-        {
-            using (club = new ClubEntities())
-            {
-                user = GetUser(club);
+        public JsonResult MBase(string realName, string phone, string address, string company, string intro){
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            using (club = new ClubEntities()) {
                 user.RealName = HtmlCommon.ClearHtml(realName);
                 user.Phone = HtmlCommon.ClearHtml(phone);
                 user.Address = HtmlCommon.ClearHtml(address);
@@ -317,7 +252,50 @@ namespace BaWuClub.Web.Controllers
             }
             return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "基本资料更新.") });
         }
+        #endregion
 
+        #region jsonresult
+        public JsonResult SetMsgRead(int id) {
+            string context = string.Empty;
+            string url = "";
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            if (user == null) {
+                status = Status.warning;
+                context = "账号未登录！";
+                url="/account/login";;
+            }
+            else {
+                using (club = new ClubEntities()) {
+                    var msg = club.Messages.Where(m => m.Id == id).FirstOrDefault();
+                    msg.Status = 1;
+                    if (club.SaveChanges() >= 0) {
+                        status = Status.success;
+                    }
+                }
+            }
+            return Json(new { status=status.ToString(),context=context,url=url},JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SetMsgDel(int id) {
+            string context = string.Empty;
+            string url = "";
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            if (user == null) {
+                status = Status.warning;
+                context = "账号未登录！";
+                url="/account/login";;
+            }
+            else {
+                using (club = new ClubEntities()) {
+                    var msg = club.Messages.Where(m => m.Id == id).FirstOrDefault();
+                    club.Messages.Remove(msg);
+                    if (club.SaveChanges() >= 0) {
+                        status = Status.success;
+                    }
+                }
+            }
+            return Json(new { status=status.ToString(),context=context,url=url},JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region getlist
@@ -366,7 +344,6 @@ namespace BaWuClub.Web.Controllers
                         break;
                 }
             }
-           // string url = "/" + tstr + "/show/";
             ViewBag.pageStr = pageString;
             status = Status.success;
             return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json }, JsonRequestBehavior.AllowGet);
@@ -388,7 +365,7 @@ namespace BaWuClub.Web.Controllers
                 if (useId != 0)
                     user = club.Users.Where(u => u.Id == useId).FirstOrDefault();
                 else
-                    user = GetUser(club);
+                    user = GetUser();
             }
             if (user == null)
                 return Redirect("/error/notfound");
@@ -399,18 +376,6 @@ namespace BaWuClub.Web.Controllers
         private User GetUser(ClubEntities c, int? uid) {
             int userId = uid ?? 0;
             user = c.Users.Where(u => u.Id == userId).FirstOrDefault();
-            return user;
-        }
-                
-        private User GetUser(ClubEntities c) {
-            user = new User();
-            if (Request.Cookies.AllKeys.Contains("bwusers") && !string.IsNullOrEmpty(Request.Cookies["bwusers"]["id"])){
-                int userId = Convert.ToInt32(Request.Cookies["bwusers"]["id"]);
-                user = club.Users.Single(u => u.Id == userId);
-            }else{
-                FormsAuthentication.SignOut();
-                RedirectToAction("login", new { controller = "account" });
-            }
             return user;
         }
         #endregion

@@ -45,7 +45,9 @@ namespace BaWuClub.Web.Controllers
                 club.SaveChanges();
             }
             if (viewArticle == null)
-                RedirectToAction("NotFound", new { Controller="Error"});
+                RedirectToAction("NotFound", new { Controller = "Error" });
+            else if (viewArticle.Status == 0)
+                return RedirectToAction("Unaudited","error");
             ViewBag.Title = viewArticle.Title;
             return View(viewArticle);
         }

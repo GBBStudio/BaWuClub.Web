@@ -28,7 +28,7 @@ namespace BaWuClub.Web.Dal
         public const int AvatarSmallWidth = 75;
         public const int AvatarSmallHeight = 75;
 
-        public readonly static string FilesDir = "uploads/files/";
+        public readonly static string FilesDir = "/uploads/files/";
         public readonly static string AvatarDir = "/uploads/avatar/";
         public readonly static string AvatarBigDir = "/uploads/avatar/big/";
         public readonly static string AvatarSmallDir = "/uploads/avatar/small/";
@@ -39,6 +39,7 @@ namespace BaWuClub.Web.Dal
         public readonly static string VideoCoverDir = "/uploads/video/Cover/";
         public readonly static string UploadTmp = "/uploads/tmps/";
         public readonly static string TopicAactivity = "/uploads/topics/activity/";
+        public readonly static string Topics = "/uploads/topics/pics/";
 
         public readonly static string TextFormatDataUrl = "~/app_data/textconfig.xml";
     }

@@ -109,6 +109,9 @@ namespace BaWuClub.Web.Controllers
                 case "videocover":
                         dir = ClubConst.VideoCoverDir;
                         break;
+                case "topic":
+                        dir = ClubConst.Topics;
+                        break;
                 default:
                     break;
             }

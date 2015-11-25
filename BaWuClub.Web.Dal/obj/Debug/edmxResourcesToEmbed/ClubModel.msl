@@ -65,6 +65,8 @@
     <EntitySetMapping Name="Tags">
       <EntityTypeMapping TypeName="ClubDBModel.Tag">
         <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Tops" ColumnName="Tops" />
+          <ScalarProperty Name="Vardate" ColumnName="Vardate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TagName" ColumnName="TagName" />
           <ScalarProperty Name="Type" ColumnName="Type" />

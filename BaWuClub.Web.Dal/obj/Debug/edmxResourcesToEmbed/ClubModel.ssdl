@@ -250,6 +250,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="Tops" Type="int" Nullable="false" />
+    <Property Name="Vardate" Type="datetime" />
   </EntityType>
   <EntityType Name="TopicActivities">
     <Key>

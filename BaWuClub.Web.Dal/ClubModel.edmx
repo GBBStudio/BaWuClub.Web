@@ -255,6 +255,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Tops" Type="int" Nullable="false" />
+          <Property Name="Vardate" Type="datetime" />
         </EntityType>
         <EntityType Name="TopicActivities">
           <Key>
@@ -1235,6 +1237,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Vardate" Type="DateTime" Precision="3" />
+          <Property Name="Tops" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -2120,6 +2124,8 @@
           <EntitySetMapping Name="Tags">
             <EntityTypeMapping TypeName="ClubDBModel.Tag">
               <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Tops" ColumnName="Tops" />
+                <ScalarProperty Name="Vardate" ColumnName="Vardate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

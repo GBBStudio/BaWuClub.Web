@@ -162,8 +162,7 @@ namespace BaWuClub.Web.Controllers
             return View("~/views/forum/task.cshtml", topic);
         }
 
-        public ActionResult Activity(int? id)
-        {
+        public ActionResult Activity(int? id){
             tId = id ?? 0;
             ViewTopicActivity topic = new ViewTopicActivity();
             BaWuClub.Web.Dal.User user = GetUser();
@@ -215,7 +214,8 @@ namespace BaWuClub.Web.Controllers
                                 SendFormatMsg(toUser.Id, user.Id, "3", toUser.NickName, topic.Title, Request.UserHostAddress);
                             }
                             status = Status.success;
-                            context = JsonConvert.SerializeObject(toUser);
+                            object rsltUser= new { name = user.NickName, id = user.Id, cover = user.Cover };
+                            context = JsonConvert.SerializeObject(rsltUser);
                         }
                     }
                     else { 
@@ -386,7 +386,7 @@ namespace BaWuClub.Web.Controllers
                 club.TopicReviews.Add(review);
                 if (club.SaveChanges()>=0) {
                     str.Append("<li>");
-                    str.Append("<div class=\"reviews-cover fleft\"><a href=\"/member/u-" + user.Id + "/show\"><img src=\"" + (user.Cover.Length > 0 ? "/uploads/avatar/small/" + user.Cover : "~/Content/Images/no-img.jpg") + "\" /></a> </div>");
+                    str.Append("<div class=\"reviews-cover fleft\"><a href=\"/member/u-" + user.Id + "/show\"><img src=\"" + (!string.IsNullOrEmpty(user.Cover)? "/uploads/avatar/small/" + user.Cover : "/Content/Images/no-img.jpg") + "\" /></a> </div>");
                     str.Append("<div class=\"reviews-content\"><div class=\"reviews-info\"><a href=\"/member/u-" + user.Id + "/show\">" + user.NickName + "</a><span>" + ((DateTime)review.VarDate).ToString("yyyy年mm月dd日") + "</span></div>");
                     str.Append("<div class=\"reviews-text\">" + review.Reviews + "</div>");
                     str.Append("<div class=\"reviews-btns\">");

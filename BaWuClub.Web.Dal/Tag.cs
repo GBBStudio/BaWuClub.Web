@@ -17,5 +17,7 @@ namespace BaWuClub.Web.Dal
         public int Id { get; set; }
         public string TagName { get; set; }
         public byte Type { get; set; }
+        public Nullable<System.DateTime> Vardate { get; set; }
+        public int Tops { get; set; }
     }
 }

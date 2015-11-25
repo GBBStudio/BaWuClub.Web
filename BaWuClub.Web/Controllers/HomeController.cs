@@ -20,6 +20,7 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.hotActivity = club.ViewActivities.OrderByDescending(a => a.Id).Take(5).ToList<ViewActivity>();
                 ViewBag.hotQuestions = club.ViewQuestions.OrderByDescending(q => q.VarDate).Take(6).ToList<ViewQuestion>();
                 ViewBag.banners = club.ViewBanners.Where(b => b.Variables=="sys-bt-home-top" && b.Status == 1).ToList<ViewBanner>();
+                ViewBag.tags = club.Tags.Where(t=>t.Tops>=0).Take(8).ToList<Tag>();
             }
             return View();
         }

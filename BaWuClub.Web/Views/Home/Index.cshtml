@@ -137,6 +137,14 @@
                 <i class="icon-item"></i><a href="/download">资料下载</a>
             </div>
             <div class="module-list">
+                @{
+                    var tags = ViewBag.tags;
+                    if (tags != null) {
+                        foreach (var tag in tags as IEnumerable<BaWuClub.Web.Dal.Tag>) { 
+                            <a href='/download/search?keyword=@tag.TagName'> @tag.TagName</a>
+                        }
+                    }
+                }
             </div>
         </div>
         <div class="login-wrap-m" style="display:none;">

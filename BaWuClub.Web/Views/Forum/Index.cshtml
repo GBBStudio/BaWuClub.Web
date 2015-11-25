@@ -39,8 +39,11 @@
                     if (!string.IsNullOrEmpty(sort) && sort == "time") {
                         selected = "selected";                        
                     }
+                    var cover = string.IsNullOrEmpty(category.Cover) ? "" : "/uploads/topics/pics/" + category.Cover;
                     <div class="discuss-list-type">
-                        <div class="discuss-lt-cover"></div>
+                        <div class="discuss-lt-cover fleft">
+                            <img src="@cover" />
+                        </div>
                         <div class="discuss-lt-info">
                             <h3><a href="#">@category.Name</a></h3>
                             <p>@category.Description</p>

@@ -87,31 +87,28 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         [HttpPost]
         public ActionResult SetCheck(int? id,string title,string context,string tags) {
             vId=id??0;
-            if (!string.IsNullOrEmpty(tags)) {
-                string[] tagAarry = tags.Split(',');
-                StringBuilder str = new StringBuilder();
-                Tag tag = new Tag();
-                using (club = new ClubEntities()) {
-                    article = club.Articles.Where(t => t.Id == vId).FirstOrDefault();
-                    if (article != null) {
-                        article.Tags = tags;
-                        article.TagIds =SetTags(club, tags);
-                        if (article.Status == 1)
-                            article.Status = 0;
-                        else
-                            article.Status = 1;
-                        if (club.SaveChanges() >= 0) {
-                            hitStr = "状态修改成功！";
-                            status = Status.success;
-                        }
-                        else {
-                            hitStr = "系统异常，请稍后重试！";
-                        }
-                    }
+            StringBuilder str = new StringBuilder();
+            Tag tag = new Tag();
+            using (club = new ClubEntities()) {
+                article = club.Articles.Where(t => t.Id == vId).FirstOrDefault();
+                if (article != null) {
+                    article.Tags = tags;
+                    article.TagIds =SetTags(club, tags);
+                    if (article.Status == 1)
+                        article.Status = 0;
                     else
-                    {
-                        return RedirectToAction("notfound","error");
+                        article.Status = 1;
+                    if (club.SaveChanges() >= 0) {
+                        hitStr = "状态修改成功！";
+                        status = Status.success;
                     }
+                    else {
+                        hitStr = "系统异常，请稍后重试！";
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("notfound","error");
                 }
             }
             ViewBag.StatusStr = HtmlCommon.GetHitStr(hitStr, status);

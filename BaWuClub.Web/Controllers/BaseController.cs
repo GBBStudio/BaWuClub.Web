@@ -46,7 +46,7 @@ namespace BaWuClub.Web.Controllers
         protected User GetUser() {
             BaWuClub.Web.Dal.User user = null;
             using (ClubEntities c = new ClubEntities()) {
-                if (Request.Cookies.AllKeys.Contains("bwusers") && !string.IsNullOrEmpty(Request.Cookies["bwusers"]["id"])){
+                if (Request.Cookies.AllKeys.Contains("bwusers") && !string.IsNullOrEmpty(Request.Cookies["bwusers"]["id"])&&User.Identity.IsAuthenticated){
                     int userId = Convert.ToInt32(Request.Cookies["bwusers"]["id"]);
                     user = c.Users.Single(u => u.Id == userId);
                 }else{

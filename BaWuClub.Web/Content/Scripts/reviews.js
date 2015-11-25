@@ -24,6 +24,11 @@ function takeid(id,tid,s) {
             window.location.href=data.url;
         } else if (data.status == "error") {
             alert(data.context);
+        } else if (data.status == "success") {
+            var user = JSON.parse(data.context);
+            alert("操作成功！感谢您的参与");
+            $(".topic-join-tips").html("<div class=\"topic-isJoined\"><span>您已经参加了该任务!</span></div>");
+            $(".join-user").append("<a href=\"/member/u-" + user.id + "/show\"><img src=\"/uploads/avatar/small/" + user.cover + "\"/><span>" + user.name + "</span></a>");
         }
         //alert(data);
     });

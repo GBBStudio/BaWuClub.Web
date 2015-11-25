@@ -20,6 +20,10 @@ namespace BaWuClub.Web.Controllers
             return View("~/views/error/404.cshtml");
         }
 
+        public ActionResult Unaudited() {
+            return View();
+        }
+
         public ActionResult Exception(string url) {
             ViewBag.url = url;
             return View();

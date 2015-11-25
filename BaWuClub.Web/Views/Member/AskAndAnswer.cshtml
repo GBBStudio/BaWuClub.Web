@@ -1,13 +1,14 @@
 ﻿@{
     Layout = "~/views/shared/_layoutmember.cshtml";
-    ViewBag.Title = "个人用户中心-";
-    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-问答";
 }
 @model IEnumerable<BaWuClub.Web.Dal.Question>
          
     <div class="member-main">
         <div class="member-menu">
-            <a class="selected" onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1')">我提出问题</a>
+            <a class="selected" onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1')">提出的问题</a>
             <a onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=column&page=1')">参与的回答</a>
         </div>
         <div class="member-main-wrap fleft">

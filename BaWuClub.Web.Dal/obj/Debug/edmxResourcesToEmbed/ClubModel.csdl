@@ -63,6 +63,8 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Type" Type="Byte" Nullable="false" />
+    <Property Name="Vardate" Type="DateTime" Precision="3" />
+    <Property Name="Tops" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>

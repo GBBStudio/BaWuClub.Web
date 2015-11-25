@@ -42,7 +42,23 @@ $(function () {
     });
 })
 
+function settops(url, id) {
+    setget(url, id, topscallback);
+}
 
+
+function topscallback(data) {
+    if (data.status == "success") {
+        window.location.href = window.location.href;
+    }
+}
+
+function setget(url, id, callback) {
+    $.get("/bwum" + url, {"id":id}, function (data) {
+        var json = eval(data);
+        callback(json);
+    }, "json");
+}
 
 function ajaxdelete(url, id) {
     if (confirm("确定要删除？")) {
@@ -81,7 +97,6 @@ function checkselectall(state,name) {
         chks[i].checked = state;
     }        
 }
-
 
 /*重置form状态*/
 function resetform() {

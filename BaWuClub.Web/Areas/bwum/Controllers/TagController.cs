@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
+using Newtonsoft.Json;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
@@ -15,24 +16,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         private ClubEntities club;
         private Status state = Status.success;
 
-        #region 标签列表
-        [HttpGet]
-        public ActionResult Index(int? page)
-        {
-            List<Tag> tags = new List<Tag>();
-            if (string.IsNullOrEmpty(page.ToString()))
-                page = 1;
-            using (club = new ClubEntities()) { 
-                var _tags = from tag in club.Tags.OrderBy(t => t.Id).Skip<Tag>((Convert.ToInt32(page) -1)* ClubConst.AdminPageSize).Take<Tag>(ClubConst.AdminPageSize)
-                             select tag;
-                tags = _tags.ToList();
-                ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize,Convert.ToInt32(page),club.Tags.Count());
-            }
-            return View(tags);
-        }
-        #endregion
-
-        #region 标签编辑
+        #region get
         [HttpGet]
         public ActionResult Edit(int? id) {
             Tag tag = new Tag();
@@ -44,6 +28,23 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             return View(tag);
         }
         
+        [HttpGet]
+        public ActionResult Index(int? page)
+        {
+            List<Tag> tags = new List<Tag>();
+            if (string.IsNullOrEmpty(page.ToString()))
+                page = 1;
+            using (club = new ClubEntities()) { 
+                var _tags = from tag in club.Tags.OrderByDescending(t => t.Tops).Skip<Tag>((Convert.ToInt32(page) -1)* ClubConst.AdminPageSize).Take<Tag>(ClubConst.AdminPageSize)
+                             select tag;
+                tags = _tags.ToList();
+                ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize,Convert.ToInt32(page),club.Tags.Count());
+            }
+            return View(tags);
+        }
+        #endregion
+
+        #region post
         [HttpPost]
         public ActionResult Edit(string tagName) {
             Tag tag = new Tag();
@@ -66,8 +67,11 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             }
             return View(tag);
         }
-
-        
+                
+        [HttpPost]
+        public JsonResult Del(int? id){
+            return DelTag(Convert.ToInt32(id));
+        }
         [HttpPost]
         public ActionResult Modify(int id, string tagName) {
             Tag tag = new Tag();
@@ -83,12 +87,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         }
         #endregion
 
-        #region 删除
-        [HttpPost]
-        public JsonResult Del(int? id){
-            return DelTag(Convert.ToInt32(id));
-        }
-        
+        #region jsonresult
         private JsonResult DelTag(int id){
             Tag tag = new Tag();
             object obj;
@@ -106,7 +105,45 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             }
             return Json(obj,JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult SetUp(int id) {
+           // return ChangeTops(id, ChangeTopsType.SetTop);
+            return Json(ChangeTops(id, ChangeTopsType.SetTop),JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult SetDown(int id) {
+            return Json(ChangeTops(id, ChangeTopsType.CancelTop), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
+        #region private
+        private Object ChangeTops(int id,ChangeTopsType type ) {
+            string context = "操作异常,请稍后重试！";
+            Status status = Status.error;
+            using (club = new ClubEntities()) {
+                var maxTag=club.Tags.OrderByDescending(t=>t.Tops).FirstOrDefault();
+                var tag = club.Tags.Where(t => t.Id == id).FirstOrDefault();
+                if (type == ChangeTopsType.SetTop) {                     
+                    if (tag != null&&maxTag!=null) { 
+                        tag.Tops=maxTag.Tops+1;
+                    }
+                }
+                else {
+                    tag.Tops = 0;
+                }
+                if(club.SaveChanges()>0){
+                    status=Status.success;
+                    context="操作成功!";
+                }
+            }
+            return new { status=status.ToString(),context=context};
+        }
+        #endregion
+
+        private enum ChangeTopsType{
+            SetTop=0,
+            CancelTop=1
+        }
     }
 }

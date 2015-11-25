@@ -2,6 +2,7 @@
     Layout = "~/areas/bwum/views/shared/_indexlayout.cshtml";
     ViewBag.CssAppend = "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
+<link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
 @model BaWuClub.Web.Dal.TopicCategory
 <div class="comm-btns">
     <h2>讨论区分类编辑(Discuss Edit)</h2>
@@ -29,6 +30,29 @@
             <span>变量：</span>
             <input name="variable" value="@Model.Variable" type="text" class="input-text input-small" />
         </p>
+        <div class="upload-b-wrap">
+            <span>封面：</span>
+            @{
+                if (!string.IsNullOrEmpty(Model.Cover))
+                {
+                    <div class="cover-wrap">
+                        <img src="~/uploads/topics/pics/@Model.Cover" alt="" height="100" />
+                        <input value="@Model.Cover" type="hidden" name="pic" />
+                        <a href="#" class="pic-del">删除</a>
+                    </div>
+                    <div class="upload-wrap" style="display:none;">
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                }
+                else
+                {
+                    <div class="upload-wrap">
+                        <input name="pic" value="" type="file" class="input-text input-middle" id="upload" />
+                    </div>
+                    <div class="cover-wrap"></div>
+                }
+            }
+        </div>
         <p>
             <span>描述：</span>
             <textarea name="description" class="input-text input-long" style="height:150px;">@Model.Description</textarea>
@@ -104,6 +128,45 @@
     </ul>
     <input type="button" value="确定" style="border:none;color:#fff;font-size:16px;padding:8px 35px;background:#ff6a00;cursor:pointer;border-radius:3px;" onclick="confirmselected()" />
 </div>
+<script type="text/javascript" src="~/content/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+    $("#upload").uploadify({
+        height: 30,
+        width: 120,
+        buttonText: '选择头像',
+        swf: '/content/uploadify/uploadify.swf',
+        uploader: '/fileupload/uploadfiles',
+        formData: { "type": "topic" },
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("您好目前只能上传1张图片！");
+                    break;
+                case -110:
+                    alert("您好上传文件不能大于1M！");
+                    break;
+                case -120:
+                    alert("您好文件大小异常！");
+                    break;
+                case -130:
+                    alert("您好文件类型异常！");
+                    break;
+            }
+            return false;
+        },
+        onUploadSuccess: function (file, data, response) {
+            var obj = jQuery.parseJSON(data);
+            $(".upload-wrap").hide();
+            $(".cover-wrap").html("<img src=\"/uploads/topics/pics/" + obj.name + "\" height=\"100\"/><input value=\"" + obj.name + "\" type=\"hidden\" name=\"pic\"/><a href=\"#\" class=\"pic-del\">删除</a>");
+        }
+    });
+
+    $(document).on("click", ".pic-del", function () {
+        $(".upload-wrap").show();
+        $(".cover-wrap").empty();
+    })
+</script>
 <style>
     .icons-wrap{position:absolute;width:400px;left:15%;z-index:100;background:#fff;padding:20px;border-radius:5px;border:1px solid #666;display:none;}
     .icons-title {margin:10px 0;}

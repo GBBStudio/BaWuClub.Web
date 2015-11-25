@@ -181,10 +181,10 @@
       <publishTime>06/04/2015 13:41:43</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/23/2015 16:20:58</publishTime>
+      <publishTime>11/23/2015 16:36:13</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/23/2015 16:20:58</publishTime>
+      <publishTime>11/23/2015 16:36:13</publishTime>
     </File>
     <File Include="bin/App_Web_04ij44sk.dll">
       <publishTime>07/27/2015 14:55:54</publishTime>
@@ -487,7 +487,7 @@
       <publishTime>11/23/2015 16:20:52</publishTime>
     </File>
     <File Include="bin/BaWuClub.Web.dll">
-      <publishTime>11/23/2015 16:20:54</publishTime>
+      <publishTime>11/23/2015 16:36:07</publishTime>
     </File>
     <File Include="bin/contact.cshtml.91b6d4c2.compiled">
       <publishTime>07/27/2015 14:56:50</publishTime>
@@ -2368,7 +2368,7 @@
       <publishTime>07/28/2015 14:41:02</publishTime>
     </File>
     <File Include="Content/Css/site.css">
-      <publishTime>11/20/2015 16:23:54</publishTime>
+      <publishTime>11/23/2015 16:34:08</publishTime>
     </File>
     <File Include="Content/Css/study.css">
       <publishTime>11/17/2015 17:02:17</publishTime>
@@ -2566,7 +2566,7 @@
       <publishTime>06/05/2015 10:57:37</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/23/2015 16:20:57</publishTime>
+      <publishTime>11/23/2015 16:36:11</publishTime>
     </File>
     <File Include="Uploads/activity/activity_201514070023.jpg">
       <publishTime>07/14/2015 16:00:23</publishTime>
@@ -2764,7 +2764,7 @@
       <publishTime>11/23/2015 15:33:51</publishTime>
     </File>
     <File Include="Views/Forum/Index.cshtml">
-      <publishTime>11/17/2015 17:40:47</publishTime>
+      <publishTime>11/23/2015 16:31:32</publishTime>
     </File>
     <File Include="Views/Forum/List.cshtml">
       <publishTime>09/23/2015 15:35:35</publishTime>
@@ -2789,6 +2789,9 @@
     </File>
     <File Include="Views/Forum/TopicTransfers.cshtml">
       <publishTime>09/22/2015 11:13:23</publishTime>
+    </File>
+    <File Include="Views/Group/City.cshtml">
+      <publishTime>11/23/2015 16:30:34</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>11/20/2015 17:31:38</publishTime>
@@ -2875,7 +2878,7 @@
       <publishTime>06/11/2015 16:15:05</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/23/2015 16:20:55</publishTime>
+      <publishTime>11/23/2015 16:36:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

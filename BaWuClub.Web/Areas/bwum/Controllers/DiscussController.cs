@@ -41,9 +41,9 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string name, string description, string cover,string icon, string variable)
+        public ActionResult Create(string name, string description, string pic,string icon, string variable)
         {
-            topicCategory = new TopicCategory() { Name = name, Description = description, Cover = cover, Icon=icon,Variable = variable, VarDate = DateTime.Now,Type=1 };
+            topicCategory = new TopicCategory() { Name = name, Description = description, Cover = pic, Icon=icon,Variable = variable, VarDate = DateTime.Now,Type=1 };
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(variable))
             {
                 hitStr = "分类的名称、变量缺一不可";
@@ -80,7 +80,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id,string name,string description,string cover,string icon,string variable)
+        public ActionResult Edit(int id,string name,string description,string pic,string icon,string variable)
         {
             using(club=new ClubEntities()){
                 topicCategory = club.TopicCategories.Where(t => t.Id == id).FirstOrDefault();
@@ -97,7 +97,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                     {
                         topicCategory.Name = name;
                         topicCategory.Description = description;
-                        topicCategory.Cover = cover;
+                        topicCategory.Cover = pic;
                         topicCategory.Variable = variable;
                         topicCategory.Icon = icon;
                         if (club.SaveChanges() >= 0)
