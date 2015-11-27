@@ -58,7 +58,7 @@ a.sort-selected i{font-weight:normal}
 .icon-ppt{background:url(../Images/icon-ppt.png) no-repeat;width:40px;height:52px;display:block;}
 .download-wrap p.textarea-wrap{height:auto;}
 .download-block-u{background:#fff;margin-top:13px;padding-top:0 !important;}
-
+.download-block-ub{background:#fff;}
 .dsk-upload-type input{color:#666;cursor:pointer;}
 .dsk-upload-type label{margin-left:5px;margin-right:20px;font-size:35px;cursor:pointer}
 .dsk-upload-type label.icon1-word{color:#2a5699}
@@ -66,7 +66,7 @@ a.sort-selected i{font-weight:normal}
 .dsk-upload-type label.icon1-ppt{color:#d04626}
 .dsk-upload-type label.icon1-pdf{color:#97252a}
 .user-info-avatar{margin-right:10px;}
-.user-info-avatar a img{border-radius:70px;border:2px solid #ddd}
+.user-info-avatar a img{border-radius:70px;border:2px solid #ddd;width:70px;}
 .user-info-name{height:60px;line-height:60px;}
 .user-info-name a{font-size:16px;color:#666}
 .scroll-done .doc-hot-search{display:none;}

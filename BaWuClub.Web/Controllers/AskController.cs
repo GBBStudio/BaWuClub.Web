@@ -27,8 +27,9 @@ namespace BaWuClub.Web.Controllers
             int rowsCount = 0;
             using (club = new ClubEntities()){
                 rowsCount=club.ViewQuestions.Count();
-                vquestion = club.ViewQuestions.OrderByDescending(q=>q.VarDate).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
-                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                vquestion = club.ViewQuestions.OrderByDescending(q => q.VarDate).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
             }
             ViewBag.PageStr = GetPageStr(ClubConst.WebQuestionPageSize, 1, rowsCount, ClubConst.WebQuestionPageShow, "/ask/list/", false);
             return View(vquestion);
@@ -41,7 +42,8 @@ namespace BaWuClub.Web.Controllers
             int page = id ?? 1;
             using (club = new ClubEntities()){
                 rowsCount = club.ViewQuestions.Count();
-                ViewBag.NewArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.hotQuestions=club.Questions.OrderByDescending(a=>a.Views).Take(7).ToList<Question>();
                 vquestion = club.ViewQuestions.OrderByDescending(q=>q.VarDate).Skip((page-1)*ClubConst.WebPageSize).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
             }
             ViewBag.PageStr = GetPageStr(ClubConst.WebQuestionPageSize,page,rowsCount,ClubConst.WebQuestionPageShow,"/ask/list/",false);
@@ -72,6 +74,27 @@ namespace BaWuClub.Web.Controllers
             }
             return View(vq);
         }
+
+        public ActionResult Tags(int? tid,int? p) {
+            int tId = tid ?? 0;
+            List<ViewQuestion> vquestion = new List<ViewQuestion>();
+            Tag tag = new Tag();
+            int rowsCount = 0;
+            int page = p ?? 1;
+            using (club = new ClubEntities()){
+                 tag = club.Tags.Where(t => t.Id == tid).FirstOrDefault();
+                if (tag == null) { 
+                   return RedirectToAction("NotFound", new { Controller = "Error" });
+                }
+                ViewBag.tagName = tag.TagName;
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
+                rowsCount = club.ViewQuestions.OrderByDescending(q => q.VarDate).Where(t => t.Tags.Contains(tag.TagName)).Count();
+                vquestion = club.ViewQuestions.OrderByDescending(q => q.VarDate).Where(t => t.Tags.Contains(tag.TagName)).Skip((page - 1) * ClubConst.WebPageSize).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
+            }
+            ViewBag.PageStr = GetPageStr(ClubConst.WebQuestionPageSize, page, rowsCount, ClubConst.WebQuestionPageShow, "/ask/tags/"+tId+"-", false);
+            return View(vquestion);
+        }
         #endregion
 
         #region 回答问题
@@ -95,7 +118,7 @@ namespace BaWuClub.Web.Controllers
                     str.Append("<div class=\"comment-item\">");
                     str.Append("<div class=\"comment-item-info\">");
                     str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-name\">" + user.NickName + "</a>");
-                    str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-avatar\"><img src=\""+(string.IsNullOrEmpty(user.Cover)?"/content/images/no-img.jpg":"~/uploads/avatar/small/"+user.Cover)+"\"/>");
+                    str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-avatar\"><img src=\""+(string.IsNullOrEmpty(user.Cover)?"/content/images/no-img.jpg":"/uploads/avatar/small/"+user.Cover)+"\"/>");
                     str.Append("</a>");
                     str.Append("</div>");
                     str.Append("<div class=\"comment-item-content\">"+HtmlCommon.ClearJavascript(commentStr)+"</div>");

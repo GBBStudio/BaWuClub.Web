@@ -27,9 +27,11 @@ function takeid(id,tid,s) {
         } else if (data.status == "success") {
             var user = JSON.parse(data.context);
             alert("操作成功！感谢您的参与");
-            $(".topic-join-tips").html("<div class=\"topic-isJoined\"><span>您已经参加了该任务!</span></div>");
-            $(".join-user").append("<a href=\"/member/u-" + user.id + "/show\"><img src=\"/uploads/avatar/small/" + user.cover + "\"/><span>" + user.name + "</span></a>");
+            var cover = "/content/images/no-img.jpg";
+            if (user.cover != null && user.cover.length > 0)
+                cover = "/uploads/avatar/small/" + user.cover;
+            $(".topic-join-tips").html("<div class=\"topic-isJoined\"><span>您已经参加了该任务！</span></div>");
+            $(".join-user").append("<a href=\"/member/u-" + user.id + "/show\"><img src=\"" + cover + "\"/><span>@" + user.name + "</span></a>");
         }
-        //alert(data);
     });
 }

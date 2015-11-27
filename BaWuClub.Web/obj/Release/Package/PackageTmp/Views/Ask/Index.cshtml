@@ -47,6 +47,9 @@
     </div>
     <div class="container-right fright">
         <div class="faqs-wrap module">
+            <div class="module-title module-btn-wrap">
+               <a href="/member/ask"><i class="icon1-bangzhu"></i>我要提问</a>
+            </div>
             <div class="module-title">
                 <i class="icon-item"></i><a href="/download">最新专栏文章</a>
             </div>
@@ -64,5 +67,8 @@
                 </ul>
             </div>
         </div>
+        @{
+            Html.RenderPartial("~/views/shared/_PartialRightListHotQuestions.cshtml");
+        }
     </div>
 </div>

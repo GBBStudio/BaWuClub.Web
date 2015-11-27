@@ -1,0 +1,28 @@
+﻿@model BaWuClub.Web.Dal.User
+@{
+    var cover = string.IsNullOrEmpty(Model.Cover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/"+Model.Cover;
+}
+<div class="message-wrap">
+    <div class="message-box">
+        <div class="message-close"></div>
+        <p><span>发给:</span><i><img src="@cover" />@Model.NickName</i></p>
+        <p>
+            <textarea name="msg" class="input-text" placeholder="键入您想说的话吧！" id="msg"></textarea>
+        </p>
+        <p><input type="button" value="发送" class="btn-sub" onclick="send()"/></p>
+    </div>
+</div>
+<script type="text/javascript">
+    function send() {
+        $.post("/member/send", {"tid":@Model.Id ,"msg":$("#msg").val()},function(json){
+            var data=eval(json);
+            if(data.status=="warning"){
+                alert(data.context);
+            }else{
+                alert(data.context);
+                $(".message-wrap").remove();
+                $(".message-mask").remove();
+            }
+        });
+    }
+</script>

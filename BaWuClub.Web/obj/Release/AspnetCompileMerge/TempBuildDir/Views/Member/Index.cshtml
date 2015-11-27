@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/views/shared/_layoutmember.cshtml";
-    ViewBag.Title = "个人用户中心-";
-    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-首页";
 }
 <link href="~/content/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
 @{    

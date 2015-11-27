@@ -170,8 +170,9 @@
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="Views" Type="Int32" Nullable="false" />
-    <Property Name="Flags" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="VarDate" Type="DateTime" Precision="3" />
+    <Property Name="Tags" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TagIds" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ViewQuestion">
     <Key>
@@ -185,12 +186,13 @@
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="Views" Type="Int32" Nullable="false" />
-    <Property Name="Flags" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="VarDate" Type="DateTime" Precision="3" />
     <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tags" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TagIds" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Banner">
     <Key>
@@ -763,6 +765,7 @@
     <Property Name="UserCover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="VarDate" Type="DateTime" Precision="3" />
+    <Property Name="TagIds" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Video">
     <Key>
@@ -854,6 +857,7 @@
     <Property Name="Status" Type="Byte" Nullable="false" />
     <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Vardate" Type="DateTime" Precision="3" />
+    <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TopicInvolved">
     <Key>

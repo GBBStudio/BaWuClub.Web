@@ -32,7 +32,7 @@
                     <td>@u.TagName</td>
                     <td>
                         <a href="#/tag/edit/@u.Id">编辑</a>
-                        <a onclick="ajaxdelete('/tag/del/',@u.Id)">删除</a>
+                        <a onclick="ajaxdelete('/tag/del/@u.Id')">删除</a>
                         <a onclick="settops('/tag/setup/','@u.Id')" class="top-enable">设置置顶</a>
                         @{
                             if (u.Tops > 0)

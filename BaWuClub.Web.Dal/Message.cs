@@ -21,5 +21,6 @@ namespace BaWuClub.Web.Dal
         public byte Status { get; set; }
         public string Ip { get; set; }
         public Nullable<System.DateTime> Vardate { get; set; }
+        public string Title { get; set; }
     }
 }

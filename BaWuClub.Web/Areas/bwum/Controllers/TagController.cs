@@ -105,9 +105,9 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             }
             return Json(obj,JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public JsonResult SetUp(int id) {
-           // return ChangeTops(id, ChangeTopsType.SetTop);
             return Json(ChangeTops(id, ChangeTopsType.SetTop),JsonRequestBehavior.AllowGet);
         }
 

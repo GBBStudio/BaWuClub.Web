@@ -1,0 +1,20 @@
+﻿<div class="faqs-wrap module">
+    <div class="module-title">
+        <i class="icon-item"></i><a href="/download">热门专栏文章</a>
+    </div>
+    <div class="module-list">
+        <ul>
+            @{
+                if (ViewBag.newArticles != null)
+                {
+                    var articles = ViewBag.newArticles as IEnumerable<BaWuClub.Web.Dal.Article>;
+                    foreach (var item in articles)
+                    {
+                        var title = item.Title.Length > 20 ? item.Title.Substring(0, 20) + "..." : item.Title;
+                        <li><a href="/column/show/@item.Id">@title</a></li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>

@@ -65,6 +65,8 @@
     <EntitySetMapping Name="Tags">
       <EntityTypeMapping TypeName="ClubDBModel.Tag">
         <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Tops" ColumnName="Tops" />
+          <ScalarProperty Name="Vardate" ColumnName="Vardate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TagName" ColumnName="TagName" />
           <ScalarProperty Name="Type" ColumnName="Type" />
@@ -110,8 +112,9 @@
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="ClubDBModel.Question">
         <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
           <ScalarProperty Name="VarDate" ColumnName="VarDate" />
-          <ScalarProperty Name="Flags" ColumnName="Flags" />
           <ScalarProperty Name="Views" ColumnName="Views" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -123,12 +126,13 @@
     <EntitySetMapping Name="ViewQuestions">
       <EntityTypeMapping TypeName="ClubDBModel.ViewQuestion">
         <MappingFragment StoreEntitySet="ViewQuestion">
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
           <ScalarProperty Name="RealName" ColumnName="RealName" />
           <ScalarProperty Name="Intro" ColumnName="Intro" />
           <ScalarProperty Name="Cover" ColumnName="Cover" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />
           <ScalarProperty Name="VarDate" ColumnName="VarDate" />
-          <ScalarProperty Name="Flags" ColumnName="Flags" />
           <ScalarProperty Name="Views" ColumnName="Views" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -601,6 +605,7 @@
     <EntitySetMapping Name="ViewArticles">
       <EntityTypeMapping TypeName="ClubDBModel.ViewArticle">
         <MappingFragment StoreEntitySet="ViewArticle">
+          <ScalarProperty Name="TagIds" ColumnName="TagIds" />
           <ScalarProperty Name="VarDate" ColumnName="VarDate" />
           <ScalarProperty Name="Cover" ColumnName="Cover" />
           <ScalarProperty Name="UserCover" ColumnName="UserCover" />

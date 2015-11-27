@@ -38,10 +38,8 @@ namespace BaWuClub.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Contribute(int? uid){
-            using (club = new ClubEntities()) {
-                user = GetUser(club, uid);
-            }
+        public ActionResult Contribute(){
+            user = (User)ViewBag.userAuthorize;
             ViewBag.user = user;
             return View();
         }
@@ -125,11 +123,27 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 ViewBag.msgCount = club.Messages.Where(d => d.ToId== uid).Count();
                 ViewBag.unReadMsgCount = club.Messages.Where(d => d.ToId == uid && d.Status == 0).Count();
-                list = club.Messages.Where(m => m.ToId == user.Id).Take(ClubConst.MemberPageSize).ToList<Message>();
+                list = club.Messages.Where(m => m.ToId == user.Id).OrderByDescending(m=>m.Vardate).Take(ClubConst.MemberPageSize).ToList<Message>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.msgCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=message&page=");
             }
             ViewBag.user = user;
             return View("~/views/member/message.cshtml",list);
+        }
+
+        [Authorize]
+        public ActionResult Ask() {
+            user = (User)ViewBag.userAuthorize;
+            ViewBag.user = user;
+            return View();
+        }
+
+        [Authorize]
+        public PartialViewResult GetMssageView(int? uid) {
+            using (club = new ClubEntities()) {
+                user = GetUser(club, uid);
+            }
+           // ViewBag.toUser = user;
+            return PartialView("~/views/shared/_PartialSendMessage.cshtml", user);
         }
         #endregion
 
@@ -169,30 +183,26 @@ namespace BaWuClub.Web.Controllers
         [ValidateInput(false)]
         public JsonResult Ask(string title, string description, string tags) {
             user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
-            if (string.IsNullOrEmpty(title))
-            {
+            if (string.IsNullOrEmpty(title)){
                 hintStr = "请输入你要提出的问题!";
             }
-            else
-            {
-                using (club = new ClubEntities())
-                {
-                    Question ask = new Question()
-                    {
+            else{
+                using (club = new ClubEntities()){
+                    Question question = new Question() {
                         UserId = user.Id,
                         Title = Common.HtmlCommon.ClearHtml(title),
                         Description = Common.HtmlCommon.ClearHtml(description),
-                        Flags = Common.HtmlCommon.ClearHtml(tags),
+                        Tags = Common.HtmlCommon.ClearHtml(tags),
+                        TagIds =App_Start.CommonMethod.SetTags(club, tags),
                         VarDate = DateTime.Now
                     };
-                    club.Questions.Add(ask);
-                    if (club.SaveChanges() > 0)
-                    {
+                    club.Questions.Add(question);
+                    if (club.SaveChanges() > 0){
                         status = Status.success;
                     }
                 }
             }
-            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/asks" });
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/askandanswer" });
         }
 
         [Authorize]
@@ -239,18 +249,36 @@ namespace BaWuClub.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public JsonResult MBase(string realName, string phone, string address, string company, string intro){
+        public JsonResult MBase(string realname, string phone, string address, string company, string intro){
             user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             using (club = new ClubEntities()) {
-                user.RealName = HtmlCommon.ClearHtml(realName);
-                user.Phone = HtmlCommon.ClearHtml(phone);
-                user.Address = HtmlCommon.ClearHtml(address);
-                user.Company = HtmlCommon.ClearHtml(company);
-                user.Intro = HtmlCommon.ClearHtml(intro);
+                var u = club.Users.Where(t => t.Id == user.Id).FirstOrDefault();
+                u.RealName = HtmlCommon.ClearHtml(realname);
+                u.Phone = HtmlCommon.ClearHtml(phone);
+                u.Address = HtmlCommon.ClearHtml(address);
+                u.Company = HtmlCommon.ClearHtml(company);
+                u.Intro = HtmlCommon.ClearHtml(intro);
                 if (club.SaveChanges() >= 0)
                     status = Status.success;
             }
             return Json(new { state = status.ToString(), context = HtmlCommon.GetHitStr(status, "基本资料更新.") });
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        public JsonResult Send(string msg,int? tid){
+            hintStr="不能发私信给自己哦！";
+            status=Status.warning;
+            var fuser = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            using(club=new ClubEntities()){
+                user=GetUser(club,tid);
+                if(user.Id!=fuser.Id){
+                    App_Start.CommonMethod.SendMessge(fuser.Id,user.Id,"个人私信！",HtmlCommon.ClearHtml(msg),Request.UserHostAddress);
+                    status=Status.success;
+                    hintStr="私信已发送!";
+                }
+            }
+            return Json(new {status=status.ToString(),context=hintStr});
         }
         #endregion
 
@@ -351,7 +379,7 @@ namespace BaWuClub.Web.Controllers
 
         private List<T> GetList<T>(DbSet<T> ds, int page, Expression<Func<T, bool>> express, Expression<Func<T,int>> orderByExpress,out string pageStr,string url) where T : class
         {
-            var list = ds.Where(express).OrderBy(orderByExpress).Skip((page - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<T>();
+            var list = ds.Where(express).OrderByDescending(orderByExpress).Skip((page - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<T>();
             pageStr = new PagingHelper(ClubConst.MemberPageSize, page, ds.Where(express).Count(), ClubConst.MemberPageShow).GetPageStringPro(url);
             return list;
         }

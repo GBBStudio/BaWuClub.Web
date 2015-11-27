@@ -7,6 +7,7 @@
     <div class="comm-btns-wrap">
         <a class="comm-btn0 iconfont icon-shuaxin" href="#" onclick="window.location.reload()"></a>
         <a class="btn comm-btn2" href="#" data-url="tag/del">删除</a>
+        <a class="btn comm-btn0 iconfont icon-sousuo" href="#" data-url="tag/searche"></a>
         </div>
     </div>
 <div id="notic-wrap">
@@ -29,7 +30,17 @@
                     <td><input type="checkbox" name="chks" value="@u.Id" /></td>
                     <td>@u.Id</td>
                     <td>@u.TagName</td>
-                    <td><a href="#/tag/edit/@u.Id">编辑</a><a onclick="ajaxdelete('/tag/del/',@u.Id)">删除</a></td>
+                    <td>
+                        <a href="#/tag/edit/@u.Id">编辑</a>
+                        <a onclick="ajaxdelete('/tag/del/@u.Id')">删除</a>
+                        <a onclick="settops('/tag/setup/','@u.Id')" class="top-enable">设置置顶</a>
+                        @{
+                            if (u.Tops > 0)
+                            {
+                                <a onclick="settops('/tag/setdown/','@u.Id')" class="top-disable">取消置顶</a>
+                            }
+                        }
+                    </td>
                 </tr>
             }
         }
@@ -42,3 +53,13 @@
         </tr>
     </tfoot>
 </table>
+<script type="text/javascript">
+    $("tr").mouseover(function () {
+        $(this).children("td").eq(3).children("a.top-enable").show();
+        $(this).children("td").eq(3).children("a.top-disable").show();
+    });
+    $("tr").mouseout(function () {
+        $(this).children("td").eq(3).children("a.top-enable").hide();
+        $(this).children("td").eq(3).children("a.top-disable").hide();
+    });
+</script>

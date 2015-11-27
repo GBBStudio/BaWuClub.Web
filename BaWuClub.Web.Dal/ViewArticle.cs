@@ -29,5 +29,6 @@ namespace BaWuClub.Web.Dal
         public string UserCover { get; set; }
         public string Cover { get; set; }
         public Nullable<System.DateTime> VarDate { get; set; }
+        public string TagIds { get; set; }
     }
 }

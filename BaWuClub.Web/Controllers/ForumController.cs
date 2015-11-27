@@ -387,7 +387,7 @@ namespace BaWuClub.Web.Controllers
                 if (club.SaveChanges()>=0) {
                     str.Append("<li>");
                     str.Append("<div class=\"reviews-cover fleft\"><a href=\"/member/u-" + user.Id + "/show\"><img src=\"" + (!string.IsNullOrEmpty(user.Cover)? "/uploads/avatar/small/" + user.Cover : "/Content/Images/no-img.jpg") + "\" /></a> </div>");
-                    str.Append("<div class=\"reviews-content\"><div class=\"reviews-info\"><a href=\"/member/u-" + user.Id + "/show\">" + user.NickName + "</a><span>" + ((DateTime)review.VarDate).ToString("yyyy年mm月dd日") + "</span></div>");
+                    str.Append("<div class=\"reviews-content\"><div class=\"reviews-info\"><a href=\"/member/u-" + user.Id + "/show\">" + user.NickName + "</a><span>" + ((DateTime)review.VarDate).ToString("yyyy年MM月dd日") + "</span></div>");
                     str.Append("<div class=\"reviews-text\">" + review.Reviews + "</div>");
                     str.Append("<div class=\"reviews-btns\">");
                     str.Append("<a href=\"#\" style=\"display:none\">回复</a>");
@@ -445,7 +445,8 @@ namespace BaWuClub.Web.Controllers
             string url=Server.MapPath(ClubConst.TextFormatDataUrl);
             string formatStr = App_Start.CommonMethod.GetMsgFormat(formatName, url);
             string t=string.Format(formatStr,formatParam1,formatparam2);
-            App_Start.CommonMethod.SendMessge(fId,tId,t,ip);
+            string title = "系统消息！";
+            App_Start.CommonMethod.SendMessge(fId,tId,title,t,ip);
         }
 
         private IQueryable<ViewTopicIndex> GetQueryable(ClubEntities club) {

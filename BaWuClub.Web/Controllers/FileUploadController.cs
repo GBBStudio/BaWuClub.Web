@@ -30,7 +30,7 @@ namespace BaWuClub.Web.Controllers
                 if (!dir.Exists)
                     dir.Create();
                 upload.SaveAs( _dir+DateTime.Now.ToString("yyyyddMMmm") + upload.FileName);
-                var imageUrl = Url.Content(_dir+DateTime.Now.ToString("yyyyddMMmm") + upload.FileName); 
+                var imageUrl = Url.Content(ClubConst.EditorDirectory + DateTime.Now.ToString("yyyyddMMmm") + upload.FileName); 
                 var vMessage = string.Empty;
                 result = @"<html><body><script>window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ", \"" + imageUrl + "\", \"" + vMessage + "\");</script></body></html>";
             }

@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/views/shared/_layoutmember.cshtml";
-    ViewBag.Title = "个人用户中心-信息中心";
-    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-私信列表";
 }
 @model IEnumerable<BaWuClub.Web.Dal.Message>
 <div class="member-main">
@@ -17,7 +18,7 @@
                         if (Model != null) {
                             foreach (var item in Model) { 
                                 <li>
-                                    <a class="@(item.Status==0?"unread":"")" onclick="setread(this,@item.Id)">@item.Message1</a><span>@item.Vardate</span><span onclick="delmsg(this,@item.Id)">删除</span>
+                                    <a class="@(item.Status==0?"unread":"")" onclick="setread(this,@item.Id)">@item.Message1</a><span>@item.Vardate</span><span onclick="if(confirm('确定删除此信息吗？')){delmsg(this,@item.Id)}" class="message-del-btn fright">删除</span>
                                     <p style="display:none">@item.Message1</p>
                                 </li>
                             }

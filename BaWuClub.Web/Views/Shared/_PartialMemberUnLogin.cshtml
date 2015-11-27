@@ -19,7 +19,10 @@
             <p>@intro</p>
         </div>
     </div>
-    <div class="member-force"></div>
+    @{
+        var classStr = (byte)user.Membership == 0 ? "<i class=\"level-pt\" title=\"普通账号\"></i>" : (byte)user.Membership == 1 ? "<i class=\"level-rz\" title=\"认证会员\"></i>" : "<i class=\"level-bw\" title=\"八五会员\"></i>";
+    }
+    <div class="member-level">会员级别:@Html.Raw(classStr) <a onclick="SendMessage(@user.Id);">发私信</a></div>
 </div>
 <div class="member-title">
     <a href="/member/u-@user.Id/show">资料</a>

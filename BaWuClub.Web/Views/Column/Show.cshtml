@@ -1,15 +1,43 @@
 ﻿@{
     Layout = "~/views/shared/_layout.cshtml";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/font-awesome.min.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/froala_editor.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/froala_style.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/code_view.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/colors.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/emoticons.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/image_manager.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/image.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/line_breaker.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/table.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/char_counter.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/video.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/fullscreen.css\" type=\"text/css\" rel=\"stylesheet\"/>";
+    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/file.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 @model BaWuClub.Web.Dal.ViewArticle
 
 <div class="container">
     <div class="container-left fleft">
         <div class="question-show">
-            <div class="question-title">
+            <div class="article-title">
                 <h2>@Model.Title</h2>
+                <p class="article-title-info">
+                     @(((DateTime)Model.VarDate).ToString("yyyy年MM月dd日")) <a href="/member/u-@Model.UId/show">@Model.NickName</a>
+                </p>
+                <p class="article-title-tags">
+                     标签:@{
+                         if (Model.Tags != null && Model.TagIds != null) {
+                             var tags = Model.Tags.Split(',');
+                             var tagIds = Model.TagIds.Split(',');
+                             for (int i = 0; i < tags.Length; i++) { 
+                                <a href="/column/tags/@tagIds[i]">@tags[i]</a>
+                             }
+                         }
+                     }
+                </p>
             </div>
-            <div class="question-desc">
+            <div class="article-desc">
                 @Html.Raw(Model.Context)
             </div>
         </div>
@@ -43,7 +71,8 @@
                 }
             </div>
             <div class="comment-editor">
-                <input type="text" id="editor" name="comment" />
+               <input type="text" id="editor" name="comment" />
+                 <!--<div id="editor"></div>-->
                 <div class="btns-wrap">
                     <input type="button" class="btn-sub" value="立即评论" onclick="return recomments(@Model.Id,'/column/reviews');" />
                 </div>
@@ -58,7 +87,7 @@
                     <img src="@cover" alt="" />
                 }
                 <div class="question-user-info">
-                    <a href="/member/show/@Model.UserId">@Model.NickName</a>
+                    <a href="/member/u-@Model.UserId/show">@Model.NickName</a>
                     <p class="user-intro">@Model.Intro</p>
                 </div>
             </div>
@@ -77,8 +106,18 @@
     </div>
 </div>
 <script type="text/javascript" src="~/content/scripts/jquery.js"></script>
-<script type="text/javascript" src="~/content/Ckeditor-Base/ckeditor.js"></script>
+<script type="text/javascript" src="~/content/ckeditor-base/ckeditor.js"></script>
 <script type="text/javascript">
     var editor = CKEDITOR.replace('editor');
 </script>
+<!--    
+<script type="text/javascript" src="~/content/froala-editor/js/froala_editor.min.js"></script>
+<script>
+    $(function () {
+        $('#editor').froalaEditor({
+            toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'color', '|', 'paragraphFormat', 'align', 'undo', 'redo', 'html'],
+            language: 'zh'
+        })
+    });
+</script>-->
 <script type="text/javascript" src="~/content/scripts/comments.js"></script>

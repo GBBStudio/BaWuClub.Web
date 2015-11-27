@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/views/shared/_layoutmember.cshtml";
-    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.User;
-    ViewBag.Title =user.NickName+ "的个人用户中心-共享-";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-文档分享";
 }
 @model IEnumerable<BaWuClub.Web.Dal.Document>
 <div class="member-main">

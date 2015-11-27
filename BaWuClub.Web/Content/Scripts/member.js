@@ -17,7 +17,23 @@
     $(document).on("click", ".page-wrap a", function () {
         loadonpage($(this).attr("data-href"));
     });
+
+    $(document).on("click", ".message-close", function () {
+        $(".message-wrap").fadeOut(200,function () {
+            $(this).remove();
+        });
+        $(".message-mask").fadeOut(200,function () {
+            $(this).remove();
+        });
+    });
 })
+
+function SendMessage(params) {
+    $.get('getmssageview', {"uid":params}, function (data) {
+        $(document.body).append("<div class=\"message-mask\"></div>");
+        $(document.body).append(data).hide().fadeIn(500);
+    }, "html");
+}
 
 function loadonpage(url) {
     $(".member-list-wrap ul").html("<img src=\"/content/images/loading.gif\" alt=\"\"/>");
@@ -73,9 +89,8 @@ function setget(url, params,callback) {
 
 function setmessagelist(items) {
     var str = "";
-    console.log(items);
     for (var i = 0; i < items.length; i++) {
-        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this,"+items[i]["id"]+")\">" + items[i]["Message1"] + "</a><span onclick=\"delmsg(e," + items[i]["id"] + ")\">" + items[i]["Vardate"] + "</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
+        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this,"+items[i]["id"]+")\">" + items[i]["Title"] + "</a><span onclick=\"delmsg(e," + items[i]["id"] + ")\">" + items[i]["Vardate"] + "</span><span onclick=\"if(confirm('确定删除此信息吗？')){delmsg(this,@item.Id)}\" class=\"message-del-btn fright\">删除</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
         $(".member-list-wrap ul").html(str);
     }
 }

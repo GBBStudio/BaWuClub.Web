@@ -25,7 +25,7 @@ function loadonpage(url) {
         var json = eval(data);
         $(".page-wrap").html(json.pagestr);
         var items = eval(json.context);
-        if (json["url"] != "message")
+        if (json["url"] != "/message/show/")
             setgenerallist(items,json["url"]);
         else
             setmessagelist(items);
@@ -73,8 +73,9 @@ function setget(url, params,callback) {
 
 function setmessagelist(items) {
     var str = "";
+   // console.log(items);
     for (var i = 0; i < items.length; i++) {
-        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this,"+items[i]["id"]+")\">" + items[i]["Message1"] + "</a><span onclick=\"delmsg(e," + items[i]["id"] + ")\">" + items[i]["Vardate"] + "</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
+        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this,"+items[i]["id"]+")\">" + items[i]["Message1"] + "</a><span onclick=\"delmsg(e," + items[i]["id"] + ")\">" + items[i]["Vardate"] + "</span><span onclick=\"if(confirm('确定删除此信息吗？')){delmsg(this,@item.Id)}\" class=\"message-del-btn fright\">删除</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
         $(".member-list-wrap ul").html(str);
     }
 }

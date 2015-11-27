@@ -93,7 +93,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                 article = club.Articles.Where(t => t.Id == vId).FirstOrDefault();
                 if (article != null) {
                     article.Tags = tags;
-                    article.TagIds =SetTags(club, tags);
+                    article.TagIds =App_Start.CommonMethod.SetTags(club, tags);
                     if (article.Status == 1)
                         article.Status = 0;
                     else
@@ -150,29 +150,6 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         #endregion
 
         #region 修改状态的公用的私有方法
-        private string SetTags(ClubEntities club,string tags){
-            StringBuilder str = new StringBuilder();
-            Tag tag;
-            if (tags != null) {
-                string[] tagArray = tags.Split(',');
-                foreach (string t in tagArray) {
-                    if (!string.IsNullOrEmpty(t)){
-                        tag = club.Tags.Where(ta => ta.TagName == t).FirstOrDefault();
-                        if (tag != null){
-                            str.Append(tag.Id + ",");
-                        }
-                        else{
-                            tag = new Tag() { TagName = t };
-                            club.Tags.Add(tag);
-                            club.SaveChanges();
-                            str.Append(tag.Id + ",");
-                        }
-                    }
-                }
-            }
-            str = str.Length > 0 ? str.Remove(str.Length - 1, 1) : str;
-            return str.ToString();
-        }
         private bool SetStatus(string[] chks,int sId) {
             using (club = new ClubEntities()) {
                  Article article= new Article();

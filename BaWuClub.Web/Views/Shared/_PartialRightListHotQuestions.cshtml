@@ -1,0 +1,20 @@
+﻿<div class="faqs-wrap module">
+    <div class="module-title">
+        <i class="icon-item"></i><a href="/download">最热门的问答</a>
+    </div>
+    <div class="module-list">
+        <ul>
+            @{
+                if (ViewBag.hotQuestions != null)
+                {
+                    var hotQuestions = ViewBag.hotQuestions as IEnumerable<BaWuClub.Web.Dal.Question>;
+                    foreach (var q in hotQuestions)
+                    {
+                        var title = q.Title.Length > 20 ? q.Title.Substring(0, 20) + "..." : q.Title;
+                        <li><a href="/ask/show/@q.Id">@title</a></li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>

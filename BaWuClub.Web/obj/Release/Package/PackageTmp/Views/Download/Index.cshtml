@@ -96,12 +96,16 @@
                     <div style="display:block;">
                         <div class="user-info">
                             <div class="user-info-avatar fleft">
-                                <a href="/member/">
-                                    <img src="~/Uploads/avatar/small/@Request.Cookies["bwusers"]["avatar"]" alt="" />
+                                <a href="/member/u-@Request.Cookies["bwusers"]["id"]/show">
+                                    @{
+                                        var cover =string.IsNullOrEmpty( Request.Cookies["bwusers"]["avatar"])?"/content/images/no-img.jpg":"/uploads/avatar/small/"+Request.Cookies["bwusers"]["avatar"];
+                                        
+                                    }
+                                    <img src="@cover" alt="" />
                                 </a>
                             </div>
                             <div class="user-info-name">
-                                <a href="member">@Request.Cookies["bwusers"]["user"]<i></i></a>
+                                <a href="/member/u-@Request.Cookies["bwusers"]["id"]/show">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"])<i></i></a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +116,7 @@
                         <div class="down-login-form">
                             <form action="/account/login?returnurl=/download" method="post" name="form">
                                 <div class="down-login-input"><label class="iconfont icon1-yonghu" for="down-login-user"></label><input id="down-login-user" name="user" type="text" placeholder="用户名" class="" /></div>
-                                <div class="down-login-input"><label class="iconfont icon1-mima" for="down-login-password"></label><input id="down-login-password" name="password" type="text" placeholder="密码" class="" /></div>
+                                <div class="down-login-input"><label class="iconfont icon1-mima" for="down-login-password"></label><input id="down-login-password" name="password" placeholder="密码" type="password" /></div>
                                 <div class="down-login-other"><a href="/account/forget">忘记密码</a>|<a href="/account/register">立即注册</a></div>
                                 <div class="down-login-btn">
                                     <input name="btn" type="button" class="btns-bg down-login-btns" onclick="document.form.submit()" />

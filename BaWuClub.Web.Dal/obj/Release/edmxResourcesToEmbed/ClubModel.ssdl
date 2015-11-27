@@ -210,7 +210,8 @@
     <Property Name="Description" Type="text" />
     <Property Name="UserId" Type="int" />
     <Property Name="Views" Type="int" Nullable="false" />
-    <Property Name="Flags" Type="nvarchar" MaxLength="200" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="200" />
+    <Property Name="TagIds" Type="nvarchar" MaxLength="200" />
     <Property Name="VarDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Settings">
@@ -250,6 +251,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="Tops" Type="int" Nullable="false" />
+    <Property Name="Vardate" Type="datetime" />
   </EntityType>
   <EntityType Name="TopicActivities">
     <Key>
@@ -484,6 +487,7 @@
     <Property Name="UserCover" Type="nvarchar" MaxLength="50" />
     <Property Name="Cover" Type="nvarchar" MaxLength="50" />
     <Property Name="VarDate" Type="datetime" />
+    <Property Name="TagIds" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewArticleReview”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -577,12 +581,13 @@
     <Property Name="Description" Type="text" />
     <Property Name="UserId" Type="int" />
     <Property Name="Views" Type="int" Nullable="false" />
-    <Property Name="Flags" Type="nvarchar" MaxLength="200" />
     <Property Name="VarDate" Type="datetime" />
     <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Cover" Type="nvarchar" MaxLength="50" />
     <Property Name="Intro" Type="text" />
     <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="200" />
+    <Property Name="TagIds" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <!--生成过程中发现错误:
 警告 6002: 表/视图“ClubDB.dbo.ViewTopic”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -942,7 +947,8 @@
     [ViewArticle].[UId] AS [UId], 
     [ViewArticle].[UserCover] AS [UserCover], 
     [ViewArticle].[Cover] AS [Cover], 
-    [ViewArticle].[VarDate] AS [VarDate]
+    [ViewArticle].[VarDate] AS [VarDate], 
+    [ViewArticle].[TagIds] AS [TagIds]
     FROM [dbo].[ViewArticle] AS [ViewArticle]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewArticleReview" EntityType="Self.ViewArticleReview" store:Type="Views" store:Schema="dbo">
@@ -1001,12 +1007,13 @@
     [ViewQuestion].[Description] AS [Description], 
     [ViewQuestion].[UserId] AS [UserId], 
     [ViewQuestion].[Views] AS [Views], 
-    [ViewQuestion].[Flags] AS [Flags], 
     [ViewQuestion].[VarDate] AS [VarDate], 
     [ViewQuestion].[NickName] AS [NickName], 
     [ViewQuestion].[Cover] AS [Cover], 
     [ViewQuestion].[Intro] AS [Intro], 
-    [ViewQuestion].[RealName] AS [RealName]
+    [ViewQuestion].[RealName] AS [RealName], 
+    [ViewQuestion].[Tags] AS [Tags], 
+    [ViewQuestion].[TagIds] AS [TagIds]
     FROM [dbo].[ViewQuestion] AS [ViewQuestion]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewTopic" EntityType="Self.ViewTopic" store:Type="Views" store:Schema="dbo">

@@ -92,6 +92,7 @@ C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\Sys
 C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.dll
 C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.pdb
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.csprojResolveAssemblyReference.cache
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\BaWuClub.Web.dll.config
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\BaWuClub.Web.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\BaWuClub.Web.pdb
@@ -136,6 +137,5 @@ C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\System.We
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.csprojResolveAssemblyReference.cache
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web\obj\Debug\BaWuClub.Web.pdb

@@ -10,8 +10,6 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
 {
     public class ForumController : Controller
     {
-        //
-        // GET: /bwum/Forum/
         #region Define variable
         protected int tId = 0;
         protected TopicCategory topicCategory;
@@ -20,19 +18,47 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
         private string hitStr = string.Empty;
         #endregion
 
-        #region 论坛列表
+        #region get
         public ActionResult Index(int? id)
         {
             tId = id ?? 1;
             int count = 0;
-            List<TopicCategory> list = new List<TopicCategory>();
-            using (club = new ClubEntities())
-            {
-                list = club.TopicCategories.Where(t=>t.Type==0).OrderBy(a => a.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<TopicCategory>();
-                count = club.TopicCategories.Where(t=>t.Type==0).Count();
+            List<ViewTopicIndex> list = new List<ViewTopicIndex>();
+            using (club = new ClubEntities()) {
+                list = club.ViewTopicIndexes.OrderBy(a => a.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewTopicIndex>();
+                count = club.ViewTopicIndexes.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, tId, count);
             return View("~/areas/bwum/views/forum/index.cshtml", list);
+        }
+
+       #endregion
+
+        #region json
+        public JsonResult Del(int id) {
+            hitStr="删除失败，请稍后重试!";
+            using (club = new ClubEntities()) {
+                var topic = club.TopicIndexes.Where(t => t.Id == id).FirstOrDefault();
+                if (topic.Type == (int)TopicType.Topic) {
+                    var _topic=club.Topics.Where(t => t.Id == id).FirstOrDefault();
+                    club.Topics.Remove(_topic);
+                }
+                else { 
+                     if (topic.Type == (int)TopicType.Activity) {
+                            var _topic=club.TopicActivities.Where(t => t.Id == id).FirstOrDefault();
+                            club.TopicActivities.Remove(_topic);
+                         }
+                     else {
+                             var _topic = club.TopicTasks.Where(t => t.Id == id).FirstOrDefault();
+                             club.TopicTasks.Remove(_topic);
+                         }
+                }
+                club.TopicIndexes.Remove(topic);
+                if (club.SaveChanges() >= 0) {
+                    status = Status.success;hitStr="删除成功！";
+                }
+            }
+            return Json(new { status = status.ToString(), context = HtmlCommon.GetHitStr(status, hitStr) });
         }
         #endregion
 

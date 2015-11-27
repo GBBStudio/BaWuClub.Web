@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+
+    ViewBag.Title += "八五专栏标签-" + ViewBag.tagName;
+}
+@model IEnumerable<BaWuClub.Web.Dal.ViewQuestion>
+<div class="container">
+    <div class="container-left fleft">
+        <div class="question-wrap">
+            <div class="title-tags"><a>@ViewBag.tagName </a></div>
+            <ul class="question-wrap-list">
+                @{
+                    foreach (var vq in Model)
+                    {
+                        <li>
+                            <div class="cover-wrap fleft">
+                                <a href="/member/u-@vq.UserId/show">
+                                    @{
+                                        var cover = "~/content/images/no-img.jpg";
+                                        var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(vq.VarDate ?? DateTime.Now);
+                                        var context = BaWuClub.Web.Common.HtmlCommon.ClearHtml(vq.Description);
+                                        context = context.Length > 150 ? context.Substring(0, 149) : context;
+                                        if (!string.IsNullOrEmpty(vq.Cover)) {
+                                            cover = vq.Cover;
+                                        }
+                                    }
+                                    <img src="~/uploads/avatar/small/@cover" alt="头像" />
+                                </a>
+
+                            </div>
+                            <div class="question-detail">
+                                <p class="q-detail-top"><a href="/member/u-@vq.UserId/show">@vq.NickName</a><span class="fright">@time</span></p>
+                                <h3><a href="/column/show/@vq.Id">@vq.Title</a></h3>
+                                <p class="q-detail-desc">@context</p>
+                                <p class="q-detail-top">
+                                    <span class="fleft">
+                                        标签:@{
+                                        if (vq.Tags != null && vq.TagIds != null)
+                                            {
+                                                var tags = vq.Tags.Split(',');
+                                                var tagIds = vq.TagIds.Split(',');
+                                                for (int i = 0; i < tags.Length; i++)
+                                                {
+                                                    <a href="/ask/tags/@tagIds[i]" class="tag-show">@tags[i]</a>
+                                                }
+                                            }
+                                        } 浏览:@vq.Views
+                                    </span>
+                                </p>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="page-wrap">
+                @Html.Raw(ViewBag.PageStr)
+            </div>
+        </div>
+    </div>
+    <div class="container-right fright">
+        @{
+            Html.RenderPartial("~/views/shared/_PartialRightListHotArticles.cshtml");
+            Html.RenderPartial("~/views/shared/_PartialRightListHotQuestions.cshtml");
+        }
+    </div>
+</div>

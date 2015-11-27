@@ -1,10 +1,14 @@
 ﻿<!DOCTYPE html>
-
+@{
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/Css/site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/member.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="header">
@@ -17,7 +21,7 @@
                 @{
                     if (Request.IsAuthenticated && Request.Cookies["bwusers"] != null && Request.Cookies["bwusers"]["user"] != null && Request.Cookies["bwusers"]["id"] != null)
                     {
-                        <a href="/member/">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
+                        <a href="/member/u-@user.Id/Show">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
                         <a href="/account/loginout">退出</a>
                     }
                     else
@@ -57,7 +61,7 @@
     </div>
     <div class="container" id="member-wrap">
         @{
-            if (User.Identity.IsAuthenticated && Request.Cookies["bwusers"] != null)
+            if (User.Identity.IsAuthenticated && Request.Cookies["bwusers"] != null && user.Id==userAuthorize.Id)
             {
                 Html.RenderPartial("~/views/shared/_PartialMember.cshtml");
             }

@@ -19,11 +19,12 @@ namespace BaWuClub.Web.Dal
         public string Description { get; set; }
         public Nullable<int> UserId { get; set; }
         public int Views { get; set; }
-        public string Flags { get; set; }
         public Nullable<System.DateTime> VarDate { get; set; }
         public string NickName { get; set; }
         public string Cover { get; set; }
         public string Intro { get; set; }
         public string RealName { get; set; }
+        public string Tags { get; set; }
+        public string TagIds { get; set; }
     }
 }

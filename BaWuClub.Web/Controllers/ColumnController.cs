@@ -17,20 +17,19 @@ namespace BaWuClub.Web.Controllers
         private BaWuClub.Web.Dal.ClubEntities club;
         private int tId = 0;
 
-        #region 专栏列表
+        #region get
         public ActionResult Index(int? id){
             tId = id ?? 1;
             List<ViewArticle> viewArticles = new List<ViewArticle>();
             using(club=new ClubEntities()){
-                viewArticles = club.ViewArticles.OrderByDescending(a => a.Id).Where(a => a.Status > 0).Skip((tId-1)*ClubConst.WebQuestionPageSize).Take(ClubConst.WebQuestionPageSize).ToList();
-                ViewBag.HotQuestions = club.Questions.OrderByDescending(q => (club.Answers.Where(a => a.QId == q.Id).Count())).Take(8).ToList<Question>();
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
+                viewArticles = club.ViewArticles.OrderByDescending(a => a.Id).Where(a => a.Status > 0).Skip((tId - 1) * ClubConst.WebQuestionPageSize).Take(ClubConst.WebQuestionPageSize).ToList();
                 ViewBag.PageStr = new PagingHelper(ClubConst.WebQuestionPageSize,tId,club.ViewArticles.Where(a=>a.Status>0).Count(),5).GetPageStringPro("/column/index/", false);
             }
             return View(viewArticles);
         }
-        #endregion
 
-        #region 专栏展示
         public ActionResult Show(int? id) {
             tId = id ?? 0;
             ViewArticle viewArticle = new ViewArticle();
@@ -51,9 +50,30 @@ namespace BaWuClub.Web.Controllers
             ViewBag.Title = viewArticle.Title;
             return View(viewArticle);
         }
+        
+        public ActionResult Tags(int? tid,int? p) {
+            tId = tid ?? 0;
+            int rowsCount = 0;
+            int page = p ?? 1;
+            List<ViewArticle> viewArticles = new List<ViewArticle>();
+            Tag tag = new Tag();
+            using (club = new ClubEntities()) {
+                tag = club.Tags.Where(t => t.Id == tId).FirstOrDefault();
+                if (tag == null) { 
+                   return RedirectToAction("NotFound", new { Controller = "Error" });
+                }
+                ViewBag.tagName = tag.TagName;
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
+                rowsCount = club.ViewArticles.Where(v => v.Tags.Contains(tag.TagName) && v.Status > 0).Count();
+                viewArticles =club.ViewArticles.Where(v => v.Tags.Contains(tag.TagName)&&v.Status > 0).OrderByDescending(v=>v.VarDate).Skip((page - 1) * ClubConst.WebQuestionPageSize).Take(ClubConst.WebQuestionPageSize).ToList();
+                ViewBag.PageStr = new PagingHelper(ClubConst.WebQuestionPageSize, page, rowsCount, 5).GetPageStringPro("/column/tags/"+tId+"-", false);
+            }
+            return View(viewArticles);
+        }
         #endregion
 
-        #region 文章评论
+        #region post
         [ValidateInput(false)]
         [HttpPost]
         public JsonResult Reviews(int id,string commentStr){
@@ -76,7 +96,7 @@ namespace BaWuClub.Web.Controllers
                     str.Append("<div class=\"comment-item\">");
                     str.Append("<div class=\"comment-item-info\">");
                     str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-name\">" + user.NickName + "</a>");
-                    str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-avatar\"><img src=\"" + (string.IsNullOrEmpty(user.Cover) ? "/content/images/no-img.jpg" : "~/uploads/avatar/small/" + user.Cover) + "\"/>");
+                    str.Append("<a href=\"/member/u-" + user.Id + "/show/\" class=\"comment-item-info-avatar\"><img src=\"" + (string.IsNullOrEmpty(user.Cover) ? "/content/images/no-img.jpg" : "/uploads/avatar/small/" + user.Cover) + "\"/>");
                     str.Append("</a>");
                     str.Append("</div>");
                     str.Append("<div class=\"comment-item-content\">" + HtmlCommon.ClearJavascript(commentStr) + "</div>");
