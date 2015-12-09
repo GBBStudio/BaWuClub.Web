@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using Newtonsoft.Json;
+using BaWuClub.Web.App_Start;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class TagController : Controller
     {
         //

@@ -18,7 +18,7 @@
             _inputStr = "<input name=\"id\" value=\"" + Model.Id + "\" type=\"hidden\"/>";
         }
     }
-    <form method="post" name="frame" action="@_actionStr">
+    <form method="post" name="frame" action="@_actionStr" onsubmit="">
         <p>
             <span style="display:block">标题：</span>
             <input name="title" value="@Model.Title" type="text" class="input-text input-long" />
@@ -39,5 +39,10 @@
 </div>
 <script type="text/javascript" src="~/content/ckeditor-full/ckeditor.js"></script>
 <script type="text/javascript">
-    CKEDITOR.replace('container-editor');
+    var editor = CKEDITOR.replace('container-editor');
+    function SetEditorValue() {
+        var context = editor.document.getBody().getHtml(); //头像的上传与投稿冲突
+        var textarea = document.getElementsByTagName("textarea")[0];
+        textarea.value = context;
+    }
 </script>

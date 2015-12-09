@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
+using BaWuClub.Web.App_Start;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class SArticleController : Controller
     {
         #region 常用变量的定义
@@ -57,8 +59,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                     sysArticle.Text = context;
                     sysArticle.Variables = variables;
                 }
-                else
-                {
+                else{
                     return RedirectToAction("notfound","error");
                 }
                 if (club.SaveChanges() >= 0) {

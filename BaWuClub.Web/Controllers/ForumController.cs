@@ -65,6 +65,7 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.taskCount = club.ViewTopicTasks.Where(t => t.Status != 0 && t.Type == ((int)TopicType.Task)).Count();
                 ViewBag.tasks = club.ViewTopicTasks.Take(5).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Task)).ToList<ViewTopicTask>();
                 ViewBag.tasked = club.ViewTopicTasks.Take(4).Where(t => t.Status == 2 && t.Type == ((int)TopicType.Task)).ToList<ViewTopicTask>();
+                ViewBag.bannerRight = club.ViewBanners.Where(b => b.Status == (int)State.Enable && b.Variables == "sys-bt-cliques-right").FirstOrDefault();
             }
             return View("~/views/forum/cliques.cshtml");
         }

@@ -18,7 +18,7 @@
                         if (Model != null) {
                             foreach (var item in Model) { 
                                 <li>
-                                    <a class="@(item.Status==0?"unread":"")" onclick="setread(this,@item.Id)">@item.Message1</a><span>@item.Vardate</span><span onclick="if(confirm('确定删除此信息吗？')){delmsg(this,@item.Id)}" class="message-del-btn fright">删除</span>
+                                    <a class="@(item.Status==0?"unread":"")" onclick="setread(this,@item.Id)">@(string.IsNullOrEmpty(item.Title)?"系统消息！":item.Title)</a><span>@item.Vardate</span><span onclick="if(confirm('确定删除此信息吗？')){delmsg(this,@item.Id)}" class="message-del-btn fright">删除</span>
                                     <p style="display:none">@item.Message1</p>
                                 </li>
                             }

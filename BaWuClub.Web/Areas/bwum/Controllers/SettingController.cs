@@ -7,9 +7,11 @@ using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Reflection;
 using System.Globalization;
+using BaWuClub.Web.App_Start;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class SettingController : Controller
     {
         private ClubEntities club;

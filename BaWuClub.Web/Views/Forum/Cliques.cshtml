@@ -120,7 +120,13 @@
             </ul>
         </div>
         <div class="forum-r-banner">
-            <a href="#"><img src="~/Content/Images/b-1.jpg" /></a>
+            @{
+                var bannerRight = ViewBag.bannerRight as BaWuClub.Web.Dal.ViewBanner;
+                if (bannerRight != null)
+                {
+                   <img src="~/Uploads/banner/@bannerRight.Pic" />
+                }
+            }
         </div>
     </div>
 </div>

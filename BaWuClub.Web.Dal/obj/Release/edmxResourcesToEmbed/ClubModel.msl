@@ -695,6 +695,7 @@
     <EntitySetMapping Name="Messages">
       <EntityTypeMapping TypeName="ClubDBModel.Message">
         <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Vardate" ColumnName="Vardate" />
           <ScalarProperty Name="Ip" ColumnName="Ip" />
           <ScalarProperty Name="Status" ColumnName="Status" />

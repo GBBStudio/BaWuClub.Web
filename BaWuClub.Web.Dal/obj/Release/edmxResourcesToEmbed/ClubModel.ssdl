@@ -196,6 +196,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FromId" Type="int" Nullable="false" />
     <Property Name="ToId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="300" />
     <Property Name="Message" Type="text" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
     <Property Name="Ip" Type="nvarchar" MaxLength="100" />

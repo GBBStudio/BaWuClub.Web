@@ -22,10 +22,10 @@ namespace BaWuClub.Web.Controllers
             aId = id ?? 1;
             List<ViewActivity> list = new List<ViewActivity>();
             using (club = new ClubEntities()) {
-                list = club.ViewActivities.OrderByDescending(a => a.Id).Skip((aId - 1) * ClubConst.WebPageSize).Take(ClubConst.WebPageSize).ToList<ViewActivity>();
-                ViewBag.ActivityCount=club.ViewActivities.Count();
-                ViewBag.HotActivityBanners = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-top").ToList<ViewBanner>();
+                list = club.ViewActivities.OrderByDescending(a => a.VarDate).Skip((aId - 1) * ClubConst.WebPageSize).Take(ClubConst.WebPageSize).ToList<ViewActivity>();
+                ViewBag.ActivityCount = club.ViewActivities.Count();
                 ViewBag.ActivityHistory = club.ViewActivities.OrderByDescending(a => a.EndDate < DateTime.Now).Take(6).ToList<ViewActivity>();
+                ViewBag.HotActivityBanners = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-top").ToList<ViewBanner>();
                 ViewBag.BannerActivityLeft = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-right").FirstOrDefault();
             }
             PagingHelper pager=new PagingHelper(5,aId,ViewBag.ActivityCount,5);

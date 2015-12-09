@@ -273,7 +273,7 @@ namespace BaWuClub.Web.Controllers
             using(club=new ClubEntities()){
                 user=GetUser(club,tid);
                 if(user.Id!=fuser.Id){
-                    App_Start.CommonMethod.SendMessge(fuser.Id,user.Id,"个人私信！",HtmlCommon.ClearHtml(msg),Request.UserHostAddress);
+                    App_Start.CommonMethod.SendMessge(fuser.Id,user.Id,"个人私信！",fuser.NickName+"说："+HtmlCommon.ClearHtml(msg),Request.UserHostAddress);
                     status=Status.success;
                     hintStr="私信已发送!";
                 }

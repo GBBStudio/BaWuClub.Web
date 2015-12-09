@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
+using BaWuClub.Web.App_Start;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class UserController : Controller
     {
         #region 定义变量

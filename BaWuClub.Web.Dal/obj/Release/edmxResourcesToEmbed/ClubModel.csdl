@@ -857,6 +857,7 @@
     <Property Name="Status" Type="Byte" Nullable="false" />
     <Property Name="Ip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Vardate" Type="DateTime" Precision="3" />
+    <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TopicInvolved">
     <Key>

@@ -91,6 +91,9 @@ namespace BaWuClub.Web.Controllers
                 case "banner":
                     dir=ClubConst.BannerDir;
                     break;
+                case "admincover":
+                    dir = ClubConst.AdminCoverDir;
+                    break;
                 case "activity":
                     dir = ClubConst.ActivityDir;
                     break;

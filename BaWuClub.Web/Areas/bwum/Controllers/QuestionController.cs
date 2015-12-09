@@ -5,17 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
+using BaWuClub.Web.App_Start;
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class QuestionController : Controller
     {
-        //
-        // GET: /bwum/Question/
+        #region vars
         private ClubEntities club;
         private int tId = 0;
         protected ViewQuestion viewQuestion;
         private string hitStr = string.Empty;
         private Status status = Status.error;
+        #endregion
 
         #region 问题列表
         [HttpGet]

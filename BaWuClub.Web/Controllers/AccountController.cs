@@ -15,6 +15,7 @@ namespace BaWuClub.Web.Controllers
         #region 定义变量
         private ClubEntities club;
         private Status status = Status.error;
+        private User user;
         #endregion
 
         #region 登录界面
@@ -74,8 +75,10 @@ namespace BaWuClub.Web.Controllers
         #region 用户注册
         [AllowAnonymous]
         public ActionResult Register(){
-            if (Request.IsAuthenticated)
-                return RedirectUrl("/member/");
+            if (Request.IsAuthenticated) {
+                user = GetUser();
+                return RedirectUrl("/member/u-"+user.Id+"/show");
+            }
             return View();
         }
         [HttpPost]
@@ -103,7 +106,7 @@ namespace BaWuClub.Web.Controllers
                         ViewBag.Status = HtmlCommon.GetHitStr("该邮箱已经注册过其他的用户！", status);
                     else
                         if (UserReg(username, password, email,club))
-                            return Login(username, password, "/member/");
+                            return Login(username, password, "/member/u-"+user.Id+"/show");
                         else
                             ViewBag.Status = HtmlCommon.GetHitStr("系统异常，用户注册失败，请稍后重试！", status);
                 }
@@ -164,7 +167,7 @@ namespace BaWuClub.Web.Controllers
 
         #region 私有方法
         private bool UserReg(string username,string password,string email,ClubEntities c) {
-            User u=new User {
+            user=new User {
                 NickName=HtmlCommon.ClearHtml(username),
                 Password=System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password,"md5"),
                 Email=HtmlCommon.ClearHtml(email),
@@ -174,7 +177,7 @@ namespace BaWuClub.Web.Controllers
                 Points=0,
                 Cover=""
             };
-            c.Users.Add(u);
+            c.Users.Add(user);
             if(c.SaveChanges()<0)
                 return false;
             return true;

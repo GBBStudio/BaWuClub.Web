@@ -122,7 +122,6 @@ function setFrameDocument() {
     var _hash = window.location.hash.replace("#", "");
     var _frame = document.getElementById("frame");
     var _parameters = window.location.search;
-   
     if (_hash.length >1) {
         loadPage(_frame, _hash, _parameters);
     }
@@ -130,7 +129,7 @@ function setFrameDocument() {
 
 ///load url
 function loadPage(frame, page, params) {
-    console.log("/bwum" + page + params);
+   // console.log("/bwum" + page + params);
     window.parent.frames["frame"].location.href = "/bwum" + page + params;
 }
 /*页面加载控制结束*/

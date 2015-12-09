@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Text;
+using BaWuClub.Web.App_Start;
 
 namespace BaWuClub.Web.Areas.bwum.Controllers
 {
+    [AdminAuthorize]
     public class ActivityController : Controller
     {
         //
@@ -107,6 +109,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                 activity.Sponsor = sponsor;
                 activity.Cost = cost;
                 activity.Limited = limited;
+                activity.Context = context;
                 if (club.SaveChanges() >= 0){
                     ViewBag.Area = club.Areas.Where(a => a.Id == activity.CityId).FirstOrDefault();
                     status = Status.success;

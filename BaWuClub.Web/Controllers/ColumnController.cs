@@ -36,6 +36,9 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 viewArticle = club.ViewArticles.Where(v => v.Id == tId).FirstOrDefault();
                 Article article = club.Articles.Where(a => a.Id == tId).FirstOrDefault();
+                if (viewArticle != null) {
+                    ViewBag.otherArticles = club.Articles.Where(a => a.UserId == viewArticle.UserId&&a.Id!=viewArticle.Id && a.Status == (int)State.Enable).Take(10).ToList<Article>();
+                }
                 ViewBag.Reviews = club.ViewArticleReviews.Where(a => a.ArticleId == tId).ToList<ViewArticleReview>();
                 ViewBag.ReviewsCount = club.ViewArticleReviews.Where(a => a.ArticleId == tId).Count();
                 if (article != null) {

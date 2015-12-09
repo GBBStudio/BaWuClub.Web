@@ -34,6 +34,7 @@ namespace BaWuClub.Web.Dal
         public readonly static string AvatarSmallDir = "/uploads/avatar/small/";
         public readonly static string EditorDirectory = "/uploads/editor/";
         public readonly static string BannerDir = "/uploads/banner/";
+        public readonly static string AdminCoverDir = "/uploads/admin/cover/";
         public readonly static string ActivityDir = "/uploads/activity/";
         public readonly static string VideoDir = "/uploads/video/";
         public readonly static string VideoCoverDir = "/uploads/video/Cover/";

@@ -37,8 +37,7 @@
                     var areas = ViewBag.Province as IEnumerable<BaWuClub.Web.Dal.Area>;
                     if (areas != null)
                     {
-                        foreach (var area in areas)
-                        {
+                        foreach (var area in areas){
                             <option value="@area.Id">@area.Name</option>
                         }
                     }

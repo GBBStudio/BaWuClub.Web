@@ -18,12 +18,41 @@
         </div>
         <div class="container-gather">
             <div class="menu-tab">
-                <span data-menu="contribute-list" data-url="/column" class="current">最新专栏文章</span>
+                <span data-menu="discuss-list" data-url="/topic" class="current">最新帖子</span>
+                <span data-menu="contribute-list" data-url="/column">最新专栏文章</span>
                 <span data-menu="asks-list" data-url="/asks" >最新提问</span>
-                <span data-menu="discuss-list" data-url="/topic">最新帖子</span>
+                <a onclick="location.href = '/forum/posttopic'">发表新主题</a>
             </div>
             <div class="gather-wrap">
-                <div class="contribute-list">
+                <div class="discuss-list">
+                    @{
+                        var topics = ViewBag.topics as IEnumerable<BaWuClub.Web.Dal.ViewTopicIndex>;
+                        if (topics != null)
+                        {
+                            foreach (var t in topics)
+                            {
+                                var src = (string.IsNullOrEmpty(t.Cover) ? "../images/no-img.jpg" : "/uploads/avatar/small/" + t.Cover);
+                                <div class="discuss-list-topic">
+                                    <div class="discuss-list-topic-avatar">
+                                        <a href="/member/u-@t.UserId/show"><img src="@src" alt="@t.NickName" title="@t.NickName" /></a>
+                                    </div>
+                                    <div class="discuss-list-topic-titles">
+                                        <div class="topic-title">
+                                            <a href="/forum/@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())/@t.Id"><i class="tb-topic tb-topic-@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())"></i>@t.Title</a>
+                                        </div>
+                                        <div class="topic-info">
+                                            <a href="#">@t.NickName</a>
+                                            <span class="discuss-list-topic-date"> @BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(t.VarDate)</span>
+                                            <span><i class="icon1-liulan"></i>@t.Views</span>
+                                            <span><i class="icon1-xiai" style="font-size:12px;"></i>@t.Likes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+                <div class="contribute-list" style="display:none;">
                     <ul>
                         @{
                             var viewArticles = ViewBag.contributes as IEnumerable<BaWuClub.Web.Dal.ViewArticle>;
@@ -35,32 +64,32 @@
                                         <div class="cover-wrap fleft">
                                             <a href="/member/u-@view.UserId/show/">
                                                 @{
-                                                    var cover = "/content/images/no-img.jpg";
-                                                    var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.VarDate ?? DateTime.Now);
-                                                    if (!string.IsNullOrEmpty(view.UserCover))
-                                                    {
-                                                        cover = "/uploads/avatar/small/" + view.UserCover;
-                                                    }
+                                    var cover = "/content/images/no-img.jpg";
+                                    var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(view.VarDate ?? DateTime.Now);
+                                    if (!string.IsNullOrEmpty(view.UserCover))
+                                    {
+                                        cover = "/uploads/avatar/small/" + view.UserCover;
+                                    }
                                                 }
                                                 <img src="@cover" alt="头像" />
                                             </a>
                                         </div>
                                         <div class="question-detail">
                                             <h3><a href="/column/show/@view.Id">@view.Title</a></h3>
-                                            <p class="q-detail-top">                                               
+                                            <p class="q-detail-top">
                                                 <span class="fleft">
                                                     <a href="/member/u-@view.UserId/show">@view.RealName</a>
-                                                   标签:@{
-                                                    if (view.Tags != null && view.TagIds != null)
-                                                    {
-                                                        var tags = view.Tags.Split(',');
-                                                        var tagIds = view.TagIds.Split(',');
-                                                        for (int i = 0; i < tags.Length; i++)
-                                                        {
-                                                            <a href="/column/tags/@tagIds[i]" class="tag-show">@tags[i]</a>
-                                                        }
-                                                    }
-                                                } 浏览:@view.Views
+                                                    标签:@{
+                                    if (view.Tags != null && view.TagIds != null)
+                                    {
+                                        var tags = view.Tags.Split(',');
+                                        var tagIds = view.TagIds.Split(',');
+                                        for (int i = 0; i < tags.Length; i++)
+                                        {
+                                            <a href="/column/tags/@tagIds[i]" class="tag-show">@tags[i]</a>
+                                        }
+                                    }
+                                                    } 浏览:@view.Views
                                                 </span>
                                                 <span class="fright">@time</span>
                                             </p>
@@ -71,6 +100,7 @@
                         }
                     </ul>
                 </div>
+
                 <div class="asks-list" style="display:none">
                     <ul>
                         @{
@@ -123,34 +153,6 @@
                             }
                         }
                     </ul>
-                </div>
-                <div class="discuss-list" style="display:none;">
-                    @{
-                        var topics = ViewBag.topics as IEnumerable<BaWuClub.Web.Dal.ViewTopicIndex>;
-                        if (topics != null)
-                        {
-                            foreach (var t in topics)
-                            {
-                                var src = (string.IsNullOrEmpty(t.Cover) ? "../images/no-img.jpg" : "/uploads/avatar/small/" + t.Cover);
-                                <div class="discuss-list-topic">
-                                    <div class="discuss-list-topic-avatar">
-                                        <a href="/member/u-@t.UserId/show"><img src="@src" alt="@t.NickName" title="@t.NickName" /></a>
-                                    </div>
-                                    <div class="discuss-list-topic-titles">
-                                        <div class="topic-title">
-                                            <a href="/forum/@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())/@t.Id"><i class="tb-topic tb-topic-@(((BaWuClub.Web.Dal.TopicType)t.Type).ToString().ToLower())"></i>@t.Title</a>
-                                        </div>
-                                        <div class="topic-info">
-                                            <a href="#">@t.NickName</a>
-                                            <span class="discuss-list-topic-date"> @BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(t.VarDate)</span>
-                                            <span><i class="icon1-liulan"></i>@t.Views</span>
-                                            <span><i class="icon1-xiai" style="font-size:12px;"></i>@t.Likes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-                    }
                 </div>
             </div>
         </div>

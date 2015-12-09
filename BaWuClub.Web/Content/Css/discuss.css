@@ -99,6 +99,7 @@
 .reviews-btns{margin-top:20px}
 .reviews-btns a{color:#666}
 .topic-s-reviews-editor h3{font-size:18px;margin:20px 0;font-weight:normal}
+.topic-s-reviews-editor #editor{width:645px;min-height:244px;}
 .topic-s-task{margin:40px 0;}
 .task-btn{text-align:center;}
 .task-btn span{color:#fff;padding:8px 35px;background:#70adff;cursor:pointer}

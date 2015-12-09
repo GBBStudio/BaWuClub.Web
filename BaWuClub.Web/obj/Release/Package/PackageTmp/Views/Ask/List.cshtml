@@ -27,12 +27,23 @@
                             <div class="question-detail">
                                 <p class="q-detail-top"><a href="/member/u-@viewQuestion.UserId/show">@viewQuestion.NickName</a><span>@time</span></p>
                                 <h3><a href="/ask/show/@viewQuestion.Id">@viewQuestion.Title</a></h3>
-                                <p class="q-detail-desc">@viewQuestion.Description</p>
-                                <p class="q-detail-tag" style="display:none">Tags:<a href="">技术</a></p>
-                            </div>
-                            <div class="ask-other">
-                                <p><span></span></p>
-                                <p><span></span></p>
+                                <p class="q-detail-desc">@viewQuestion.Description</p>                                
+                                <p class="q-detail-top">
+                                    <span class="fleft">
+                                        标签:@{
+                                            if (viewQuestion.Tags != null && viewQuestion.TagIds != null)
+                                            {
+                                                var tags = viewQuestion.Tags.Split(',');
+                                                var tagIds = viewQuestion.TagIds.Split(',');
+                                                for (int i = 0; i < tags.Length; i++)
+                                                {
+                                                    <a href="/ask/tags/@tagIds[i]" class="tag-show">@tags[i]</a>
+                                                }
+                                            }
+                                        } 浏览:@viewQuestion.Views
+                                    </span>
+                                </p>
+
                             </div>
                         </li>
                     }

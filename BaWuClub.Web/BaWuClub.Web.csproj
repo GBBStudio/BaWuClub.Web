@@ -131,9 +131,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminAuthorize.cs" />
     <Compile Include="App_Start\CommonMethod.cs" />
     <Compile Include="App_Start\LoadXml.cs" />
     <Compile Include="Areas\bwum\bwumAreaRegistration.cs" />
+    <Compile Include="Areas\bwum\Controllers\AccountController.cs" />
     <Compile Include="Areas\bwum\Controllers\ActivityController.cs" />
     <Compile Include="Areas\bwum\Controllers\AnswerController.cs" />
     <Compile Include="Areas\bwum\Controllers\AreaController.cs" />
@@ -652,15 +654,18 @@
     <Content Include="Content\CKeditor\skins\moono\images\lock.png" />
     <Content Include="Content\CKeditor\skins\moono\images\refresh.png" />
     <Content Include="Content\CKeditor\styles.js" />
+    <Content Include="Content\Css\animate.css" />
     <Content Include="Content\Css\basestyle.css" />
     <Content Include="Content\Css\discuss.css" />
     <Content Include="Content\Css\download.css" />
     <Content Include="Content\Css\fontstyle.css" />
     <Content Include="Content\Css\jquery.datetimepicker.css" />
     <Content Include="Content\Css\member.css" />
+    <Content Include="Content\Css\reset.css" />
     <Content Include="Content\Css\rss.css" />
     <Content Include="Content\Css\study.css" />
     <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Css\styles.css" />
     <Content Include="Content\Css\video-js.css" />
     <Content Include="Content\Css\wdialog.css" />
     <Content Include="Content\Fonts\category.css" />
@@ -1021,6 +1026,9 @@
     <Content Include="Views\Activity\Show.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Activity\Join.cshtml" />
+    <Content Include="Areas\bwum\Views\Um\Login.cshtml" />
+    <Content Include="Areas\bwum\Views\Um\UserProfile.cshtml" />
+    <Content Include="Areas\bwum\Views\Um\SignOut.cshtml" />
     <None Include="Properties\PublishProfiles\Club.pubxml" />
     <Content Include="Views\Download\Index.cshtml" />
     <Content Include="Views\Info\Show.cshtml" />

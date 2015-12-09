@@ -51,7 +51,7 @@
         </p>
         <p>
             <span>分类：</span>
-            <select name="type" class="input-text input-small">
+            <select name="type" class="input-text input-small" id="type">
                @{
                    if (ViewBag.BannerTypes != null) {
                        var bannerTypes = ViewBag.BannerTypes as IEnumerable<BaWuClub.Web.Dal.BannerType>;
@@ -61,6 +61,9 @@
                    }
                }
             </select>
+            <script type="text/javascript">
+                $("#type").val(@Model.Type);
+            </script>
         </p>
         <p>
             <input class="btn btn-confirm" type="submit" value="提交" />

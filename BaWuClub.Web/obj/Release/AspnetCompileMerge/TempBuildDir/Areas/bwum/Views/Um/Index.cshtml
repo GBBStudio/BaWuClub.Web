@@ -16,7 +16,7 @@
 <body>
     <div id="top-wrap">
         <div class="top-left">
-            <a href="" title="网站首页" class="top-logo top-selected iconfont">
+            <a href="http://www.bawu.com" title="网站首页" class="top-logo top-selected iconfont">
                 <img src="~/Content/Images/logo-1.png" />
             </a>
             <a href="#/um/main" title="管理首页" class="iconfont icon-shouye"></a>
@@ -27,7 +27,14 @@
                 <span class="search-btn"></span>
             </form>
             <a title="help" href="#/help" class="iconfont icon-bangzhu"></a>
-            <a href="#/userprofile">wesen</a>
+            <span id="user-setting-wrap">
+                wesen
+                <div class="user-setting">
+                    <a href="#/userprofile">个人中心</a>
+                    <a href="#/userprofile">修改密码</a>
+                    <a href="#/account/signout">退出</a>
+                </div>
+            </span>
             <span title="setting" class="iconfont icon-shezhi" id="setting">
                 <div class="setting-wrap">
                     <a href="#/setting">基本信息设置</a>
@@ -45,6 +52,11 @@
             $(".setting-wrap").show();
         }, function () {
             $(".setting-wrap").hide();
+        });
+        $("#user-setting-wrap").hover(function () {
+            $(".user-setting").show();
+        }, function () {
+            $(".user-setting").hide();
         });
     </script>
     <div id="bottom-wrap">

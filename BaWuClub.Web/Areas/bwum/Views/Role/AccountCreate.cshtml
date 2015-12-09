@@ -6,7 +6,6 @@
     <h2>用户账号创建</h2>
     <a class="btn-back iconfont icon-chexiao" href="#/role/">返回管理员账号列表</a>
 </div>
-@Html.Raw(ViewBag.StatusStr)
 <div id="input-wrap">
     <form method="post" name="frame" action="/role/accountcreate">
         <p>
@@ -19,11 +18,20 @@
         </p>
         <p>
             <span>确认密码：</span>
-            <input name="password" value="" type="text" class="input-text input-small" />
+            <input name="confirmpassword" value="" type="text" class="input-text input-small" />
         </p>
         <p>
             <span>账户类型：</span>
-            <select class="input-text"></select>
+            <select class="input-text" name="admintype">
+                @{
+                    var adminTypes=ViewBag.adminTypes;
+                    if(adminTypes!=null){
+                        foreach (var t in adminTypes as IEnumerable<BaWuClub.Web.Dal.AdminType>) { 
+                            <option  value="@t.Id">@t.Name</option>
+                        }
+                    }
+                }
+            </select>
         </p>
         <p>
             <span>真实姓名：</span>

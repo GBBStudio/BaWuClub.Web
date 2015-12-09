@@ -59,6 +59,11 @@ namespace BaWuClub.Web.Controllers
             ViewBag.CurrentUser = GetUser();
             using (club = new ClubEntities()) {
                 vq = club.ViewQuestions.Where(q => q.Id == qid).FirstOrDefault();
+                var question = club.Questions.Where(q => q.Id == qid).FirstOrDefault();
+                if (question != null) {
+                    question.Views += 1;
+                }
+                club.SaveChanges();
                 ViewBag.AnswerCount = club.Answers.Where(a => a.QId == qid).Count();
                 ViewBag.AnswerVote = club.AnswerVotes.Where(a => a.QId == qid).ToList<AnswerVote>();
                 if(sort=="time")
@@ -70,7 +75,7 @@ namespace BaWuClub.Web.Controllers
                 if (vq == null)
                     return Redirect("/error/notfound");
                 ViewBag.Title = vq.Title;
-                ViewBag.OtherQuestions = club.Questions.Where(q => q.UserId == vq.UserId).Take(6).ToList<Question>();
+                ViewBag.OtherQuestions = club.Questions.Where(q => q.UserId == vq.UserId&&q.Id!=vq.Id).Take(6).ToList<Question>();
             }
             return View(vq);
         }
