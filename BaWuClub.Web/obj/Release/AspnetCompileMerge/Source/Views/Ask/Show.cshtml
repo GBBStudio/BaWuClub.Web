@@ -110,7 +110,7 @@
                     <img src="@cover" alt="" />
                 }
                 <div class="question-user-info">
-                    <a href="/member/show/@Model.UserId">@Model.NickName</a>
+                    <a href="/member/u-@Model.UserId/show/">@Model.NickName</a>
                     <p class="user-intro">@Model.Intro</p>
                 </div>
             </div>
@@ -136,7 +136,7 @@
 
     </div>
 </div>
-<script type="text/javascript" src="~/content/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/content/ckeditor-base/ckeditor.js"></script>
 <script type="text/javascript" src="~/content/scripts/comments.js"></script>
 <script type="text/javascript">
     var editor = CKEDITOR.replace('editor');

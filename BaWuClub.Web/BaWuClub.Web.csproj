@@ -777,6 +777,7 @@
     <Content Include="Content\Images\bg-downlaod.png" />
     <Content Include="Content\Images\btn-ac.png" />
     <Content Include="Content\Images\close.png" />
+    <Content Include="Content\Images\comingsong.jpg" />
     <Content Include="Content\Images\course.jpg" />
     <Content Include="Content\Images\discuss.png" />
     <Content Include="Content\Images\icon-excel.png" />
@@ -784,7 +785,13 @@
     <Content Include="Content\Images\icon-ppt.png" />
     <Content Include="Content\Images\icon-topic.jpg" />
     <Content Include="Content\Images\icon-word.png" />
+    <Content Include="Content\Images\img-forget.png" />
+    <Content Include="Content\Images\img-login.png" />
+    <Content Include="Content\Images\img-reg.jpg" />
+    <Content Include="Content\Images\jptj.png" />
     <Content Include="Content\Images\league-bg.jpg" />
+    <Content Include="Content\Images\level-s.png" />
+    <Content Include="Content\Images\level.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo-1.png" />
     <Content Include="Content\Images\logo.png" />
@@ -1065,6 +1072,7 @@
     <Content Include="Views\Shared\_PartialSendMessage.cshtml" />
     <Content Include="Views\Column\Tags.cshtml" />
     <Content Include="Views\Ask\Tags.cshtml" />
+    <Content Include="Views\Member\Validate.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

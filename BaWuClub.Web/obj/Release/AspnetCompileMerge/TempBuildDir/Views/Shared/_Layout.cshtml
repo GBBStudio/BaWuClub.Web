@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
-
+@{
+    var controller = Html.ViewContext.RouteData.Values["Controller"];
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -9,7 +11,7 @@
     <title>@ViewBag.Title@dic["Title"]</title>
     <meta name="keywords" content="@ViewBag.Keywords@dic["Keywords"]"/>
     <meta name="description" content="@ViewBag.Description@dic["Description"]"/>
-    <link href="~/Content/Css/site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/content/css/site.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="~/Content/Scripts/jquery.js"></script>
     @Html.Raw(ViewBag.CssAppend)
 </head>
@@ -42,14 +44,13 @@
             </div>
             <div class="navigation-wrap fleft">
                 <ul>
-                    <li><a href="/home">首页</a></li>
-                    <li style="display:none;"><a href="/Forum">论坛</a></li>
-                    <li><a href="/column">专栏</a></li>
-                    <li><a href="/ask">问答</a></li>
-                    <li><a href="/activity">活动</a></li>
-                    <li><a href="/online">在线学习</a></li>
-                    <li><a href="/download">下载</a></li>
-                    <li><a href="/forum">电商圈</a></li>
+                    <li><a href="/home" @Html.Raw(controller != null && controller.ToString() == "home" ? "class=\"current\"" : "")>首页</a></li>
+                    <li><a href="/column" @Html.Raw(controller != null && controller.ToString() == "column" ? "class=\"current\"" : "")>专栏</a></li>
+                    <li><a href="/ask" @Html.Raw(controller != null && controller.ToString() == "ask" ? "class=\"current\"" : "")>问答</a></li>
+                    <li><a href="/activity" @Html.Raw(controller != null && controller.ToString() == "activity" ? "class=\"current\"" : "")>活动</a></li>
+                    <li><a href="/online" @Html.Raw(controller != null && controller.ToString() == "online" ? "class=\"current\"" : "")>在线学习</a></li>
+                    <li><a href="/download" @Html.Raw(controller != null && controller.ToString() == "download" ? "class=\"current\"" : "")>下载</a></li>
+                    <li><a href="/forum" @Html.Raw(controller != null && controller.ToString() == "forum" ? "class=\"current\"" : "")>电商圈</a></li>
                 </ul>
             </div>
             <div class="search-wrap">

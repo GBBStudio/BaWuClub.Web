@@ -26,7 +26,7 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.ActivityCount = club.ViewActivities.Count();
                 ViewBag.ActivityHistory = club.ViewActivities.OrderByDescending(a => a.EndDate < DateTime.Now).Take(6).ToList<ViewActivity>();
                 ViewBag.HotActivityBanners = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-top").ToList<ViewBanner>();
-                ViewBag.BannerActivityLeft = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-right").FirstOrDefault();
+                ViewBag.bannerActivityRight = club.ViewBanners.Where(b => b.Status == 1 && b.Variables == "sys-bt-activity-right").FirstOrDefault();
             }
             PagingHelper pager=new PagingHelper(5,aId,ViewBag.ActivityCount,5);
             ViewBag.PageStr = pager.GetPageStringPro("/activity/index/",false);

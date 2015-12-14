@@ -145,6 +145,13 @@ namespace BaWuClub.Web.Controllers
            // ViewBag.toUser = user;
             return PartialView("~/views/shared/_PartialSendMessage.cshtml", user);
         }
+
+        [Authorize]
+        public ActionResult Validate(int? uid) {
+            user = (User)ViewBag.userAuthorize;
+            ViewBag.user = user;
+            return View();
+        }
         #endregion
 
         #region post

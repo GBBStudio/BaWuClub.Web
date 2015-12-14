@@ -99,6 +99,14 @@
             </div>
             <div class="module-list">
                 <ul>
+                    @{
+                        var otherArticles=ViewBag.otherArticles ;
+                        if (otherArticles != null) {
+                            foreach (var article in otherArticles as IEnumerable<BaWuClub.Web.Dal.Article>) { 
+                                    <li><a href="/column/show/@article.Id">@article.Title</a></li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
         </div>

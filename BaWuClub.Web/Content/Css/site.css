@@ -224,6 +224,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #fff; }
 .article-title-tags {margin-bottom:15px;font-size:13px;}
 .article-title-tags a{color:#fff;background:#007ada;padding:2px 4px;border-radius:3px;}
 .article-desc{color:#333;}
+.article-desc img{width:100%}
 .question-show{margin-top:20px;}
 .question-user{margin-top:20px;}
 .question-user img {width:300px;}

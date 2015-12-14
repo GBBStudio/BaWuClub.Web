@@ -36,11 +36,16 @@
 <script type="text/javascript">
     $(function () {
         $("#approve").click(function () {
-            $(".contribute-list ul").html("<img src=\"/content/images/loading.gif\" alt=\"\"/>");
+            $(".member-list-wrap ul").html("<img src=\"/content/images/loading.gif\" alt=\"\"/>");
             $.get($(this).attr("data-href"), function (data) {
                 var json = eval(data);
                 $(".page-wrap").html(json.pagestr);
-                $(".contribute-list ul").html(json.context);
+                var str = "";
+                var jsonContext = eval(json.context);
+                for (var i = 0; i < jsonContext.length; i++) {
+                    str += "<li><a href=\"/column/show/" + jsonContext[i].Id + "\">" + jsonContext[i].Title + "</a><span>" + jsonContext[i].VarDate + "</span></li>";
+                }
+                $(".member-list-wrap ul").html(str);
             }, "json");
         });
     })
