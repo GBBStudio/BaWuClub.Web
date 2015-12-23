@@ -42,7 +42,7 @@ function loadonpage(url) {
         $(".page-wrap").html(json.pagestr);
         var items = eval(json.context);
         if (json["url"] != "/message/show/")
-            setgenerallist(items,json["url"]);
+            setgenerallist(json, json["url"]);
         else
             setmessagelist(items);
     }, "json");
@@ -90,18 +90,27 @@ function setget(url, params,callback) {
 function setmessagelist(items) {
     var str = "";
     for (var i = 0; i < items.length; i++) {
-        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this," + items[i]["Id"] + ")\">" + items[i]["Title"] + "</a><span onclick=\"delmsg(e," + items[i]["Id"] + ")\">" + items[i]["Vardate"] + "</span><span onclick=\"if(confirm('确定删除此信息吗？')){delmsg(this," + items[i]["Id"] + ")}\" class=\"message-del-btn fright\">删除</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
+        str += "<li><a class=\"" + (items[i]["Status"] == "0" ? "unread" : "") + "\" onclick=\"setread(this," + items[i]["Id"] + ")\">" + items[i]["Title"] + "</a><span onclick=\"delmsg(e," + items[i]["Id"] + ")\">" + items[i]["VarDate"] + "</span><span onclick=\"if(confirm('确定删除此信息吗？')){delmsg(this," + items[i]["Id"] + ")}\" class=\"message-del-btn fright\">删除</span><p style=\"display:none\">" + items[i]["Message1"] + "</p></li>";
         $(".member-list-wrap ul").html(str);
     }
 }
 
-function setgenerallist(items,urlparam) {
+function setgenerallist(d,urlparam) {
     var str = "";
+    items=eval(d.context);
     if (items.length == 0) {
         $(".member-list-wrap ul").html("<span style=\"font-size:15px;color:#007ADA\">暂无数据</span>");
     } else {
         for (var i = 0; i < items.length; i++) {
-            str += "<li><a href='" + urlparam + items[i]["Id"] + "'>" + items[i]["Title"] + "</a><span>" + items[i]["VarDate"] + "</span></li>";
+            var state = "", edit = "";
+            //console.log(d.StateShow)
+            if (items[i]["Status"] != undefined && d.StateShow) {
+                state = "<span class=\"c-" + (parseInt(items[i]["Status"]) > 0 ? "enable" : "disable") + "\">" + (parseInt(items[i]["Status"]) > 0 ? "已审核" : "待审核")+ "</span>";
+            }
+            if (d["edit"] != undefined && d["edit"]) {
+                edit = "<a href=\""+d["editurl"]+""+items[i]["Id"]+"\" class=\"edit-again\">再次编辑</a>";
+            }
+            str += "<li><a href='" + urlparam + items[i]["Id"] + "'>" + items[i]["Title"] + "</a><span>" + items[i]["VarDate"] + "</span>" + state + edit + "</li>";
             $(".member-list-wrap ul").html(str);
         }            
     }

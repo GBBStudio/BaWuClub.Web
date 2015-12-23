@@ -7,8 +7,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <link href="~/Content/Css/site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Css/member.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+    <script type="text/javascript" src="~/content/scripts/member.js"></script>
 </head>
 <body>
     <div id="header">
@@ -21,7 +24,7 @@
                 @{
                     if (Request.IsAuthenticated && Request.Cookies["bwusers"] != null && Request.Cookies["bwusers"]["user"] != null && Request.Cookies["bwusers"]["id"] != null)
                     {
-                        <a href="/member/u-@user.Id/Show">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
+                        <a href="/member/u-@userAuthorize.Id/Show">@HttpUtility.UrlDecode(Request.Cookies["bwusers"]["user"].ToString())</a>
                         <a href="/account/loginout">退出</a>
                     }
                     else

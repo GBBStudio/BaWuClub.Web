@@ -45,8 +45,8 @@ a{cursor:pointer}
 
 #content-wrap{position:fixed;top:50px;overflow-y:hidden;left:210px;height:100%;right:0;}
 #frame{width:100%;border:none;height:100%}
-#chart-container {width:600px;}
-.views-wrap{border-bottom:1px solid #ddd;margin-bottom:50px;clear:both;overflow:hidden;padding-bottom:20px}
+#chart-container {width:550px;}
+.views-wrap{margin-bottom:50px;clear:both;overflow:hidden;padding-bottom:20px}
 .views-text {font-size:18px;font-family:'Microsoft YaHei UI';padding-top:200px;}
 .views-text p{margin:10px 0;}
 .views-text p span {display:inline-block;width:120px;text-align:right;border-left:2px solid #09C;margin-left:100px;}
@@ -54,7 +54,7 @@ a{cursor:pointer}
 .views-text p span.border3{border-left:2px solid #007ADA}
 .views-text p span.border4{border-left:2px solid #09C}
 .views-text p span.border5{border-left:2px solid #259}
-
+.views-title{font-size:15px;color:#333;margin:15px 0;font-weight:bold}
 
 /*表格的样式*/
 #container {width:98%;margin:20px auto;padding-bottom:30px;}
@@ -122,3 +122,4 @@ input{font-family:'Microsoft YaHei UI'}
 #container table tr td a.top-enable{display:none;background:#259;color:#fff;font-size:12px;cursor:pointer;margin:10px 5px;padding:3px 5px;border-radius:4px;}
 #container table tr:hover{background:#f1f1f1;}
 #container table tr td a.top-disable{background:red;color:#fff;font-size:12px;cursor:pointer;margin:10px 5px;padding:3px 5px;border-radius:4px;}
+.block{overflow:hidden;margin-bottom:30px;border:1px solid #ddd;box-shadow:#666 3px 3px 3px;padding:20px 10px 30px;}

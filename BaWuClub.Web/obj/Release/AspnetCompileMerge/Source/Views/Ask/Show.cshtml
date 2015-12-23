@@ -12,7 +12,7 @@
                 </p>
                 <p class="article-title-tags">
                     标签:@{
-                        if (Model.Tags != null && Model.TagIds != null)
+                        if (string.IsNullOrEmpty(Model.Tags) && Model.TagIds != null)
                         {
                             var tags = Model.Tags.Split(',');
                             var tagIds = Model.TagIds.Split(',');
@@ -22,10 +22,14 @@
                             }
                         }
                     }
+                    分享:@Html.Partial("~/views/shared/_partialshare.cshtml")
                 </p>
             </div>
             <div class="question-desc">
                 @Model.Description
+            </div>
+            <div class="question-share">
+                分享:@Html.Partial("~/views/shared/_partialshare.cshtml")
             </div>
         </div>
         <div class="comment-wrap">
@@ -63,7 +67,7 @@
                         @Html.Raw(answer.Answer)
                     </div>
                     <div class="comment-item-meta">
-                        <span class="fleft">发布与 @BaWuClub.Web.Common.HtmlCommon.GetAnswerTimeSpan(answer.AnswerVarDate)</span>
+                        <span class="fleft">发布与 @BaWuClub.Web.Common.HtmlCommon.GetAnswerTimeSpan(answer.VarDate)</span>
                         <div class="comment-item-vote fleft" style="display:block">
                             @{
                             string pro = string.Empty;

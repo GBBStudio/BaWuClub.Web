@@ -32,7 +32,7 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 queryable = GetQueryable(club);
                 GetCount(queryable);
-                viewTopicsIndex = queryable.Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
+                viewTopicsIndex = queryable.OrderByDescending(t=>t.VarDate).Take(ClubConst.TopicPageSize).Where(t => t.Area == 0).ToList<ViewTopicIndex>();
                 int count = queryable.Where(t => t.Area == 0).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/p/", 13, 1, count, ClubConst.TopicPageShow);
             }

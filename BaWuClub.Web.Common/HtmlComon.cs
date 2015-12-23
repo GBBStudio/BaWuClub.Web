@@ -10,7 +10,7 @@ namespace BaWuClub.Web.Common
 {
     public static class HtmlCommon
     {
-        #region 清楚HTML,JavaScript
+        #region ClearHTML,JavaScript
         public static string ClearHtml(string htmlString) {
             if (!string.IsNullOrEmpty(htmlString)) {
                 htmlString = Regex.Replace(htmlString, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
@@ -176,6 +176,8 @@ namespace BaWuClub.Web.Common
         word,
         exl,
         ppt,
-        pdf
+        pdf,
+        ai,
+        psd
     }
 }

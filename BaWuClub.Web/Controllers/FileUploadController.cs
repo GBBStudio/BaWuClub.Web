@@ -57,7 +57,6 @@ namespace BaWuClub.Web.Controllers
         }
 
         [HttpPost]
-     //   [Authorize]
         public JsonResult UploadFiles(HttpPostedFileBase filedata, string type)
         {
             string content = "未指定文件分类类型！";

@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Areas/bwum/Views/Shared/_layout.cshtml";
+    Layout = "~/Areas/bwum/Views/Shared/_indexlayout.cshtml";
 }
 
 <div id="layout-wrap">
@@ -11,61 +11,48 @@
         </div>
     </div>
     <div class="views-wrap">
-        <div id="user-container" class="fleft"></div>
-        <div class="views-text">
-            <p><span>今日新用户：</span>@ViewBag.newAccounts</p>
-            <p><span class="border2">总用户数：</span>@ViewBag.accounts</p>
-        </div>
-        <script>
-    $(function () {
-        $('#user-container').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: '八五商圈网用户数信息统计'
-            },
-            tooltip: {
-                pointFormat: '{series.}: <b>{series.data[0][1]}</b>'
-            },
-            series: [{
-                type: 'column',
-                name: '个',
-                data: [
-                    ['新用户数',@ViewBag.newAccounts],
-                    ['总用户数', @ViewBag.accounts],
-                ]
-            }]
-        });
-    });
-        </script>
-
-    </div>
-    <div class="user-add">
-        <div class="view-title">网站用户统计</div>
-        <div class="views-text">
-            <p><span>新增用户数：</span>@ViewBag.newAccounts</p>
-            <p><span class="border2">总用户数：</span>@ViewBag.accounts</p>
-        </div>
-    </div>
-    <div class="topic-add">
-        <div class="view-title">论坛帖子统计</div>
-        <div class="views-text">
-            <p><span>新增帖子数：</span>@ViewBag.newAccounts</p>
-            <p><span class="border2">总帖子数：</span>@ViewBag.accounts</p>
-        </div>
-    </div>
-    <div class="article-add">
-        <div class="view-title">投稿统计</div>
-        <div class="views-text">
-            <p><span>今日投稿数：</span>@ViewBag.newAccounts</p>
-            <p><span class="border2">总投稿数：</span>@ViewBag.accounts</p>
-        </div>
+        <div class="views-title">其他统计</div>
+        <form name="form" id="form" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <td>类别</td>
+                        <td>今日</td>
+                        <td>总数</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>用户</td>
+                        <td>@ViewBag.newAccounts</td>
+                        <td>@ViewBag.accounts</td>
+                    </tr>
+                    <tr>
+                        <td>投稿</td>
+                        <td>@ViewBag.newArticles</td>
+                        <td>@ViewBag.articles</td>
+                    </tr>
+                    <tr>
+                        <td>问题</td>
+                        <td>@ViewBag.newAsks</td>
+                        <td>@ViewBag.asks</td>
+                    </tr>
+                    <tr>
+                        <td>回答</td>
+                        <td>@ViewBag.newAnswers</td>
+                        <td>@ViewBag.answers</td>
+                    </tr>
+                    <tr>
+                        <td>帖子数(全部)</td>
+                        <td>@ViewBag.newTopics</td>
+                        <td>@ViewBag.topics</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 </div>
-<div style="color:#999;font-size:10px;position:absolute;bottom:60px;padding-left:50px;">
+<div style="color:#999;font-size:10px;position:absolute;bottom:60px;padding-left:50px;display:none">
     <i> &copy; www.bawu.com Core: ASP.NET MVC 4.0  Coder:<a href="mail:wesen@gbbweb.cn" target="_blank">WESEN</a></i>
 </div>
 <script type="text/javascript" src="~/Content/Scripts/highcharts.js"></script>

@@ -15,15 +15,15 @@
                             <div class="cover-wrap fleft">
                                 <a href="/member/u-@viewArticle.UserId/show">
                                     @{
-                                        var cover = "~/content/images/no-img.jpg";
+                                        var cover = "/content/images/no-img.jpg";
                                         var time = BaWuClub.Web.Common.HtmlCommon.GetTimeSpan(viewArticle.VarDate ?? DateTime.Now);
                                         var context = BaWuClub.Web.Common.HtmlCommon.ClearHtml(viewArticle.Context);
                                         context = context.Length > 150 ? context.Substring(0, 149) : context;
                                         if (!string.IsNullOrEmpty(viewArticle.UserCover)){
-                                            cover = viewArticle.UserCover;
+                                            cover ="/uploads/avatar/small/"+ viewArticle.UserCover;
                                         }
                                     }
-                                    <img src="~/uploads/avatar/small/@cover" alt="头像" />
+                                    <img src="@cover" alt="头像" />
                                 </a>
 
                             </div>

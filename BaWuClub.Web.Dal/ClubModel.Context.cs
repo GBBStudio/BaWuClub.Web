@@ -40,7 +40,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ViewActivity> ViewActivities { get; set; }
-        public virtual DbSet<ViewAnswer> ViewAnswers { get; set; }
         public virtual DbSet<ActivityOrder> ActivityOrders { get; set; }
         public virtual DbSet<ViewArticleReview> ViewArticleReviews { get; set; }
         public virtual DbSet<SystemArticle> SystemArticles { get; set; }
@@ -72,5 +71,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<TopicInvolved> TopicInvolveds { get; set; }
         public virtual DbSet<ViewTopicInvolved> ViewTopicInvolveds { get; set; }
+        public virtual DbSet<ViewAnswer> ViewAnswers { get; set; }
     }
 }

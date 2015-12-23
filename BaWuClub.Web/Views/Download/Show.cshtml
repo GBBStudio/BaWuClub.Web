@@ -14,7 +14,12 @@
                 <div class="detail-down-info">
                     <h3>@Model.Title</h3>
                     <div class="detail-tags"></div>
-                    <div class="detail-info-text">上传时间:<span>@Model.VarDate</span>下载量:@Model.Downs<span></span>阅读量:@Model.Views<span></span>分享:<span></span></div>
+                    <div class="detail-info-text">
+                    上传时间:<span>@Model.VarDate</span>
+                    下载量:<span>@Model.Downs</span>
+                    阅读量:<span>@Model.Views</span>
+                    分享:<span>@Html.Partial("~/views/shared/_partialshare.cshtml")</span>
+                    </div>
                     <div class="detail-info-desc">
                         @Model.Description
                     </div>

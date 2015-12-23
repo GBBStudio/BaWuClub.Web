@@ -82,6 +82,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #fff; }
 .icon1-pdf:before { content: "\e628"; }
 .icon1-word:before { content: "\e629"; }
 .icon1-excel:before { content: "\e62a"; }
+.icon1-snssharedoubanon:before { content: "\e62b"; }
+.icon1-snsshareqq:before { content: "\e62c"; }
+.icon1-snsshareqzon:before { content: "\e62d"; }
+.icon1-snssharerenrenon:before { content: "\e62e"; }
+.icon1-snsshareweiboon:before { content: "\e62f"; }
 .unread {font-weight:bold;}
 .fleft{float: left;}
 .fright{float:right;}
@@ -213,6 +218,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #fff; }
 .question-detail h3{line-height:25px;overflow:hidden}
 .question-detail h3 a{color:#259;}
 .question-detail h3 a:hover{text-decoration:underline; transition:text-decoration 1s;-webkit-transition:text-decoration 1s;}
+.question-share{margin:15px 0;font-size:16px;}
 .q-detail-desc{color:#222;}
 .q-detail-tag{padding:3px 0;}
 .q-detail-tag a{background:#EFF6FA;color:#259;padding:3px 7px;font-size:12px;border-radius:10px;margin:0 5px;}
@@ -224,7 +230,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #fff; }
 .article-title-tags {margin-bottom:15px;font-size:13px;}
 .article-title-tags a{color:#fff;background:#007ada;padding:2px 4px;border-radius:3px;}
 .article-desc{color:#333;}
-.article-desc img{width:100%}
+.article-desc img{width:100% !important}
 .question-show{margin-top:20px;}
 .question-user{margin-top:20px;}
 .question-user img {width:300px;}
@@ -324,7 +330,7 @@ a.comment-item-info-name:visited{color:#111;}
 .topic-info span i{font-size:15px;margin-right:2px;}
 .coming-soon{width:100%}
 .coming-soon img{width:100%;}
-span.message-del-btn{background:#007ADA;color:#fff;padding:4px 7px;cursor:pointer;margin-left:30px;border-radius:3px;}
+span.message-del-btn,a.edit-again{background:#007ADA;color:#fff;padding:4px 7px;cursor:pointer;margin-left:30px;border-radius:3px;color:#fff;}
 
 .level-pt,.level-rz,.level-bw{background:url(../images/level-s.png) no-repeat 0 0;display:inline-block;vertical-align:bottom;cursor:pointer}
 .level-pt{width:21px;height:21px;background-position:-6px 0}
@@ -335,3 +341,9 @@ span.message-del-btn{background:#007ADA;color:#fff;padding:4px 7px;cursor:pointe
 .module-btn-wrap a .icon1-bangzhu{font-size:21px;color:#fff;margin-right:15px;}
 .title-tags{margin-top:33px;margin-bottom:20px;}
 .title-tags a{font-size:15px;color:#fff;background:#007ada;padding:5px 10px;border-radius:5px;}
+.sns-share a{font-size:15px;font-family:'iconfont';font-size:20px;color:#333;background:#fff;}
+.icon1-snssharedoubanon:hover{color:#349743}
+.icon1-snssharerenrenon:hover{color:#227EC7}
+.icon1-snsshareweiboon:hover{color:#E6162D;}
+.icon1-snsshareqzon:hover{color:#FFC028}
+.icon1-snsshareqq:hover{color:#0073AA}

@@ -27,7 +27,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             aId=id??1;
             List<Area> list = new List<Area>();
             using (club = new ClubEntities()) {
-                list = club.Areas.OrderBy(a => a.Id).Skip((aId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<Area>();
+                list = club.Areas.OrderByDescending(a => a.Id).Skip((aId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<Area>();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize,aId,list.Count());
             return View("~/areas/bwum/views/area/index.cshtml",list);

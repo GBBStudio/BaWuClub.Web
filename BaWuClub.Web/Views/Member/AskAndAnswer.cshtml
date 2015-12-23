@@ -9,7 +9,7 @@
     <div class="member-main">
         <div class="member-menu">
             <a class="selected" onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1')">提出的问题</a>
-            <a onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=column&page=1')">参与的回答</a>
+            <a onclick="baseload('/member/u-@user.Id/getlist?st=0&tstr=answer&page=1')">参与的回答</a>
         </div>
         <div class="member-main-wrap fleft">
             <div class="member-menu-right-list member-list-wrap">
@@ -21,8 +21,6 @@
             </div>
         </div>
     </div>
-<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
-<script type="text/javascript" src="~/content/scripts/member.js"></script>
 <script type="text/javascript">
     baseload('/member/u-@user.Id/getlist?st=0&tstr=ask&page=1');
     function baseload(url) {

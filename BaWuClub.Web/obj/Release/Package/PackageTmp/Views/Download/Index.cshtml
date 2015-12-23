@@ -49,7 +49,7 @@
                     foreach(var item in Model){
                         <div class="download-file-item">
                             <div class="file-type fleft">
-                                <span class="icon-pdf"></span>
+                                <span class="icon-@((BaWuClub.Web.Common.DocType)item.Type)"></span>
                             </div>
                             <div class="file-content">
                                 <div class="file-title">
@@ -59,7 +59,7 @@
                                     @BaWuClub.Web.Common.HtmlCommon.ClearHtml(item.Description)
                                 </div>
                                 <div class="file-info">
-                                    <a href="/member/u-@item.UId/show">wesen</a>
+                                    <a href="/member/u-@item.UId/show">@item.NickName</a>
                                     <span>上传时间 @item.VarDate</span>
                                     <i class="iconfont icon-biaoqian"></i>
                                     @{

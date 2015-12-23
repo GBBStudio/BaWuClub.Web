@@ -16,6 +16,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-su:before { content: "\e60f"; }
 .icon-chuangyejiaoliu:before { content: "\e600"; }
 .icon-dianshangfuwushang:before { content: "\e601"; }
 .icon-dianshanghuodong:before { content: "\e602"; }

@@ -29,7 +29,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                 if (pagenumber == 0)
                     pagenumber = 1;
             using (club = new ClubEntities()) {
-                var _users = from u in club.Users.OrderBy(u => u.Id).Skip<User>((pagenumber -1)* ClubConst.AdminPageSize).Take<User>(ClubConst.AdminPageSize)
+                var _users = from u in club.Users.OrderByDescending(u => u.Id).Skip<User>((pagenumber - 1) * ClubConst.AdminPageSize).Take<User>(ClubConst.AdminPageSize)
                              select u;
                 users = _users.ToList<User>();
                 ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, Convert.ToInt32(page), club.Users.Count());

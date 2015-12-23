@@ -7,11 +7,11 @@ namespace BaWuClub.Web.Dal
 {
     public static class ClubConst
     {
-        public const int AdminPageSize=30;
+        public const int AdminPageSize=13;
         public const int AdminPageShow = 1;
         //public const int WebPageSize = 15;
         //public const int WebPageShow = 8;
-        public const int WebPageSize = 5;
+        public const int WebPageSize = 15;
         public const int WebPageShow = 8;
 
         public const int WebQuestionPageShow = 8;

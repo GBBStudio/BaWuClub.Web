@@ -26,7 +26,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             int current = page ?? 1;
             List<Video> videos = new List<Video>();
             using (club = new ClubEntities()) {
-                videos = club.Videos.OrderBy(v => v.Id).Skip(ClubConst.AdminPageSize * (current - 1)).Take(ClubConst.AdminPageSize).ToList<Video>();
+                videos = club.Videos.OrderByDescending(v => v.Id).Skip(ClubConst.AdminPageSize * (current - 1)).Take(ClubConst.AdminPageSize).ToList<Video>();
                 ViewBag.Count = club.Videos.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, current, ViewBag.Count);

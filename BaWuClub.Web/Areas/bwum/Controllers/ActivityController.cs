@@ -29,7 +29,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             int count=0;
             List<ViewActivity> list = new List<ViewActivity>();
             using (club = new ClubEntities()) {
-                list=club.ViewActivities.OrderBy(a => a.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewActivity>();
+                list=club.ViewActivities.OrderByDescending(a => a.VarDate).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewActivity>();
                 count=club.ViewActivities.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize,tId,count);

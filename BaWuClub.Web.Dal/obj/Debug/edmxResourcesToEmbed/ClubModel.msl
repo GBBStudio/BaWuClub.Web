@@ -215,26 +215,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewAnswers">
-      <EntityTypeMapping TypeName="ClubDBModel.ViewAnswer">
-        <MappingFragment StoreEntitySet="ViewAnswer">
-          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-          <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
-          <ScalarProperty Name="RealName" ColumnName="RealName" />
-          <ScalarProperty Name="Intro" ColumnName="Intro" />
-          <ScalarProperty Name="Cover" ColumnName="Cover" />
-          <ScalarProperty Name="NickName" ColumnName="NickName" />
-          <ScalarProperty Name="UId" ColumnName="UId" />
-          <ScalarProperty Name="AnswerVarDate" ColumnName="AnswerVarDate" />
-          <ScalarProperty Name="Oppose" ColumnName="Oppose" />
-          <ScalarProperty Name="Agree" ColumnName="Agree" />
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="QId" ColumnName="QId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ActivityOrders">
       <EntityTypeMapping TypeName="ClubDBModel.ActivityOrder">
         <MappingFragment StoreEntitySet="ActivityOrders">
@@ -726,6 +706,26 @@
           <ScalarProperty Name="Cover" ColumnName="Cover" />
           <ScalarProperty Name="UId" ColumnName="UId" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewAnswers">
+      <EntityTypeMapping TypeName="ClubDBModel.ViewAnswer">
+        <MappingFragment StoreEntitySet="ViewAnswer">
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+          <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+          <ScalarProperty Name="Agree" ColumnName="Agree" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="QId" ColumnName="QId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

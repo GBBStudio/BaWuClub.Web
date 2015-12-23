@@ -29,7 +29,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             List<ViewBanner> list = new List<ViewBanner>();
             int count = 0;
             using (club = new ClubEntities()) {
-                list = club.ViewBanners.OrderBy(b => b.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewBanner>();
+                list = club.ViewBanners.OrderByDescending(b => b.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewBanner>();
                 count = club.Banners.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, tId, count);

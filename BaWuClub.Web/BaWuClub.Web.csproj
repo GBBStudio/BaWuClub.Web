@@ -661,6 +661,7 @@
     <Content Include="Content\Css\fontstyle.css" />
     <Content Include="Content\Css\jquery.datetimepicker.css" />
     <Content Include="Content\Css\member.css" />
+    <Content Include="Content\Css\nkpt.css" />
     <Content Include="Content\Css\reset.css" />
     <Content Include="Content\Css\rss.css" />
     <Content Include="Content\Css\study.css" />
@@ -808,7 +809,9 @@
     <Content Include="Content\Scripts\jquery.js" />
     <Content Include="Content\Scripts\layout.js" />
     <Content Include="Content\Scripts\member.js" />
+    <Content Include="Content\Scripts\nkpt-dialog.js" />
     <Content Include="Content\Scripts\reviews.js" />
+    <Content Include="Content\Scripts\share.js" />
     <Content Include="Content\Scripts\video.js" />
     <Content Include="Content\Scripts\w-layout.js" />
     <Content Include="Content\Swf\flowplayer-3.2.1.swf" />
@@ -1073,6 +1076,8 @@
     <Content Include="Views\Column\Tags.cshtml" />
     <Content Include="Views\Ask\Tags.cshtml" />
     <Content Include="Views\Member\Validate.cshtml" />
+    <Content Include="Views\Shared\_PartialShare.cshtml" />
+    <Content Include="Views\Member\TopicEdit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

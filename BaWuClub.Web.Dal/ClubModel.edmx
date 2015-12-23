@@ -445,7 +445,7 @@
             <PropertyRef Name="UserId" />
             <PropertyRef Name="Agree" />
             <PropertyRef Name="Oppose" />
-            <PropertyRef Name="AnswerVarDate" />
+            <PropertyRef Name="VarDate" />
             <PropertyRef Name="UId" />
             <PropertyRef Name="NickName" />
             <PropertyRef Name="QuestionTitle" />
@@ -457,7 +457,7 @@
           <Property Name="Answer" Type="text" />
           <Property Name="Agree" Type="int" Nullable="false" />
           <Property Name="Oppose" Type="int" Nullable="false" />
-          <Property Name="AnswerVarDate" Type="date" Nullable="false" />
+          <Property Name="VarDate" Type="datetime" Nullable="false" />
           <Property Name="UId" Type="int" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Cover" Type="nvarchar" MaxLength="50" />
@@ -927,7 +927,7 @@
     [ViewAnswer].[Answer] AS [Answer], 
     [ViewAnswer].[Agree] AS [Agree], 
     [ViewAnswer].[Oppose] AS [Oppose], 
-    [ViewAnswer].[AnswerVarDate] AS [AnswerVarDate], 
+    [ViewAnswer].[VarDate] AS [VarDate], 
     [ViewAnswer].[UId] AS [UId], 
     [ViewAnswer].[NickName] AS [NickName], 
     [ViewAnswer].[Cover] AS [Cover], 
@@ -1296,7 +1296,6 @@
           <EntitySet Name="Feedbacks" EntityType="ClubDBModel.Feedback" />
           <EntitySet Name="Activities" EntityType="ClubDBModel.Activity" />
           <EntitySet Name="ViewActivities" EntityType="ClubDBModel.ViewActivity" />
-          <EntitySet Name="ViewAnswers" EntityType="ClubDBModel.ViewAnswer" />
           <EntitySet Name="ActivityOrders" EntityType="ClubDBModel.ActivityOrder" />
           <EntitySet Name="ViewArticleReviews" EntityType="ClubDBModel.ViewArticleReview" />
           <EntitySet Name="SystemArticles" EntityType="ClubDBModel.SystemArticle" />
@@ -1340,6 +1339,7 @@
           <EntitySet Name="Messages" EntityType="ClubDBModel.Message" />
           <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
           <EntitySet Name="ViewTopicInvolveds" EntityType="ClubDBModel.ViewTopicInvolved" />
+          <EntitySet Name="ViewAnswers" EntityType="ClubDBModel.ViewAnswer" />
         </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -1446,34 +1446,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AId" Type="Int32" Nullable="false" />
           <Property Name="Node" Type="Byte" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ViewAnswer">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="QId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="Agree" />
-            <PropertyRef Name="Oppose" />
-            <PropertyRef Name="AnswerVarDate" />
-            <PropertyRef Name="UId" />
-            <PropertyRef Name="NickName" />
-            <PropertyRef Name="QuestionTitle" />
-            <PropertyRef Name="QuestionId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="QId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Agree" Type="Int32" Nullable="false" />
-          <Property Name="Oppose" Type="Int32" Nullable="false" />
-          <Property Name="AnswerVarDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UId" Type="Int32" Nullable="false" />
-          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ActivityOrder">
           <Key>
@@ -2064,6 +2036,34 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="TId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="ViewAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="QId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Agree" />
+            <PropertyRef Name="Oppose" />
+            <PropertyRef Name="VarDate" />
+            <PropertyRef Name="UId" />
+            <PropertyRef Name="NickName" />
+            <PropertyRef Name="QuestionTitle" />
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="QId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Agree" Type="Int32" Nullable="false" />
+          <Property Name="Oppose" Type="Int32" Nullable="false" />
+          <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UId" Type="Int32" Nullable="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2280,26 +2280,6 @@
                 <ScalarProperty Name="Context" ColumnName="Context" />
                 <ScalarProperty Name="Cover" ColumnName="Cover" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewAnswers">
-            <EntityTypeMapping TypeName="ClubDBModel.ViewAnswer">
-              <MappingFragment StoreEntitySet="ViewAnswer">
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
-                <ScalarProperty Name="RealName" ColumnName="RealName" />
-                <ScalarProperty Name="Intro" ColumnName="Intro" />
-                <ScalarProperty Name="Cover" ColumnName="Cover" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="UId" ColumnName="UId" />
-                <ScalarProperty Name="AnswerVarDate" ColumnName="AnswerVarDate" />
-                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
-                <ScalarProperty Name="Agree" ColumnName="Agree" />
-                <ScalarProperty Name="Answer" ColumnName="Answer" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="QId" ColumnName="QId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2795,6 +2775,26 @@
                 <ScalarProperty Name="Cover" ColumnName="Cover" />
                 <ScalarProperty Name="UId" ColumnName="UId" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewAnswers">
+            <EntityTypeMapping TypeName="ClubDBModel.ViewAnswer">
+              <MappingFragment StoreEntitySet="ViewAnswer">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UId" ColumnName="UId" />
+                <ScalarProperty Name="VarDate" ColumnName="VarDate" />
+                <ScalarProperty Name="Oppose" ColumnName="Oppose" />
+                <ScalarProperty Name="Agree" ColumnName="Agree" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="QId" ColumnName="QId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

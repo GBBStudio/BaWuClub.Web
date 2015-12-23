@@ -18,7 +18,7 @@
                     </div>
                     <div class="online-top-text">
                         <div class="online-top-title"></div>
-                        <p>@topVideo.Description</p>
+                        <p>@(topVideo.Description.Length>44?topVideo.Description.Substring(0,43)+"..":topVideo.Description)</p>
                         <a href="/online/course/@topVideo.Id" class="online-top-btn">立即学习>></a>
                     </div>
                 }
@@ -44,7 +44,6 @@
                     <div class="online-recommend-data">
                         <h3>@videoRecommend.Title</h3>
                         <span>@videoRecommend.Description</span>
-                       <!-- <p><span>时间:</span></p>-->
                         <p><span>老师:@videoRecommend.Teacher</span></p>
                     </div>
                 </div>

@@ -440,7 +440,7 @@
       <PropertyRef Name="UserId" />
       <PropertyRef Name="Agree" />
       <PropertyRef Name="Oppose" />
-      <PropertyRef Name="AnswerVarDate" />
+      <PropertyRef Name="VarDate" />
       <PropertyRef Name="UId" />
       <PropertyRef Name="NickName" />
       <PropertyRef Name="QuestionTitle" />
@@ -452,7 +452,7 @@
     <Property Name="Answer" Type="text" />
     <Property Name="Agree" Type="int" Nullable="false" />
     <Property Name="Oppose" Type="int" Nullable="false" />
-    <Property Name="AnswerVarDate" Type="date" Nullable="false" />
+    <Property Name="VarDate" Type="datetime" Nullable="false" />
     <Property Name="UId" Type="int" Nullable="false" />
     <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Cover" Type="nvarchar" MaxLength="50" />
@@ -922,7 +922,7 @@
     [ViewAnswer].[Answer] AS [Answer], 
     [ViewAnswer].[Agree] AS [Agree], 
     [ViewAnswer].[Oppose] AS [Oppose], 
-    [ViewAnswer].[AnswerVarDate] AS [AnswerVarDate], 
+    [ViewAnswer].[VarDate] AS [VarDate], 
     [ViewAnswer].[UId] AS [UId], 
     [ViewAnswer].[NickName] AS [NickName], 
     [ViewAnswer].[Cover] AS [Cover], 

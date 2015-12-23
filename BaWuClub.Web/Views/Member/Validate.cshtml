@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/views/shared/_layoutmember.cshtml";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-验证账号";
+}
+
+<div class="member-main">
+    <div class="member-ask">
+        <div class="member-main-wrap">
+            <div class="input-box">
+                <form name="form" method="post" onsubmit="return checkSubmit(this);">
+                    <label id="tips-wrap" style="color:red;"></label>
+                    <p><b>手机号：</b><input name="phone" value="" class="input-text input-small" type="text" data-hint="手机号不能为空！" data-required="true" /></p>
+                    <p><b>验证码：</b><input name="verfycode" value="" class="input-text input-small" type="text" /><input name="" onclick="getverfycode();" class="btn-verfy" type="button" value="获取验证码"/></p>
+                    <p>
+                        <b>&nbsp;</b><input type="submit" value="验证" class="btn-sub" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/scripts/member.js"></script>
+<script>
+    function getverfycode() {
+        $(".btn-verfy").attr("disabled", "disabled");
+        gettimeleft(60)
+    }
+
+    function back() {
+        $(".btn-verfy").removeAttr("disabled")
+        $(".btn-verfy").val("获取验证码");
+    }
+
+    function gettimeleft(i) {
+        $(".btn-verfy").val("请等待" + i + "秒");
+        if (i > 0) {
+            setTimeout(gettimeleft, 1000,i-1)
+        } else {
+            back()
+        }
+    }
+</script>

@@ -1,19 +1,5 @@
 ﻿@{
     Layout = "~/views/shared/_layout.cshtml";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/font-awesome.min.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/froala_editor.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/froala_style.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/code_view.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/colors.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/emoticons.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/image_manager.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/image.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/line_breaker.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/table.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/char_counter.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/video.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/fullscreen.css\" type=\"text/css\" rel=\"stylesheet\"/>";
-    //ViewBag.CssAppend += "<link href=\"/content/froala-editor/css/plugins/file.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 @model BaWuClub.Web.Dal.ViewArticle
 
@@ -27,7 +13,8 @@
                 </p>
                 <p class="article-title-tags">
                      标签:@{
-                         if (Model.Tags != null && Model.TagIds != null) {
+                         if (!string.IsNullOrEmpty(Model.Tags) && Model.TagIds != null)
+                         {
                              var tags = Model.Tags.Split(',');
                              var tagIds = Model.TagIds.Split(',');
                              for (int i = 0; i < tags.Length; i++) { 
@@ -35,11 +22,13 @@
                              }
                          }
                      }
+                    分享:@Html.Partial("~/views/shared/_partialshare.cshtml")
                 </p>
             </div>
             <div class="article-desc">
                 @Html.Raw(Model.Context)
             </div>
+            <div class="article-share">分享:@Html.Partial("~/views/shared/_partialshare.cshtml")</div>
         </div>
         <div class="comment-wrap">
             <div class="comment-title">

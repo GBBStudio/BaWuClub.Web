@@ -22,6 +22,7 @@ namespace BaWuClub.Web.Controllers
         private string hintStr = string.Empty;
         private string pageString = string.Empty;
         StringBuilder str = new StringBuilder();
+        string url = string.Empty;
         #endregion
 
         #region get
@@ -44,7 +45,9 @@ namespace BaWuClub.Web.Controllers
             return View();
         }
 
-        public ActionResult ContributeList(int? uid){
+        public ActionResult ContributeList(int? uid)
+        {
+            var userAuthorize = (User)ViewBag.userAuthorize;
             List<Article> list = new List<Article>();
             using (club = new ClubEntities()){
                 user = GetUser(club, uid);
@@ -52,7 +55,10 @@ namespace BaWuClub.Web.Controllers
                     return Redirect("/error/notfound");
                 ViewBag.ContributeAllCount = club.Articles.Where(a => a.UserId == user.Id).Count();
                 ViewBag.ContributeCheckedCount = club.Articles.Where(a => (a.Status > 0 && a.UserId == user.Id)).Count();
-                list = club.Articles.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Article>();
+                Expression<Func<Article, bool>> expression = expression = a => a.UserId == user.Id;
+                if (userAuthorize == null)
+                    expression = a => a.UserId == user.Id && a.Status == (int)State.Enable;
+                list = club.Articles.OrderByDescending(a => a.Id).Where(expression).Take(ClubConst.MemberPageSize).ToList<Article>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=column&page=");
             }
             ViewBag.user = user;
@@ -80,7 +86,7 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()){
                 user = GetUser(club, uid);
                 ViewBag.AskAllCount = club.Questions.Where(a => a.UserId == user.Id).Count();
-                list = club.Questions.Where(a => a.UserId == user.Id).OrderBy(a => a.Id).Take(ClubConst.MemberPageSize).ToList<Question>();
+                list = club.Questions.OrderByDescending(a=>a.Id).Where(a => a.UserId == user.Id).Take(ClubConst.MemberPageSize).ToList<Question>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.AskAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=ask&page=");
             }
             if (user == null)
@@ -97,7 +103,7 @@ namespace BaWuClub.Web.Controllers
                 var shared = club.SystemArticles.Where(s => s.Variables == "sys-info-shared" && s.Status == (int)State.Enable).FirstOrDefault();
                 ViewBag.docsCount = club.Documents.Where(d => d.UserId == uid).Count();
                 ViewBag.docsCheckedCount = club.Documents.Where(d => d.UserId == uid&&d.Status==(int)State.Enable).Count();
-                list = club.Documents.Where(d => d.UserId == uid).Take(ClubConst.MemberPageSize).ToList<Document>();
+                list = club.Documents.OrderByDescending(d=>d.Id).Where(d => d.UserId == uid).Take(ClubConst.MemberPageSize).ToList<Document>();
                 ViewBag.SharedDesc =shared != null? shared.Text:"";
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.docsCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=shared&page=");
             }
@@ -123,7 +129,7 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 ViewBag.msgCount = club.Messages.Where(d => d.ToId== uid).Count();
                 ViewBag.unReadMsgCount = club.Messages.Where(d => d.ToId == uid && d.Status == 0).Count();
-                list = club.Messages.Where(m => m.ToId == user.Id).OrderByDescending(m=>m.Vardate).Take(ClubConst.MemberPageSize).ToList<Message>();
+                list = club.Messages.OrderByDescending(m=>m.Id).Where(m => m.ToId == user.Id).Take(ClubConst.MemberPageSize).ToList<Message>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.msgCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=message&page=");
             }
             ViewBag.user = user;
@@ -147,20 +153,70 @@ namespace BaWuClub.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Validate(int? uid) {
+        public ActionResult Validate() {
             user = (User)ViewBag.userAuthorize;
+            ViewBag.user = user;
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ContributeModify(int? id){
+            user = (User)ViewBag.userAuthorize;
+            Article article = new Article();
+            using (club = new ClubEntities()){
+                article = club.Articles.Where(a => a.Id == id).FirstOrDefault();
+            }
+            ViewBag.user = user;
+            ViewBag.article = article;
+            return View("~/views/member/contribute.cshtml");
+        }
+
+        [Authorize]
+        public ActionResult TopicEdit() { 
+            user = (User)ViewBag.userAuthorize;
+            //Article article = new Article();
+            //using (club = new ClubEntities()){
+               //article = club.Articles.Where(a => a.Id == id).FirstOrDefault();
+            //}
             ViewBag.user = user;
             return View();
         }
         #endregion
 
         #region post
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult ContributeModify(int id, string title, string tags, string editor)
+        {
+            Article article = new Article();
+            using (club = new ClubEntities())
+            {
+                article = club.Articles.Where(a => a.Id == id).FirstOrDefault();
+                if(article!=null)
+                {
+                    article.Title = Common.HtmlCommon.ClearHtml(title);
+                    article.Context = Common.HtmlCommon.ClearJavascript(editor);
+                    article.Tags = Common.HtmlCommon.ClearHtml(tags);
+                    article.Status = (byte)State.Disable;
+                } 
+                if(club.SaveChanges()>=0){
+                        hintStr = "投稿已更新，请等待审核！";
+                        status=Status.success;
+                        url = "/member/u-" + article.UserId + "/contributelist";
+                    }else{
+                        hintStr = "系统异常，请尝试稍后更新！";        
+                    }
+            }
+            return Json(new { state = status.ToString(), context = hintStr, url = url });
+        }
+
 
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
         public JsonResult Contribute(string title,string tags,string editor){
-            string url = string.Empty;
+            user = (User)ViewBag.userAuthorize;
             if (string.IsNullOrEmpty(title)||string.IsNullOrEmpty(editor)) {
                 hintStr = "投稿的标题和内容均不能为空，请填写标题后再提交！";
             }else{
@@ -169,7 +225,7 @@ namespace BaWuClub.Web.Controllers
                         Title=Common.HtmlCommon.ClearHtml(title),
                         Context = Common.HtmlCommon.ClearJavascript(editor),
                         Tags = Common.HtmlCommon.ClearHtml(tags),
-                        UserId=Convert.ToInt32(Request.Cookies["bwusers"]["id"].ToString()),
+                        UserId = user.Id,
                         VarDate=DateTime.Now
                     };
                     club.Articles.Add(article);
@@ -246,7 +302,8 @@ namespace BaWuClub.Web.Controllers
             user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             if (!string.IsNullOrEmpty(cover)) {
                 using (club = new ClubEntities()){
-                    user.Cover = HtmlCommon.ClearHtml(cover);
+                    var u = club.Users.Where(t => t.Id == user.Id).FirstOrDefault();
+                    u.Cover = HtmlCommon.ClearHtml(cover);
                     if (club.SaveChanges()>=0)
                         status = Status.success;
                 }
@@ -335,53 +392,84 @@ namespace BaWuClub.Web.Controllers
 
         #region getlist
         public JsonResult GetList(string tstr,int? uid,int? page,string st) {
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             string json = string.Empty;
             int tId = uid ?? 0;
             int currentId = page ?? 1;
             string url = "/"+tstr+"/show/";
+            bool edit = true;
+            string editUrl = "/member/";
+            bool login = true;
+            if (user == null){
+                login = false;
+            }
             using (club = new ClubEntities()) {
                 switch (tstr) { 
                     case "ask":
                         var alist = GetList<Question>(club.Questions, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-"+tId+"/getlist?tstr=ask&page=");
-                        json = Newtonsoft.Json.JsonConvert.SerializeObject(alist);
+                        json = ParseList(alist, login);
+                        editUrl += "ask/";
+                        break;
+                    case "answer":
+                        var answerlist = GetList<ViewAnswer>(club.ViewAnswers, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-" + tId + "/getlist?tstr=answer&page=");
+                        json = ParseList(answerlist, login);
+                        url = "/ask/show/";
+                        edit = false;
                         break;
                     case "column":
                         Expression<Func<Article,bool>> Aexpression=null;
                         if (!string.IsNullOrEmpty(st) && st == "1")
                             Aexpression = a => a.Status == 1 && a.UserId == tId;
+                        if(!login)
+                            Aexpression = a => a.Status == 1 && a.UserId == tId;
                         var clist = GetList<Article>(club.Articles, currentId, (Aexpression != null ? Aexpression : (a => a.UserId == tId)), a => a.Id, out pageString, "/member/u-" + tId + "/getlist?st="+st+"&tstr=column&page=");
-                        json = Newtonsoft.Json.JsonConvert.SerializeObject(clist);
+                        json = ParseList(clist, login);
+                        editUrl += "contributemodify/";
                         break;
                     case "shared":
                         url = "/download/item/";
                         Expression<Func<Document, bool>> Sexpression = null;
                         if (!string.IsNullOrEmpty(st) && st == "1")
                             Sexpression = s=> s.Status == 1 && s.UserId == tId;
+                        if (!login)
+                            Sexpression = s => s.Status == 1 && s.UserId == tId;
                         var slist = GetList<Document>(club.Documents, currentId, (Sexpression != null ? Sexpression : (s => s.UserId == tId)), s => s.Id, out pageString, "/member/u-" + tId + "/getlist?st="+st+"&tstr=shared&page=");
-                        json = Newtonsoft.Json.JsonConvert.SerializeObject(slist);
+                        json = ParseList(slist,login);
+                        edit = false;
                         break;
                     case "message":
                         Expression<Func<Message, bool>> Mexpression = null;
                         if (!string.IsNullOrEmpty(st) && st == "0")
                             Mexpression = m => m.ToId == tId&&m.Status==0;
                         var mlist = GetList<Message>(club.Messages, currentId, (Mexpression != null ? Mexpression : (s => s.ToId == tId)), s => s.Id, out pageString, "/member/u-" + tId + "/getlist?st="+st+"&tstr=message&page=");
-                        json = Newtonsoft.Json.JsonConvert.SerializeObject(mlist);
+                        json = ParseList(mlist,login);
+                        edit = false;
                         break;
                     case "forum":
                         Expression<Func<ViewTopicIndex, bool>> Texpression = null;
                         int sint=0;
-                        if (!string.IsNullOrEmpty(st) && Int32.TryParse(st, out sint)){                            
+                        if (!string.IsNullOrEmpty(st) && Int32.TryParse(st, out sint)){
                             Texpression = t => t.Type == sint && t.UserId == tId;
+                            if (sint == 0) {
+                                edit = true;
+                                editUrl += "topicedit/";
+                            }
+                            else {
+                                edit = false;
+                            }
                             url = "/forum/" + ((TopicType)sint).ToString().ToLower() + "/";
                         }
                         var tlist = GetList<ViewTopicIndex>(club.ViewTopicIndexes, currentId, (Texpression != null ? Texpression : (s => s.UserId == tId)), s => s.Id, out pageString, "/member/u-" + tId + "/getlist?st=" + st + "&tstr=forum&page=");
-                        json = Newtonsoft.Json.JsonConvert.SerializeObject(tlist);
+                        json = ParseList(tlist, login);
                         break;
                 }
             }
             ViewBag.pageStr = pageString;
             status = Status.success;
-            return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json }, JsonRequestBehavior.AllowGet);
+            if (!login) {
+                return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json,StateShow=login }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, edit = edit, editurl = editUrl, StateShow = login }, JsonRequestBehavior.AllowGet);
         }
 
         private List<T> GetList<T>(DbSet<T> ds, int page, Expression<Func<T, bool>> express, Expression<Func<T,int>> orderByExpress,out string pageStr,string url) where T : class
@@ -412,6 +500,51 @@ namespace BaWuClub.Web.Controllers
             int userId = uid ?? 0;
             user = c.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
+        }
+
+        private string ParseList<T>(List<T> list,bool login) {
+            List<object> l = new List<object>();
+            object obj;
+            foreach (var t in list as IEnumerable<T>)
+            {
+                if (typeof(T) == typeof(Message))
+                {
+                    obj = new
+                    {
+                        Id = t.GetType().GetProperty("Id").GetValue(t, null),
+                        Title = t.GetType().GetProperty("Title").GetValue(t, null),
+                        Message1 = t.GetType().GetProperty("Message1").GetValue(t, null),
+                        Status = t.GetType().GetProperty("Status").GetValue(t, null),
+                        VarDate = ((DateTime)t.GetType().GetProperty("Vardate").GetValue(t, null)).ToString(@"yyyy-MM-dd hh:dd")
+                    };
+                }
+                else {
+                    object status = null;
+                    if (t.GetType().GetProperty("Status") != null){
+                        status = t.GetType().GetProperty("Status").GetValue(t, null);
+                    }
+                    if(typeof(T) == typeof(ViewAnswer)) {
+
+                        obj = new{
+                            Id = t.GetType().GetProperty("QId").GetValue(t, null),
+                            Title = t.GetType().GetProperty("QuestionTitle").GetValue(t, null),
+                            Status = status,
+                            VarDate = ((DateTime)t.GetType().GetProperty("VarDate").GetValue(t, null)).ToString(@"yyyy-MM-dd hh:dd")
+                        };
+                    }
+                    else{
+                        obj = new{
+                            Id = t.GetType().GetProperty("Id").GetValue(t, null),
+                            Title = t.GetType().GetProperty("Title").GetValue(t, null),
+                            Status = status,
+                            VarDate = ((DateTime)t.GetType().GetProperty("VarDate").GetValue(t, null)).ToString(@"yyyy-MM-dd hh:dd")
+                        };
+
+                    }
+                }
+                l.Add(obj);
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(l);
         }
         #endregion
     }

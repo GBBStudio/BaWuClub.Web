@@ -116,7 +116,6 @@
     <EntitySet Name="Feedbacks" EntityType="ClubDBModel.Feedback" />
     <EntitySet Name="Activities" EntityType="ClubDBModel.Activity" />
     <EntitySet Name="ViewActivities" EntityType="ClubDBModel.ViewActivity" />
-    <EntitySet Name="ViewAnswers" EntityType="ClubDBModel.ViewAnswer" />
     <EntitySet Name="ActivityOrders" EntityType="ClubDBModel.ActivityOrder" />
     <EntitySet Name="ViewArticleReviews" EntityType="ClubDBModel.ViewArticleReview" />
     <EntitySet Name="SystemArticles" EntityType="ClubDBModel.SystemArticle" />
@@ -160,6 +159,7 @@
     <EntitySet Name="Messages" EntityType="ClubDBModel.Message" />
     <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
     <EntitySet Name="ViewTopicInvolveds" EntityType="ClubDBModel.ViewTopicInvolved" />
+    <EntitySet Name="ViewAnswers" EntityType="ClubDBModel.ViewAnswer" />
   </EntityContainer>
   <EntityType Name="Question">
     <Key>
@@ -266,34 +266,6 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="AId" Type="Int32" Nullable="false" />
     <Property Name="Node" Type="Byte" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ViewAnswer">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="QId" />
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="Agree" />
-      <PropertyRef Name="Oppose" />
-      <PropertyRef Name="AnswerVarDate" />
-      <PropertyRef Name="UId" />
-      <PropertyRef Name="NickName" />
-      <PropertyRef Name="QuestionTitle" />
-      <PropertyRef Name="QuestionId" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="QId" Type="Int32" Nullable="false" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Agree" Type="Int32" Nullable="false" />
-    <Property Name="Oppose" Type="Int32" Nullable="false" />
-    <Property Name="AnswerVarDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="UId" Type="Int32" Nullable="false" />
-    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="QuestionTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="QuestionId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="ActivityOrder">
     <Key>
@@ -883,5 +855,33 @@
     <Property Name="TopicId" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="TId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="QId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="Agree" />
+      <PropertyRef Name="Oppose" />
+      <PropertyRef Name="VarDate" />
+      <PropertyRef Name="UId" />
+      <PropertyRef Name="NickName" />
+      <PropertyRef Name="QuestionTitle" />
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="QId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Agree" Type="Int32" Nullable="false" />
+    <Property Name="Oppose" Type="Int32" Nullable="false" />
+    <Property Name="VarDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UId" Type="Int32" Nullable="false" />
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

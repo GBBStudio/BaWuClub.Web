@@ -27,7 +27,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             int current = page ?? 1;
             List<ViewArticle> viewArticles = new List<ViewArticle>();
             using (club = new ClubEntities()) {
-                viewArticles = club.ViewArticles.OrderBy(v => v.Id).Skip(ClubConst.AdminPageSize * (current - 1)).Take(ClubConst.AdminPageSize).ToList<ViewArticle>();
+                viewArticles = club.ViewArticles.OrderByDescending(v => v.Id).Skip(ClubConst.AdminPageSize * (current - 1)).Take(ClubConst.AdminPageSize).ToList<ViewArticle>();
                 ViewBag.Count = club.ViewArticles.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, current, ViewBag.Count);

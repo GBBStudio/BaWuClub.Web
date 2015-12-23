@@ -20,7 +20,7 @@ namespace BaWuClub.Web.Dal
         public string Answer { get; set; }
         public int Agree { get; set; }
         public int Oppose { get; set; }
-        public System.DateTime AnswerVarDate { get; set; }
+        public System.DateTime VarDate { get; set; }
         public int UId { get; set; }
         public string NickName { get; set; }
         public string Cover { get; set; }

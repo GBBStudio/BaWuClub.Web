@@ -47,9 +47,9 @@
     <div class="container-right fright">
         <div class="activity-right-banner">
             @{
-                if (ViewBag.BannerActivityLeft != null)
+                if (ViewBag.bannerActivityRight != null)
                 {
-                    var banner = ViewBag.BannerActivityLeft;
+                    var banner = ViewBag.bannerActivityRight;
                     <a href="@(banner.Url.Length>0?banner.Url:"#")"><img src="~/uploads/banner/@banner.Pic" /></a>
                 }
             }

@@ -27,6 +27,6 @@ C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\bin\Debug\EntityF
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\bin\Debug\EntityFramework.xml
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\obj\Debug\BaWuClub.Web.Dal.csprojResolveAssemblyReference.cache
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\obj\Debug\BaWuClub.Web.Dal.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\obj\Debug\BaWuClub.Web.Dal.pdb
-C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Dal\obj\Debug\BaWuClub.Web.Dal.csprojResolveAssemblyReference.cache

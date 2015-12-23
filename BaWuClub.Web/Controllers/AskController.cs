@@ -27,7 +27,7 @@ namespace BaWuClub.Web.Controllers
             int rowsCount = 0;
             using (club = new ClubEntities()){
                 rowsCount=club.ViewQuestions.Count();
-                vquestion = club.ViewQuestions.OrderByDescending(q => q.VarDate).Take(ClubConst.WebPageSize).ToList<ViewQuestion>();
+                vquestion = club.ViewQuestions.OrderByDescending(q => q.VarDate).Take(ClubConst.WebQuestionPageSize).ToList<ViewQuestion>();
                 ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
                 ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
             }
@@ -67,11 +67,11 @@ namespace BaWuClub.Web.Controllers
                 ViewBag.AnswerCount = club.Answers.Where(a => a.QId == qid).Count();
                 ViewBag.AnswerVote = club.AnswerVotes.Where(a => a.QId == qid).ToList<AnswerVote>();
                 if(sort=="time")
-                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q=>q.AnswerVarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
+                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q=>q.VarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
                 else if (sort == "vote")
                     ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q =>(q.Agree+q.Oppose)).Where(q => q.QId == qid).ToList<ViewAnswer>();
                 else
-                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q=>q.AnswerVarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
+                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q => q.VarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
                 if (vq == null)
                     return Redirect("/error/notfound");
                 ViewBag.Title = vq.Title;

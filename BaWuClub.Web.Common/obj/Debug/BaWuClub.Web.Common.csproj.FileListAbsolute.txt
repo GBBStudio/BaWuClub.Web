@@ -9,6 +9,6 @@ C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debu
 C:\Users\mengweifeng\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debug\BaWuClub.Web.Common.csprojResolveAssemblyReference.cache
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Debug\BaWuClub.Web.Common.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\bin\Debug\BaWuClub.Web.Common.pdb
+C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debug\BaWuClub.Web.Common.csprojResolveAssemblyReference.cache
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debug\BaWuClub.Web.Common.dll
 C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debug\BaWuClub.Web.Common.pdb
-C:\Users\wesen\Desktop\xiakexing\BaWuClub.Web\BaWuClub.Web.Common\obj\Debug\BaWuClub.Web.Common.csprojResolveAssemblyReference.cache

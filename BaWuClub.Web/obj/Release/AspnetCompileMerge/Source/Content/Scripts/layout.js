@@ -73,6 +73,7 @@ function ajaxdelete(url, id) {
 /*设置输出操作提示消息在ID为notic-wrap的DIV中显示*/
 function setstatus(context) {
     $("#notic-wrap").html("<span>"+context+"</span>");
+   // var d= dialog(context)
 }
 
 /*检查是否选中checkbox*/

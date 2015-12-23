@@ -27,7 +27,7 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
             int count = 0;
             List<ViewTopicIndex> list = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
-                list = club.ViewTopicIndexes.OrderBy(a => a.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewTopicIndex>();
+                list = club.ViewTopicIndexes.OrderByDescending(a => a.Id).Skip((tId - 1) * ClubConst.AdminPageSize).Take(ClubConst.AdminPageSize).ToList<ViewTopicIndex>();
                 count = club.ViewTopicIndexes.Count();
             }
             ViewBag.PageHtmlStr = HtmlCommon.GetPageStr(ClubConst.AdminPageSize, tId, count);
