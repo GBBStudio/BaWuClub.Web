@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "第三方登录-八五商圈网";
+}
+<div id="main" class="container">
+    <div class="third-wrap">
+        <p><span style="font-size:16px;color:red">@Html.Raw(ViewBag.hint)</span></p>
+        <form action="/account/thirdreg" method="post" id="form">
+            <input type="hidden" name="tid" value="@Session["openid"]" />
+            <img src="@Session["cover"]" />
+            <p>您好，欢迎 @Session["nickname"]来到八五商圈网</p>
+            <p>先给自己起个响亮的名字吧</p>
+            <p><input type="text" value="" name="nickname" class="input-text" /></p>
+            <p><input type="button" value="提交" class="btn-sub" /></p>
+        </form>
+    </div>
+</div>
+<script>
+    var nickname=document.getElementsByName("nickname")[0]
+    $(".btn-sub").click(function () {
+        if (nickname.value.length == 0) {
+            alert("需要先给自己起一个霸气的名字哦")
+        } else {
+            $("#form").submit();
+        }
+    });
+</script>

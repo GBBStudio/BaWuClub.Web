@@ -62,7 +62,8 @@ namespace BaWuClub.Web.Areas.bwum.Controllers
                     Context=context,
                     Cover=pic,
                     Cost=cost,
-                    Limited=limited
+                    Limited=limited,
+                    VarDate=DateTime.Now
             };
             using (club = new ClubEntities()) {
                 club.Activities.Add(activity);

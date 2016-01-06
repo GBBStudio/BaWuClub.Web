@@ -73,7 +73,7 @@
                                 <div class="online-class-info">
                                     <h3><a href="/online/course/@video.Id">@video.Title</a></h3>
                                     <p><span>@video.Teacher</span></p>
-                                    <p>@video.Description</p>
+                                    <p>@(video.Description.Length > 75 ? video.Description.Substring(0, 74) + ".." : video.Description)</p>
                                 </div>
                             </li>
                         }

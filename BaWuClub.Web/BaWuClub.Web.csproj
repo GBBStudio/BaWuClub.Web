@@ -16,10 +16,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -129,9 +129,14 @@
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="Wesen.OAuth, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Wesen.OAuth.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AdminAuthorize.cs" />
+    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\CommonMethod.cs" />
     <Compile Include="App_Start\LoadXml.cs" />
     <Compile Include="Areas\bwum\bwumAreaRegistration.cs" />
@@ -769,17 +774,14 @@
     <Content Include="Content\Froala-Editor\js\plugins\table.min.js" />
     <Content Include="Content\Froala-Editor\js\plugins\url.min.js" />
     <Content Include="Content\Froala-Editor\js\plugins\video.min.js" />
-    <Content Include="Content\Images\01-.png" />
     <Content Include="Content\Images\area-1.jpg" />
     <Content Include="Content\Images\area-logo.png" />
     <Content Include="Content\Images\b-1.jpg" />
     <Content Include="Content\Images\b-2.jpg" />
-    <Content Include="Content\Images\banner-lbjp.png" />
     <Content Include="Content\Images\bg-downlaod.png" />
     <Content Include="Content\Images\btn-ac.png" />
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\comingsong.jpg" />
-    <Content Include="Content\Images\course.jpg" />
     <Content Include="Content\Images\discuss.png" />
     <Content Include="Content\Images\icon-excel.png" />
     <Content Include="Content\Images\icon-pdf.png" />
@@ -800,7 +802,6 @@
     <Content Include="Content\Images\online.jpg" />
     <Content Include="Content\Images\player.png" />
     <Content Include="Content\Images\rw.jpg" />
-    <Content Include="Content\Images\t-1.JPG" />
     <Content Include="Content\Images\_logo.png" />
     <Content Include="Content\Scripts\avatarupload.js" />
     <Content Include="Content\Scripts\comments.js" />
@@ -1078,6 +1079,8 @@
     <Content Include="Views\Member\Validate.cshtml" />
     <Content Include="Views\Shared\_PartialShare.cshtml" />
     <Content Include="Views\Member\TopicEdit.cshtml" />
+    <Content Include="Views\Member\AskModify.cshtml" />
+    <Content Include="Views\Account\ThirdAccount.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1097,7 +1100,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3787</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5356/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://www.bawu.com/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

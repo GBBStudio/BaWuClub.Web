@@ -73,32 +73,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="ClubDBModel.User">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
-          <ScalarProperty Name="Points" ColumnName="Points" />
-          <ScalarProperty Name="Membership" ColumnName="Membership" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NickName" ColumnName="NickName" />
-          <ScalarProperty Name="RealName" ColumnName="RealName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Company" ColumnName="Company" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Intro" ColumnName="Intro" />
-          <ScalarProperty Name="Cover" ColumnName="Cover" />
-          <ScalarProperty Name="Credit" ColumnName="Credit" />
-          <ScalarProperty Name="Actived" ColumnName="Actived" />
-          <ScalarProperty Name="Role" ColumnName="Role" />
-          <ScalarProperty Name="ActivedCode" ColumnName="ActivedCode" />
-          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
-          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Views">
       <EntityTypeMapping TypeName="ClubDBModel.View">
         <MappingFragment StoreEntitySet="Views">
@@ -725,6 +699,34 @@
           <ScalarProperty Name="Answer" ColumnName="Answer" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="QId" ColumnName="QId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ClubDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Membership" ColumnName="Membership" />
+          <ScalarProperty Name="ActivedCode" ColumnName="ActivedCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Actived" ColumnName="Actived" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="Cover" ColumnName="Cover" />
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -360,6 +360,8 @@
     <Property Name="ActivedCode" Type="nvarchar" MaxLength="50" />
     <Property Name="Membership" Type="tinyint" />
     <Property Name="Points" Type="int" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Tid" Type="nvarchar" MaxLength="300" />
     <Property Name="RegDate" Type="datetime" />
     <Property Name="LastLoginDate" Type="datetime" />
     <Property Name="LastLoginIP" Type="nvarchar" MaxLength="50" />

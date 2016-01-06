@@ -365,6 +365,8 @@
           <Property Name="ActivedCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Membership" Type="tinyint" />
           <Property Name="Points" Type="int" />
+          <Property Name="Type" Type="tinyint" />
+          <Property Name="Tid" Type="nvarchar" MaxLength="300" />
           <Property Name="RegDate" Type="datetime" />
           <Property Name="LastLoginDate" Type="datetime" />
           <Property Name="LastLoginIP" Type="nvarchar" MaxLength="50" />
@@ -1246,31 +1248,6 @@
           <Property Name="Vardate" Type="DateTime" Precision="3" />
           <Property Name="Tops" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Credit" Type="Int32" Nullable="false" />
-          <Property Name="Actived" Type="Byte" Nullable="false" />
-          <Property Name="Role" Type="Byte" Nullable="false" />
-          <Property Name="ActivedCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RegDate" Type="DateTime" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
-          <Property Name="Membership" Type="Byte" />
-          <Property Name="Points" Type="Int32" />
-          <Property Name="LastLoginIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
-        </EntityType>
         <EntityType Name="View">
           <Key>
             <PropertyRef Name="Id" />
@@ -1287,7 +1264,6 @@
           <EntitySet Name="ArticleTags" EntityType="Self.ArticleTag" />
           <EntitySet Name="Settings" EntityType="Self.Setting" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Views" EntityType="Self.View" />
           <EntitySet Name="Questions" EntityType="ClubDBModel.Question" />
           <EntitySet Name="ViewQuestions" EntityType="ClubDBModel.ViewQuestion" />
@@ -1340,6 +1316,7 @@
           <EntitySet Name="TopicInvolveds" EntityType="ClubDBModel.TopicInvolved" />
           <EntitySet Name="ViewTopicInvolveds" EntityType="ClubDBModel.ViewTopicInvolved" />
           <EntitySet Name="ViewAnswers" EntityType="ClubDBModel.ViewAnswer" />
+          <EntitySet Name="Users" EntityType="ClubDBModel.User" />
         </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -2064,6 +2041,33 @@
           <Property Name="QuestionTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Credit" Type="Int32" Nullable="false" />
+          <Property Name="Actived" Type="Byte" Nullable="false" />
+          <Property Name="Role" Type="Byte" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="ActivedCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Membership" Type="Byte" />
+          <Property Name="Points" Type="Int32" />
+          <Property Name="Type" Type="Byte" />
+          <Property Name="Tid" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2139,32 +2143,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ClubDBModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
-                <ScalarProperty Name="Points" ColumnName="Points" />
-                <ScalarProperty Name="Membership" ColumnName="Membership" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="RealName" ColumnName="RealName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Intro" ColumnName="Intro" />
-                <ScalarProperty Name="Cover" ColumnName="Cover" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Actived" ColumnName="Actived" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="ActivedCode" ColumnName="ActivedCode" />
-                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2794,6 +2772,34 @@
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="QId" ColumnName="QId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ClubDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="Membership" ColumnName="Membership" />
+                <ScalarProperty Name="ActivedCode" ColumnName="ActivedCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Actived" ColumnName="Actived" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

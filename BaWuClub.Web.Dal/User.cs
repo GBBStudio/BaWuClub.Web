@@ -27,12 +27,14 @@ namespace BaWuClub.Web.Dal
         public int Credit { get; set; }
         public byte Actived { get; set; }
         public byte Role { get; set; }
+        public byte Status { get; set; }
         public string ActivedCode { get; set; }
-        public Nullable<System.DateTime> RegDate { get; set; }
-        public Nullable<System.DateTime> LastLoginDate { get; set; }
         public Nullable<byte> Membership { get; set; }
         public Nullable<int> Points { get; set; }
+        public Nullable<byte> Type { get; set; }
+        public string Tid { get; set; }
+        public Nullable<System.DateTime> RegDate { get; set; }
+        public Nullable<System.DateTime> LastLoginDate { get; set; }
         public string LastLoginIP { get; set; }
-        public byte Status { get; set; }
     }
 }

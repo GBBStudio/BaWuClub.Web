@@ -31,7 +31,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<ArticleTag> ArticleTags { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<View> Views { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<ViewQuestion> ViewQuestions { get; set; }
@@ -72,5 +71,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<TopicInvolved> TopicInvolveds { get; set; }
         public virtual DbSet<ViewTopicInvolved> ViewTopicInvolveds { get; set; }
         public virtual DbSet<ViewAnswer> ViewAnswers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

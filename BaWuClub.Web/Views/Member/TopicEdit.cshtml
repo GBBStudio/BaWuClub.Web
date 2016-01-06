@@ -5,12 +5,25 @@
     ViewBag.Title = user.NickName + "的个人用户中心-帖子修改";
 
 }
-
+@{
+    var topic =ViewBag.topic as BaWuClub.Web.Dal.TopicIndex;
+}
 <div class="member-main">
-    <div class="member-contributions">
+    <div class="member-topic">
         <div class="member-main-wrap">
             <div class="input-box">
-
+                <form name="form" method="post" action="/member/topicmodify" onsubmit="SetEditorValue(); return checkSubmit(this);">
+                    <label id="tips-wrap" style="color:red;"></label>
+                    <input type="hidden" value="@topic.Id" name="id" />
+                    <p><b>标题：</b><input name="title" value="@topic.Title" class="input-text" type="text" data-hint="标题不能为空！" data-required="true" /></p>
+                    <div class="input-box-ha">
+                        <b>详情：</b>
+                        <textarea name="context" class="input-textarea" id="editor">@topic.Topic.Context</textarea>
+                    </div>
+                    <p>
+                        <b>&nbsp;</b><input type="submit" value="提交" class="btn-sub" />
+                    </p>
+                </form>
             </div>
         </div>
     </div>

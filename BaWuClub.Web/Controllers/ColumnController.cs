@@ -22,7 +22,7 @@ namespace BaWuClub.Web.Controllers
             tId = id ?? 1;
             List<ViewArticle> viewArticles = new List<ViewArticle>();
             using(club=new ClubEntities()){
-                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Take(7).ToList<Article>();
+                ViewBag.newArticles = club.Articles.OrderByDescending(a => a.VarDate).Where(a => a.Status > 0).Take(7).ToList<Article>();
                 ViewBag.hotQuestions = club.Questions.OrderByDescending(a => a.Views).Take(7).ToList<Question>();
                 viewArticles = club.ViewArticles.OrderByDescending(a => a.Id).Where(a => a.Status > 0).Skip((tId - 1) * ClubConst.WebQuestionPageSize).Take(ClubConst.WebQuestionPageSize).ToList();
                 ViewBag.PageStr = new PagingHelper(ClubConst.WebQuestionPageSize,tId,club.ViewArticles.Where(a=>a.Status>0).Count(),5).GetPageStringPro("/column/index/", false);

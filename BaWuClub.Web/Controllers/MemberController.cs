@@ -144,6 +144,19 @@ namespace BaWuClub.Web.Controllers
         }
 
         [Authorize]
+        public ActionResult AskModify(int id)
+        {
+            user = (User)ViewBag.userAuthorize;
+            Question question = new Question();
+            using (club = new ClubEntities()) {
+                question = club.Questions.Where(q => q.Id == id).FirstOrDefault();
+            }
+            ViewBag.user = user;
+            ViewBag.question = question;
+            return View();
+        }
+
+        [Authorize]
         public PartialViewResult GetMssageView(int? uid) {
             using (club = new ClubEntities()) {
                 user = GetUser(club, uid);
@@ -172,18 +185,54 @@ namespace BaWuClub.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult TopicEdit() { 
+        public ActionResult TopicEdit(int id) { 
             user = (User)ViewBag.userAuthorize;
-            //Article article = new Article();
-            //using (club = new ClubEntities()){
-               //article = club.Articles.Where(a => a.Id == id).FirstOrDefault();
-            //}
+            TopicIndex topic = new TopicIndex();
+            using (club = new ClubEntities()){
+                topic = club.TopicIndexes.Where(t => t.Id == id).FirstOrDefault();
+                if (topic != null) {
+                    topic.Topic = club.Topics.Where(t => t.Id == topic.Id).FirstOrDefault();
+                }
+            }
             ViewBag.user = user;
+            ViewBag.topic = topic;
             return View();
         }
         #endregion
 
         #region post
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult TopicModify(int id, string title, string context)
+        {
+            user = (User)ViewBag.userAuthorize;
+            TopicIndex topic = new TopicIndex();
+            using (club = new ClubEntities()){
+                topic = club.TopicIndexes.Where(t => t.Id == id).FirstOrDefault();
+                hintStr="该帖子不存在！";
+                if (topic != null){
+                    topic.Topic = club.Topics.Where(t => t.Id == topic.Id).FirstOrDefault();
+                    if (topic.Type == (int)TopicType.Topic)
+                    {
+                        topic.Title = HtmlCommon.ClearHtml(title);
+                        topic.Topic.Context = context;
+                        if (club.SaveChanges() >= 0)
+                        {
+                            status = Status.success;
+                            hintStr = "更新成功!";
+                        }
+                        else
+                        {
+                            hintStr = "系统异常,请稍后重试!";
+                        }
+                    }
+                }         
+            }
+            ViewBag.user = user;
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/discuss" });
+        }
+
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
@@ -210,8 +259,7 @@ namespace BaWuClub.Web.Controllers
             }
             return Json(new { state = status.ToString(), context = hintStr, url = url });
         }
-
-
+        
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
@@ -262,6 +310,34 @@ namespace BaWuClub.Web.Controllers
                     club.Questions.Add(question);
                     if (club.SaveChanges() > 0){
                         status = Status.success;
+                    }
+                }
+            }
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/askandanswer" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult AskModify(int id, string title, string description, string tags)
+        {
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            if (string.IsNullOrEmpty(title)){
+                hintStr = "请输入你要提出的问题!";
+            }
+            else{
+                Question question = new Question();
+                using (club = new ClubEntities()){
+                    question = club.Questions.Where(q => q.Id == id).FirstOrDefault();
+                    if (question != null) { 
+                       question.Title= Common.HtmlCommon.ClearHtml(title);
+                       question.Description = Common.HtmlCommon.ClearHtml(description);
+                       question.Tags = Common.HtmlCommon.ClearHtml(tags);
+                       question.TagIds =App_Start.CommonMethod.SetTags(club, tags);
+                    }
+                    if (club.SaveChanges() > 0){
+                        status = Status.success;
+                        hintStr = "更新成功！";
                     }
                 }
             }
@@ -400,6 +476,7 @@ namespace BaWuClub.Web.Controllers
             bool edit = true;
             string editUrl = "/member/";
             bool login = true;
+            bool StateShow = login;
             if (user == null){
                 login = false;
             }
@@ -408,7 +485,7 @@ namespace BaWuClub.Web.Controllers
                     case "ask":
                         var alist = GetList<Question>(club.Questions, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-"+tId+"/getlist?tstr=ask&page=");
                         json = ParseList(alist, login);
-                        editUrl += "ask/";
+                        editUrl += "askmodify/";
                         break;
                     case "answer":
                         var answerlist = GetList<ViewAnswer>(club.ViewAnswers, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-" + tId + "/getlist?tstr=answer&page=");
@@ -447,6 +524,7 @@ namespace BaWuClub.Web.Controllers
                         break;
                     case "forum":
                         Expression<Func<ViewTopicIndex, bool>> Texpression = null;
+                        StateShow = false;
                         int sint=0;
                         if (!string.IsNullOrEmpty(st) && Int32.TryParse(st, out sint)){
                             Texpression = t => t.Type == sint && t.UserId == tId;
@@ -467,9 +545,9 @@ namespace BaWuClub.Web.Controllers
             ViewBag.pageStr = pageString;
             status = Status.success;
             if (!login) {
-                return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json,StateShow=login }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, StateShow = StateShow }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, edit = edit, editurl = editUrl, StateShow = login }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, edit = edit, editurl = editUrl, StateShow = StateShow }, JsonRequestBehavior.AllowGet);
         }
 
         private List<T> GetList<T>(DbSet<T> ds, int page, Expression<Func<T, bool>> express, Expression<Func<T,int>> orderByExpress,out string pageStr,string url) where T : class

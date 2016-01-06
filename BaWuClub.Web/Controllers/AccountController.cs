@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Text.RegularExpressions;
+using Wesen.OAuth;
 
 namespace BaWuClub.Web.Controllers
 {
@@ -49,12 +50,12 @@ namespace BaWuClub.Web.Controllers
                     _user.LastLoginDate = DateTime.Now;
                     _user.LastLoginIP = Request.UserHostAddress;
                     club.SaveChanges();
-                    System.Web.Security.FormsAuthentication.SetAuthCookie(user.NickName, true);
-                    HttpCookie cookie = new HttpCookie("bwusers");
-                    cookie.Values["id"] = _user.Id.ToString();
-                    cookie.Values["user"] = HttpUtility.UrlEncode(_user.NickName.ToString());
-                    cookie.Values["avatar"] = _user.Cover;
-                    Response.Cookies.Add(cookie);
+                    //System.Web.Security.FormsAuthentication.SetAuthCookie(user.NickName, true);
+                    //HttpCookie cookie = new HttpCookie("bwusers");
+                    //cookie.Values["id"] = _user.Id.ToString();
+                    //cookie.Values["user"] = HttpUtility.UrlEncode(_user.NickName.ToString());
+                    //cookie.Values["avatar"] = _user.Cover;
+                    Response.Cookies.Add(SetCookies(_user));
                     return RedirectUrl(returnurl);
                 }
                 else { 
@@ -105,7 +106,7 @@ namespace BaWuClub.Web.Controllers
                     else if(CheckEmail(HtmlCommon.ClearHtml(email).Trim(),club))
                         ViewBag.Status = HtmlCommon.GetHitStr("该邮箱已经注册过其他的用户！", status);
                     else
-                        if (UserReg(username, password, email,club))
+                        if (UserReg(CreateUser(username, password, email,"",0),club))
                             return Login(username, password, "/member/u-"+user.Id+"/show");
                         else
                             ViewBag.Status = HtmlCommon.GetHitStr("系统异常，用户注册失败，请稍后重试！", status);
@@ -165,35 +166,157 @@ namespace BaWuClub.Web.Controllers
         }
         #endregion
 
+        #region 第三方登录
+
+       public ActionResult QQOAuth()
+       {
+           return Redirect(new QQOpenClient().GetCodeUrl());
+       }
+
+       public ActionResult QQLogin(string code) {
+           if (!string.IsNullOrEmpty(code)) { 
+               QQOpenClient openClient = new QQOpenClient(code);
+               var user=openClient.GetUser();
+               if (openClient.Exception == null) {
+                   if (user.Ret == "0") {
+                       Session["nickname"] =user.nickname;
+                       Session["cover"] =user.figureurl_2;
+                       Session["openid"] =openClient.OpenId.OpenId;
+                       if (ThirdUserExist(openClient.OpenId.OpenId)) {
+                           return ThirdLogin(openClient.OpenId.OpenId,"");
+                       }
+                   }
+                   else{
+                       //跳转至其他页面。并settimeout让用户重新登陆。
+                   }
+               }
+           }
+           return View("~/views/account/thirdaccount.cshtml");
+        }
+
+       public ActionResult SinaLogin(string code)
+        {
+            return Redirect("");
+        }
+
+       public ActionResult ThirdReg(string tid,string nickname) {
+           if(string.IsNullOrEmpty(tid)){
+               ViewBag.hint = "账号未授权，请<a href=\"/account/qqoauth\">点此</a>重新授权！";
+               return View("~/views/account/thirdaccount.cshtml");
+           }
+           else if(string.IsNullOrEmpty(nickname)){
+               ViewBag.hint = "还是给您自己起个霸气的名字吧！";
+               return View("~/views/account/thirdaccount.cshtml");
+           }
+           else if (CheckName(nickname,null)){
+               ViewBag.hint = "改名字已存在了，换个吧！";
+               return View("~/views/account/thirdaccount.cshtml");
+           }
+           else {
+               bool flag=false;
+               if (!ThirdUserExist(tid)) {
+                   using (club = new ClubEntities()) {
+                       user = CreateUser(nickname, "", "", tid, 1);
+                       if (UserReg(user,club)){
+                           flag = true;
+                           Response.Cookies.Add(SetCookies(user));
+                       }
+
+                   }
+               }
+               if (flag) { 
+                   Session.Clear();
+                   return Redirect("/home");
+               }
+               else { 
+                ViewBag.hint = "登录账号失败，请稍后重试！";
+                return View("~/views/account/thirdaccount.cshtml");
+              }
+           }
+       }
+
+       public ActionResult ThirdLogin(string tid,string nickname) {
+            using (club = new ClubEntities()){
+                user = club.Users.Where(u => u.Tid == tid).FirstOrDefault();
+                Response.Cookies.Add(SetCookies(user));
+                if (user != null) {
+                    user.LastLoginDate = DateTime.Now;
+                    user.LastLoginIP = Request.UserHostAddress;
+                    club.SaveChanges();
+                }
+            }
+            return Redirect("/home");
+       }
+        #endregion
+
         #region 私有方法
-        private bool UserReg(string username,string password,string email,ClubEntities c) {
-            user=new User {
-                NickName=HtmlCommon.ClearHtml(username),
-                Password=System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password,"md5"),
-                Email=HtmlCommon.ClearHtml(email),
-                RegDate=DateTime.Now,
-                Status=1,
-                Membership=0,
-                Points=0,
-                Cover=""
-            };
+       private BaWuClub.Web.Dal.User CreateUser(string username,string password,string email,string tid,int type) {
+           var u = new User
+           {
+               NickName = HtmlCommon.ClearHtml(username),
+               Password = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password, "md5"),
+               Email = HtmlCommon.ClearHtml(email),
+               RegDate = DateTime.Now,
+               LastLoginDate = DateTime.Now,
+               LastLoginIP = Request.UserHostAddress,
+               Tid = HtmlCommon.ClearHtml(tid),
+               Type = (byte)type,
+               Status = 1,
+               Membership = 0,
+               Points = 0,
+               Cover = ""
+           };
+           return u;
+       }
+
+        private bool ThirdUserExist(string tid) {
+            using (club = new ClubEntities()) {
+                int count = club.Users.Where(u => u.Tid != null&&u.Tid.ToString()==tid).Count();
+                if (count == 1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool UserReg(BaWuClub.Web.Dal.User user,ClubEntities c) {
             c.Users.Add(user);
             if(c.SaveChanges()<0)
                 return false;
             return true;
         }
+
         private bool CheckName(string name,ClubEntities c) {
-            var t = c.Users.Where(u => u.NickName == name).ToList();
-            if (t.Count()>0)
+            List<BaWuClub.Web.Dal.User> users = new List<User>();
+            if (c == null) {
+                using (c = new ClubEntities()) { 
+                   users = c.Users.Where(u => u.NickName == name).ToList();
+                }
+            }
+            else { 
+                   users = c.Users.Where(u => u.NickName == name).ToList();
+            }
+            if (users.Count() > 0)
                 return true;
             return false;
         }
+
         private bool CheckEmail(string email,ClubEntities c) {
             var t = c.Users.Where(u => u.Email == email).ToList();
             if (t.Count()>0)
                 return true;
             return false;
         }
+
+        private HttpCookie SetCookies(BaWuClub.Web.Dal.User u) {
+            System.Web.Security.FormsAuthentication.SetAuthCookie(u.NickName, true);
+            HttpCookie cookie = new HttpCookie("bwusers");
+            cookie.Values["id"] = u.Id.ToString();
+            cookie.Values["user"] = HttpUtility.UrlEncode(u.NickName.ToString());
+            cookie.Values["avatar"] = u.Cover;
+            return cookie;
+        }
+
         private ActionResult RedirectUrl(string returnUrl){
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
