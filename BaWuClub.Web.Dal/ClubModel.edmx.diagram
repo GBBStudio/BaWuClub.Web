@@ -54,6 +54,7 @@
         <EntityTypeShape EntityType="ClubDBModel.ViewTopicInvolved" Width="1.5" PointX="13.375" PointY="9.75" />
         <EntityTypeShape EntityType="ClubDBModel.ViewAnswer" Width="1.5" PointX="16.625" PointY="0.75" />
         <EntityTypeShape EntityType="ClubDBModel.User" Width="1.5" PointX="15.125" PointY="12" />
+        <EntityTypeShape EntityType="ClubDBModel.AuthCode" Width="1.5" PointX="15.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,7 +16,7 @@ namespace BaWuClub.Web.Controllers
 
         public void Index()
         {
-            //Statistics();
+            Statistics();
             //return View();
         }
 

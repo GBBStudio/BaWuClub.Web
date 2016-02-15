@@ -1,14 +1,16 @@
 ﻿@{
     Layout = "~/views/shared/_layout.cshtml";
-    ViewBag.Title = "下载中心-";
     ViewBag.CssAppend = "<link href=\"/content/css/download.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 @model BaWuClub.Web.Dal.ViewDocument
+@{
+    ViewBag.Title +=Model.Title+"-下载中心-";
+}
 <div class="download-wrap">
     <div class="container">
         <div class="container-left download-block fleft">
             <div class="crumbs-wrap">
-                <a href="/">首页</a>&raquo;<span>@ViewBag.Title</span>
+                <a href="/">首页</a>&raquo;<span>下载</span>@Model.Title
             </div>
             <div class="detail-down-wrap">
                 <div class="detail-down-info">
@@ -39,7 +41,17 @@
                 </div>
                 <div class="down-ranks-list">
                     <ol>
-
+                        @{
+                            var list = ViewBag.DownsTop;
+                            if (list != null) {
+                                foreach (var item in list as IEnumerable<BaWuClub.Web.Dal.ViewDocument>)
+                                {
+                                    <li>
+                                        <a href="/download/item/@item.Id">@item.Title</a>
+                                    </li>
+                                }
+                            }
+                        }
                     </ol>
                 </div>
             </div>

@@ -179,6 +179,7 @@
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\MemberBaseController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\OnlineController.cs" />
     <Compile Include="Controllers\RssController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -783,9 +784,11 @@
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\comingsong.jpg" />
     <Content Include="Content\Images\discuss.png" />
+    <Content Include="Content\Images\icon-ai.png" />
     <Content Include="Content\Images\icon-excel.png" />
     <Content Include="Content\Images\icon-pdf.png" />
     <Content Include="Content\Images\icon-ppt.png" />
+    <Content Include="Content\Images\icon-psd.png" />
     <Content Include="Content\Images\icon-topic.jpg" />
     <Content Include="Content\Images\icon-word.png" />
     <Content Include="Content\Images\img-forget.png" />
@@ -802,6 +805,8 @@
     <Content Include="Content\Images\online.jpg" />
     <Content Include="Content\Images\player.png" />
     <Content Include="Content\Images\rw.jpg" />
+    <Content Include="Content\Images\succeed.png" />
+    <Content Include="Content\Images\thirdLoginIcon.png" />
     <Content Include="Content\Images\_logo.png" />
     <Content Include="Content\Scripts\avatarupload.js" />
     <Content Include="Content\Scripts\comments.js" />
@@ -809,6 +814,8 @@
     <Content Include="Content\Scripts\jquery.datetimepicker.js" />
     <Content Include="Content\Scripts\jquery.js" />
     <Content Include="Content\Scripts\layout.js" />
+    <Content Include="Content\Scripts\member - 复制.js" />
+    <Content Include="Content\Scripts\member-data.js" />
     <Content Include="Content\Scripts\member.js" />
     <Content Include="Content\Scripts\nkpt-dialog.js" />
     <Content Include="Content\Scripts\reviews.js" />
@@ -820,6 +827,7 @@
     <Content Include="Content\Uploadify\uploadify-cancel.png" />
     <Content Include="Content\Uploadify\uploadify.css" />
     <Content Include="Content\Uploadify\uploadify.swf" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Uploads\activity\activity_201514070023.jpg" />
     <Content Include="Uploads\activity\activity_201514070706.jpg" />
@@ -1081,6 +1089,8 @@
     <Content Include="Views\Member\TopicEdit.cshtml" />
     <Content Include="Views\Member\AskModify.cshtml" />
     <Content Include="Views\Account\ThirdAccount.cshtml" />
+    <Content Include="Views\Shared\_PartialMoreSet.cshtml" />
+    <Content Include="Views\Shared\_PartialAnswerList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1101,8 +1111,6 @@
           <DevelopmentServerPort>3787</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://www.bawu.com/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -32,27 +32,50 @@
             <div class="cli-title">
                 <div class="fleft">
                     <strong>活动</strong>
-                    <a href="#">进行中</a>
-                    <a href="#">已过期</a>
+                    <a data-href="under">进行中</a>
+                    <a data-href="overdue">已过期</a>
                 </div>
                 <a href="/forum/topiclist?type=activity" title="查看更多" class="fright">更多</a>
             </div>
-            <ul>
+            <ul class="under">
                 @{
-                    var topics = ViewBag.topics as IEnumerable<BaWuClub.Web.Dal.TopicIndex>;
+                    var topics = ViewBag.activityings as IEnumerable<BaWuClub.Web.Dal.ViewTopicActivity>;
                     if (topics != null)
                     {
                         foreach (var topic in topics)
                         {
-                            var cover =( string.IsNullOrEmpty(topic.TopicActivity.Cover) ? "/Content/Images/no-img.jpg" : topic.TopicActivity.Cover);
-                            var address=(string.IsNullOrEmpty(topic.TopicActivity.Address)?"":(topic.TopicActivity.Address.Length>14?topic.TopicActivity.Address.Substring(0,13):topic.TopicActivity.Address));
+                            var cover =( string.IsNullOrEmpty(topic.Cover) ? "/Content/Images/no-img.jpg" : "/uploads/topics/activity/"+topic.Cover);
+                            var address=(string.IsNullOrEmpty(topic.Address)?"":(topic.Address.Length>14?topic.Address.Substring(0,13):topic.Address));
                             <li>
                                 <div class="cli-ac-item-cover">
                                     <a href="/forum/activity/@topic.Id"><img src="@cover" /></a>
                                 </div>
                                 <div class="cli-ac-item-info">
                                     <h3><a href="/forum/activity/@topic.Id">@topic.Title</a></h3>
-                                    <p>时间:@(((DateTime)topic.TopicActivity.StartDate).ToString("yyyy年MM月dd日"))</p>
+                                    <p>时间:@(((DateTime)topic.StartDate).ToString("yyyy年MM月dd日"))</p>
+                                    <p>地址:@address</p>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+            <ul class="overdue" style="display:none">
+                @{
+                    var activityeds = ViewBag.activityeds as IEnumerable<BaWuClub.Web.Dal.ViewTopicActivity>;
+                    if (activityeds != null)
+                    {
+                        foreach (var topic in activityeds)
+                        {
+                            var cover = (string.IsNullOrEmpty(topic.Cover) ? "/Content/Images/no-img.jpg" : "/uploads/topics/activity/" + topic.Cover);
+                            var address = (string.IsNullOrEmpty(topic.Address) ? "" : (topic.Address.Length > 14 ? topic.Address.Substring(0, 13) : topic.Address));
+                            <li>
+                                <div class="cli-ac-item-cover">
+                                    <a href="/forum/activity/@topic.Id"><img src="@cover" /></a>
+                                </div>
+                                <div class="cli-ac-item-info">
+                                    <h3><a href="/forum/activity/@topic.Id">@topic.Title</a></h3>
+                                    <p>时间:@(((DateTime)topic.StartDate).ToString("yyyy年MM月dd日"))</p>
                                     <p>地址:@address</p>
                                 </div>
                             </li>
@@ -137,4 +160,10 @@
              controls:false
         });
     })
+    $(".cli-title a").click(function () {
+        var _this = $(this)
+        var _class = _this.attr("data-href")
+        $("." + _class).show();
+        $("." + _class).siblings("ul").hide();
+    });
 </script>

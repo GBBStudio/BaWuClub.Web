@@ -12,6 +12,7 @@
             <div class="member-menu">
                 <a class="selected" data-dsk="member-base">基本资料</a>
                 <a data-dsk="member-cover-set">头像设置</a>
+                <a data-dsk="phone-safety">账号验证</a>
                 <a data-dsk="member-safety">安全设置</a>
             </div>
             <div class="member-main-wrap">
@@ -21,9 +22,6 @@
                         <div class="input-box">
                             <p>
                                 <b>真实姓名：</b><input type="text" name="realname" class="input-text" value="@user.RealName"/>
-                            </p>
-                            <p>
-                                <b>联系电话：</b><input type="text" name="phone" class="input-text" value="@user.Phone"/>
                             </p>
                             <p>
                                 <b>公司名称：</b><input type="text" name="company" class="input-text" value="@user.Company"/>
@@ -64,6 +62,22 @@
                         <p><input type="submit" class="btn-sub" value="提交" /></p>
                     </form>
                 </div>
+                <div class="phone-safety" style="display:none">
+                    <div class="input-box">
+                        <p>
+                            @{
+                                if (user.Membership == (byte)BaWuClub.Web.Dal.UserType.Auth)
+                                {
+                                    <span>手机号:</span>@user.Phone<a href="/member/validate">已认证</a>
+                                }
+                                else{
+                                    <span>账号还未验证</span><a href="/member/validate">立即验证</a>
+                                }
+                            }
+                        </p>
+                    </div>
+                </div>
+
                 <div class="member-safety" style="display:none">
                     <form name="form-safety" id="form-safety" method="post" action="/member/mchanagepwd" onsubmit="return checkSubmit(this);">
                         <div class="input-box">

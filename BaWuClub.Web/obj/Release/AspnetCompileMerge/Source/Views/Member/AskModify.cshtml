@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/views/shared/_layoutmember.cshtml";
+    BaWuClub.Web.Dal.User user = (BaWuClub.Web.Dal.User)ViewBag.user;
+    BaWuClub.Web.Dal.User userAuthorize = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+    ViewBag.Title = user.NickName + "的个人用户中心-修改问题";
+}
+@{
+    var question = ViewBag.question as BaWuClub.Web.Dal.Question;
+}
+<div class="member-main">
+    <div class="member-ask">
+        <div class="member-main-wrap">
+            <div class="input-box">
+                <form name="form" method="post" action="/member/askmodify" onsubmit="return checkSubmit(this);">
+                    <label id="tips-wrap" style="color:red;"></label>
+                    @{
+                        if (question.Id > 0)
+                        {
+                            <input name="id" value="@question.Id" type="hidden" />
+                        }
+                    }
+                    <p><b>问题：</b><input name="title" value="@question.Title" class="input-text" type="text" data-hint="问题不能为空！" data-required="true" /></p>
+                    <div class="input-box-ha">
+                        <b>问题描述：</b>
+                        <textarea name="description" class="input-textarea">@question.Description</textarea>
+                    </div>
+                    <p><b>标签：</b><input name="tags" value="@question.Tags" class="input-text" type="text" /><span>多标签请用英文的逗号“,”隔开</span></p>
+                    <p>
+                        <b>&nbsp;</b><input type="submit" value="提交" class="btn-sub" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/content/scripts/jquery.js"></script>
+<script type="text/javascript" src="~/content/scripts/member.js"></script>

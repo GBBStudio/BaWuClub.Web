@@ -59,13 +59,13 @@
                                     @BaWuClub.Web.Common.HtmlCommon.ClearHtml(item.Description)
                                 </div>
                                 <div class="file-info">
-                                    <a href="/member/u-@item.UId/show">@item.NickName</a>
+                                    上传者：<a href="/member/u-@item.UId/show">@item.NickName</a>
                                     <span>上传时间 @item.VarDate</span>
-                                    <i class="iconfont icon-biaoqian"></i>
+                                    <i class="iconfont icon-biaoqian1"></i>标签：
                                     @{
                                         if (item.Tags != null) {
                                             foreach (string tag in item.Tags.Split(',')) { 
-                                                <a href="">@tag</a>
+                                                <a href="" class="down-tag">@tag</a>
                                             }
                                         }
                                     }
@@ -131,7 +131,18 @@
                     <i class="iconfont icon1-xiazai"></i>下载排行
                 </div>
                 <div class="down-ranks-list">
-                    <ol>
+                    <ol>@{
+                        var list = ViewBag.DownsTop;
+                        if (list != null)
+                        {
+                            foreach (var item in list as IEnumerable<BaWuClub.Web.Dal.ViewDocument>)
+                            {
+                                <li>
+                                    <a href="/download/item/@item.Id">@item.Title</a>
+                                </li>
+                            }
+                        }
+                    }
                     </ol>
                 </div>
             </div>

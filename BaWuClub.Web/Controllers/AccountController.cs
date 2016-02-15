@@ -280,6 +280,7 @@ namespace BaWuClub.Web.Controllers
         }
 
         private bool UserReg(BaWuClub.Web.Dal.User user,ClubEntities c) {
+            this.user = user;
             c.Users.Add(user);
             if(c.SaveChanges()<0)
                 return false;

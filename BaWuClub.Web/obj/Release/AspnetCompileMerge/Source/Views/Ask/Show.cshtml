@@ -40,7 +40,7 @@
                         var query = Request.QueryString["sort"];
                         if (query != null && query.ToString().Equals("time")){
                             <span>按时间排序</span>
-                            <a href="/ask/show/@Model.Id?sort=voit">按投票排序</a>
+                            <a href="/ask/show/@Model.Id?sort=vote">按投票排序</a>
                         }
                         else{
                             <span>按投票排序</span>

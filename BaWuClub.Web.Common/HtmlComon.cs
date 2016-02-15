@@ -155,6 +155,47 @@ namespace BaWuClub.Web.Common
             return ph.GetPageStringPro(url,false);
         }
         #endregion
+
+        #region 获取随机字符串
+       public static string GetRandomString() {
+            string randomStr = string.Empty;
+            Random random = new Random();
+            string[] chars = new string[36];
+            for (int i = 0; i < 26; i++) {
+                chars[i] = ((char)(i+65)).ToString(); 
+            }
+            for (int i = 0; i < 10; i++) {
+                chars[i+26] = i.ToString();
+            }
+            for (int i = 0; i < 6; i++) {
+                randomStr+=chars[random.Next(36)];
+            }
+            return randomStr;
+        }
+        #endregion
+
+        #region 获取发送短信的限制解释
+       public static string GetSMSLimitString(SMSLimit limit)
+       {
+           string limitStr = string.Empty;
+           switch (limit)
+           {
+               case SMSLimit.DayLimit:
+                   limitStr = "手机号,超过验证了今日的验证次数,可更换手机号或改日再试！";
+                   break;
+               case SMSLimit.HourLimit:
+                   limitStr = "验证次数太过于频繁,请稍后重试！！";
+                   break;
+               case SMSLimit.MinuteLimit:
+                   limitStr = "请1分钟后重试！";
+                   break;
+               default:
+                   limitStr = "系统验证异常,请稍后重试！";
+                   break;
+           }
+           return limitStr;
+       }
+        #endregion
     }
 
     public enum StatusColor {

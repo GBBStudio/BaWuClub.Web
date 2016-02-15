@@ -18,7 +18,7 @@ namespace BaWuClub.Web.Dal
         public const int WebQuestionPageSize = 15;
 
         public const int TopicPageShow = 8;
-        public const int TopicPageSize = 12;
+        public const int TopicPageSize = 15;
 
         public const int MemberPageSize= 5;
         public const int MemberPageShow = 3;
@@ -56,10 +56,23 @@ namespace BaWuClub.Web.Dal
         Task=2
     }
 
+    public enum TopicStatus { 
+        Disable=0,//帖子不会显示
+        Enable=1,//帖子正常显示
+        End = 2 //帖子正常显示（任务or活动结束）
+    }
+
     public enum VideoStatus {
         Disable=0,
         Enable=1,
         Top=2,
         Recommend=3
+    }
+
+    public enum UserType
+    {
+        General=0,
+        Auth=1,
+        Bawu=2
     }
 }

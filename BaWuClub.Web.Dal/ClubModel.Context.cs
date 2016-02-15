@@ -18,6 +18,7 @@ namespace BaWuClub.Web.Dal
         public ClubEntities()
             : base("name=ClubEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -72,5 +73,6 @@ namespace BaWuClub.Web.Dal
         public virtual DbSet<ViewTopicInvolved> ViewTopicInvolveds { get; set; }
         public virtual DbSet<ViewAnswer> ViewAnswers { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<AuthCode> AuthCodes { get; set; }
     }
 }

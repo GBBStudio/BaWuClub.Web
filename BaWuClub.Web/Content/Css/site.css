@@ -82,6 +82,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #fff; }
 .icon1-pdf:before { content: "\e628"; }
 .icon1-word:before { content: "\e629"; }
 .icon1-excel:before { content: "\e62a"; }
+.icon1-ai:before { content: "\e62c"; }
+.icon1-psd:before { content: "\e630"; }
 .icon1-snssharedoubanon:before { content: "\e62b"; }
 .icon1-snsshareqq:before { content: "\e62c"; }
 .icon1-snsshareqzon:before { content: "\e62d"; }
@@ -283,8 +285,8 @@ a.comment-item-info-name:visited{color:#111;}
 .activity-context{margin-bottom:20px;clear:both;border:1px solid #eaeaea;border-left:none;border-right:none;padding:20px 0;}
 /*feedback-box*/
 .feedback-box{margin-bottom:300px;}
-.crumbs-wrap{font-size:14px;padding-top:25px;border-bottom:1px solid #eaeaea;line-height:24px;margin-bottom:10px;}
-.crumbs-wrap a{color:#259;font-weight:600}
+.crumbs-wrap{font-size:14px;padding:8px 0;border-bottom:1px solid #eaeaea;line-height:24px;margin-bottom:10px;}
+.crumbs-wrap a{color:#259;font-weight:600;font-size:15px;margin-right:2px}
 .feedback-wrap{margin:25px 0;}
 .feedback-wrap p{margin:15px 0;}
 .feedback-wrap b{font-size:14px;display:block;}
@@ -334,7 +336,7 @@ a.comment-item-info-name:visited{color:#111;}
 .topic-info span i{font-size:15px;margin-right:2px;}
 .coming-soon{width:100%}
 .coming-soon img{width:100%;}
-span.message-del-btn,a.edit-again{background:#007ADA;color:#fff;padding:4px 7px;cursor:pointer;margin-left:30px;border-radius:3px;color:#fff;}
+span.message-del-btn,a.edit-again{background:#007ADA;color:#fff;padding:4px 7px;cursor:pointer;margin-left:10px;border-radius:3px;color:#fff;}
 
 .level-pt,.level-rz,.level-bw{background:url(../images/level-s.png) no-repeat 0 0;display:inline-block;vertical-align:bottom;cursor:pointer}
 .level-pt{width:21px;height:21px;background-position:-6px 0}

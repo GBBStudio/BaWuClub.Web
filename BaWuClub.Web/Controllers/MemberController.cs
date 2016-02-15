@@ -10,6 +10,7 @@ using BaWuClub.Web.Common;
 using System.Text;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace BaWuClub.Web.Controllers
 {
@@ -22,6 +23,7 @@ namespace BaWuClub.Web.Controllers
         private string hintStr = string.Empty;
         private string pageString = string.Empty;
         StringBuilder str = new StringBuilder();
+        private TopicIndex topic = null;
         string url = string.Empty;
         #endregion
 
@@ -58,6 +60,10 @@ namespace BaWuClub.Web.Controllers
                 Expression<Func<Article, bool>> expression = expression = a => a.UserId == user.Id;
                 if (userAuthorize == null)
                     expression = a => a.UserId == user.Id && a.Status == (int)State.Enable;
+                if (userAuthorize == null || userAuthorize.Id != user.Id) {
+                    expression = a => (a.Status > 0 && a.UserId == user.Id);
+                    ViewBag.ContributeAllCount = ViewBag.ContributeCheckedCount;
+                }
                 list = club.Articles.OrderByDescending(a => a.Id).Where(expression).Take(ClubConst.MemberPageSize).ToList<Article>();
                 ViewBag.PageStr = new PagingHelper(ClubConst.MemberPageSize, 1, ViewBag.ContributeAllCount, ClubConst.MemberPageShow).GetPageStringPro("/member/u-" + user.Id + "/getlist?tstr=column&page=");
             }
@@ -187,16 +193,48 @@ namespace BaWuClub.Web.Controllers
         [Authorize]
         public ActionResult TopicEdit(int id) { 
             user = (User)ViewBag.userAuthorize;
-            TopicIndex topic = new TopicIndex();
             using (club = new ClubEntities()){
-                topic = club.TopicIndexes.Where(t => t.Id == id).FirstOrDefault();
-                if (topic != null) {
-                    topic.Topic = club.Topics.Where(t => t.Id == topic.Id).FirstOrDefault();
-                }
+                topic = GetTopicIndex(club, "Topic", id);
             }
             ViewBag.user = user;
             ViewBag.topic = topic;
             return View();
+        }
+
+        [Authorize]
+        public ActionResult TopicActivityEdit(int id){
+            user = (User)ViewBag.userAuthorize;
+            using (club = new ClubEntities()){
+                topic = GetTopicIndex(club, "TopicActivity", id);
+            }
+            ViewBag.user = user;
+            ViewBag.topic = topic;
+            return View("~/views/member/topicedit.cshtml");
+        }
+
+        [Authorize]
+        public ActionResult TopicTaskEdit(int id)
+        {
+            user = (User)ViewBag.userAuthorize;
+            TopicIndex topic = new TopicIndex();
+            using (club = new ClubEntities())
+            {
+                topic = GetTopicIndex(club, "TopicTask", id);
+            }
+            ViewBag.user = user;
+            ViewBag.topic = topic;
+            return View("~/views/member/topicedit.cshtml");
+        }
+
+        [Authorize]
+        public PartialViewResult GetMoreSet(int? id) {
+            List<User> users = new List<User>();
+            int tId = id ?? 0;
+            using (club = new ClubEntities()) {
+                GetInvolvedList(club, tId);
+                ViewBag.topicIndex = club.ViewTopicIndexes.Where(t => t.Id == tId).FirstOrDefault();
+            }
+            return PartialView("~/views/shared/_PartialMoreSet.cshtml", users);
         }
         #endregion
 
@@ -207,27 +245,53 @@ namespace BaWuClub.Web.Controllers
         public JsonResult TopicModify(int id, string title, string context)
         {
             user = (User)ViewBag.userAuthorize;
-            TopicIndex topic = new TopicIndex();
             using (club = new ClubEntities()){
-                topic = club.TopicIndexes.Where(t => t.Id == id).FirstOrDefault();
-                hintStr="该帖子不存在！";
-                if (topic != null){
-                    topic.Topic = club.Topics.Where(t => t.Id == topic.Id).FirstOrDefault();
-                    if (topic.Type == (int)TopicType.Topic)
-                    {
-                        topic.Title = HtmlCommon.ClearHtml(title);
-                        topic.Topic.Context = context;
-                        if (club.SaveChanges() >= 0)
-                        {
-                            status = Status.success;
-                            hintStr = "更新成功!";
-                        }
-                        else
-                        {
-                            hintStr = "系统异常,请稍后重试!";
-                        }
-                    }
-                }         
+                if (SaveModify(TopicType.Topic, club, id, title, context)){
+                    status = Status.success;
+                    hintStr = "更新成功!";
+                }
+                else{
+                    hintStr = "系统异常,请稍后重试!";
+                }
+            }
+            ViewBag.user = user;
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/discuss" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult TopicTaskModify(int id, string title, string context)
+        {
+            user = (User)ViewBag.userAuthorize;
+            using (club = new ClubEntities()){
+                if (SaveModify(TopicType.Task, club, id, title, context)){
+                    status = Status.success;
+                    hintStr = "更新成功!";
+                }
+                else{
+                    hintStr = "系统异常,请稍后重试!";
+                }
+            }
+            ViewBag.user = user;
+            return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/discuss" });
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult TopicActivityModify(int id, string title, string context)
+        {
+            user = (User)ViewBag.userAuthorize;
+            using (club = new ClubEntities()){
+                if (SaveModify(TopicType.Activity,club,id,title,context)){
+                    status = Status.success;
+                    hintStr = "更新成功!";
+                }
+                else{
+                    hintStr = "系统异常,请稍后重试!";
+                }
             }
             ViewBag.user = user;
             return Json(new { state = status.ToString(), context = hintStr.Length > 0 ? hintStr : HtmlCommon.GetHitStr(status), url = "/member/u-" + user.Id + "/discuss" });
@@ -389,12 +453,12 @@ namespace BaWuClub.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public JsonResult MBase(string realname, string phone, string address, string company, string intro){
+        public JsonResult MBase(string realname, string address, string company, string intro){
             user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
             using (club = new ClubEntities()) {
                 var u = club.Users.Where(t => t.Id == user.Id).FirstOrDefault();
                 u.RealName = HtmlCommon.ClearHtml(realname);
-                u.Phone = HtmlCommon.ClearHtml(phone);
+                u.Phone = "";
                 u.Address = HtmlCommon.ClearHtml(address);
                 u.Company = HtmlCommon.ClearHtml(company);
                 u.Intro = HtmlCommon.ClearHtml(intro);
@@ -419,6 +483,53 @@ namespace BaWuClub.Web.Controllers
                 }
             }
             return Json(new {status=status.ToString(),context=hintStr});
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
+        public ActionResult SetVerifyPhone(string phone, string code)
+        {
+            phone=HtmlCommon.ClearHtml(phone).Trim();
+            code=HtmlCommon.ClearHtml(code).Trim();
+            user = (BaWuClub.Web.Dal.User)ViewBag.userAuthorize;
+            if (string.IsNullOrEmpty(phone)||string.IsNullOrEmpty(code)) {
+                hintStr = "手机号与验证码不能为空！";
+            }
+            else {
+                if (System.Text.RegularExpressions.Regex.IsMatch(phone, @"^[1]+[3,5]+\d{9}")) {
+                    using (club = new ClubEntities()) {
+                        var t = club.AuthCodes.OrderByDescending(a => a.Id).Where(a => a.UId == user.Id && a.Phone == phone && a.OverTime>DateTime.Now).FirstOrDefault();
+                        if (t != null)
+                        {
+                            if (t.Code.ToLower() == code.ToLower())
+                            {
+                                var thisUser = club.Users.Where(u => u.Id == user.Id).FirstOrDefault();
+                                thisUser.Membership = (byte)UserType.Auth;
+                                thisUser.Phone = phone;
+                                if (club.SaveChanges() >= 0) { 
+                                    hintStr = "手机验证成功！";
+                                    user = thisUser;
+                                }
+                            }
+                            else
+                            {
+                                hintStr = "验证码错误！";
+                            }
+                        }
+                        else {
+                            hintStr = "验证错误,请重新验证！";
+                        }
+                    }
+                }
+                else { 
+                    hintStr = "手机号码不正确,请输入正确的手机号码！";
+                }
+            }
+            ViewBag.hintStr = string.IsNullOrEmpty(hintStr) ? "暂时无法验证，稍后重试！" : hintStr;
+            ViewBag.user = user;
+            return View("~/views/member/validate.cshtml");
         }
         #endregion
 
@@ -464,6 +575,43 @@ namespace BaWuClub.Web.Controllers
             }
             return Json(new { status=status.ToString(),context=context,url=url},JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult SetSMSVerifyCode(string phone){            
+            user = (User)ViewBag.userAuthorize;
+            SendSMS sms = new SendSMS();
+            string code = HtmlCommon.GetRandomString();
+            string context = "";
+            using (club = new ClubEntities()){
+                var limit=GetExistLimit(phone, user.Id, club, DateTime.Now);
+                if ( limit== SMSLimit.NoLimit){
+                    context = sms.post(phone, code);
+                    context = "1";
+                    AuthCode authCode = new AuthCode() {
+                        ActiveTime=DateTime.Now,
+                        OverTime=DateTime.Now.AddMinutes(5),
+                        UId=user.Id, Phone=HtmlCommon.ClearHtml(phone).Trim(),
+                        Code=code,
+                        VarDate=DateTime.Now
+                    };
+                    if (context == "1") {
+                        club.AuthCodes.Add(authCode);
+                        if (club.SaveChanges() >= 0) { 
+                            status = Status.success;
+                            context = "验证码已发送！";
+                        }
+                    }
+                    else { 
+                        context = "验证码发送失败("+context+")，请稍后重试！";
+                    }
+                }
+                else{
+                    context = HtmlCommon.GetSMSLimitString(limit);
+                }
+            }
+            return Json(new { status = status.ToString(), context = context, url = url }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region getlist
@@ -474,18 +622,26 @@ namespace BaWuClub.Web.Controllers
             int currentId = page ?? 1;
             string url = "/"+tstr+"/show/";
             bool edit = true;
-            string editUrl = "/member/";
             bool login = true;
+            bool more = false;
+            string editUrl = "/member/topic";
             bool StateShow = login;
             if (user == null){
                 login = false;
+                edit = false;
+            }
+            else {
+                if (user.Id != tId) { 
+                    edit = false;
+                    login = false;
+                }
             }
             using (club = new ClubEntities()) {
                 switch (tstr) { 
                     case "ask":
                         var alist = GetList<Question>(club.Questions, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-"+tId+"/getlist?tstr=ask&page=");
                         json = ParseList(alist, login);
-                        editUrl += "askmodify/";
+                        editUrl= "/member/askmodify/";
                         break;
                     case "answer":
                         var answerlist = GetList<ViewAnswer>(club.ViewAnswers, currentId, q => q.UserId == tId, q => q.Id, out pageString, "/member/u-" + tId + "/getlist?tstr=answer&page=");
@@ -528,13 +684,11 @@ namespace BaWuClub.Web.Controllers
                         int sint=0;
                         if (!string.IsNullOrEmpty(st) && Int32.TryParse(st, out sint)){
                             Texpression = t => t.Type == sint && t.UserId == tId;
-                            if (sint == 0) {
-                                edit = true;
-                                editUrl += "topicedit/";
+                            if (sint != ((int)TopicType.Topic)) { 
+                                more = true;
+                                editUrl += ((TopicType)sint).ToString().ToLower() ;
                             }
-                            else {
-                                edit = false;
-                            }
+                            editUrl += "edit/";
                             url = "/forum/" + ((TopicType)sint).ToString().ToLower() + "/";
                         }
                         var tlist = GetList<ViewTopicIndex>(club.ViewTopicIndexes, currentId, (Texpression != null ? Texpression : (s => s.UserId == tId)), s => s.Id, out pageString, "/member/u-" + tId + "/getlist?st=" + st + "&tstr=forum&page=");
@@ -547,7 +701,7 @@ namespace BaWuClub.Web.Controllers
             if (!login) {
                 return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, StateShow = StateShow }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { status = status.ToString(), pagestr = pageString, url = url, context = json, edit = edit, editurl = editUrl, StateShow = StateShow }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status.ToString(), pagestr = pageString, url = url, more=more, context = json, edit = edit, editurl = editUrl, StateShow = StateShow }, JsonRequestBehavior.AllowGet);
         }
 
         private List<T> GetList<T>(DbSet<T> ds, int page, Expression<Func<T, bool>> express, Expression<Func<T,int>> orderByExpress,out string pageStr,string url) where T : class
@@ -623,6 +777,64 @@ namespace BaWuClub.Web.Controllers
                 l.Add(obj);
             }
             return Newtonsoft.Json.JsonConvert.SerializeObject(l);
+        }
+
+        private SMSLimit GetExistLimit(string phone,int UserId,ClubEntities c,DateTime now) {
+            SMSLimit limit = SMSLimit.NoLimit;
+            SMSConfig config=new Common.SMSConfig();
+            var yesterday=now.AddDays(-1);
+            var prevHourTime=now.AddHours(-1);
+            var prveMinitueTime=now.AddMinutes(-1);
+            int dl= c.AuthCodes.Where(a => a.UId == UserId && a.Phone == phone && (a.ActiveTime > yesterday)).Count();
+            int hl = c.AuthCodes.Where(a => a.UId == UserId && a.Phone == phone && (a.ActiveTime > prevHourTime)).Count();
+            int ml = c.AuthCodes.Where(a => a.UId == UserId && a.Phone == phone && (a.ActiveTime > prveMinitueTime)).Count();
+            if (dl >= config.DayLimit) {
+                limit = SMSLimit.DayLimit;
+            }
+            else { 
+                if(hl>=config.HourLimit){
+                    limit=SMSLimit.HourLimit;
+                }else{
+                    if(ml>=config.MinuteLimit)
+                    limit = SMSLimit.MinuteLimit;
+                }
+            }
+            return limit;
+        }
+
+        private void GetInvolvedList(ClubEntities c,int tId){
+            ViewBag.involveds = c.ViewTopicInvolveds.Where(t => t.TopicId == tId).ToList<ViewTopicInvolved>();
+        }
+
+        private TopicIndex GetTopicIndex(ClubEntities c, string tStr,int id) {
+            topic = club.TopicIndexes.Include(tStr).Where(t => t.Id == id).FirstOrDefault();
+            return topic;
+        }
+
+        private bool SaveModify(TopicType type, ClubEntities c, int id, string title, string context) {
+            string str = "Topic";
+            if (type != TopicType.Topic)
+                str += type.ToString();
+            topic = GetTopicIndex(c, str, id);
+            if (topic == null)
+                return false;
+            topic.Title = title;
+            switch (type) { 
+                case TopicType.Topic:
+                    topic.Topic.Context = context;
+                    break;
+                case TopicType.Activity:
+                    topic.TopicActivity.Context = context;
+                    break;
+                case TopicType.Task:
+                    topic.TopicTask.Context = context;
+                    break;
+                default:
+                    break;
+            }
+            if (c.SaveChanges() >= 0)
+                return true;
+            return false;
         }
         #endregion
     }

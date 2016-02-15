@@ -7,14 +7,18 @@ using System.Text;
 
 namespace BaWuClub.Web.Common
 {
-    class SendSMS
+    public class SendSMS
     {
-        public void post(string phone,string text)
-        {
-            //短信内容
-            string content = System.Web.HttpUtility.UrlEncode(text, Encoding.GetEncoding("GB2312"));
+        private SMSConfig config = null;
 
-            string postData = "type=send&ua=账号&pwd=密码&gwid=企业ID&mobile="+phone+"&msg="+text;
+        public SendSMS() {
+            config = new SMSConfig();
+        }
+
+        public string post(string phone,string code){
+            string codeText = string.Format(config.Text, code);
+            string content = System.Web.HttpUtility.UrlEncode(codeText, Encoding.GetEncoding("GB2312"));
+            string postData = "type=send&ua=" + config.UA + "&pwd=" + config.Pwd + "&gwid=" + config.Gwid + "&mobile=" + phone + "&msg=" + codeText;
             Encoding encode = Encoding.GetEncoding("gbk");
             byte[] data = encode.GetBytes(postData);
             Uri url = new Uri("http://api.106msg.com/TXTJK.aspx?");
@@ -32,10 +36,16 @@ namespace BaWuClub.Web.Common
             Stream inStream = res.GetResponseStream();
             StreamReader sr = new StreamReader(inStream, encode);
             string result = sr.ReadToEnd();
-            if (result.Length > 0){
-                //判断成功与否
-            }
             sr.Close();
+            return result;
         }
+    }
+
+    public enum SMSLimit
+    {
+        NoLimit,
+        MinuteLimit,
+        HourLimit,
+        DayLimit
     }
 }

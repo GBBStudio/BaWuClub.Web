@@ -71,7 +71,7 @@
                         if (Model != null) { 
                             foreach (var t in Model)
                             {
-                                var src=(string.IsNullOrEmpty(t.Cover)?"../images/no-img.jpg":"/uploads/avatar/small/"+t.Cover);
+                                var src=(string.IsNullOrEmpty(t.Cover)?"/content/images/no-img.jpg":"/uploads/avatar/small/"+t.Cover);
                                 <div class="discuss-list-topic">
                                     <div class="discuss-list-topic-avatar">
                                         <a href="/member/u-@t.UserId/show"><img src="@src" alt="@t.NickName" title="@t.NickName"/></a>

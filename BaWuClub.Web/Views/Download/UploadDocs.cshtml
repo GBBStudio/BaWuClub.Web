@@ -33,6 +33,8 @@
                         <input name="type" type="radio" value="1" id="excel"/><label class="icon1-excel" for="excel"></label>
                         <input name="type" type="radio" value="2" id="ppt"/><label class="icon1-ppt" for="ppt"></label>
                         <input name="type" type="radio" value="3" id="pdf"/><label class="icon1-pdf" for="pdf"></label>
+                        <input name="type" type="radio" value="4" id="ai" /><label class="icon1-ai" for="ai"></label>
+                        <input name="type" type="radio" value="5" id="psd" /><label class="icon1-psd" for="psd"></label>
                     </p>
                     <p class="textarea-wrap">
                         <b>内容描述:</b>
@@ -54,7 +56,18 @@
                     <i class="iconfont icon1-xiazai"></i>下载排行
                 </div>
                 <div class="down-ranks-list">
-                    <ol>
+                    <ol>@{
+                        var list = ViewBag.DownsTop;
+                        if (list != null)
+                        {
+                            foreach (var item in list as IEnumerable<BaWuClub.Web.Dal.ViewDocument>)
+                            {
+                                <li>
+                                    <a href="/download/item/@item.Id">@item.Title</a>
+                                </li>
+                            }
+                        }
+                    }
                     </ol>
                 </div>
             </div>
@@ -83,7 +96,7 @@
         width: 120,
         buttonText: '选择文件',
         swf: '/content/uploadify/uploadify.swf',
-        fileTypeExts:'*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.pdf',
+        fileTypeExts:'*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.pdf;*.psd;*.ai',
         uploader: '/fileupload/uploadfiles',
         overrideEvents: ['onSelectError', 'onDialogClose'],
         formData: { "type": "files" },

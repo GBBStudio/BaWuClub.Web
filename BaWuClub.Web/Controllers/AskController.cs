@@ -7,6 +7,7 @@ using BaWuClub.Web.Dal;
 using BaWuClub.Web.Common;
 using System.Web.Security;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace BaWuClub.Web.Controllers
 {
@@ -66,12 +67,17 @@ namespace BaWuClub.Web.Controllers
                 club.SaveChanges();
                 ViewBag.AnswerCount = club.Answers.Where(a => a.QId == qid).Count();
                 ViewBag.AnswerVote = club.AnswerVotes.Where(a => a.QId == qid).ToList<AnswerVote>();
-                if(sort=="time")
-                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q=>q.VarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
-                else if (sort == "vote")
-                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q =>(q.Agree+q.Oppose)).Where(q => q.QId == qid).ToList<ViewAnswer>();
-                else
-                    ViewBag.ViewAnswers = club.ViewAnswers.OrderByDescending(q => q.VarDate).Where(q => q.QId == qid).ToList<ViewAnswer>();
+                switch(sort){
+                    case "time":
+                        ViewBag.ViewAnswers = GetAnswerList(club, q => q.QId == qid,q=>q.Id,0);
+                        break;
+                    case "vote":
+                        ViewBag.ViewAnswers = GetAnswerList(club, q => q.QId == qid, q => q.Agree, 0);
+                        break;
+                    default:
+                        ViewBag.ViewAnswers = GetAnswerList(club, q => q.QId == qid,q=>q.Id,0);
+                        break;
+                }
                 if (vq == null)
                     return Redirect("/error/notfound");
                 ViewBag.Title = vq.Title;
@@ -203,6 +209,23 @@ namespace BaWuClub.Web.Controllers
         }
         #endregion
 
+        #region
+        [Authorize]
+        public JsonResult GetAnswerList(int qid,int page) {
+            BaWuClub.Web.Dal.User user = GetUser();
+            List<ViewAnswer> list = new List<ViewAnswer>();
+            Status status = Status.error;
+            using(club=new ClubEntities()){
+                list = club.ViewAnswers.Where(v => v.QId == qid).OrderByDescending(v=>v.Id).Skip((page - 1) * 7).Take(7).ToList<ViewAnswer>();
+                ViewBag.pageStr = GetPageStr(7, page, club.Answers.Count(), ClubConst.WebPageShow, "/ask/GetAnswerList?id="+qid+"&page=", true);
+            }
+            if (list.Count > 0)
+                status = Status.success;
+            string t = Newtonsoft.Json.JsonConvert.SerializeObject(list);
+            return Json(new { status=status.ToString(), context=t},JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         private AnswerVote CreateVote(int aId,int qId,int uId,int vote) {
             return answerVote = new AnswerVote() { QId=qId,AId=aId,UId=uId,Vote=(byte)vote};
         }
@@ -212,5 +235,16 @@ namespace BaWuClub.Web.Controllers
             return new PagingHelper(pageSize, currentPage, rowsCount, pageShow).GetPageStringPro(url, openAajx);
         }
         #endregion
+
+        private List<ViewAnswer> GetAnswerList(ClubEntities c,Expression<Func<ViewAnswer,bool>> express,Expression<Func<ViewAnswer,int>> orderByDesc,int page) {
+            List<ViewAnswer> list = new List<ViewAnswer>();
+            if (page > 0){
+                list = c.ViewAnswers.Where(express).OrderByDescending(orderByDesc).Skip((page - 1) * ClubConst.MemberPageSize).Take(ClubConst.MemberPageSize).ToList<ViewAnswer>();
+            }
+            else {
+                list = c.ViewAnswers.Where(express).OrderByDescending(orderByDesc).ToList<ViewAnswer>();
+            }
+            return list;
+        }
     }
 }

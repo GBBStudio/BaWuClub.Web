@@ -4,6 +4,6 @@
     <Text name="LaunchTaskTipsText" value="{0}，已参加了您发起的{1}的任务！" id="1"  />
     <Text name="TakeActivityTipsText" value="您已成功参加了{0}发起的{1}的活动！" id="2"  />
     <Text name="TakeTaskTipsText" value="您已成功参加了{0}发起的{1}的任务！" id="3" />
-    <Text name="Message" value="{0}给您发了一封私信！" id="2"  />
+    <Text name="Message" value="{0}给您发了一封私信！" id="4"  />
   </Texts>
 </root>

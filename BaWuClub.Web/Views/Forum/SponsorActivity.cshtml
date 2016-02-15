@@ -5,14 +5,14 @@
     ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 
-<div class="forum-wrap">
+<div class="forum-wrap forum-ac-wrap">
     <div class="container">
         <div class="container-left forum-block fleft">
             <div class="crumbs-wrap">
                 <a href="/">首页</a>&raquo;<a href="/forum/cliques">拉帮结派</a>&raquo;<span>发起活动</span>
             </div>
             <div class="input-box">
-                <form name="form" method="post" action="/forum/activitypost" onsubmit="return checkSubmit(this)">
+                <form name="form" method="post" action="/forum/postactivity" onsubmit="return checkSubmit(this)">
                     <p>
                         <b>标题:</b>
                         <input class="input-text input-middle" name="title" type="text" data-hint="标题不能为空" data-required="true" placeholder="发起活动的标题" />
@@ -31,7 +31,7 @@
                     <div class="dsk-upload-bwrap">
                         <b>图片:</b>
                         <div class="dsk-upload-wrap">
-                            <input type="file" id="upload" />
+                            <input type="file" id="upload" data-hint="请上传图片" data-required="true" />
                         </div>
                         <div class="dsk-upload-show"></div>
                     </div>
@@ -62,8 +62,8 @@
                         <input class="input-text input-middle" name="sponsor" type="text" data-hint="活动的承办方" data-required="true" placeholder="活动承办方" />
                     </p>
                     <p class="textarea-wrap">
-                        <b>活动详情:</b>
-                        <input name="context" class="input-textarea input-long" placeholder="活动详情" id="editor"/>
+                        <b>详情:</b>
+                        <input name="context" class="input-textarea input-long" placeholder="活动详情" id="editor" data-hint="请输入活动的介绍吧" data-required="true" />
                     </p>
                     <p>
                         <input type="submit" name="sub" value="发布活动" class="btn-sub" />
@@ -94,6 +94,7 @@
 </script>
 <script type="text/javascript">
     function checkSubmit(e) {
+        SetEditorValue();
         var inputs = e.getElementsByTagName("input");
         for (var i = 0; i < inputs.length; i++) {
             var input = inputs[i];
@@ -107,8 +108,10 @@
 
         $.post($(e).attr("action"), $(e).serialize(), function (result) {
             var data = eval(result);
-            if (data.state == "success")
+            if (data.status == "success")
                 window.location.href = data.url;
+            else
+                alert(data.context);
         }, "json");
         return false;
     }
@@ -154,4 +157,9 @@
         $(".dsk-upload-wrap").show();
         $(".dsk-upload-show").empty();
     })
+
+    function SetEditorValue() {
+        var context = editor.document.getBody().getHtml(); //头像的上传与投稿冲突
+        $("#editor").val(context);
+    }
 </script>

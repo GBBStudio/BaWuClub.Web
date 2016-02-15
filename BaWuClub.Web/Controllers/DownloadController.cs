@@ -21,12 +21,13 @@ namespace BaWuClub.Web.Controllers
         public ActionResult Index(string sort)
         {
             List<ViewDocument> viewDocuments = new List<ViewDocument>();
-            Expression<Func<ViewDocument, string>> expression = GetExpression(sort);
+            Expression<Func<ViewDocument, int>> expression = GetExpression(sort);
             using (club = new ClubEntities()){
-                IQueryable<ViewDocument> queryable = club.ViewDocuments.Where(d => d.Status == (int)State.Enable);
-                viewDocuments = GetViewDocuments(queryable, expression, null, current);
-                ViewBag.docCount = queryable.Count();
-                ViewBag.todayDocCount = queryable.Where(v => v.VarDate >= today).Count();
+                //IQueryable<ViewDocument> queryable = club.ViewDocuments.Where(d => d.Status == (int)State.Enable);
+                viewDocuments = GetViewDocuments(club, expression, null, current);
+                ViewBag.docCount = club.ViewDocuments.Count();
+                ViewBag.DownsTop = GetViewDocumentsOrderByDown(club);
+                ViewBag.todayDocCount = club.ViewDocuments.Where(v => v.VarDate >= today && v.Status == (int)State.Enable).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/download/p?sort=" + (sort == null ? "" : sort) + "&id=", ClubConst.WebPageSize, current, ViewBag.docCount, ClubConst.WebPageShow);
             }
             return View(viewDocuments);
@@ -35,15 +36,13 @@ namespace BaWuClub.Web.Controllers
         public ActionResult Search(string keyword,string sort,int? id) {
             current = id ?? 1;
             List<ViewDocument> viewDocuments = new List<ViewDocument>();
-            Expression<Func<ViewDocument, string>> expression = GetExpression(sort);
+            Expression<Func<ViewDocument, int>> expression = GetExpression(sort);
             using (club = new ClubEntities()){
                 ViewBag.keyword = keyword;
-                IQueryable<ViewDocument> queryable = club.ViewDocuments.Where(d => d.Status == (int)State.Enable);
-                ViewBag.todayDocCount = queryable.Where(v => v.VarDate >= today).Count();
-                ViewBag.docCount = queryable.Count();
-                queryable = (!string.IsNullOrEmpty(keyword)) ? queryable.Where(v => v.Tags.Contains(keyword)) : queryable;
-                ViewBag.searchCount = queryable.Count();
-                viewDocuments = GetViewDocuments(queryable, expression, keyword, current);
+                ViewBag.docCount = club.ViewDocuments.Count();
+                ViewBag.todayDocCount = club.ViewDocuments.Where(v => v.VarDate >= today && v.Status == (int)State.Enable).Count();
+                viewDocuments = GetViewDocuments(club, expression, keyword, current);
+                ViewBag.searchCount =viewDocuments.Count;
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/download/search?keyword=" + keyword + "&sort=" + (sort == null ? "" : sort) + "&id=", ClubConst.WebPageSize, current, ViewBag.searchCount, ClubConst.WebPageShow);
             }
             return View("~/views/download/index.cshtml",viewDocuments);
@@ -55,6 +54,7 @@ namespace BaWuClub.Web.Controllers
             using (club = new ClubEntities()) {
                 var shared = club.SystemArticles.Where(s => s.Variables == "sys-info-shared" && s.Status == 1).FirstOrDefault();
                 ViewBag.SharedDesc = shared != null ? shared.Text : "";
+                ViewBag.DownsTop = GetViewDocumentsOrderByDown(club);
             }
             return View("~/views/download/uploaddocs.cshtml");
         }
@@ -63,12 +63,13 @@ namespace BaWuClub.Web.Controllers
             int current = id ?? 1;
             ViewBag.page = current;
             List<ViewDocument> viewDocuments = new List<ViewDocument>();
-            Expression<Func<ViewDocument, string>> expression = GetExpression(sort);
+            Expression<Func<ViewDocument, int>> expression = GetExpression(sort);
             using (club = new ClubEntities()) {
                 IQueryable<ViewDocument> queryable = club.ViewDocuments.Where(d => d.Status == (int)State.Enable);
-                viewDocuments = GetViewDocuments(queryable, expression, "", current);
+                viewDocuments = GetViewDocuments(club, expression, "", current);
                 ViewBag.todayDocCount = queryable.Where(v => v.VarDate >= today).Count();
                 ViewBag.docCount = queryable.Count();
+                ViewBag.DownsTop = GetViewDocumentsOrderByDown(club);
             }
             ViewBag.pageStr = HtmlCommon.GetPageStrPro("/download/p?sort=" + (sort == null ? "" : sort) + "&id=", ClubConst.WebPageSize, current, ViewBag.docCount, ClubConst.WebPageShow);
             return View("~/views/download/index.cshtml", viewDocuments);
@@ -82,6 +83,7 @@ namespace BaWuClub.Web.Controllers
                 if(doc!=null){
                     doc.Views += 1;
                     club.SaveChanges();
+                    ViewBag.DownsTop = GetViewDocumentsOrderByDown(club);
                 }
             }
             if (viewDoc == null)
@@ -139,33 +141,41 @@ namespace BaWuClub.Web.Controllers
         #endregion
 
         #region private
-        private List<ViewDocument> GetViewDocuments(IQueryable<ViewDocument> queryable, Expression<Func<ViewDocument, string>> express,string tag,int current) {
-            List<ViewDocument> viewDocuments = new List<ViewDocument>();          
+        private List<ViewDocument> GetViewDocuments(ClubEntities c, Expression<Func<ViewDocument, int>> express,string tag,int current) {
+            List<ViewDocument> viewDocuments = new List<ViewDocument>();
+            Expression<Func<ViewDocument, bool>> searchExpress = v=>v.Id!=0;
+            if(!string.IsNullOrEmpty(tag))
+                searchExpress=v => v.Tags.Contains(tag);
             if(express!=null)
-                viewDocuments = queryable.OrderByDescending(express).Skip(ClubConst.WebPageSize * (current - 1)).Take(ClubConst.WebPageSize).ToList<ViewDocument>();
+                viewDocuments = c.ViewDocuments.OrderByDescending(express).Where(searchExpress).Skip(ClubConst.WebPageSize * (current - 1)).Take(ClubConst.WebPageSize).ToList<ViewDocument>();
             else
-                viewDocuments = queryable.OrderBy(d => d.Id).Skip(ClubConst.WebPageSize * (current - 1)).Take(ClubConst.WebPageSize).ToList<ViewDocument>();
+                viewDocuments = c.ViewDocuments.OrderByDescending(d => d.VarDate).Where(searchExpress).Skip(ClubConst.WebPageSize * (current - 1)).Take(ClubConst.WebPageSize).ToList<ViewDocument>();
             return viewDocuments;
         }
 
-        private Expression<Func<ViewDocument, string>> GetExpression(string sort) {
-            Expression<Func<ViewDocument, string>> expression = null;
+        private Expression<Func<ViewDocument, int>> GetExpression(string sort) {
+            Expression<Func<ViewDocument, int>> expression = null;
             switch (sort){
                 case "views":
-                    expression = v => v.Views.ToString();
+                    expression = v => v.Views;
                     break;
                 case "downs":
-                    expression = v => v.Downs.ToString();
+                    expression = v => v.Downs;
                     break;
                 case "time":
-                    expression = v => v.VarDate.ToString();
+                    expression = v => v.Id;
                     break;
                 default:
+                    expression = v => v.Id;
                     break;
             }
             return expression;
         }
 
+        private List<ViewDocument> GetViewDocumentsOrderByDown(ClubEntities c)
+        {
+            return GetViewDocuments(c,v=>v.Downs,"",1);
+        }
         #endregion
     }
 }

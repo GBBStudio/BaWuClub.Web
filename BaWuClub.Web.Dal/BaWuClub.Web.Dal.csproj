@@ -78,6 +78,9 @@
     <Compile Include="ArticleTag.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuthCode.cs">
+      <DependentUpon>ClubModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Banner.cs">
       <DependentUpon>ClubModel.tt</DependentUpon>
     </Compile>

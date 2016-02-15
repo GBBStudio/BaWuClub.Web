@@ -10,25 +10,33 @@
         <div class="member-main-wrap">
             <p>
                 <a href="/member/u-@user.Id/contribute">我要投稿</a>
-                <span>全部投稿(<a href="/member/u-@user.Id/contributelist/">@ViewBag.ContributeAllCount</a>)</span>
                 @{
-                    if (userAuthorize != null)
+                    if (userAuthorize != null && user.Id == userAuthorize.Id)
                     {
+                        <span>全部投稿(<a href="/member/u-@user.Id/contributelist/">@ViewBag.ContributeAllCount</a>)</span>
                         <span>已审核(<a data-href="/member/u-@user.Id/getlist?tstr=column&st=1&page=1" id="approve">@ViewBag.ContributeCheckedCount</a>)</span>
+                    }
+                    else
+                    {
+                        <span>全部投稿(<a href="/member/u-@user.Id/contributelist/">@ViewBag.ContributeCheckedCount</a>)</span>
                     }
                 }
             </p>
             <div class="member-list-wrap">
                 <ul>
                     @{
-                        foreach (var a in Model){
+                        foreach (var a in Model)
+                        {
                             <li>
                                 <a href="/column/show/@a.Id">@a.Title</a>
                                 <span>@(((DateTime)a.VarDate).ToString("yyyy-MM-dd hh:mm"))</span>
+                                <span class="c-@(((Int32)a.Status == 1) ? "enable" : "disable")">@(((Int32)a.Status == 1) ? "已审核" : "待审核")</span>
                                 @if (userAuthorize != null)
                                 {
-                                    <span class="c-@(((Int32)a.Status == 1) ? "enable" : "disable")">@(((Int32)a.Status == 1) ? "已审核" : "待审核")</span>
-                                    <a href="/member/contributemodify/@a.Id" class="edit-again">再次编辑</a>
+                                    if (user.Id == userAuthorize.Id)
+                                    {
+                                        <a href="/member/contributemodify/@a.Id" class="edit-again">再次编辑</a>
+                                    }
                                 }
                             </li>
                         }

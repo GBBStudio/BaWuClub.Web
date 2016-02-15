@@ -127,6 +127,18 @@
     <Property Name="Tag" Type="int" Nullable="false" />
     <Property Name="ArticleId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="AuthCodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UId" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ActiveTime" Type="datetime" Nullable="false" />
+    <Property Name="OverTime" Type="datetime" Nullable="false" />
+    <Property Name="VarDate" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Banners">
     <Key>
       <PropertyRef Name="Id" />
@@ -862,6 +874,7 @@
     <EntitySet Name="ArticleReviews" EntityType="Self.ArticleReviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ArticleTags" EntityType="Self.ArticleTags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AuthCodes" EntityType="Self.AuthCodes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BannerTypes" EntityType="Self.BannerTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />

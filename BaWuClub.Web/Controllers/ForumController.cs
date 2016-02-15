@@ -59,9 +59,8 @@ namespace BaWuClub.Web.Controllers
             List<TopicIndex> topics = new List<TopicIndex>();
             using (club = new ClubEntities()) {
                 ViewBag.banners = club.ViewBanners.Where(b => b.Status == (int)State.Enable && b.Variables == "sys-bt-cliques-top").ToList<ViewBanner>();
-                ViewBag.topics = club.TopicIndexes.Include("TopicActivity").Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity)).ToList<TopicIndex>();
-                ViewBag.activityings = club.TopicIndexes.Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity) && t.TopicActivity.EndDate > DateTime.Now).ToList<TopicIndex>();
-                ViewBag.activityeds = club.TopicIndexes.Take(4).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Activity) && t.TopicActivity.EndDate < DateTime.Now).ToList<TopicIndex>();
+                ViewBag.activityings = club.ViewTopicActivities.Take(4).Where(t => t.Status == ((byte)(State.Enable)) && t.Type == ((int)TopicType.Activity) && t.EndDate > DateTime.Now).ToList<ViewTopicActivity>();
+                ViewBag.activityeds = club.ViewTopicActivities.Take(4).Where(t => t.Status == ((byte)(State.Enable)) && t.Type == ((int)TopicType.Activity) && t.EndDate < DateTime.Now).ToList<ViewTopicActivity>();
                 ViewBag.taskCount = club.ViewTopicTasks.Where(t => t.Status != 0 && t.Type == ((int)TopicType.Task)).Count();
                 ViewBag.tasks = club.ViewTopicTasks.Take(5).Where(t => t.Status != 0 && t.Type == ((int)TopicType.Task)).ToList<ViewTopicTask>();
                 ViewBag.tasked = club.ViewTopicTasks.Take(4).Where(t => t.Status == 2 && t.Type == ((int)TopicType.Task)).ToList<ViewTopicTask>();
@@ -110,16 +109,45 @@ namespace BaWuClub.Web.Controllers
             }
             var categories = GetDiscussCategory();
             ViewBag.Categories = categories;
+           // int ts=;
             List<ViewTopicIndex> topics = new List<ViewTopicIndex>();
             using (club = new ClubEntities()) {
                 queryable= GetQueryable(club);
                 GetCount(queryable);
-                topics = queryable.OrderBy(t => t.VarDate).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).Where(t => t.Type == ((int)tt)).ToList<ViewTopicIndex>();
+                topics = queryable.OrderByDescending(t => t.VarDate).Where(t => t.Type == ((int)tt)).Skip(ClubConst.TopicPageSize * (tId - 1)).Take(ClubConst.TopicPageSize).ToList<ViewTopicIndex>();
                 int count = queryable.Where(t => t.Type == ((int)tt)).Count();
                 ViewBag.pageStr = HtmlCommon.GetPageStrPro("/forum/topiclist?type=" + tt.ToString() + "&page=", ClubConst.TopicPageSize, tId, count,ClubConst.TopicPageShow);
             }
             return View("~/views/forum/index.cshtml", topics);
-        }   
+        }
+
+        [HttpGet]
+        public JsonResult SetEndTask(int? id) {
+            BaWuClub.Web.Dal.User user = GetUser();
+            Status status=Status.error;
+            string hintStr = "系统异常,请稍后重试！";
+            string url = "/account/login?returnurl=" + Request.Url.AbsoluteUri;
+            tId=id??0;
+            if (user != null) {
+                url = "";
+                TopicIndex topic = new TopicIndex();
+                using (club = new ClubEntities()) {
+                    topic = club.TopicIndexes.Where(t => t.Id == tId).FirstOrDefault();
+                    if (topic != null) {
+                        topic.Status = (byte)TopicStatus.End;
+                        if (club.SaveChanges() >= 0)
+                        {
+                            status = Status.success;
+                            hintStr = "已结束该任务！";
+                        }
+                    }
+                }
+            }else{
+                status=Status.warning;
+                hintStr = "未登录,无法操作！";
+            }
+            return Json(new { status=status.ToString(),Url=url,context=hintStr},JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region show
@@ -291,13 +319,9 @@ namespace BaWuClub.Web.Controllers
                 {
                     club.TopicIndexes.Add(topicIndex);
                     if (club.SaveChanges() < 0)
-                    {
                         return Redirect("/error/exception");
-                    }
                     else
-                    {
-                        return View("~/views/forum/topictransfers.cshtml");
-                    }
+                        return RedirectToAction("Transfers", "Direct", new { url = "/forum/cliques", directPage = "拉帮结派页面" });
                 }
             }
             return View("~/views/forum/sponsortask.cshtml");
@@ -337,40 +361,32 @@ namespace BaWuClub.Web.Controllers
         [ValidateInput(false)]
         [HttpPost]
         [Authorize]
-        public ActionResult PostActivity(string title, int city, string address, string pic, string cost, string contact, string phone, string sponsor, string context, DateTime start, DateTime end)
+        public JsonResult PostActivity(string title, int city, string address, string pic, string cost, string contact, string phone, string sponsor, string context, DateTime start, DateTime end)
         {
             BaWuClub.Web.Dal.User user = GetUser();
             CheckUser(user);
-            TopicIndex topicIndex = new TopicIndex()
-            {
-                Title = HtmlCommon.ClearHtml(title),
-                VarDate = DateTime.Now,
-                Type = (Int32)TopicType.Activity,//
-                Status=(int)State.Enable,
-                UserId = user.Id
-            };
-            TopicActivity topicActivity = new TopicActivity()
-            {
-                Address = HtmlCommon.ClearHtml(address),
-                Context = context,
-                City = city,
-                Cover = pic,
-                Cost = HtmlCommon.ClearHtml(cost),
-                Contact = HtmlCommon.ClearHtml(contact),
-                Phone = HtmlCommon.ClearHtml(phone),
-                Sponsor = HtmlCommon.ClearHtml(sponsor),
-                StartDate = start,
-                EndDate = end
-            };
-            topicIndex.TopicActivity = topicActivity;
-            using (club = new ClubEntities())
-            {
-                club.TopicIndexes.Add(topicIndex);
-                if (club.SaveChanges() < 0)
-                    return RedirectToAction("error", "error");
-                ViewBag.url = "/forum/";
+            Status status = Status.error;
+            string url = "/Direct/Transfers";
+            string hint = string.Empty; ;
+            if (string.IsNullOrEmpty(pic)) {
+                hint = "请上传活动图片！";
             }
-            return View();
+            else { 
+                TopicIndex topicIndex = new TopicIndex(){Title = HtmlCommon.ClearHtml(title),VarDate = DateTime.Now,Type = (Int32)TopicType.Activity,Status=(int)State.Enable,UserId = user.Id};
+                TopicActivity topicActivity = new TopicActivity(){Address = HtmlCommon.ClearHtml(address),Context = context,City = city,Cover = pic,Cost = HtmlCommon.ClearHtml(cost),Contact = HtmlCommon.ClearHtml(contact),Phone = HtmlCommon.ClearHtml(phone),Sponsor = HtmlCommon.ClearHtml(sponsor),StartDate = start,EndDate = end};
+                topicIndex.TopicActivity = topicActivity;
+                using (club = new ClubEntities()){
+                    club.TopicIndexes.Add(topicIndex);
+                    if (club.SaveChanges() >= 0){
+                       status = Status.success;
+                       hint = "活动创建成功！";
+                    }
+                    else {
+                        hint = "系统异常,请稍后重试！";
+                    }
+                }
+            }
+            return Json(new { status = status.ToString(), url = url + "?url=/forum/cliques&directPage=拉帮结派页面", context = hint });
         }
 
         [HttpPost]

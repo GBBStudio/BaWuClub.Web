@@ -74,8 +74,11 @@
 .forum-wrap{background:#f9f9f9;padding:30px 0;}
 .forum-block{background:#fff;}
 .forum-wrap .container-left{padding:20px;width:645px;padding-top:0px;}
-.forum-wrap .input-box b{width:50px;}
-.forum-wrap .input-box p{clear:both}
+.forum-wrap .input-box b{width:50px;display:block;text-align:left;}
+.forum-wrap .input-box p{clear:both;margin-bottom:20px;}
+.forum-ac-wrap .input-box p{margin-bottom:0;}
+.forum-wrap .input-box .input-middle{width:635px;}
+.forum-ac-wrap .input-box .input-middle{width:400px;}
 
 .forum-r-item{margin-bottom:30px;overflow:hidden}
 .forum-r-item ul li{clear:both;margin:15px 0;}
@@ -90,6 +93,7 @@
 .topic-s-text{margin-top:25px;}
 .topic-s-reviews-title{border-top:1px solid #eaeaea;border-bottom:1px solid #eaeaea;padding:15px 0;font-size:15px;margin:20px 0;}
 .topic-s-reviews-list ul li {padding:10px 0;overflow:hidden;border-bottom:1px solid #eaeaea;margin-bottom:20px;}
+.topic-s-reviews-list ul li a{color:#333}
 .reviews-text{margin-top:10px;}
 .reviews-cover{width:50px;}
 .reviews-cover img{width:100%}
@@ -104,7 +108,7 @@
 .task-btn{text-align:center;}
 .task-btn span{color:#fff;padding:8px 35px;background:#70adff;cursor:pointer}
 .join-user{background:#eff6ff;padding:20px 40px;font-size:14px;margin:30px 0 40px;}
-.join-user a{display:inline-block;height:50px;line-height:50px;font-size:15px;margin-right:5px;}
+.join-user a{display:inline-block;height:50px;line-height:50px;font-size:15px;margin-right:5px;color:#333}
 .join-user a img{width:40px;border-radius:50%;vertical-align:middle;margin-right:5px;}
 .join-user a span{line-height:50px;}
 
@@ -128,3 +132,5 @@ p.textarea-wrap{height:auto}
 .topic-isJoined{text-align:center;font-size:15px;color:#666;margin:25px 0;}
 .topic-join-tips{padding:10px 0;}
 .task-btn{margin:20px 0;}
+.topic-cover{margin:20px auto;}
+.topic-cover img{width:40%;box-shadow:0px 1px 3px #333;padding:3px}

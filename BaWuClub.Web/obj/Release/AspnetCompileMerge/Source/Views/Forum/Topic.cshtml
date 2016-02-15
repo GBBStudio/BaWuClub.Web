@@ -1,12 +1,13 @@
 ﻿@{
     Layout = "~/views/shared/_layout.cshtml";
-    ViewBag.Title = "电商圈-";
+    //ViewBag.Title = "电商圈-";
     ViewBag.CssAppend = "<link href=\"/content/css/discuss.css\" type=\"text/css\" rel=\"stylesheet\"/>";
     ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 @model BaWuClub.Web.Dal.ViewTopic
 @{
     var reviews = ViewBag.reviews as IEnumerable<BaWuClub.Web.Dal.ViewTopicReview>;
+    ViewBag.Title += Model.Title + "-电商圈-";
  }
     <div class="forum-wrap">
         <div class="container">

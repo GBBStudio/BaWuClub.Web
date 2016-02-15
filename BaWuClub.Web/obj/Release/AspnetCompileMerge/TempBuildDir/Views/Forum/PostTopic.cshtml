@@ -5,7 +5,7 @@
     ViewBag.CssAppend += "<link href=\"/content/fonts/category.css\" type=\"text/css\" rel=\"stylesheet\"/>";
 }
 
-<div class="forum-wrap">
+<div class="forum-wrap  forum-ac-wrap">
     <div class="container">
         <div class="container-left forum-block fleft">
             <div class="crumbs-wrap">
@@ -17,7 +17,7 @@
                     <form name="form" method="post">
                         <p>
                             <b>标题:</b>
-                            <input name="title" type="text" class="input-text input-middle" placeholder="帖子的标题"/>
+                            <input name="title" type="text" class="input-text input-middle" placeholder="帖子的标题" />
                         </p>
                         <p>
                             <b>分类:</b>
@@ -36,11 +36,11 @@
                             </select>
                         </p>
                         <p class="textarea-wrap">
-                            <b>发帖内容:</b>
-                            <textarea name="context" class="input-text" id="editor"></textarea>
+                            <b>内容:</b>
+                            <textarea name="context" class="input-text" id="editor" style="width:645px;height:306px;"></textarea>
                         </p>
                         <p>
-                            <input type="submit" name="tj"  class="btn-sub" value="好了，发布" />
+                            <input type="submit" name="tj" class="btn-sub" value="好了，发布" />
                         </p>
                     </form>
                 </div>

@@ -56,6 +56,8 @@ a.sort-selected i{font-weight:normal}
 .icon-word{background:url(../Images/icon-word.png) no-repeat;width:40px;height:52px;display:block;}
 .icon-excel{background:url(../Images/icon-excel.png) no-repeat;width:40px;height:52px;display:block;}
 .icon-ppt{background:url(../Images/icon-ppt.png) no-repeat;width:40px;height:52px;display:block;}
+.icon-psd{background:url(../Images/icon-psd.png) no-repeat;width:40px;height:52px;display:block;}
+.icon-ai{background:url(../Images/icon-ai.png) no-repeat;width:40px;height:52px;display:block;}
 .download-wrap p.textarea-wrap{height:auto;}
 .download-block-u{background:#fff;margin-top:13px;padding-top:0 !important;}
 .download-block-ub{background:#fff;}
@@ -65,6 +67,8 @@ a.sort-selected i{font-weight:normal}
 .dsk-upload-type label.icon1-excel{color:#1f7246}
 .dsk-upload-type label.icon1-ppt{color:#d04626}
 .dsk-upload-type label.icon1-pdf{color:#97252a}
+.dsk-upload-type label.icon1-psd{color:#172d88;font-size:38px}
+.dsk-upload-type label.icon1-ai{color:#e66d20;font-size:38px}
 .user-info-avatar{margin-right:10px;}
 .user-info-avatar a img{border-radius:70px;border:2px solid #ddd;width:70px;}
 .user-info-name{height:60px;line-height:60px;}
@@ -79,3 +83,4 @@ a.sort-selected i{font-weight:normal}
 .detail-down-btn .btn-sub{font-size:16px;}
 .download-info p span{margin-right:5px;}
 .download-info h3{line-height:35px;}
+a.down-tag{background:#4aabf0;padding:0 2px;color:#fff;border-radius:2px;line-height:12px}
